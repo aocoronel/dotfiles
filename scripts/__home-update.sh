@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 function help() {
-  echo "Home dotfiles sync tool"
+  echo "Home dotfiles unsync file finder"
   echo "Usage: $0 [option]"
   echo "Available options:"
   echo "all                  - Looks for unsynced files in all folders"
