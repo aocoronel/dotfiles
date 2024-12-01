@@ -4,8 +4,8 @@ function help() {
   echo "Home dotfiles unsync file finder"
   echo "Usage: $0 [option]"
   echo "Available options:"
-  echo "all                  - Looks for unsynced files in all folders"
-  echo "help                 - Prints this help menu and exits"
+  echo "all                      - Looks for unsynced files in all folders"
+  echo "help                     - Displays this message and exits"
 }
 
 # $SCRIPTS is an user defined directory set in .bashenv
