@@ -9,12 +9,14 @@ function help() {
   echo "help                                   - Displays this message and exits"
 }
 
+vault="${VAULT:-$HOME/Vault/}"
+
 function clipper() {
   # $VAULT is an user defined directory variable set in .bashenv
   # Originally $VAULT contains pgp encrypted files as .asc files
   # It also contains folders encrypted with gocryptfs
-  export pass=$(ls $VAULT | grep ".asc" | fzf --height 40% --prompt "Select pgp file to output: ")
-  gpg --decrypt $VAULT/$pass | xclip -sel clip
+  export pass=$(ls $vault | grep ".asc" | fzf --height 40% --prompt "Select pgp file to output: ")
+  gpg --decrypt $vault/$pass | xclip -sel clip
   sleep 10
   # Clears the clipboard
   echo "" | xclip -sel clip
