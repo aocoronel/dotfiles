@@ -16,6 +16,10 @@ function clipper() {
   # Originally $VAULT contains pgp encrypted files as .asc files
   # It also contains folders encrypted with gocryptfs
   export pass=$(ls $vault | grep ".asc" | fzf --height 40% --prompt "Select pgp file to output: ")
+  if [ ! -f "$pass" ]; then
+    echo "Exitting..."
+    exit 1
+  fi
   gpg --decrypt $vault/$pass | xclip -sel clip
   sleep 10
   # Clears the clipboard
