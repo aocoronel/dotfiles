@@ -27,8 +27,21 @@ function umount() {
   sudo cryptsetup luksClose $drive && echo "$drive has been umounted!"
 }
 
+function read_option() {
+  while true; do
+  read -p "Choose an option (open/close): " option
+  if [ $option == "open" ]; then
+    mount
+  elif [ $option == "close" ]; then
+    umount
+  else
+    echo "Choose open or close!"
+  fi
+done
+}
+
 case $1 in
-  "")
+  "help")
     help
     ;;
   "open")
@@ -36,5 +49,8 @@ case $1 in
     ;;
   "close")
     umount
+    ;;
+  "")
+    read_option
     ;;
 esac
