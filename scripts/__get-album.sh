@@ -9,11 +9,13 @@ function help() {
   echo "help                                   - Displays this message and exits"
 }
 
+wallpapers="${WALLPAPERS:-$HOME/Ente/}"
+
 function get_wallpaper() {
-  export album=$(ls $WALLPAPERS | fzf --prompt "Select an album") 
+  export album=$(ls $wallpapers | fzf --prompt "Select an album") 
   # $WALLPAPERS is an user defined directory set in .bashenv
   # Originally $WALLPAPERS only contains directories with images
-  nsxiv -t $WALLPAPERS/$album
+  nsxiv -t $wallpapers/$album
 }
 
 case "$1" in
