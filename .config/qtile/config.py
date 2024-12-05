@@ -43,12 +43,12 @@ mod = "mod4"     # Super Key
 
 # Tools variables
 
-term = "alacritty"
+term = "kitty"
 zen = "flatpak run io.github.zen_browser.zen -P"
 flameshot = "flameshot gui"
 obsidian = "obsidian"
 delta = "deltachat-desktop"
-ranger = "alacritty -e ranger"
+ranger = "kitty -e ranger"
 thunar = "thunar"
 obs = "obs"
 
