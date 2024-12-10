@@ -42,6 +42,7 @@ function mount() {
   fi
   echo "$password" | sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
+  echo "" | xclip -sel clip
   exit 0
 }
 
