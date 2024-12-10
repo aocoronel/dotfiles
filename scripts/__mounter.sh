@@ -11,6 +11,7 @@ function help() {
 
 function mount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount")
+  echo "Previously mounted devices:" && ls /mnt/
   read -p "Name the drive: " drive
   sudo cryptsetup luksOpen /dev/$device $drive && echo "$device has been opened and named as $drive!"
   if [ ! -d "/mnt/$drive" ]; then
