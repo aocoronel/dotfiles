@@ -7,6 +7,9 @@ function help() {
   echo "Available options:"
   echo "open [drive_name]             - Open luks device and mount it to /mnt/drive_name"
   echo "close [drive_name]            - Closes luks device and umount it"
+  echo "add                           - Creates a directory in /mnt/"
+  echo "open                          - Open luks device and mount it using pass"
+  echo "close                         - Closes luks device and umount it"
 }
 
 function adddrive() {
@@ -18,10 +21,10 @@ function adddrive() {
     sudo mkdir "/mnt/$drivename"
     sudo chown "$USER:$USER" "/mnt/$drivename"
     echo "Directory /mnt/$drivename created."
-    exit 1
+    exit 0
   elif [ -d "mnt/$drivename" ]; then
     echo "Drive already exists!"
-    exit 0
+    exit 1
   fi
 }
 
@@ -31,12 +34,14 @@ function mount() {
   read -p "Name the drive: " drive
   sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
+  exit 0
 }
 
 function umount() {
   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
   sudo umount "/mnt/$drive/"
   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
+  exit 0
 }
 
 function read_option() {
