@@ -64,7 +64,7 @@ function umount() {
 
 function read_option() {
   while true; do
-  read -p "Choose an option (add/iopen/open/close): " option
+  read -p "Choose an option (add/iopen/open/close/help): " option
   if [ "$option" == "open" ]; then
     mount
   elif [ "$option" == "iopen" ]; then
