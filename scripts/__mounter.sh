@@ -5,10 +5,9 @@ function help() {
   echo "External Device Mounter"
   echo "Usage: $0 [option]"
   echo "Available options:"
-  echo "open [drive_name]             - Open luks device and mount it to /mnt/drive_name"
-  echo "close [drive_name]            - Closes luks device and umount it"
   echo "add                           - Creates a directory in /mnt/"
   echo "open                          - Open luks device and mount it using pass"
+  echo "iopen                         - Open luks device and mount it using prompted password"
   echo "close                         - Closes luks device and umount it"
 }
 
@@ -32,6 +31,24 @@ function mount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   echo "Previously mounted devices:" && ls /mnt/
   read -p "Name the drive: " drive
+  passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store/}"
+  pass="$(ls $passdir | awk -F. '{print $1}' | grep "$drive")"
+  if [ "$pass" == "$drive" ]; then
+    password=$(pass $pass)
+  else
+    echo "$drive isn't in your pass store!"
+    sleep 1
+    exit 1
+  fi
+  echo "$password" | sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
+  sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
+  exit 0
+}
+
+function imount() {
+  device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
+  echo "Previously mounted devices:" && ls /mnt/
+  read -p "Name the drive: " drive
   sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
   exit 0
@@ -46,9 +63,11 @@ function umount() {
 
 function read_option() {
   while true; do
-  read -p "Choose an option (add/open/close): " option
+  read -p "Choose an option (add/iopen/open/close): " option
   if [ "$option" == "open" ]; then
     mount
+  elif [ "$option" == "iopen" ]; then
+    imount
   elif [ "$option" == "close" ]; then
     umount
   elif [ "$option" == "add" ]; then
