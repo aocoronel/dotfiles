@@ -47,15 +47,15 @@ home = os.path.expanduser('~')
 scripts = os.path.join(home + '/scripts/')
 
 # Tools variables
+# Binaries
 
 term = "kitty"
-zen = "flatpak run io.github.zen_browser.zen -P"
-flameshot = "flameshot gui"
-obsidian = "obsidian"
-delta = "deltachat-desktop"
-ranger = "kitty -e ranger"
-thunar = "thunar"
-obs = "obs"
+browser = "flatpak run io.github.zen_browser.zen -P"
+screenshooter = "flameshot gui"
+pkm = "obsidian"
+messenger = "deltachat-desktop"
+filebrowser = "kitty -e ranger"
+screenrecorder = "obs"
 
 # Functions
 
@@ -64,7 +64,7 @@ def toggle_view(qtile):
     for win in qtile.current_group.windows:
         if hasattr(win, "toggle_minimize"):
             win.toggle_minimize()
-            
+
 @lazy.function
 def smart_layout(qtile):
     current_layout_name = qtile.current_group.layout.name
@@ -76,24 +76,19 @@ def smart_layout(qtile):
 # Keybindings
 
 keys = [
-    # User tool keybindings
-    Key([mod], "Return", lazy.spawn(term), desc="Terminal"),
-
-    Key([mod], "g", lazy.spawn(flameshot), desc='Screenshooter'),
-
-    Key([mod], "F1", lazy.spawn(zen), desc='Browser'),
-
-    Key([mod], "F2", lazy.spawn(delta), desc='Email Client'),
+    # Binaries keybindings
+    Key([mod], "Return", lazy.spawn(term)),
+    Key([mod], "g", lazy.spawn(screenshooter)),
+    Key([mod], "F1", lazy.spawn(browser)),
+    Key([mod], "F2", lazy.spawn(messenger)),
+    Key([mod], "e", lazy.spawn(filebrowser)),
 
     # Qtile keybindings
     Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
-
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
-
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Quit Qtile"),
 
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
@@ -129,18 +124,14 @@ keys = [
 
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
     Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
-    
+
     # KeyChords
 
-    # "e" for explorer
-    KeyChord([mod], "e", [
-        Key([], "e", lazy.spawn(ranger), desc='CLI Explorer'),
-        Key(["shift"], "e", lazy.spawn(thunar), desc='GUI Explorer'),
-    ]),
     # "c" for call
     KeyChord([mod], "c", [
-        Key([], "o", lazy.spawn(obsidian), desc='Note-taking'),
-        Key([], "r", lazy.spawn(obs), desc='Screen Recorder')
+        Key([], "o", lazy.spawn(pkm)),
+        Key([], "r", lazy.spawn(screenrecorder)),
+        Key([], "c", lazy.spawn(clearboard), desc= 'Clears clipboard')
     ])
 ]
 
@@ -159,7 +150,7 @@ for i in range(len(group_names)):
             layout=group_layouts[i].lower(),
             label=group_labels[i],
         ))
- 
+
 for i in groups:
     keys.extend(
         [
@@ -354,8 +345,8 @@ def init_widgets_list():
 
 def init_widgets_screen1():
       widgets_screen1 = init_widgets_list()
-      return widgets_screen1 
- 
+      return widgets_screen1
+
 # def init_widgets_screen2():
 #      widgets_screen2 = init_widgets_list()
 #      return widgets_screen2
