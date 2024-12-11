@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+function cds() {
+  session=$(tmux display-message -p '#{session_path}')
+  cd "$session" || exit
+}
