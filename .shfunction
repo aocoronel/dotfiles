@@ -4,3 +4,7 @@ function cds() {
   session=$(tmux display-message -p '#{session_path}')
   cd "$session" || exit
 }
+
+function weather() {
+  curl http://wttr.in/"$1"
+}

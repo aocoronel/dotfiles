@@ -11,7 +11,6 @@ alias tk='task limit:3'
 alias tp='tmuxp'
 alias ctrash='gio trash --empty'
 alias historyc="rm $HOME/.zsh_history"
-alias weather='curl http://wttr.in/$1'
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
 alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
 
