@@ -5,8 +5,9 @@ HISTTIMEFORMAT="%F %T "
 
 set -o vi
 
-source $HOME/.bashaliases
-source $HOME/.bashenv
+source $HOME/.shalias
+source $HOME/.env
+source $HOME/.shfunction
 
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
