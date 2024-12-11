@@ -20,9 +20,11 @@ function adddrive() {
     sudo mkdir "/mnt/$drivename"
     sudo chown "$USER:$USER" "/mnt/$drivename"
     echo "Directory /mnt/$drivename created."
+    sleep 1
     exit 0
   elif [ -d "mnt/$drivename" ]; then
     echo "Drive already exists!"
+    sleep 1
     exit 1
   fi
 }
@@ -43,6 +45,7 @@ function mount() {
   echo "$password" | sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
   echo "" | xclip -sel clip
+  sleep 1
   exit 0
 }
 
@@ -52,6 +55,7 @@ function imount() {
   read -p "Name the drive: " drive
   sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
+  sleep 1
   exit 0
 }
 
@@ -59,8 +63,18 @@ function umount() {
   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
   sudo umount "/mnt/$drive/"
   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
+  sleep 1
   exit 0
 }
+
+# TODO Close all mounted devices
+
+# function umount() {
+#   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
+#   sudo umount "/mnt/$drive/"
+#   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
+#   exit 0
+# }
 
 function read_option() {
   while true; do
