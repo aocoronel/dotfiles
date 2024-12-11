@@ -33,15 +33,16 @@ function mount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   echo "Previously mounted devices:" && ls /mnt/
   read -p "Name the drive: " drive
-  passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store/}"
-  pass="$(ls $passdir | awk -F. '{print $1}' | grep "$drive")"
+  passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+  pass="$(ls "$passdir/dev/" | awk -F. '{print $1}' | grep "$drive")"
   if [ "$pass" == "$drive" ]; then
-    password=$(pass $pass)
+    password=$(pass dev/$pass)
   else
     echo "$drive isn't in your pass store!"
     sleep 1
     exit 1
   fi
+  # dev/ is a prefix for pass
   echo "$password" | sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
   echo "" | xclip -sel clip
