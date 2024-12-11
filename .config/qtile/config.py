@@ -41,6 +41,11 @@ from qtile_extras.widget.decorations import BorderDecoration
 
 mod = "mod4"     # Super Key
 
+# Script Directory
+
+home = os.path.expanduser('~')
+scripts = os.path.join(home + '/scripts/')
+
 # Tools variables
 
 term = "kitty"
