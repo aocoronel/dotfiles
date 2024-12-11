@@ -1,0 +1,25 @@
+#!/bin/env bash
+
+# Tools
+
+alias ls='eza --color=auto --group-directories-first'
+alias cat='bat'
+alias nv='nvim'
+alias vim='nvim'
+alias lg='lazygit'
+alias tk='task limit:3'
+alias tp='tmuxp'
+alias ctrash='gio trash --empty'
+alias historyc="rm $HOME/.zsh_history"
+alias weather='curl http://wttr.in/$1'
+alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
+alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
+
+# Pacman
+
+alias install='sudo pacman -S'
+alias update='sudo pacman -Syy'
+alias upgrade='sudo pacman -Syu'
+alias remove='sudo pacman -Rns'
+alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
+alias clearcache='pacman -Scc'
