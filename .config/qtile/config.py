@@ -46,7 +46,11 @@ mod = "mod4"     # Super Key
 home = os.path.expanduser('~')
 scripts = os.path.join(home + '/scripts/')
 
-# Tools variables
+# User scripts
+
+passmenu_otp = os.path.join(scripts + '__passmenu-otp.sh')
+clearboard = os.path.join(scripts + '__clearboard.sh')
+
 # Binaries
 
 term = "kitty"
@@ -132,6 +136,11 @@ keys = [
         Key([], "o", lazy.spawn(pkm)),
         Key([], "r", lazy.spawn(screenrecorder)),
         Key([], "c", lazy.spawn(clearboard), desc= 'Clears clipboard')
+    ]),
+    # "d" for dmenu
+    KeyChord([mod], "d", [
+        Key([], "p", lazy.spawn('passmenu'), desc="pass over dmenu"),
+        Key([], "o", lazy.spawn(passmenu_otp), desc="pass over dmenu")
     ])
 ]
 
@@ -409,7 +418,6 @@ wl_xcursor_size = 24
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
