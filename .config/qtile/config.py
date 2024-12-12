@@ -50,6 +50,7 @@ scripts = os.path.join(home + '/scripts/')
 
 passmenu_otp = os.path.join(scripts + '__passmenu-otp.sh')
 clearboard = os.path.join(scripts + '__clearboard.sh')
+rofi_obsidian = os.path.join(scripts + '__rofi-obsidian.sh')
 
 # Binaries
 
@@ -140,7 +141,8 @@ keys = [
     # "d" for dmenu
     KeyChord([mod], "d", [
         Key([], "p", lazy.spawn('passmenu'), desc="pass over dmenu"),
-        Key([], "o", lazy.spawn(passmenu_otp), desc="pass over dmenu")
+        Key([], "t", lazy.spawn(passmenu_otp), desc="pass over rofi"),
+        Key([], "o", lazy.spawn(rofi_obsidian), desc="Obsidian File Picker")
     ])
 ]
 
