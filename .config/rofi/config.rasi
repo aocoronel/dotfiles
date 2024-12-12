@@ -1,0 +1,15 @@
+configuration {
+    font: "Ubuntu 12";
+    line-margin: 12;
+
+    display-ssh:    "";
+    display-run:    "";
+    display-drun:   "";
+    display-window: "";
+    display-combi:  "";
+    show-icons:     true;
+
+    drun-display-format: "{icon} {name}";
+}
+
+@theme "/home/aocoronel/.local/share/rofi/themes/elegantvagrant.rasi"
