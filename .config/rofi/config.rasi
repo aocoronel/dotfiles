@@ -12,4 +12,4 @@ configuration {
     drun-display-format: "{icon} {name}";
 }
 
-@theme "/home/aocoronel/.local/share/rofi/themes/elegantvagrant.rasi"
+@theme "/home/aocoronel/.config/rofi/elegantvagrant.rasi"

@@ -1,0 +1,171 @@
+/******************************************************************************
+ * ROFI Color theme
+ * User: Augusto Coronel
+ * Copyright: Augusto Coronel
+ ******************************************************************************/
+* {
+
+    /* Colors */
+    blue:                        rgba ( 70, 217, 255, 100% );
+    darkpurple:                  rgba ( 94, 18, 234, 100 % );
+    faintgrey:                       rgba ( 122, 122, 122, 100 % );
+    green:                       rgba ( 2, 247, 137, 100% );
+    grey1:                       rgba ( 28, 31, 36, 100% );
+    grey2:                       rgba ( 20, 20, 20, 100 % );
+    grey3:                       rgba ( 28, 28, 31, 100 % );
+    pink1:                       rgba ( 252, 15, 153, 100% );
+    pink2:                       rgba ( 240, 103, 252, 100% );
+    purple:                      rgba ( 124, 92, 255, 100 % );
+    yellow:                      rgba ( 244, 241, 19, 100 % );
+
+    /* Background */
+
+    active-background:           @green;
+    background-color:            @grey3;
+    background:                  @grey2;
+    normal-background:           @background;
+    urgent-background:           @darkpurple;
+
+    alternate-active-background: @grey3;
+    alternate-normal-background: @grey2;
+    alternate-urgent-background: @darkpurple;
+
+    selected-active-background:  @grey3;
+    selected-normal-background:  @grey1;
+    selected-urgent-background:  @pink1;
+
+    /* Foreground */
+
+    active-foreground:           @grey3;
+    foreground:                  @faintgrey;
+    normal-foreground:           @foreground;
+    urgent-foreground:           @yellow;
+
+    alternate-active-foreground: @green;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-foreground: @yellow;
+
+    selected-active-foreground:  @green;
+    selected-normal-foreground:  @purple;
+    selected-urgent-foreground:  @yellow;
+
+    /* Border */
+
+    border-color:                @foreground;
+    bordercolor:                 @purple;
+
+    /* Separator */
+
+    separatorcolor:              @purple;
+
+}
+window {
+    background-color: @background;
+    border:           2;
+    border-color:     @darkpurple;
+    padding:          6;
+    width:            50%;
+}
+mainbox {
+    background-color: @background;
+    border:  0.3;
+    spacing: 0;
+    padding: 0;
+}
+message {
+    border:       1px solid 0px 0px ;
+    border-color: @separatorcolor;
+    padding:      1px ;
+}
+textbox {
+    text-color: @foreground;
+}
+listview {
+    border:       2px solid 0px 0px ;
+    border-color: @separatorcolor;
+    fixed-height: 0;
+    lines: 8;
+    spacing:      0px ;
+}
+element {
+    border:  0;
+    padding: 1px ;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+element-icon {
+  background-color: transparent;
+  size: 30;
+}
+mode-switcher {
+    border:       2px solid 0px 0px ;
+    border-color: @separatorcolor;
+}
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+inputbar {
+    padding:    1px ;
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+case-indicator {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+entry {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+prompt {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+inputbar {
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+textbox-prompt-colon {
+    expand:     false;
+    margin:     0px 0.3em 0em 0em ;
+    str:        ":";
+    text-color: @normal-foreground;
+}
