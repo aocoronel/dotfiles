@@ -11,7 +11,7 @@ function help() {
 function passmenu-otp() {
   passdir=${PASSWORD_STORE_DIR:-$HOME/.password-store}
   pass=$(find "$passdir" -type f -name '*.gpg' -printf '%P\n' | awk -F. '{print $1}')
-  password=$(echo "$pass" | dmenu "$@")
+  password=$(echo "$pass" | rofi -dmenu "$@")
   pass otp -c "$password"
 }
 
