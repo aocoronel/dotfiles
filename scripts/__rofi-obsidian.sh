@@ -8,11 +8,15 @@ function help() {
   echo "help                                   - Displays this message and exits"
 }
 
+if [ -z "$OBSIDIAN" ]; then
+  source "$HOME/.env"
+fi
+
 function obsidian() {
   # Originally $OBSIDIAN contain the path to an Obsidian Vault
   note=$(find "$OBSIDIAN" -type f -name '*.md' -printf '%P\n')
   select=$(echo "$note" | rofi -dmenu -i "$@")
-  nvim "$OBSIDIAN/$select"
+  kitty -e nvim "$OBSIDIAN/$select"
 }
 
 case "$1" in
