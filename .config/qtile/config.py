@@ -47,6 +47,7 @@ scripts = os.path.join(home + '/scripts/')
 
 # User scripts
 
+passmenu_rofi = os.path.join(scripts + '__passmenu-rofi.sh')
 passmenu_otp = os.path.join(scripts + '__passmenu-otp.sh')
 clearboard = os.path.join(scripts + '__clearboard.sh')
 rofi_obsidian = os.path.join(scripts + '__rofi-obsidian.sh')
@@ -58,6 +59,7 @@ browser = "flatpak run io.github.zen_browser.zen -P"
 screenshooter = "flameshot gui"
 pkm = "obsidian"
 messenger = "deltachat-desktop"
+open = "rofi -show run"
 filebrowser = "kitty -e ranger"
 screenrecorder = "obs"
 
@@ -95,7 +97,8 @@ keys = [
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Quit Qtile"),
 
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawn(open)),
 
     # Motion
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -139,7 +142,7 @@ keys = [
     ]),
     # "d" for dmenu
     KeyChord([mod], "d", [
-        Key([], "p", lazy.spawn('passmenu'), desc="pass over dmenu"),
+        Key([], "p", lazy.spawn(passmenu_rofi), desc="pass over dmenu"),
         Key([], "t", lazy.spawn(passmenu_otp), desc="pass over rofi"),
         Key([], "o", lazy.spawn(rofi_obsidian), desc="Obsidian File Picker")
     ])
