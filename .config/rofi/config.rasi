@@ -1,6 +1,6 @@
 configuration {
-    font: "Ubuntu 12";
-    line-margin: 12;
+    font: "Ubuntu 13";
+    line-margin: 14;
 
     display-ssh:    "";
     display-run:    "";
