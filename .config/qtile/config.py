@@ -185,16 +185,16 @@ for i in groups:
 # Customization
 
 ElegantVagrant = [
-    ["#000000", "#000000"], # color00
-    ["#ffffff", "#ffffff"], # color01
-    ["#1c1f24", "#1c1f24"], # color02
-    ["#02f789", "#02f789"], # color03
-    ["#f067fc", "#f067fc"], # color04
-    ["#7C5CFF", "#7C5CFF"], # color05
-    ["#f4f113", "#f4f113"], # color06
-    ["#5e12ea", "#5e12ea"], # color07
-    ["#46d9ff", "#46d9ff"], # color08
-    ["#fc0f99", "#fc0f99"], # color09
+    ["#00000000", "#00000000"], # color00
+    ["#ffffff", "#ffffff"],     # color01
+    ["#1c1f24", "#1c1f24"],     # color02
+    ["#02f789", "#02f789"],     # color03
+    ["#f067fc", "#f067fc"],     # color04
+    ["#7C5CFF", "#7C5CFF"],     # color05
+    ["#f4f113", "#f4f113"],     # color06
+    ["#5e12ea", "#5e12ea"],     # color07
+    ["#46d9ff", "#46d9ff"],     # color08
+    ["#fc0f99", "#fc0f99"],     # color09
 ]
 
 colors = ElegantVagrant
@@ -223,7 +223,7 @@ layouts = [
     #layout.Stack(**layout_theme, num_stacks=2),
     layout.Columns(
         border_widt = 2,
-        margin = 1,
+        margin = 2,
         border_focus = colors[7],
         border_normal = colors[0],
         border_focus_stack = colors[9],
@@ -236,7 +236,7 @@ layouts = [
 
 widget_defaults = dict(
     font="Ubuntu Bold",
-    fontsize = 12,
+    fontsize = 11,
     padding = 0,
     background=colors[0]
 )
@@ -245,31 +245,25 @@ extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
-        widget.Prompt(
-                 font = "Ubuntu Mono",
-                 fontsize=14,
-                 foreground = colors[1]
-        ),
-        widget.Spacer(length = 4),
-        widget.CurrentLayoutIcon(
-                 foreground = colors[1],
-                 padding = 0,
-                 scale = 0.7
+        widget.Spacer(length = 5),
+        widget.Clock(
+                 foreground = colors[6],
+                 format = "%a, %b %d - %H:%M",
                  ),
-#        widget.CurrentLayout(
-#                 foreground = colors[1],
-#                 padding = 5
-#                 ),
+        widget.Spacer(length = 7),
+        widget.Cmus(),
+        widget.Spacer(bar.STRETCH),
         widget.GroupBox(
                  fontsize = 11,
                  margin_y = 3,
                  margin_x = 4,
                  padding_y = 2,
                  padding_x = 3,
-                 borderwidth = 3,
+                 borderwidth = 2,
                  active = colors[8],
                  inactive = colors[1],
-                 rounded = False,
+                 hide_unused = True,
+                 rounded = True,
                  highlight_color = colors[2],
                  highlight_method = "line",
                  this_current_screen_border = colors[7],
@@ -277,82 +271,38 @@ def init_widgets_list():
                  other_current_screen_border = colors[7],
                  other_screen_border = colors[4],
                  ),
-        widget.WindowName(
-                 foreground = colors[8],
-                 max_chars = 80
-                 ),
-        widget.Spacer(length = 7),
+        widget.Spacer(bar.STRETCH),
         widget.Net(
                  format = '{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}',
                  foreground = colors[3],
                  ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
-        #widget.Battery(
-                #format = '󰁹{percent: 2.0%}',
-                #foreground = colors[8],
-                #),
-        #widget.TextBox(
-                #text = '|',
-                #font = "Ubuntu Mono",
-                #foreground = colors[1],
-                #padding = 2,
-                #fontsize = 14
-                #),
+        widget.Spacer(length = 5),
+        # widget.Battery(
+        #         hide_crash = True,
+        #         format = '󰁹{percent: 2.0%}',
+        #         foreground = colors[6],
+        #         ),
+        widget.Spacer(length = 5),
         widget.CPU(
                  format = '  {load_percent}%',
-                 foreground = colors[4],
+                 foreground = colors[9],
                  ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
+        widget.Spacer(length = 5),
         widget.Memory(
                  foreground = colors[8],
                  mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term + ' -e bpytop')},
                  format = '{MemUsed: .0f}{mm}',
                  fmt = '  {}',
                  ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
+        widget.Spacer(length = 5),
         widget.KeyboardLayout(
                  foreground = colors[5],
                  fmt = '  {}',
                  configured_keyboards = ['us', 'br'],
                  ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
-        widget.Clock(
-                 foreground = colors[6],
-                 format = "%a, %b %d - %H:%M",
-                 ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
+        widget.Spacer(length = 5),
         widget.Systray(padding = 3),
-        widget.Spacer(length = 7),
+        widget.Spacer(length = 5),
         ]
     return widgets_list
 
@@ -365,16 +315,15 @@ def init_widgets_screen1():
 #      return widgets_screen2
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26)),
-#        Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26)),
-#        Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), background="#00000000", size=24, opacity=1)),
+#        Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24, opacity=1)),
 ]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
     widgets_list = init_widgets_list()
     widgets_screen1 = init_widgets_screen1()
-#    widgets_screen2 = init_widgets_screen2()
+#   widgets_screen2 = init_widgets_screen2()
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
