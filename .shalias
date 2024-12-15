@@ -8,7 +8,6 @@ alias nv='nvim'
 alias vim='nvim'
 alias lg='lazygit'
 alias tk='task limit:3'
-alias tp='tmuxp'
 alias ctrash='gio trash --empty'
 alias historyc="rm $HOME/.zsh_history"
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'

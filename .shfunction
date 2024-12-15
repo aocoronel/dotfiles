@@ -8,3 +8,15 @@ function cds() {
 function weather() {
   curl http://wttr.in/"$1"
 }
+
+function tp() {
+  #Tmuxp Attacher
+  session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
+  select=$(echo "$session" | fzf "$@")
+  state=$(tmux ls | grep "$select" | awk -F ':' '{print $1}')
+  if [ "$state" = "$select" ]; then
+    tmux a -t "$select"
+  else
+    tmuxp load "$select"
+  fi
+}
