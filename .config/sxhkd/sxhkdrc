@@ -1,7 +1,3 @@
-# Terminal
-super + return;
-  kitty
-
 # Screenshooter
 super + g;
   flameshot gui
