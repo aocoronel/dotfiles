@@ -32,7 +32,7 @@ import subprocess
 # Qtile Imports
 
 from libqtile import bar, hook, layout, qtile, widget
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from qtile_extras import widget
 
@@ -40,29 +40,13 @@ from qtile_extras import widget
 
 mod = "mod4"     # Super Key
 
-# Script Directory
+# Home Var
 
 home = os.path.expanduser('~')
-scripts = os.path.join(home + '/scripts/')
-
-# User scripts
-
-passmenu_rofi = os.path.join(scripts + '__passmenu-rofi.sh')
-passmenu_otp = os.path.join(scripts + '__passmenu-otp.sh')
-clearboard = os.path.join(scripts + '__clearboard.sh')
-rofi_obsidian = os.path.join(scripts + '__rofi-obsidian.sh')
-check_player = os.path.join(scripts + '__cmus-player-check.sh')
 
 # Binaries
 
 term = "kitty"
-browser = "flatpak run io.github.zen_browser.zen -P"
-screenshooter = "flameshot gui"
-pkm = "obsidian"
-messenger = "deltachat-desktop"
-open = "rofi -show run"
-filebrowser = "kitty -e ranger"
-screenrecorder = "obs"
 
 # Functions
 
@@ -83,12 +67,7 @@ def smart_layout(qtile):
 # Keybindings
 
 keys = [
-    # Binaries keybindings
     Key([mod], "Return", lazy.spawn(term)),
-    Key([mod], "g", lazy.spawn(screenshooter)),
-    Key([mod], "F1", lazy.spawn(browser)),
-    Key([mod], "F2", lazy.spawn(messenger)),
-    Key([mod], "e", lazy.spawn(filebrowser)),
 
     # Qtile keybindings
     Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
@@ -99,7 +78,6 @@ keys = [
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Quit Qtile"),
 
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "r", lazy.spawn(open)),
 
     # Motion
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -132,25 +110,6 @@ keys = [
 
     Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
     Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
-
-    # KeyChords
-
-    # "c" for call
-    KeyChord([mod], "c", [
-        Key([], "o", lazy.spawn(pkm)),
-        Key([], "r", lazy.spawn(screenrecorder)),
-        Key([], "c", lazy.spawn(clearboard), desc= 'Clears clipboard'),
-        # Cmus Keybindings
-        Key([], "n", lazy.spawn("cmus-remote -n"), desc= 'Next soundtrack'),
-        Key(["shift"], "n", lazy.spawn("cmus-remote -r"), desc= 'Previous soundtrack'),
-        Key([], "p", lazy.spawn(check_player), desc= 'Toggles playing/stop cmus')
-    ]),
-    # "d" for dmenu
-    KeyChord([mod], "d", [
-        Key([], "p", lazy.spawn(passmenu_rofi), desc="pass over dmenu"),
-        Key([], "t", lazy.spawn(passmenu_otp), desc="pass over rofi"),
-        Key([], "o", lazy.spawn(rofi_obsidian), desc="Obsidian File Picker")
-    ])
 ]
 
 # Group Settings
