@@ -46,9 +46,9 @@ echo "→ upgrade and update pacman packages"
 sudo pacman -Sy
 sudo pacman -Syu
 
-echo "→ setting up nextdns"
+# echo "→ setting up nextdns"
 
-sh -c "$(curl -sL https://nextdns.io/install)"
+# sh -c "$(curl -sL https://nextdns.io/install)"
 
 echo "→ setting up firewall"
 
