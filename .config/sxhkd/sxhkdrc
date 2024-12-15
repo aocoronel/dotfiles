@@ -1,0 +1,27 @@
+# Terminal
+super + return;
+  kitty
+
+# Screenshooter
+super + g;
+  flameshot gui
+
+# Browser
+F1;
+  flatpak run io.github.zen_browser.zen -P
+
+# Explorer
+super + e;
+  kitty -e ranger
+
+# Rofi run
+super + r;
+  rofi -show run
+
+# Dmenu
+super + d; {o,p,t}
+  {__rofi-obsidian.sh,__passmenu-rofi.sh,__passmenu-otp.sh}
+
+# Call
+super + c; {c,n,shift + n,o,p,r}
+  {__clearboard.sh,cmus-remote -n,cmus-remote -r,obsidian,__cmus-player-check.sh,obs}
