@@ -51,6 +51,7 @@ passmenu_rofi = os.path.join(scripts + '__passmenu-rofi.sh')
 passmenu_otp = os.path.join(scripts + '__passmenu-otp.sh')
 clearboard = os.path.join(scripts + '__clearboard.sh')
 rofi_obsidian = os.path.join(scripts + '__rofi-obsidian.sh')
+check_player = os.path.join(scripts + '__cmus-player-check.sh')
 
 # Binaries
 
@@ -138,7 +139,11 @@ keys = [
     KeyChord([mod], "c", [
         Key([], "o", lazy.spawn(pkm)),
         Key([], "r", lazy.spawn(screenrecorder)),
-        Key([], "c", lazy.spawn(clearboard), desc= 'Clears clipboard')
+        Key([], "c", lazy.spawn(clearboard), desc= 'Clears clipboard'),
+        # Cmus Keybindings
+        Key([], "n", lazy.spawn("cmus-remote -n"), desc= 'Next soundtrack'),
+        Key(["shift"], "n", lazy.spawn("cmus-remote -r"), desc= 'Previous soundtrack'),
+        Key([], "p", lazy.spawn(check_player), desc= 'Toggles playing/stop cmus')
     ]),
     # "d" for dmenu
     KeyChord([mod], "d", [
