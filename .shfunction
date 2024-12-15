@@ -12,7 +12,7 @@ function weather() {
 function tp() {
   #Tmuxp Attacher
   session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
-  select=$(echo "$session" | fzf "$@")
+  select=$(echo "$session" | fzf --tmux "$@")
   state=$(tmux ls | grep "$select" | awk -F ':' '{print $1}')
   if [ "$state" = "$select" ]; then
     tmux a -t "$select"
