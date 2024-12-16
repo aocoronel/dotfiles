@@ -1,9 +1,14 @@
+# Tmux Session Manager
+
+super + s; {o,c}
+  {__tmuxp-open.sh,__tmuxp-close.sh}
+
 # Screenshooter
 super + g;
   flameshot gui
 
 # Browser
-F1;
+super + F1;
   flatpak run io.github.zen_browser.zen -P
 
 # Explorer
