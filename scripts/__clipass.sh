@@ -20,10 +20,7 @@ function clipper() {
     echo "Exitting..."
     exit 1
   fi
-  gpg --decrypt $vault/$pass | xclip -sel clip
-  sleep 10
-  # Clears the clipboard
-  echo "" | xclip -sel clip
+  gpg --decrypt $vault/$pass | xsel --clipboard --input --selectionTimeout 10000
 }
 
 case "$1" in
