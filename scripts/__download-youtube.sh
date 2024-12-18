@@ -14,7 +14,13 @@ eof
 
 function clip() {
   URL=$(xclip -o)
+  title="$(yt-dlp --get-title $URL)"
   yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  if [ "$?" -eq 0 ]; then
+    notify-send -u normal "$title downloaded"
+  else
+    notify-send -u normal "An error occurred!"
+  fi
   exit 0
 }
 
