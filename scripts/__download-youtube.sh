@@ -12,12 +12,20 @@ available options:
 eof
 }
 
+function clip() {
+  URL=$(xclip -o)
+  yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  exit 0
+}
+
 function audio() {
   yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  exit 0
 }
 
 function video() {
   yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  exit 0
 }
 
 function batch() {
@@ -46,6 +54,9 @@ while [[ "$1" != "" ]]; do
             URL=$2
             video
             shift 2
+            ;;
+        -c | --clip)
+            clip
             ;;
     esac
 done
