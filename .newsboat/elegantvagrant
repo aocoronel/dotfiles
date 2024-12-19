@@ -1,0 +1,12 @@
+color background            white      black
+color listnormal            color87      black
+color listfocus             color227   color236   bold
+color listnormal_unread     color207   color236   bold
+color listfocus_unread      color227   color236   bold
+color title                 color99    black      standout
+color info                  color99    black      bold
+color hint-key              color99    black      bold
+color hint-keys-delimiter   white      black
+color hint-separator        white      black      bold
+color hint-description      color99    black
+color article               white      black
