@@ -1,0 +1,9 @@
+session_name: 'key'
+windows:
+- focus: 'true'
+  layout: c240,151x36,0,0,3
+  options: {}
+  panes:
+  - sxhkd &
+  start_directory: /home/aocoronel
+  window_name: zsh
