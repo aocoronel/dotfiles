@@ -1,5 +1,5 @@
 
-session_name: music
+session_name: cmus
 windows:
 - window_name: cmus
   layout: tiled
