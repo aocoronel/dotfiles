@@ -31,8 +31,7 @@ function adddrive() {
 
 function mount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
-  echo "Previously mounted devices:" && ls /mnt/
-  read -p "Name the drive: " drive
+  drive=$(ls /mnt/ | fzf --prompt "Previously mounted devices: ")
   passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
   pass="$(ls "$passdir/dev/" | awk -F. '{print $1}' | grep "$drive")"
   if [ "$pass" == "$drive" ]; then
