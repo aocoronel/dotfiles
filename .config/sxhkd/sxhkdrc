@@ -20,9 +20,16 @@ super + r;
   rofi -modes drun,run -show run
 
 # Obsidian Quick Switcher
+
+super + o
+  __rofi-obsidian.sh o
+
+super + shift + o
+  __rofi-obsidian.sh n
+
 # Rofi
-super + d; {o,p,t,d}
-  {__rofi-obsidian.sh,__passmenu-rofi.sh,__passmenu-otp.sh,rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"}
+super + d; {p,t,d}
+  {__passmenu-rofi.sh,__passmenu-otp.sh,rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"}
 
 # Call
 super + c; {c,n,shift + n,o,p,r}
