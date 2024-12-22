@@ -14,9 +14,9 @@ fi
 
 function obsidian() {
   # Originally $OBSIDIAN contain the path to an Obsidian Vault
-  note=$(find "$OBSIDIAN" -type f -name '*.md' -printf '%P\n')
+  note=$(find "$OBSIDIAN" -type f -name '*.md' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$note" | rofi -dmenu -i "$@")
-  kitty -e nvim "$OBSIDIAN/$select"
+  kitty -e nvim "$OBSIDIAN/$select.md"
 }
 
 case "$1" in
