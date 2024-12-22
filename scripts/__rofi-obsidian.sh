@@ -11,21 +11,20 @@ n                               - Open note in nvim
 EOF
 }
 
-if [ -z "$OBSIDIAN" ]; then
-  source "$HOME/.env"
-fi
+workspace=$(cat "$HOME/.config/obsidian-workspace.conf")
+workspace_name=$(echo "$workspace" | awk -F '/' '{print $7}')
 
 function open_nvim() {
-  note=$(find "$OBSIDIAN" -type f -name '*.md' -printf '%P\n' | awk -F. '{print $1}')
+  note=$(find "$workspace" -type f -name '*.md' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$note" | rofi -dmenu -i "$@")
-  kitty -e nvim "$OBSIDIAN/$select.md"
+  kitty -e nvim "$workspace/$select.md"
 }
 
 function open_obsidian() {
-  note=$(find "$OBSIDIAN" -type f -name '*.md' -printf '%P\n')
+  note=$(find "$workspace" -type f -name '*.md' -printf '%P\n')
   select=$(echo "$note" | rofi -dmenu -i "$@")
-  touch "$OBSIDIAN/$select"
-  obsidian-cli open "$select" --vault OUROBOROS
+  touch "$workspace/$select"
+  obsidian-cli open "$select" --vault "$workspace_name"
 }
 
 case "$1" in
