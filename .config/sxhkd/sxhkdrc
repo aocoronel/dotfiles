@@ -17,8 +17,9 @@ super + e;
 
 # Rofi run
 super + r;
-  rofi -show run
+  rofi -modes drun,run -show run
 
+# Obsidian Quick Switcher
 # Rofi
 super + d; {o,p,t,d}
   {__rofi-obsidian.sh,__passmenu-rofi.sh,__passmenu-otp.sh,rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"}
