@@ -26,3 +26,6 @@ super + d; {o,p,t,d}
 # Call
 super + c; {c,n,shift + n,o,p,r}
   {__clearboard.sh,cmus-remote -n,cmus-remote -r,obsidian,__cmus-player-check.sh,obs}
+
+super + y
+  __download-youtube.sh -c
