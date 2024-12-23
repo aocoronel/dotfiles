@@ -1,7 +1,5 @@
 #!/bin/env bash
 
-# Help Menu
-
 function help() {
   echo "Pacman packages backup creator and installer"
   echo "Usage: $0 [option]"

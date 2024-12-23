@@ -1,4 +1,8 @@
 #!/bin/env bash
 
-choose=$(ls $OBSIDIAN | rofi -dmenu)
-echo "$OBSIDIAN/$choose" > "$HOME/.config/obsidian-workspace.conf"
+function switch_workspace() {
+  choose=$(ls $OBSIDIAN | rofi -dmenu)
+  echo "$OBSIDIAN/$choose" > "$HOME/.config/obsidian-workspace.conf"
+}
+
+switch_workspace

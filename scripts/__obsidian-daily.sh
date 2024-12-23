@@ -1,6 +1,5 @@
 #!/bin/env bash
 
-# Help Menu
 function help() {
 cat << EOF
 Open Daily Notes
@@ -67,6 +66,7 @@ function rofi-select() {
 if [ "$#" -eq 0 ]; then
     echo "Error: No arguments provided."
     help
+    exit 0
 fi
 
 while [[ "$1" != "" ]]; do
@@ -89,4 +89,3 @@ while [[ "$1" != "" ]]; do
             ;;
     esac
 done
-

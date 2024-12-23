@@ -1,16 +1,10 @@
 #!/bin/env bash
 
-# Help Menu
-
-function help() {
-  echo "Usage: $0 [option]"
-  echo "Available options:"
-  echo "help                                   - Displays this message and exits"
-}
+if [ -z "$VAULT" ]; then
+  source "$HOME/.env"
+fi
 
 vaultdir=$(ls "$VAULT")
-
-# Tmux Integration
 
 function cd-tmux() {
   local SESSION_NAME=$(basename "/mnt/go/$govault" | tr ' .:' '_')
@@ -18,12 +12,7 @@ function cd-tmux() {
   tmux attach -t "$SESSION_NAME"
 }
 
-# Core Function
-
 function unlock() {
-  # $VAULT is an user defined directory variable set in .bashenv
-  # Originally $VAULT contains pgp encrypted files as .asc files
-  # It also contains folders encrypted with gocryptfs
   govault=$(echo "$vaultdir" | fzf --height 40% --prompt "Select vault to unlock: ")
   if [ ! -d "/mnt/go/$govault" ]; then
     echo "No directory found at /mnt/go/$govault. Creating one now..."
@@ -37,12 +26,3 @@ function unlock() {
   sleep 1
   exit 0
 }
-
-case "$1" in
-  "help")
-    help
-    ;;
-  "")
-    unlock
-    ;;
-esac

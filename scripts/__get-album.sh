@@ -1,26 +1,12 @@
 #!/bin/env bash
 
-# Help Menu
-
-function help() {
-  echo "Album Selector"
-  echo "Usage: $0 [option]"
-  echo "Available options:"
-  echo "help                                   - Displays this message and exits"
-}
-
-wallpapers="${WALLPAPERS:-$HOME/Ente/}"
+if [ -z "$WALLPAPERS" ]; then
+  source "$HOME/.env"
+fi
 
 function get_wallpaper() {
-  export album=$(ls $wallpapers | fzf --prompt "Select an album") 
-  nsxiv -t $wallpapers/$album
+  export album=$(ls $WALLPAPERS | fzf --prompt "Select an album")
+  nsxiv -t $WALLPAPERS/$album
 }
 
-case "$1" in
-  "help")
-    help
-    ;;
-  "")
-    get_wallpaper
-    ;;
-esac
+get_wallpaper

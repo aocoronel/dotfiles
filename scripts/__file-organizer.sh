@@ -1,7 +1,5 @@
 #!/bin/env bash
 
-# Help Menu
-
 # Directory Organizer
 # Usage: $0 [source-directory] [dest-directory]
 

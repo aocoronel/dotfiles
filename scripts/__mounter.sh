@@ -1,6 +1,5 @@
 #!/bin/env bash
 
-# Help Menu
 function help() {
   echo "External Device Mounter"
   echo "Usage: $0 [option]"
@@ -66,15 +65,6 @@ function umount() {
   sleep 1
   exit 0
 }
-
-# TODO Close all mounted devices
-
-# function umount() {
-#   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
-#   sudo umount "/mnt/$drive/"
-#   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
-#   exit 0
-# }
 
 function read_option() {
   while true; do
