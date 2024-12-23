@@ -1,14 +1,8 @@
 #!/bin/env bash
 
-# Help Menu
-function help() {
-  echo "pass backup"
-  echo "Usage: $0 [option]"
-  echo "Available options:"
-  echo "help                                   - Displays this message and exits"
-}
-
-vaultdir=$(ls "$VAULT")
+if [ -z "$PASSWORD_STORE_DIR" ]; then
+  source "$HOME/.env"
+fi
 
 function gpg_export() {
   read -p "Insert your email: " email
@@ -16,24 +10,32 @@ function gpg_export() {
   gpg --export-secret-keys --armor "$email" > "$HOME/private.gpg"
 }
 
+function gpg_import() {
+  gpg --import "$HOME/public.gpg"
+  gpg --import "$HOME/private.gpg"
+}
 function exportpass() {
-  gpg_export
-  if [ -z "$PASSWORD_STORE_DIR" ]; then
-    source "$HOME/.env"
-  fi
-  govault=$(echo "$vaultdir" | fzf --height 40% --prompt "Select vault to unlock: ")
-  gocryptfs "$VAULT/$govault" "/mnt/go/$govault" &&
-  rsync -av --delete "$PASSWORD_STORE_DIR" "/mnt/go/$govault/"
-  mv -i "$HOME/private.gpg" "/mnt/go/$govault/"
-  mv -i "$HOME/public.gpg" "/mnt/go/$govault/"
-  fusermount3 -u "/mnt/go/$govault" && echo "$govault has been umounted successfully!"
+  tar -czvf "$HOME/pass-bak.tar" "$PASSWORD_STORE_DIR" "$HOME/private.gpg" "$HOME/public.gpg"
+  openssl enc -aes-256-cbc -e -in "$HOME/pass-bak.tar" -out "$HOME/pass-bak.tar.enc" -iter 10000
+  shred -u "$HOME/pass-bak.tar"
+}
+
+function importpass() {
+  openssl enc -aes-256-cbc -d -in "$HOME/pass-bak.tar.enc" -out "$HOME/pass-bak.tar" -iter 10000
+  tar -xzvf "$HOME/pass-bak.tar"
 }
 
 case "$1" in
-  "help")
-    help
-    ;;
-  "")
+  "export")
+    gpg_export
     exportpass
     ;;
+  "import")
+    importpass
+    gpg_import
+    ;;
+  "")
+    echo "Available options:"
+    echo "export                    - Export gpg keys and pass, encrypts over openssl"
+    echo "import                    - Import gpg keys and pass"
 esac
