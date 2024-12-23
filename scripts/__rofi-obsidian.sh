@@ -24,6 +24,9 @@ function open_obsidian() {
   note=$(find "$workspace" -type f -name '*.md' -printf '%P\n')
   select=$(echo "$note" | rofi -dmenu -i "$@" | awk -F '.' '{print $1}')
   touch "$workspace/$select.md"
+  if [ "$select" = "" ]; then
+    exit 0
+  fi
   obsidian-cli open "$select" --vault "$workspace_name"
 }
 
