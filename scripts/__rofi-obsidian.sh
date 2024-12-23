@@ -23,7 +23,7 @@ function open_nvim() {
 function open_obsidian() {
   note=$(find "$workspace" -type f -name '*.md' -printf '%P\n')
   select=$(echo "$note" | rofi -dmenu -i "$@")
-  touch "$workspace/$select"
+  touch "$workspace/$select.md"
   obsidian-cli open "$select" --vault "$workspace_name"
 }
 
