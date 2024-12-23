@@ -91,7 +91,7 @@ listview {
     background-color: @background;
     border-color:     @separatorcolor;
     fixed-height:     0;
-    lines:            8;
+    lines:            10;
     spacing:          2px;
     padding:          1;
 }
@@ -121,14 +121,15 @@ entry {
     placeholder-color: inherit;
 }
 prompt {
-    enabled:          false;
+    enabled:          true;
     background-color: @background;
     spacing:          0;
+    margin:           0px 10px 0px 0px;
     text-color:       @normal-foreground;
 }
 inputbar {
     background-color: @background;
-    children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
+    children:         [ textbox-prompt-colon,entry,case-indicator, prompt ];
 }
 textbox-prompt-colon {
     expand:           false;
