@@ -10,9 +10,6 @@ function help() {
 }
 
 function rsync_home() {
-  # $SCRIPTS is an user defined directory set in .bashenv
-  # $SCRIPTS is present in $PATH
-  # Originally $SCRIPTS contains user created scripts
   # home/ in $HOME is a symlink to an external drive where dotfiles is this git repo
   rsync -av --delete --files-from=$SCRIPTS/rsync/rsync-home.txt "$HOME/" "$HOME/home/";
   rsync -av --delete --files-from=$SCRIPTS/rsync/rsync-config.txt "$HOME/.config/" "$HOME/home/.config/";

@@ -8,10 +8,6 @@ function help() {
   echo "help                     - Displays this message and exits"
 }
 
-# $SCRIPTS is an user defined directory set in .bashenv
-# $SCRIPTS is present in $PATH
-# Originally $SCRIPTS contains user created scripts
-
 home="$SCRIPTS/rsync/rsync-home.txt"
 config="$SCRIPTS/rsync/rsync-config.txt"
 local="$SCRIPTS/rsync/rsync-local.txt"

@@ -13,8 +13,6 @@ wallpapers="${WALLPAPERS:-$HOME/Ente/}"
 
 function get_wallpaper() {
   export album=$(ls $wallpapers | fzf --prompt "Select an album") 
-  # $WALLPAPERS is an user defined directory set in .bashenv
-  # Originally $WALLPAPERS only contains directories with images
   nsxiv -t $wallpapers/$album
 }
 
