@@ -73,7 +73,7 @@ cd
 
 echo "→ install essencial packages"
 
-sudo pacman -S rsync gocryptfs pass gvfs mtpfs gvfs-mtp tmux ffmpeg polkit udiskie udisks2 fuse2 kitty mpv fastfetch onefetch unzip zip python-psutil ranger picom scrcpy lynx ddgr nsxiv bpytop direnv eza fd fzf github-cli gnome-keyring networkmanager-openvpn tldr man xwallpaper lazygit task zoxide ripgrep xclip neomutt bat cmatrix figlet tmuxp cmus dmenu gitleaks moreutils redshift
+sudo pacman -S rsync gocryptfs pass pass-otp gvfs mtpfs gvfs-mtp tmux ffmpeg polkit udiskie udisks2 fuse2 kitty mpv fastfetch onefetch unzip zip python-psutil ranger picom scrcpy lynx ddgr nsxiv bpytop direnv eza fd fzf github-cli gnome-keyring networkmanager-openvpn tldr man xwallpaper lazygit task zoxide ripgrep xclip neomutt bat cmatrix figlet tmuxp cmus dmenu gitleaks moreutils redshift python-mutagen atomicparsley yt-dlp newsboat sxhkd navi
 
 echo "→ install graphical packages"
 
@@ -130,8 +130,8 @@ source "$HOME/.zshrc"
 
 echo "→ applying final configurations"
 
-picom --config "$HOME/.config/picom.conf"
-ohmyposh --config "$HOME/.config/ohmyposh/"
+picom --config "$HOME/.config/picom.conf" &
+ohmyposh --config "$HOME/.config/ohmyposh/" &
 
 echo "→ installation complete"
 
