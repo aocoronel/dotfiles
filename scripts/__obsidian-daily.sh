@@ -44,20 +44,20 @@ fi
 
 daily=$(echo "${Month} ${Day}${OrdinalSuffix}, ${Year}")
 
-function obsidian-daily() {
+function obsidian_daily() {
   obsidian-cli open "$daily" --vault OUROBOROS
 }
 
-function nvim-daily() {
-  kitty -e nvim "$OBSIDIAN/$folder/$daily".md
+function nvim_daily() {
+  kitty -e nvim "$OBSIDIAN/OUROBOROS/$folder/$daily".md
 }
 
-function rofi-select() {
+function rofi_select() {
   select=$(echo -e "nvim\nobsidian" | rofi -dmenu)
   if [ "$select" = "nvim" ]; then
-    nvim-daily
+    nvim_daily
   elif [ "$select" = "obsidian" ]; then
-    obsidian-daily
+    obsidian_daily
   else
     notify-send -u normal "An error occurred!"
   fi
@@ -76,15 +76,15 @@ while [[ "$1" != "" ]]; do
             exit 0
             ;;
         -o | --obsidian)
-            obsidian-daily
+            obsidian_daily
             exit 0
             ;;
         -n | --nvim)
-             nvim-daily
+             nvim_daily
              exit 0
             ;;
         -s | --select)
-             rofi-select
+             rofi_select
              exit 0
             ;;
     esac
