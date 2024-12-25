@@ -46,9 +46,11 @@ color.tag.course   = cyan
 
 # Context
 
+context.work.read=+work
+context.work.write=+work
+context.home.read=+home or +blog or +book
+context.home.write=+home or +blog or +book
 context.code.read=+code
 context.code.write=+code
-context.home.read=+home,+blog,+book
-context.home.write=+home,+blog,+book
-context.acdmy.read=+acdmy,+course
-context.acdmy.write=+acdmy,+course
+context.acdmy.read=+acdmy or +course
+context.acdmy.write=+acdmy or +course
