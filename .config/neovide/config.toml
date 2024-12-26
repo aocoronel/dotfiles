@@ -1,0 +1,17 @@
+fork = false
+frame = "full"
+idle = true
+maximized = false
+mouse-cursor-icon = "arrow"
+neovim-bin = "/usr/bin/nvim"
+no-multigrid = false
+srgb = false
+tabs = true
+theme = "auto"
+title-hidden = true
+vsync = false
+wsl = false
+
+[font]
+normal = []
+size = 11.0
