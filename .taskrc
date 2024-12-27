@@ -32,7 +32,7 @@ include dark-violets-256.theme
 color.today        = bold cyan
 color.yesterday    = red
 color.blocked      = white on grey
-color.blocking     = black on white
+color.blocking     = black on magenta
 
 # Tags
 
