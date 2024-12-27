@@ -14,8 +14,21 @@ if [ -z "$destdrive" ]; then
   echo "No source directory chosen!"
   exit 1
 fi
-
 }
+
+function check_borg() {
+  ls /mnt/$sourcedrive | grep "nonce"
+  if [ "$?" -eq 0 ]; then
+    echo "This is a borg repository!"
+    exit 0
+  fi
+  ls /mnt/$destdrive | grep "nonce"
+  if [ "$?" -eq 0 ]; then
+    echo "This is a borg repository!"
+    exit 0
+  fi
+}
+
 function sync_external() {
   rsync -av --delete "$sourcedrive" "$destdrive"
 }
@@ -41,6 +54,7 @@ if [[ "$1" == "-b" ]]; then
   exit 0
 elif [[ "$1" == "-s" ]]; then
   get_drives
+  check_borg
   sync_external
   exit 0
 else
