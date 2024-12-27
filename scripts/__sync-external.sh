@@ -1,19 +1,9 @@
 #!/bin/env bash
 
-### Predefined directories ###
-pandora="/mnt/pandora/"
-beelzebub="/mnt/beelzebub/"
-seth="/mnt/seth/"
+hostname="$(hostnamectl hostname)"
+now="$(date +%Y-%H%M)"
 
-function syncbeelzebub() {
-  rsync -av --delete $pandora $beelzebub
-}
-
-function syncseth() {
-  rsync -av --delete $pandora $seth
-}
-###############################
-
+function get_drives() {
 sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: ")
 if [ -z "$sourcedrive" ]; then
   echo "No source directory chosen!"
@@ -25,23 +15,35 @@ if [ -z "$destdrive" ]; then
   exit 1
 fi
 
+}
 function sync_external() {
   rsync -av --delete "$sourcedrive" "$destdrive"
 }
 
+function run_borg() {
+  borg create --stats --progress /mnt/"$sourcedrive"::"$hostname"-"$now" "$destdrive"
+}
+
+ function help() {
+cat << EOF
+Sync Tool for External Drives
+Usage: $0 [option]
+Available options:
+-b                            - Use borg to backup
+-s                            - Use rsync to sync source directory to dest directory
+For borg, the source directory means the borg repository
+EOF
+}
 
 if [[ "$1" == "-b" ]]; then
-  syncbeelzebub
+  get_drives
+  run_borg
   exit 0
 elif [[ "$1" == "-s" ]]; then
-  syncseth
-  exit 0
-elif [[ "$1" == "-h" ]]; then
-  echo "Choose hardcoded drive to sync:"
-  echo "-b - Beelzebub"
-  echo "-s - Seth"
-  exit 1
-else
+  get_drives
   sync_external
+  exit 0
+else
+  help
   exit 0
 fi
