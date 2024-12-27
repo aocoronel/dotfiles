@@ -68,7 +68,8 @@ function umount() {
 
 function read_option() {
   while true; do
-  read -p "Choose an option (add/iopen/open/close/help): " option
+  help
+  read -p "Choose an option (add/iopen/open/close): " option
   if [ "$option" == "open" ]; then
     mount
   elif [ "$option" == "iopen" ]; then
@@ -78,7 +79,7 @@ function read_option() {
   elif [ "$option" == "add" ]; then
     adddrive
   else
-    echo "Choose open or close!"
+    exit 0
   fi
 done
 }
