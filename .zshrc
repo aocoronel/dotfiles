@@ -15,7 +15,6 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
-zinit light jeffreytse/zsh-vi-mode
 
 ## oh-my-zsh
 
@@ -65,3 +64,9 @@ zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --style=numbers $realpath'
 
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+
+# Message of the day (MOTD)
+
+if [ -f "$HOME/motd.sh" ]; then
+  sh "$HOME/motd.sh"
+fi
