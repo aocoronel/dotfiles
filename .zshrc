@@ -70,3 +70,15 @@ bindkey '^n' history-search-forward
 if [ -f "$HOME/motd.sh" ]; then
   sh "$HOME/motd.sh"
 fi
+
+# Pet
+
+function pet-select() {
+  BUFFER=$(pet search --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+
+zle -N pet-select
+stty -ixon
+bindkey '^s' pet-select
