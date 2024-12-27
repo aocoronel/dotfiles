@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+sizebefore=$(du -ms | awk '{print $1}')
+
 imageformats=("jpg" "png" "webp")
 
 for format in "${imageformats[@]}"; do
@@ -13,3 +15,7 @@ for format in "${imageformats[@]}"; do
         echo "Converted: $image_file to $avif_file"
     done
 done
+
+sizeafter=$(du -ms | awk '{print $1}')
+declare -i A=("$sizebefore"-"$sizeafter")
+echo "$A" MB have been freed!
