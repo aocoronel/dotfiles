@@ -1,7 +1,7 @@
 # Tmux Session Manager
 
-super + s; {o,c}
-  {__tmuxp-open.sh,__tmuxp-close.sh}
+super + s; {o,c,g}
+  {__tmuxp-open.sh,__tmuxp-close.sh,buku_run}
 
 # Screenshooter
 super + g;
@@ -9,7 +9,7 @@ super + g;
 
 # Browser
 super + F1;
-  flatpak run io.github.zen_browser.zen -P
+  zen-browser -P
 
 # Explorer
 super + e;
@@ -35,8 +35,8 @@ super + d; {p,t,d}
   {__passmenu-rofi.sh,__passmenu-otp.sh,rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"}
 
 # Call
-super + c; {c,n,shift + n,o,p,r}
-  {__clearboard.sh,cmus-remote -n,cmus-remote -r,obsidian,__cmus-player-check.sh,obs}
+super + c; {c,n,shift + n,o,h,p,r,f,d}
+  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,./beelzebub/Pandora/applications/app-freetube.AppImage}
 
 super + y
   __download-youtube.sh -c
