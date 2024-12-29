@@ -1,7 +1,6 @@
 # Tmux Session Manager
-
-super + s; {o,c,g}
-  {__tmuxp-open.sh,__tmuxp-close.sh,buku_run}
+super + s; {shift + o,o,c,g}
+  {__alt-term.sh,__tmuxp-open.sh,__tmuxp-close.sh,buku_run}
 
 # Screenshooter
 super + g;
