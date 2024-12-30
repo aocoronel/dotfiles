@@ -30,11 +30,17 @@ function check_borg() {
 }
 
 function sync_external() {
-  rsync -av --delete "$sourcedrive" "$destdrive"
+  if [ "$destdrive" = "beelzebub" ]; then
+    echo "Caution!"
+    echo "The beelzebub directory have been selected as destdrive"
+    exit 0
+  else
+    rsync -av --delete /mnt/"$sourcedrive/" /mnt/"$destdrive/"
+  fi
 }
 
 function run_borg() {
-  borg create --stats --progress /mnt/"$sourcedrive"::"$hostname"-"$now" "$destdrive"
+  borg create --stats --progress /mnt/"$sourcedrive"::"$hostname"-"$now" "/mnt/$destdrive"
 }
 
  function help() {
