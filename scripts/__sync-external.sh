@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 hostname="$(hostnamectl hostname)"
-now="$(date +%Y-%H%M)"
+now="$(date +%Y-+%D-%H%M)"
 
 function get_drives() {
 sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
@@ -40,7 +40,7 @@ function sync_external() {
 }
 
 function run_borg() {
-  borg create --stats --progress /mnt/"$sourcedrive"::"$hostname"-"$now" "/mnt/$destdrive"
+  borg create --stats --progress /mnt/"$sourcedrive"/::"$hostname"-"$now" "$destdrive"/
 }
 
  function help() {
