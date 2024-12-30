@@ -4,12 +4,12 @@ hostname="$(hostnamectl hostname)"
 now="$(date +%Y-%H%M)"
 
 function get_drives() {
-sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l {}')
+sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
 if [ -z "$sourcedrive" ]; then
   echo "No source directory chosen!"
   exit 1
 fi
-destdrive=$(ls /mnt/ | fzf --prompt "Choose dest directory: " --preview 'eza -l {}')
+destdrive=$(ls /mnt/ | fzf --prompt "Choose dest directory: " --preview 'eza -l /mnt/{}')
 if [ -z "$destdrive" ]; then
   echo "No dest directory chosen!"
   exit 1
