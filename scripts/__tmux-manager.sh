@@ -1,6 +1,17 @@
 #!/bin/env bash
 
-DIRECTORIES=($OBSIDIAN $DEV)
+CONFIG="$HOME/.tmuxprofile"
+if [[ ! -f "$CONFIG" ]]; then
+  echo "No configuration file set!"
+  touch "$CONFIG"
+  echo "Created a config file in $CONFIG"
+  echo "Please add desired directories in the configuration file"
+  echo "Example: ~/dev/ ~/Downloads/ /mnt/"
+  echo "Environment variables are allowed"
+  exit
+fi
+
+DIRECTORIES=($(cat ~/.tmuxprofile))
 
 HEADER=" Ctrl-s: Sessions / Ctrl-d: Directory / Ctrl-t: Kill session"
 
