@@ -11,6 +11,8 @@ if [[ ! -f "$CONFIG" ]]; then
   exit
 fi
 
+source "$HOME/.env"
+
 DIRECTORIES=($(cat ~/.tmuxprofile))
 TMUXP_CONFIG="$HOME/.config/tmuxp/"
 
