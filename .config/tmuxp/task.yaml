@@ -1,0 +1,9 @@
+session_name: 'task'
+windows:
+- layout: c241,151x36,0,0,4
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: taskwarrior-tui
+  start_directory: /home/aocoronel
+  window_name: taskwarrior
