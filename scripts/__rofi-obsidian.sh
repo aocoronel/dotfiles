@@ -17,6 +17,9 @@ workspace_name=$(echo "$workspace" | awk -F '/' '{print $7}')
 function open_nvim() {
   note=$(find "$workspace" -type f -name '*.md' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$note" | rofi -dmenu -i "$@")
+  if [ "$select" = "" ]; then
+    exit 0
+  fi
   kitty -e nvim "$workspace/$select.md"
 }
 
