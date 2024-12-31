@@ -16,7 +16,7 @@ source "$HOME/.env"
 DIRECTORIES=($(cat ~/.tmuxprofile))
 TMUXP_CONFIG="$HOME/.config/tmuxp/"
 
-HEADER=" Ctrl-s: Sessions / Ctrl-d: Directory / Ctrl-f: Tmuxp / Ctrl-t: Kill session"
+HEADER=" Ctrl-s: Sessions : Ctrl-t: Kill session / Ctrl-d: Directory / Ctrl-f: Tmuxp"
 
 SESSION_BIND="Ctrl-s:change-prompt(Sessions> )+reload(tmux ls -F '#S')"
 DIR_BIND="Ctrl-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d)"
