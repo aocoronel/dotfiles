@@ -215,6 +215,13 @@ def init_widgets_list():
                  format = "%a, %b %d - %H:%M",
                  ),
         widget.Spacer(length = 7),
+        widget.Pomodoro(
+            notifications_on = True,
+            color_active = colors[8],
+            color_inactive = colors[9],
+            color_break = colors[3],
+            ),
+        widget.Spacer(length = 7),
         widget.Cmus(),
         widget.Spacer(bar.STRETCH),
         widget.GroupBox(
