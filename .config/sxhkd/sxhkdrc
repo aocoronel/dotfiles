@@ -1,6 +1,6 @@
 # Tmux Session Manager
-super + s; {shift + o,o,c,g}
-  {__alt-term.sh,__tmuxp-open.sh,__tmuxp-close.sh,buku_run}
+super + s; {shift + o,o,c,g,p}
+  {__alt-term.sh,__tmuxp-open.sh,__tmuxp-close.sh,buku_run,__pomodoro.sh}
 
 # Screenshooter
 super + g;
@@ -30,8 +30,8 @@ super + control + o
   __switch-workspace.sh
 
 # Rofi
-super + d; {p,t,d}
-  {__passmenu-rofi.sh,__passmenu-otp.sh,rofi -lines 5 -eh 3 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"}
+super + d; {p,t}
+  {__passmenu-rofi.sh,__passmenu-otp.sh}
 
 # Call
 super + c; {c,n,shift + n,o,h,p,r,f,d}
