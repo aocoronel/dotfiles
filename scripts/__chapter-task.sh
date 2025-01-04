@@ -6,6 +6,7 @@ Book Reading Task Manager
 Usage: $0 [option]
 Available options:
 add                             - Adds a new book
+del                             - Delete a book
 next                            - Creates new chapter
 help                            - Displays this message and exits
 EOF
