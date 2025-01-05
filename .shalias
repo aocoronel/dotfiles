@@ -6,12 +6,18 @@ alias ls='eza --color=auto --group-directories-first'
 alias cat='bat'
 alias nv='nvim'
 alias vim='nvim'
+alias sxh='nvim $HOME/.config/sxhkd/sxhkdrc'
+alias sxhd="$HOME/scripts/__restart-sxhkd.sh"
 alias lg='lazygit'
+alias lgd="lazygit -p $HOME/dotfiles/"
 alias tk='task limit:3'
+alias taskclean='task +DELETED purge'
+alias taskgit='git -C "$HOME/.task/" add -A; git -C "$HOME/.task/" commit -a -m "Auto Commit"'
 alias ctrash='gio trash --empty'
 alias historyc="rm $HOME/.zsh_history"
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
 alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
+alias lynx="lynx -cookies"
 
 # Pacman
 
