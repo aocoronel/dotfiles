@@ -16,3 +16,9 @@ config-posh:
 # Setup Udiskie: Create file to /etc/polkit-1/rules.d/50-udiskie.rules
 config-udiskie:
   sh "$HOME/scripts/__setup-udiskie.sh"
+# Set kitty configuration file
+config-kitty:
+  kitty --config "$HOME/.config/kitty/kitty.conf"
+# Run install.sh
+install:
+  sh "$HOME/dotfiles/install.sh"
