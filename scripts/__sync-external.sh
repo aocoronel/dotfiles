@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 hostname="$(hostnamectl hostname)"
-now="$(date +%Y-+%D-%H%M)"
+now="$(date +%Y-%d-%H%M)"
 
 function get_drives() {
 sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
