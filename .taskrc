@@ -54,3 +54,10 @@ context.code.read=+code
 context.code.write=+code
 context.acdmy.read=+acdmy or +course
 context.acdmy.write=+acdmy or +course
+
+# Reports
+
+report.book.description=List books
+report.book.columns=project,description.desc,end
+report.book.sort=end-\/,project+
+report.book.filter=status:pending description="Read"
