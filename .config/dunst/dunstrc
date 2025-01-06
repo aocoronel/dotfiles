@@ -2,6 +2,10 @@
 
 [global]
 separator_color = frame
+separator_height = 3
+horizontal_padding = 5
+padding = 5
+corner_radius = 6
 font = Ubuntu 12
 
 [urgency_low]
