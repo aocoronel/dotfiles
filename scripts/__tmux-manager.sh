@@ -35,14 +35,14 @@ DIR_BIND="Ctrl-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -min
 TMUXP_BIND="Ctrl-f:change-prompt(Tmuxp> )+reload(find "$TMUXP_CONFIG" -type f -name '*.yaml')"
 KILL_SESSION_BIND="Ctrl-t:execute(tmux kill-session -t {+})+reload(tmux ls -F '#S')"
 
-RESULT=$(eval $run | fzf --tmux 85% \
+RESULT=$(eval $run | fzf --tmux 88% \
     --bind "$DIR_BIND" \
     --bind "$TMUXP_BIND" \
     --bind "$SESSION_BIND" \
     --bind "$KILL_SESSION_BIND" \
     --header "$HEADER" \
     --prompt "$PROMPT" \
-    --preview-window up:75% \
+    --preview-window up:67% \
     --preview 'if [[ -d {+} ]]; then eza -la {}; elif [[ -f {+} ]]; then bat {1}; else tmux capture-pane -pt {} | tail -n 20; fi'
 )
 
