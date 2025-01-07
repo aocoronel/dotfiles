@@ -15,9 +15,9 @@ config="$SCRIPTS/rsync/rsync-config.txt"
 local="$SCRIPTS/rsync/rsync-local.txt"
 ignore_file="$SCRIPTS/rsync/.ignore.txt"
 
-home_saved=$(find "$HOME" -maxdepth 1 | awk -F"$HOME/" '{print $2}')
-config_saved=$(find "$HOME/.config/" -maxdepth 1 | awk -F"$HOME/.config/" '{print $2}')
-local_saved=$(find "$HOME/.local/share/" -maxdepth 1 | awk -F"$HOME/.local/share/" '{print $2}')
+home_saved=$(fd . -H --max-depth 1 "$HOME" | awk -F"$HOME/" '{print $2}')
+config_saved=$(fd . -H --max-depth 1 "$HOME/.config/" | awk -F"$HOME/.config/" '{print $2}')
+local_saved=$(fd . -H --max-depth 1 "$HOME/.local/share/" | awk -F"$HOME/.local/share/" '{print $2}')
 
 function update() {
   read -p "Choose a directory (home/config/local): " choice
