@@ -23,6 +23,9 @@ case "$1" in
   "f")
     run="find "$TMUXP_CONFIG" -type f -name '*.yaml'"
     ;;
+  "z")
+    run="zoxide query -l"
+    ;;
   "")
     run="tmux ls -F '#S'"
     ;;
@@ -30,13 +33,15 @@ esac
 
 HEADER=" Ctrl-s: Sessions : Ctrl-t: Kill session / Ctrl-d: Directory / Ctrl-f: Tmuxp"
 
-SESSION_BIND="Ctrl-s:change-prompt(Sessions> )+reload(tmux ls -F '#S')"
-DIR_BIND="Ctrl-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d)"
-TMUXP_BIND="Ctrl-f:change-prompt(Tmuxp> )+reload(find "$TMUXP_CONFIG" -type f -name '*.yaml')"
-KILL_SESSION_BIND="Ctrl-t:execute(tmux kill-session -t {+})+reload(tmux ls -F '#S')"
+SESSION_BIND="Alt-s:change-prompt(Sessions> )+reload(tmux ls -F '#S')"
+DIR_BIND="Alt-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d)"
+ZOXIDE_BIND="Alt-z:change-prompt(Zoxide> )+reload(zoxide query -l)"
+TMUXP_BIND="Alt-f:change-prompt(Tmuxp> )+reload(find "$TMUXP_CONFIG" -type f -name '*.yaml')"
+KILL_SESSION_BIND="Alt-k:execute(tmux kill-session -t {+})+reload(tmux ls -F '#S')"
 
 RESULT=$(eval $run | fzf --tmux 88% \
     --bind "$DIR_BIND" \
+    --bind "$ZOXIDE_BIND" \
     --bind "$TMUXP_BIND" \
     --bind "$SESSION_BIND" \
     --bind "$KILL_SESSION_BIND" \
