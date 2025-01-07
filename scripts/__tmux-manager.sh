@@ -38,6 +38,7 @@ DIR_BIND="Alt-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -mind
 ZOXIDE_BIND="Alt-z:change-prompt(Zoxide> )+reload(zoxide query -l)"
 TMUXP_BIND="Alt-f:change-prompt(Tmuxp> )+reload(find "$TMUXP_CONFIG" -type f -name '*.yaml')"
 KILL_SESSION_BIND="Alt-k:execute(tmux kill-session -t {+})+reload(tmux ls -F '#S')"
+TOGGLE_PREVIEW="Alt-p:toggle-preview"
 
 RESULT=$(eval $run | fzf --tmux 88% \
     --bind "$DIR_BIND" \
@@ -45,6 +46,7 @@ RESULT=$(eval $run | fzf --tmux 88% \
     --bind "$TMUXP_BIND" \
     --bind "$SESSION_BIND" \
     --bind "$KILL_SESSION_BIND" \
+    --bind "$TOGGLE_PREVIEW" \
     --header "$HEADER" \
     --prompt "$PROMPT" \
     --preview-window up:67% \
