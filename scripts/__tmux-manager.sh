@@ -20,7 +20,7 @@ case "$1" in
   "d")
     run="find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d"
     ;;
-  "p")
+  "f")
     run="find "$TMUXP_CONFIG" -type f -name '*.yaml'"
     ;;
   "")
