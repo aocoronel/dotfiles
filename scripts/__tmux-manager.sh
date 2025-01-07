@@ -16,6 +16,18 @@ source "$HOME/.env"
 DIRECTORIES=($(cat ~/.tmuxprofile))
 TMUXP_CONFIG="$HOME/.config/tmuxp/"
 
+case "$1" in
+  "d")
+    run="find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d"
+    ;;
+  "p")
+    run="find "$TMUXP_CONFIG" -type f -name '*.yaml'"
+    ;;
+  "")
+    run="tmux ls -F '#S'"
+    ;;
+esac
+
 HEADER=" Ctrl-s: Sessions : Ctrl-t: Kill session / Ctrl-d: Directory / Ctrl-f: Tmuxp"
 
 SESSION_BIND="Ctrl-s:change-prompt(Sessions> )+reload(tmux ls -F '#S')"
@@ -23,8 +35,7 @@ DIR_BIND="Ctrl-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -min
 TMUXP_BIND="Ctrl-f:change-prompt(Tmuxp> )+reload(find "$TMUXP_CONFIG" -type f -name '*.yaml')"
 KILL_SESSION_BIND="Ctrl-t:execute(tmux kill-session -t {+})+reload(tmux ls -F '#S')"
 
-RESULT=$(
-  (tmux ls -F '#S') | fzf --tmux 85% \
+RESULT=$(eval $run | fzf --tmux 85% \
     --bind "$DIR_BIND" \
     --bind "$TMUXP_BIND" \
     --bind "$SESSION_BIND" \
