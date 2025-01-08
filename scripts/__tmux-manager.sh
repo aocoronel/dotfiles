@@ -31,7 +31,7 @@ case "$1" in
     ;;
 esac
 
-HEADER=" A-s: Sessions : A-t: Kill / A-d: Directory / A-f: Tmuxp / A-z: Zoxide / A-p: Preview"
+HEADER=" A-s: Sessions : A-k: Kill / A-d: Directory / A-f: Tmuxp / A-z: Zoxide / A-p: Preview"
 
 SESSION_BIND="Alt-s:change-prompt(Sessions> )+reload(tmux ls -F '#S')"
 DIR_BIND="Alt-d:change-prompt(Directory> )+reload(find "${DIRECTORIES[@]}" -mindepth 1 -maxdepth 1 -type d)"
