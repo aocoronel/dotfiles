@@ -22,3 +22,6 @@ config-kitty:
 # Run install.sh
 install:
   sh "$HOME/dotfiles/install.sh"
+# Install TPM
+config-tmux:
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
