@@ -115,19 +115,31 @@ keys = [
 
 # Group Settings
 
-groups = []
-group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
-group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
+# groups = []
+# group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
+# group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
+
+groups = [
+    Group("1", label="1", matches=[Match(wm_class="zen")]),
+    Group("2", label="2"),
+    Group("3", label="3", matches=[Match(wm_class="obsidian"), Match(wm_class="neovide")]),
+    Group("4", label="4"),
+    Group("5", label="5"),
+    Group("6", label="6"),
+    Group("7", label="7"),
+    Group("8", label="8"),
+    Group("9", label="9", matches=[Match(wm_class="freetube")]),
+]
 
 group_layouts = ["columns", "columns", "columns", "columns", "columns", "columns", "columns", "columns", "columns"]
 
-for i in range(len(group_names)):
-    groups.append(
-        Group(
-            name=group_names[i],
-            layout=group_layouts[i].lower(),
-            label=group_labels[i],
-        ))
+# for i in range(len(group_names)):
+#     groups.append(
+#         Group(
+#             name=group_names[i],
+#             layout=group_layouts[i].lower(),
+#             label=group_labels[i],
+#         ))
 
 for i in groups:
     keys.extend(
