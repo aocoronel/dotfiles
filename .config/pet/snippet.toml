@@ -1,0 +1,21 @@
+
+[[Snippets]]
+  Description = "Extract audio from video"
+  Filename = "/home/aocoronel/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["multimedia"]
+  command = "ffmpeg -i 1 -vn 2"
+
+[[Snippets]]
+  Description = "Convert audio/video"
+  Filename = "/home/aocoronel/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["multimedia"]
+  command = "ffmpeg -i 1 2"
+
+[[Snippets]]
+  Description = "Compress video size"
+  Filename = "/home/aocoronel/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["multimedia"]
+  command = "ffmpeg -i 1 -vcodec libx265 -crf 2"
