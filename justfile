@@ -25,3 +25,8 @@ install:
 # Install TPM
 config-tmux:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Install Media Watcher for Activity Watch
+config-aw-media:
+  git clone https://github.com/2e3s/aw-watcher-media-player.git
+  cd aw-watcher-media-player
+  sudo unzip -j aw-watcher-media-player-linux.zip aw-watcher-media-player -d /usr/local/bin
