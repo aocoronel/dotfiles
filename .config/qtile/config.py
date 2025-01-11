@@ -120,7 +120,7 @@ keys = [
 # group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
 
 groups = [
-    Group("1", label="1", matches=[Match(wm_class="zen")]),
+    Group("1", label="1", matches=[Match(wm_class="zen-beta")]),
     Group("2", label="2"),
     Group("3", label="3", matches=[Match(wm_class="obsidian"), Match(wm_class="neovide")]),
     Group("4", label="4"),
