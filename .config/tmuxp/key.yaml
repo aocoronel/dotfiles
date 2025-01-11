@@ -1,9 +1,10 @@
-session_name: 'key'
+session_name: key
 windows:
 - focus: 'true'
-  layout: c240,151x36,0,0,3
+  layout: 3793,151x36,0,0[151x18,0,0,7,151x17,0,19,8]
   options: {}
   panes:
   - sxhkd &
-  start_directory: /home/aocoronel
+  - aw-qt &
+  start_directory: /home/aocoronel/dotfiles/.config/tmuxp
   window_name: zsh
