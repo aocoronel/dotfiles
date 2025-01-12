@@ -52,12 +52,18 @@ function nvim_daily() {
   kitty -e nvim "$OBSIDIAN/OUROBOROS/$folder/$daily".md
 }
 
+function neovide_daily() {
+  neovide "$OBSIDIAN/OUROBOROS/$folder/$daily".md
+}
+
 function rofi_select() {
-  select=$(echo -e "nvim\nobsidian" | rofi -dmenu)
+  select=$(echo -e "obsidian\nneovim\nneovide" | rofi -dmenu)
   if [ "$select" = "nvim" ]; then
     nvim_daily
   elif [ "$select" = "obsidian" ]; then
     obsidian_daily
+  elif [ "$select" = "neovide" ]; then
+    neovide_daily
   else
     notify-send -u normal "An error occurred!"
   fi
@@ -80,6 +86,10 @@ while [[ "$1" != "" ]]; do
             exit 0
             ;;
         -n | --nvim)
+             nvim_daily
+             exit 0
+            ;;
+        -ne | --neovide)
              nvim_daily
              exit 0
             ;;
