@@ -6,5 +6,4 @@ windows:
   panes:
   - sxhkd &
   - aw-qt &
-  start_directory: /home/aocoronel/dotfiles/.config/tmuxp
   window_name: zsh
