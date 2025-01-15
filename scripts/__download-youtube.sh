@@ -25,11 +25,13 @@ function clip() {
 }
 
 function audio() {
+  URL=$(xclip -o)
   yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
   exit 0
 }
 
 function video() {
+  URL=$(xclip -o)
   yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
   exit 0
 }
@@ -47,7 +49,6 @@ fi
 while [[ "$1" != "" ]]; do
     case "$1" in
         -a | --audio)
-            URL=$2
             download
             shift 2
             ;;
@@ -57,7 +58,6 @@ while [[ "$1" != "" ]]; do
             shift 2
             ;;
         -v | --video)
-            URL=$2
             video
             shift 2
             ;;
