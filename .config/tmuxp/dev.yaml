@@ -1,0 +1,7 @@
+session_name: 'dev'
+windows:
+- focus: 'true'
+  options: {}
+  panes:
+  - ranger $DEV
+  window_name: zsh
