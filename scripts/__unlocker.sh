@@ -26,3 +26,5 @@ function unlock() {
   sleep 1
   exit 0
 }
+
+unlock
