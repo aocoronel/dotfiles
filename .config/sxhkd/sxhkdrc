@@ -34,8 +34,8 @@ super + d; {p,t}
   {__passmenu-rofi.sh,__passmenu-otp.sh}
 
 # Call
-super + c; {c,n,shift + n,o,h,p,r,f,d}
-  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,./beelzebub/Pandora/applications/app-freetube.AppImage}
+super + c; {c,n,shift + n,o,h,p,r,f}
+  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,__app-opener.sh f}
 
 super + y
   __download-youtube.sh -c
