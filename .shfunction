@@ -19,3 +19,9 @@ function tp() {
     tmuxp load "$select"
   fi
 }
+
+function cr() {
+  export repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
+
+  [[ -n "$repo" ]] && cd "$repo" || exit
+}
