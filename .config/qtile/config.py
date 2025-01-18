@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 
 # Binaries
 
-term = "kitty"
+term = "ghostty"
 
 # Functions
 

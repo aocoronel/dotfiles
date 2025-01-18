@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-essentials="rsync gocryptfs pass pass-otp gvfs mtpfs gvfs-mtp tmux ffmpeg polkit udiskie udisks2 fuse2 kitty mpv fastfetch onefetch unzip zip python-psutil ranger picom scrcpy lynx ddgr nsxiv bpytop direnv eza fd fzf github-cli gnome-keyring networkmanager-openvpn tldr man xwallpaper lazygit task taskwarrior-tui zoxide ripgrep xclip bat cmatrix figlet tmuxp cmus gitleaks moreutils redshift python-mutagen atomicparsley yt-dlp newsboat sxhkd navi imagemagick just less openssl-1.1 neomutt syncthing rustup zsh neovim"
+essentials="rsync gocryptfs pass pass-otp gvfs mtpfs gvfs-mtp tmux ffmpeg polkit udiskie udisks2 fuse2 mpv fastfetch onefetch unzip zip python-psutil ranger picom scrcpy lynx ddgr nsxiv bpytop direnv eza fd fzf github-cli gnome-keyring networkmanager-openvpn tldr man xwallpaper lazygit task taskwarrior-tui zoxide ripgrep xclip bat cmatrix figlet tmuxp cmus gitleaks moreutils redshift python-mutagen atomicparsley yt-dlp newsboat sxhkd navi imagemagick just less openssl-1.1 neomutt syncthing rustup zsh neovim ueberzug ghostty"
 graphical="seahorse obsidian libreoffice-fresh shotcut handbrake flameshot gnome-disk-utility obs-studio gimp rofi dmenu dunst neovide"
 lsp="luarocks"
 tor="tor nyx"
