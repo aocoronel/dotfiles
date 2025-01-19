@@ -8,11 +8,12 @@ super + g;
 
 # Browser
 super + F1;
+  zen-browser
   zen-browser -P
 
 # Explorer
 super + e;
-  kitty -e ranger
+  ghostty -e ranger
 
 # Rofi run
 super + r;

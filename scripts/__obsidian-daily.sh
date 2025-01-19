@@ -49,7 +49,7 @@ function obsidian_daily() {
 }
 
 function nvim_daily() {
-  kitty -e nvim "$OBSIDIAN/OUROBOROS/$folder/$daily".md
+  ghostty -e nvim "$OBSIDIAN/OUROBOROS/$folder/$daily".md
 }
 
 function neovide_daily() {

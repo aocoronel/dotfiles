@@ -20,7 +20,7 @@ function open_nvim() {
   if [ "$select" = "" ]; then
     exit 0
   fi
-  kitty -e nvim "$workspace/$select.md"
+  ghostty -e nvim "$workspace/$select.md"
 }
 
 function open_obsidian() {
