@@ -30,3 +30,9 @@ config-aw-media:
   git clone https://github.com/2e3s/aw-watcher-media-player.git
   cd aw-watcher-media-player
   sudo unzip -j aw-watcher-media-player-linux.zip aw-watcher-media-player -d /usr/local/bin
+# Fix Arch Linux Keyring if downloaded packages retrieve a gpg corrupt signature
+fix-keyring:
+  sudo rm -R /etc/pacman.d/gnupg/
+  sudo rm -R /root/.gnupg/
+  gpg --refresh-keys
+  sudo pacman-key --init && sudo pacman-key --populate archlinux
