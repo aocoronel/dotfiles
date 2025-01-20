@@ -40,6 +40,12 @@ keybind = alt+7=unbind
 keybind = alt+8=unbind
 keybind = alt+9=unbind
 
+# Scrolling
+# Does not work in tmux
+
+keybind = ctrl+k=scroll_page_up
+keybind = ctrl+j=scroll_page_down
+
 ######################################
 #          Elegant Vagrant           #
 ######################################
