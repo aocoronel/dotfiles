@@ -19,3 +19,10 @@
   Output = ""
   Tag = ["multimedia"]
   command = "ffmpeg -i 1 -vcodec libx265 -crf 2"
+
+[[Snippets]]
+  Description = "Remove all metadata from files in the current directory"
+  Filename = "/home/aocoronel/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["metadata"]
+  command = "exiftool -ALL= ."
