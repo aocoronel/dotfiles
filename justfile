@@ -36,3 +36,7 @@ fix-keyring:
   sudo rm -R /root/.gnupg/
   gpg --refresh-keys
   sudo pacman-key --init && sudo pacman-key --populate archlinux
+# Add Python packages
+pip-extra:
+  pipx install bandcamp-dl
+  pipx install md2anki
