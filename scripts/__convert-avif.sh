@@ -1,8 +1,9 @@
 #!/bin/env bash
 
-sizebefore=$(du -ms | awk '{print $1}')
+sizebefore_mb=$(du -ms | awk '{print $1}')
+sizebefore_kb=$(du -ks | awk '{print $1}')
 
-imageformats=("jpg" "png" "webp")
+imageformats=("jpg" "png" "webp" "jpeg")
 
 for format in "${imageformats[@]}"; do
     find . -type f -iname "*.$format" | while read -r image_file; do
@@ -16,6 +17,14 @@ for format in "${imageformats[@]}"; do
     done
 done
 
-sizeafter=$(du -ms | awk '{print $1}')
-declare -i A=("$sizebefore"-"$sizeafter")
-echo "$A" MB have been freed!
+sizeafter_mb=$(du -ms | awk '{print $1}')
+sizeafter_kb=$(du -ks | awk '{print $1}')
+
+declare -i A=("$sizebefore_mb"-"$sizeafter_mb")
+declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
+
+if [ "$A" -eq 0 ]; then
+  echo "$B" KB have been freed!
+else
+  echo "$A" MB have been freed!
+fi
