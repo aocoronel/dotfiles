@@ -4,16 +4,16 @@ hostname="$(hostnamectl hostname)"
 now="$(date +%Y-%d-%H%M)"
 
 function get_drives() {
-sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
-if [ -z "$sourcedrive" ]; then
-  echo "No source directory chosen!"
-  exit 1
-fi
-destdrive=$(ls /mnt/ | fzf --prompt "Choose dest directory: " --preview 'eza -l /mnt/{}')
-if [ -z "$destdrive" ]; then
-  echo "No dest directory chosen!"
-  exit 1
-fi
+  sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
+  if [ -z "$sourcedrive" ]; then
+    echo "No source directory chosen!"
+    exit 1
+  fi
+  destdrive=$(ls /mnt/ | fzf --prompt "Choose dest directory: " --preview 'eza -l /mnt/{}')
+  if [ -z "$destdrive" ]; then
+    echo "No dest directory chosen!"
+    exit 1
+  fi
 }
 
 function check_borg() {
@@ -35,15 +35,16 @@ function sync_external() {
     echo "The beelzebub directory have been selected as destdrive"
     exit 0
   else
-    rsync -av --delete /mnt/"$sourcedrive/" /mnt/"$destdrive/"
+    sudo rsync --progress -avh --delete /mnt/"$sourcedrive/" /mnt/"$destdrive/"
+    sudo chown -R $USER:$USER /mnt/"$destdrive/"
   fi
 }
 
 function run_borg() {
-  borg create --stats --progress /mnt/"$sourcedrive"/::"$hostname"-"$now" "$destdrive"/
+  borg create --stats --progress /mnt/"$sourcedrive/"::"$hostname"-"$now" "$destdrive/"
 }
 
- function help() {
+function help() {
 cat << EOF
 Sync Tool for External Drives
 Usage: $0 [option]
