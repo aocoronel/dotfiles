@@ -37,9 +37,13 @@ case "$1" in
   "export-gpg")
     gpg_export
     ;;
+  "import-gpg")
+    gpg_import
+    ;;
   "")
     echo "Available options:"
     echo "export                    - Export gpg keys and pass, encrypts over openssl"
     echo "import                    - Import gpg keys and pass"
-    echo "export-gpg                - Exports only gpg keys"
+    echo "export-gpg                - Export only gpg keys"
+    echo "import-gpg                - Import only gpg keys"
 esac
