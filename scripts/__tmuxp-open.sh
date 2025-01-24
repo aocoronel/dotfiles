@@ -5,10 +5,10 @@ function tp() {
   select=$(echo "$session" | rofi -dmenu)
   if [[ -n "$select" ]]; then
     if tmux has-session -t "$select"; then
-      ghostty -e tmux attach-session -t "$select"
+      $TERM -e tmux attach-session -t "$select"
     else
       tmuxp load "$select" -d
-      ghostty -e tmux attach-session -t "$select"
+      $TERM -e tmux attach-session -t "$select"
     fi
   fi
 }
