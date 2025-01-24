@@ -8,6 +8,7 @@ function check_player() {
     cmus-remote -p
   else
     echo "Cmus isn't playing or paused"
+    notify-send -u normal "Cmus isn't playing or paused"
   fi
 }
 
