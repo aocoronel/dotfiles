@@ -1,8 +1,9 @@
 #!/bin/env bash
 
-sizebefore=$(du -ms | awk '{print $1}')
+sizebefore_mb=$(du -ms | awk '{print $1}')
+sizebefore_kb=$(du -ks | awk '{print $1}')
 
-videoformats=("mkv" "webm" "m4a")
+videoformats=("mkv" "webm" "m4v" "mpeg" "ogv" "avi" "mov")
 
 for format in "${videoformats[@]}"; do
     find . -type f -iname "*.$format" | while read -r video_file; do
@@ -16,6 +17,14 @@ for format in "${videoformats[@]}"; do
     done
 done
 
-sizeafter=$(du -ms | awk '{print $1}')
-declare -i A=("$sizebefore"-"$sizeafter")
-echo "$A" MB have been freed!
+sizeafter_mb=$(du -ms | awk '{print $1}')
+sizeafter_kb=$(du -ks | awk '{print $1}')
+
+declare -i A=("$sizebefore_mb"-"$sizeafter_mb")
+declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
+
+if [ "$A" -eq 0 ]; then
+  echo "$B" KB have been freed!
+else
+  echo "$A" MB have been freed!
+fi
