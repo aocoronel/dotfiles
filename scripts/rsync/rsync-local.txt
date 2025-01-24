@@ -1,5 +1,0 @@
-Anki2/
-icons/
-keyrings/
-mime/
-ranger/
