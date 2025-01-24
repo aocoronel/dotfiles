@@ -61,6 +61,7 @@ function all() {
       echo "Everything is up to date in $dir!"
     else
       echo "Unsynced files in $dir:"
+      echo ""
       echo "$unsynced_files"
     fi
   done
