@@ -12,7 +12,7 @@ available options:
 eof
 }
 
-function clip() {
+function audio() {
   URL=$(xclip -o)
   title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
   yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
@@ -24,20 +24,28 @@ function clip() {
   exit 0
 }
 
-function audio() {
-  URL=$(xclip -o)
-  yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
-  exit 0
-}
-
 function video() {
   URL=$(xclip -o)
+  title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
   yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  if [ "$?" -eq 0 ]; then
+    notify-send -u normal "$title downloaded"
+  else
+    notify-send -u normal "An error occurred!"
+  fi
   exit 0
 }
 
 function batch() {
-  yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' -a "$file"
+  echo "Downloading from file $file as $format"
+  if [ "$format" = "video" ]; then
+    yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+  elif [ "$format" = "audio" ]; then
+    yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' -a "$file"
+  else
+    echo "Please choose audio or video, for the file format"
+  fi
+  exit 0
 }
 
 if [ "$#" -eq 0 ]; then
@@ -49,20 +57,15 @@ fi
 while [[ "$1" != "" ]]; do
     case "$1" in
         -a | --audio)
-            download
-            shift 2
+            audio
             ;;
         -b | --batch)
             file=$2
+            format=$3
             batch
-            shift 2
             ;;
         -v | --video)
             video
-            shift 2
-            ;;
-        -c | --clip)
-            clip
             ;;
     esac
 done
