@@ -2,23 +2,12 @@
 
 cd "$APPS"
 
-case "$1" in
-  "y")
-    ./app-freetube.AppImage
-    ;;
-  "df")
-    ./app-desktop-filen.AppImage
-    ;;
-  "cf")
-    ./app-cli-filen.AppImage
-    ;;
-  "e")
-    ./app-ente.AppImage
-    ;;
-  "a")
-    ./anki/anki
-    ;;
-  "z")
-    ./Zotero_linux-x86_65/zotero
-    ;;
-esac
+choice=$(find . -type f -iname "*.AppImage" | rofi -dmenu)
+
+if [ "$choice" = "anki" ]; then
+  ./anki/anki
+elif [ "$choice" = "zotero" ]; then
+  ./Zotero_linux-x86_64/zotero
+else
+  ./"$choice"
+fi
