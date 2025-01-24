@@ -8,6 +8,10 @@ function help() {
   echo "Available options:"
   echo "all                      - Looks for unsynced files in all folders"
   echo "help                     - Displays this message and exits"
+  echo ""
+  echo "Four configuration files can be used: .ignore.txt, rsync-home.txt, rsync-config.txt and rsync-local.txt"
+  echo "rsync-*: Acts as a whitelist"
+  echo ".ignore: Acts like .gitignore"
 }
 
 home="$SCRIPTS/rsync/rsync-home.txt"
