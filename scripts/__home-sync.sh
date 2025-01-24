@@ -21,4 +21,7 @@ case "$1" in
   "root")
     rsync_root
     ;;
+  "")
+    echo "Options: base, root"
+    ;;
 esac
