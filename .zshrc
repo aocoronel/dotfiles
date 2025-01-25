@@ -65,12 +65,6 @@ zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --style=numbers $realpath'
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
-# Message of the day (MOTD)
-
-if [ -f "$HOME/motd.sh" ]; then
-  sh "$HOME/motd.sh"
-fi
-
 # Pet
 
 function pet-select() {
