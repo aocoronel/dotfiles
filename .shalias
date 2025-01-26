@@ -20,6 +20,7 @@ alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
 alias lynx="lynx -cookies"
 alias vidir="vidir --verbose"
 alias rr="ranger"
+alias rn="ranger .local/share/navi/cheats/"
 
 # Pacman
 
