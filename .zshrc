@@ -32,6 +32,7 @@ source "$HOME/.shfunction"           # Functions
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(navi widget zsh)"
 # eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
 eval "$(direnv hook zsh)"
@@ -64,15 +65,3 @@ zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --style=numbers $realpath'
 
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-
-# Pet
-
-function pet-select() {
-  BUFFER=$(pet search --query "$LBUFFER")
-  CURSOR=$#BUFFER
-  zle redisplay
-}
-
-zle -N pet-select
-stty -ixon
-bindkey '^s' pet-select
