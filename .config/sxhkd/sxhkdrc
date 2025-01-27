@@ -20,16 +20,18 @@ super + r;
   rofi -modes drun,run -show run
 
 # Obsidian Quick Switcher
-
 super + o
   __rofi-obsidian.sh o
 
+# Obsidian Quick Switcher for neovim
 super + shift + o
   __rofi-obsidian.sh n
 
+# DuckDuckGo
 super + ctrl + o
   rofi -lines 5 -eh 2 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"
 
+# Switch Obsidian Workspace
 super + control + o
   __switch-workspace.sh
 
@@ -41,5 +43,10 @@ super + d; {p,t}
 super + c; {c,n,shift + n,o,h,p,r,f}
   {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,__app-opener.sh}
 
+# Calc
+super + shift + c
+  rofi -show calc -modi calc -no-show-match -no-sort > /dev/null
+
+# Quick Audio Download
 super + y
   __download-youtube.sh -a
