@@ -25,3 +25,19 @@ function cr() {
 
   [[ -n "$repo" ]] && cd "$repo" || exit
 }
+
+# Task Done In Day
+function tskd() {
+  year=$1
+  month=$2
+  day=$3
+  date="$year-$month-$day"
+  next_day=$(date -d "$date + 1 day" '+%F')
+  task end.after:$date and end.before:$next_day completed
+}
+
+# Task Done Today
+function tskt() {
+  date=$(date +%F)
+  task end.after:$date completed
+}
