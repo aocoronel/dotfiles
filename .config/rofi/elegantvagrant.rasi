@@ -14,7 +14,7 @@
     faintgrey:                       rgba ( 122, 122, 122, 100 % );
     green:                       rgba ( 2, 247, 137, 100% );
     grey1:                       rgba ( 28, 31, 36, 100% );
-    grey2:                       rgba ( 20, 20, 20, 100 % );
+    grey2:                       rgba ( 21, 20, 20, 100 % );
     grey3:                       rgba ( 28, 28, 31, 100 % );
     pink1:                       rgba ( 252, 15, 153, 100% );
     pink2:                       rgba ( 240, 103, 252, 100% );
@@ -75,11 +75,12 @@ mainbox {
     border:           0.3;
     spacing:          10;
     padding:          0;
-    children:         [ "inputbar", "listview" ];
+    children:         [ "inputbar", "message", "listview" ];
 }
 message {
     background-color: @background;
-    border-color:     @separatorcolor;
+    padding:          0px;
+    margin:           0px;
 }
 textbox {
     text-color:       @foreground;
