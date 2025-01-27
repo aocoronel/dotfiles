@@ -27,6 +27,9 @@ super + o
 super + shift + o
   __rofi-obsidian.sh n
 
+super + ctrl + o
+  rofi -lines 5 -eh 2 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"
+
 super + control + o
   __switch-workspace.sh
 
