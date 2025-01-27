@@ -2,9 +2,18 @@
 
 set -eo pipefail
 
-essentials="rsync gocryptfs pass pass-otp gvfs mtpfs gvfs-mtp tmux ffmpeg polkit udiskie udisks2 fuse2 mpv fastfetch onefetch unzip zip python-psutil ranger picom scrcpy lynx ddgr nsxiv bpytop direnv eza fd fzf github-cli gnome-keyring networkmanager-openvpn tldr man xwallpaper lazygit task taskwarrior-tui zoxide ripgrep xclip bat cmatrix figlet tmuxp cmus gitleaks moreutils redshift python-mutagen atomicparsley yt-dlp newsboat sxhkd navi imagemagick just less openssl-1.1 neomutt syncthing rustup zsh neovim ueberzug ghostty npm"
-graphical="seahorse obsidian libreoffice-fresh shotcut flameshot gnome-disk-utility obs-studio gimp rofi dmenu dunst neovide"
-lsp="luarocks"
+# Pacman Packages
+
+essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh sxhkd redshift ueberzugpp gnome-keyring"
+
+cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man xwallpaper lazygit task taskwarrior-tui zoxide ripgrep xclip bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
+graphical="seahorse obsidian libreoffice-fresh shotcut flameshot gnome-disk-utility obs-studio gimp dmenu dunst neovide ghostty picom scrcpy nsxiv rofi-calc rofi networkmanager-openvpn"
+
+tts="rhvoice rhvoice-language-english rhvoice-voice-lyubov"
+
+lang="rustup npm luarocks"
+python="python-pipx python-psutil python-mutagen python-pillow"
+
 tor="tor nyx"
 
 user=$(whoami)
@@ -61,11 +70,11 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $graphical $tor $lsp
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor
 
 echo "→ install AUR packages"
 
-yay -S qtile-extras pet-bin buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy
+yay -S qtile-extras buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy activitywatch-bin
 
 echo "→ setting up syncthing"
 
