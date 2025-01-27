@@ -1,6 +1,6 @@
 # Tmux Session Manager
-super + s; {o,c,g,p,y,f}
-  {__tmuxp-open.sh,__tmuxp-close.sh,buku_run,__pomodoro.sh,__app-opener.sh y,__app-opener e}
+super + s; {o,c,g,p}
+  {__tmuxp-open.sh,__tmuxp-close.sh,buku_run,__pomodoro.sh}
 
 # Screenshooter
 super + g;
@@ -35,8 +35,8 @@ super + d; {p,t}
   {__passmenu-rofi.sh,__passmenu-otp.sh}
 
 # Call
-super + c; {c,n,shift + n,o,h,p,r}
-  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs}
+super + c; {c,n,shift + n,o,h,p,r,f}
+  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,__app-opener.sh}
 
 super + y
-  __download-youtube.sh -c
+  __download-youtube.sh -a
