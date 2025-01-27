@@ -1,8 +1,12 @@
-
-session_name: cmus
+session_name: 'cmus'
 windows:
-- window_name: cmus
-  layout: tiled
+- layout: bfe0,74x35,0,0[74x17,0,0,8,74x17,0,18,16]
+  options: {}
   panes:
-    - cmus
-    - cava
+  - cmus
+  - shell_command: cava
+  window_name: ranger
+- layout: ba26,74x35,0,0,9
+  options: {}
+  panes:
+  - shell_command: ranger $MUSIC
