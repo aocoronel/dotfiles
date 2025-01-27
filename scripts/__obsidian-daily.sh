@@ -12,7 +12,7 @@ Available options:
 EOF
 }
 
-folder=Journals/Daily/
+folder="$OBSIDIAN/OUROBOROS/Journals/Daily/"
 
 Year=$(date +%Y)
 Month=$(date +%B)
@@ -49,16 +49,18 @@ function obsidian_daily() {
 }
 
 function nvim_daily() {
-  ghostty -e nvim "$OBSIDIAN/OUROBOROS/$folder/$daily".md
+  daily=$(echo "${Month}\ ${Day}${OrdinalSuffix},\ ${Year}")
+  ghostty -e nvim "$folder/$daily".md
 }
 
 function neovide_daily() {
-  neovide "$OBSIDIAN/OUROBOROS/$folder/$daily".md
+  daily=$(echo "${Month} ${Day}${OrdinalSuffix}, ${Year}")
+  neovide "$folder/$daily".md
 }
 
 function rofi_select() {
   select=$(echo -e "obsidian\nneovim\nneovide" | rofi -dmenu)
-  if [ "$select" = "nvim" ]; then
+  if [ "$select" = "neovim" ]; then
     nvim_daily
   elif [ "$select" = "obsidian" ]; then
     obsidian_daily
