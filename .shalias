@@ -4,7 +4,8 @@
 
 alias ls='eza --color=auto --group-directories-first'
 alias cat='bat'
-alias nv='nvim'
+alias v='nvim'
+alias nv='navi'
 alias vim='nvim'
 alias sxh='nvim $HOME/.config/sxhkd/sxhkdrc'
 alias sxhd="$HOME/scripts/__restart-sxhkd.sh"
