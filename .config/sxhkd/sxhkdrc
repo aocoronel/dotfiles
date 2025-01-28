@@ -28,7 +28,7 @@ super + shift + o
   __rofi-obsidian.sh n
 
 # DuckDuckGo
-super + ctrl + o
+super + shift + y
   rofi -lines 5 -eh 2 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"
 
 # Switch Obsidian Workspace
