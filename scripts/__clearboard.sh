@@ -3,10 +3,11 @@
 clipmethod=$(echo "$XDG_SESSION_TYPE")
 
 function clearboard() {
-  dunstctl close-all
   if [ "$clipmethod" = "x11" ]; then
+    dunstctl close-all
     echo "" | xclip -sel clip
-  else
+  elif [ "$clipmethod" = "wayland" ]; then
+    cliphist wipe
     echo "" | wl-copy
   fi
 }
