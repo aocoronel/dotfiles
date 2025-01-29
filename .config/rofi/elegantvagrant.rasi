@@ -64,7 +64,7 @@
 }
 window {
     background-color: @background;
-    border:           2;
+    border:           4;
     border-color:     @darkpurple;
     border-radius:    12;
     padding:          12;
