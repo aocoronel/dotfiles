@@ -1,5 +1,9 @@
 #!/bin/env bash
 
+if [ -z "$APPS" ]; then
+  source "$HOME/.env"
+fi
+
 cd "$APPS"
 
 choice=$(find . -type f -iname "*.AppImage" | rofi -dmenu)

@@ -11,6 +11,10 @@ n                               - Open note in nvim
 EOF
 }
 
+if [ -z "$OBSIDIAN" ]; then
+  source "$HOME/.env"
+fi
+
 workspace=$(cat "$HOME/.config/obsidian-workspace.conf")
 workspace_name=$(echo "$workspace" | awk -F '/' '{print $7}')
 

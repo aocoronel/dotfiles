@@ -12,6 +12,10 @@ Available options:
 EOF
 }
 
+if [ -z "$OBSIDIAN"];then
+  source "$HOME/.env"
+fi
+
 folder="$OBSIDIAN/OUROBOROS/Journals/Daily/"
 
 daily=$(date +%F)
