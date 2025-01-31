@@ -1,32 +1,45 @@
 #!/usr/bin/env bash
 
-while read file
-do
-    case "$1" in
-        "c") 
-            xclip -selection clipboard -target image/png "$file" &&
-            notify-send "$file has been copied!" && exit 0
-        ;;
-        "d")
-            zenity --question --text="Really delete $file?"
-            if [ $? -ne 1 ]; then
-              rm "$file" && notify-send "$file deleted."
-            fi
-        ;;
-        "g")
-            gimp "$file"
-        ;;
-        "i")
-            notify-send "File information" \
-            "$(mediainfo "$file" | tr -s ' ' | grep -v CompleteName_Last)"
-        ;;
-        "x") 
-            xwallpaper --zoom "$file" &&
-            filename=$HOME/.config/wall
-            if [ ! -f $filename ]; then
-                touch $filename
-            fi
-            echo "$file" > $HOME/.config/wall && exit
-        ;;
-        esac
+display=$(echo "$XDG_SESSION_TYPE")
+
+while read file; do
+	case "$1" in
+	"c")
+		if [ "$display" = "wayland" ]; then
+			wl-copy "$file" hyprpaper wallpaper ", $file"
+		elif [ "$display" = "x11" ]; then
+			xclip -selection clipboard -target image/png "$file"
+		fi
+		notify-send "$file has been copied!" && exit 0
+		;;
+	"d")
+		choice=$(echo -e "y\nn" | rofi -dmenu)
+		if [ "$choice" = "y" ]; then
+			rm "$file" && notify-send "$file deleted."
+		fi
+		;;
+	"g")
+		gimp "$file"
+		;;
+	"s")
+		satty "$file"
+		;;
+	"i")
+		notify-send "File information" \
+			"$(mediainfo "$file" | tr -s ' ' | grep -v CompleteName_Last)"
+		;;
+	"x")
+		if [ "$display" = "wayland" ]; then
+			hyprctl hyprpaper preload "$file"
+			hyprctl hyprpaper wallpaper ", $file"
+		elif [ "$display" = "x11" ]; then
+			xwallpaper --zoom "$file"
+			filename=$HOME/.config/wall
+			if [ ! -f $filename ]; then
+				touch $filename
+			fi
+			echo "$file" >$HOME/.config/wall && exit
+		fi
+		;;
+	esac
 done
