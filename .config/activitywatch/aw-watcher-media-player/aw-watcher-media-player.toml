@@ -1,5 +1,0 @@
-port = 5600
-host = "localhost"
-poll_time = 5
-include_players = ["mpv", "cmus", "freetube"]
-exclude_players = ["zen-beta"]
