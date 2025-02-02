@@ -6,7 +6,7 @@ while read file; do
 	case "$1" in
 	"c")
 		if [ "$display" = "wayland" ]; then
-			wl-copy "$file" hyprpaper wallpaper ", $file"
+			wl-copy "$file"
 		elif [ "$display" = "x11" ]; then
 			xclip -selection clipboard -target image/png "$file"
 		fi
@@ -30,16 +30,16 @@ while read file; do
 		;;
 	"x")
 		if [ "$display" = "wayland" ]; then
-			hyprctl hyprpaper preload "$file"
-			hyprctl hyprpaper wallpaper ", $file"
+			swww img --transition-type=fade "$file"
 		elif [ "$display" = "x11" ]; then
 			xwallpaper --zoom "$file"
 			filename=$HOME/.config/wall
-			if [ ! -f $filename ]; then
-				touch $filename
-			fi
-			echo "$file" >$HOME/.config/wall && exit
 		fi
+		if [ ! -f $filename ]; then
+			touch $filename
+		fi
+		path=$(pwd)
+		echo "$path/$file" >$HOME/.config/wall && exit
 		;;
 	esac
 done
