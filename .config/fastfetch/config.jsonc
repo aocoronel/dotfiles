@@ -1,0 +1,92 @@
+{
+  "logo": {
+    "source": "$(find \"${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/imgs/\" -name \"*.png\" | sort -R | head -1)",
+    "height": 15
+  },
+  "display": {
+    "separator": " : "
+  },
+  "modules": [
+    {
+      "type": "title",
+      "key": "   User",
+      "keyColor": "97"
+    },
+    {
+      "type": "custom",
+      "format": "┌────────────────────────────────────────────────┐"
+    },
+    {
+      "type": "os",
+      "key": "   OS",
+      "keyColor": "94"
+    },
+    {
+      "type": "kernel",
+      "key": "   Kernel",
+      "keyColor": "91"
+    },
+    {
+      "type": "packages",
+      "key": "  󰏖 Packages",
+      "keyColor": "32"
+    },
+    {
+      "type": "terminal",
+      "key": "   Terminal",
+      "keyColor": "93"
+    },
+    {
+      "type": "wm",
+      "key": "  󱂬 WM",
+      "keyColor": "96"
+    },
+    {
+      "type": "uptime",
+      "key": "  󰅐 Uptime",
+      "keyColor": "92"
+    },
+    {
+      "type": "command",
+      "key": "  󱦟 OS Age ",
+      "keyColor": "95",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); days_with_addition=$((days_difference + 422)); echo $days_with_addition days"
+    },
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘"
+    },
+    {
+      "type": "custom",
+      "format": "┌────────────────────────────────────────────────┐"
+    },
+    {
+      "type": "cpu",
+      "format": "{1}",
+      "key": "   CPU",
+      "keyColor": "95"
+    },
+    {
+      "type": "gpu",
+      "format": "{3}",
+      "key": "   GPU Driver",
+      "keyColor": "94"
+    },
+    {
+      "type": "memory",
+      "key": "  󰍛 Memory",
+      "keyColor": "91"
+    },
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "colors",
+      "paddingLeft": 2,
+      "symbol": "circle"
+    },
+    "break"
+  ]
+}
