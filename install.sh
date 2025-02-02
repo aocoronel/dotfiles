@@ -4,10 +4,14 @@ set -eo pipefail
 
 # Pacman Packages
 
-essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh sxhkd redshift ueberzugpp gnome-keyring"
+bluetooth="blueberry gnome-bluetooth-3.0"
+xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv"
+wayland="waybar hyprland hyprlang hyprsunset hyprlock hypridle hyprctl cliphist jq xdg-desktop-portal-hyprland cmake meson cpio pkg-config hyprpolkitagent swww hyprpicker wlogout wl-clipboard wf-recorder"
 
-cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man xwallpaper lazygit task taskwarrior-tui zoxide ripgrep xclip bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
-graphical="seahorse obsidian libreoffice-fresh shotcut flameshot gnome-disk-utility obs-studio gimp dmenu dunst neovide ghostty picom scrcpy nsxiv rofi-calc rofi networkmanager-openvpn"
+essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh ueberzugpp gnome-keyring playerctl ydotool brightnessctl"
+
+cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man lazygit task taskwarrior-tui zoxide ripgrep bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
+graphical="seahorse obsidian libreoffice-fresh shotcut gnome-disk-utility obs-studio gimp dmenu dunst neovide kitty foot picom scrcpy rofi-calc rofi networkmanager-openvpn fuzzel swayimg grim slurp satty pavucontrol"
 
 tts="rhvoice rhvoice-language-english rhvoice-voice-lyubov"
 
@@ -70,11 +74,11 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland
 
 echo "→ install AUR packages"
 
-yay -S qtile-extras buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy activitywatch-bin
+yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin
 
 echo "→ setting up syncthing"
 
@@ -106,7 +110,4 @@ echo "You may now reboot to apply some packages and fonts"
 
 echo "→ How to apply final configurations"
 
-echo "just config-picom"
-echo "just config-posh"
-echo "just config-kitty"
-echo "just config-udiskie"
+echo "Run: just"
