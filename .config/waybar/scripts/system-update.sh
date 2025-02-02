@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# Author: Jesse Mirabel (@sejjy)
+# GitHub: https://github.com/sejjy/mechabar
+
+if [ ! -f /etc/arch-release ]; then
+	exit 0
+fi
+
+pkg_installed() {
+	local pkg=$1
+
+	if pacman -Qi "${pkg}" &>/dev/null; then
+		return 0
+	elif pacman -Qi "flatpak" &>/dev/null && flatpak info "${pkg}" &>/dev/null; then
+		return 0
+	elif command -v "${pkg}" &>/dev/null; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+get_aur_helper() {
+	if pkg_installed yay; then
+		aur_helper="yay"
+	elif pkg_installed paru; then
+		aur_helper="paru"
+	fi
+}
+
+get_aur_helper
+export -f pkg_installed
+
+if [ "$1" == "up" ]; then
+	trap 'pkill -RTMIN+20 waybar' EXIT
+	command="
+    $0 upgrade
+    ${aur_helper} -Syu
+    if pkg_installed flatpak; then flatpak update; fi
+    printf '\n'
+    read -n 1 -p 'Press any key to continue...'
+    "
+	kitty --title "󰞒  System Update" sh -c "${command}"
+fi
+
+if [ -n "$aur_helper" ]; then
+	aur_updates=$(${aur_helper} -Qua | grep -c '^')
+else
+	aur_updates=0
+fi
+
+official_updates=$(
+	pacman -Qu | wc -l
+)
+
+if pkg_installed flatpak; then
+	flatpak_updates=$(flatpak remote-ls --updates | grep -c '^')
+else
+	flatpak_updates=0
+fi
+
+total_updates=$((official_updates + aur_updates + flatpak_updates))
+
+if [ "$aur_helper" == "yay" ]; then
+	[ "${1}" == upgrade ] && printf "Official:  %-10s\nAUR ($aur_helper): %-10s\nFlatpak:   %-10s\n\n" "$official_updates" "$aur_updates" "$flatpak_updates" && exit
+
+	tooltip="Official:  $official_updates\nAUR ($aur_helper): $aur_updates\nFlatpak:   $flatpak_updates"
+
+elif [ "$aur_helper" == "paru" ]; then
+	[ "${1}" == upgrade ] && printf "Official:   %-10s\nAUR ($aur_helper): %-10s\nFlatpak:    %-10s\n\n" "$official_updates" "$aur_updates" "$flatpak_updates" && exit
+
+	tooltip="Official:   $official_updates\nAUR ($aur_helper): $aur_updates\nFlatpak:    $flatpak_updates"
+fi
+
+if [ $total_updates -eq 0 ]; then
+	echo "{\"text\":\"󰸟\", \"tooltip\":\"Packages are up to date\"}"
+else
+	echo "{\"text\":\"󰞒 $total_updates\", \"tooltip\":\"${tooltip//\"/\\\"}\"}"
+fi
