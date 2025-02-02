@@ -55,3 +55,7 @@ pip-extra:
 # Install Oh-my-posh
 install-posh:
   curl -s https://ohmyposh.dev/install.sh | bash -s
+
+# Change Font
+font:
+  gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
