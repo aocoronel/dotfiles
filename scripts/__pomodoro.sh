@@ -28,6 +28,7 @@ pomodoro() {
 
 		if [ ! -f "$TIMER_STATE_FILE" ]; then
 			tmux_refresh
+			notify-send -u normal "Pomodoro: Stop" "Timer stopped."
 			exit 0
 		fi
 	done
