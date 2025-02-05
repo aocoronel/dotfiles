@@ -51,6 +51,7 @@ else
 fi
 
 official_updates=$(
+  pacman -Syy
 	pacman -Qu | wc -l
 )
 
