@@ -80,3 +80,5 @@ function kill_tmux_pane() {
 
 zle -N kill_tmux_pane
 bindkey '^[t' kill_tmux_pane
+
+if [ "$RANGERCD" = true ]; then unset RANGERCD; ranger_cd; fi

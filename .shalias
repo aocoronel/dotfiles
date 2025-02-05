@@ -20,7 +20,7 @@ alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
 alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
 alias lynx="lynx -cookies"
 alias vidir="vidir --verbose"
-alias rr="ranger"
+alias rr="ranger_cd"
 alias rn="ranger .local/share/navi/cheats/"
 
 # Pacman
