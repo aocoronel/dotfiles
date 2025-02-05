@@ -31,6 +31,7 @@
     "hyprland/workspaces",
     "custom/right8",
     "custom/rightin1",
+    "hyprland/submap",
     "group/keyboard",
     "custom/right3",
     "custom/pomodoro",
@@ -45,7 +46,6 @@
     "custom/left9",
     "group/laptop",
     "custom/left7",
-    "submap",
     "custom/weather",
     "custom/left8",
     "custom/update",
@@ -187,9 +187,9 @@
     ]
   },
   "hyprland/submap": {
-    "format": "{}",
-    "max-length": 8,
-    "tooltip": false
+      "format": "{}",
+      "max-length": 8,
+      "tooltip": false
   },
   "network": {
     "interface": "wlan0",
@@ -298,8 +298,8 @@
   },
   "hyprland/language": {
     "format": "{}",
-    "format-en": " EN",
-    "format-pt": " BR",
+    "format-en": "  EN",
+    "format-pt": "  BR",
     "keyboard-name": "semico-usb-keyboard"
   },
   "tray": {
@@ -333,7 +333,7 @@
     "return-type": "json",
     "format": " {}",
     "on-click": "hyprctl dispatch exec '~/.config/waybar/scripts/system-update.sh up'",
-    "interval": 60,
+    "interval": 600,
     "tooltip": true,
     "min-length": 1,
     "max-length": 5
