@@ -1,12 +1,15 @@
 session_name: 'cmus'
 windows:
-- layout: bfe0,74x35,0,0[74x17,0,0,8,74x17,0,18,16]
+- focus: 'true'
+  layout: b225,74x33,0,0,8
   options: {}
   panes:
   - cmus
-  - shell_command: cava
-  window_name: ranger
-- layout: ba26,74x35,0,0,9
+  start_directory: /home/aocoronel
+  window_name: cmus
+- layout: b226,74x33,0,0,9
   options: {}
   panes:
-  - shell_command: ranger $MUSIC
+  - ranger $MUSIC
+  start_directory: /home/aocoronel
+  window_name: ranger
