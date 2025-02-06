@@ -15,8 +15,7 @@
     "custom/right3",
     "clock#date",
     "custom/right6",
-    "custom/media",
-    "custom/cava_mviz"
+    "custom/media"
   ],
   "modules-center": [
     "custom/paddc",
@@ -51,7 +50,6 @@
     "custom/update",
     "custom/leftin2"
   ],
-  // === Modules ===
   "custom/ws": {
     "format": "  ",
     "tooltip": false,
@@ -164,7 +162,7 @@
       "on-click-right": "mode",
       "format": {
         "months": "<span color='#7c5cff'><b>{}</b></span>",
-        "weekdays": "<span color='#d9d9d9' font='7'>{}</span>",
+        "weekdays": "<span color='#d9d9d9'>{}</span>",
         "today": "<span color='#f38ba8'><b>{}</b></span>"
       }
     },
@@ -187,9 +185,9 @@
     ]
   },
   "hyprland/submap": {
-      "format": "{}",
-      "max-length": 8,
-      "tooltip": false
+    "format": "{}",
+    "max-length": 8,
+    "tooltip": false
   },
   "network": {
     "interface": "wlan0",
@@ -236,7 +234,7 @@
     "tooltip": "{tooltip}",
     "on-click": "playerctl play-pause",
     "min-length": 5,
-    "max-length": 40
+    "max-length": 80
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -345,10 +343,6 @@
     "return-type": "json",
     "on-click": "kitty -e bash -c taskwarrior-tui"
   },
-  "custom/cava_mviz": {
-    "exec": "~/.config/waybar/scripts/cava.sh",
-    "format": "{}"
-  },
   "group/laptop": {
     "orientation": "inherit",
     "drawer": {
@@ -363,7 +357,6 @@
       "pulseaudio"
     ]
   },
-  // == Left Arrows ==
   "custom/left1": {
     "format": "",
     "tooltip": false
@@ -404,7 +397,6 @@
     "format": "",
     "tooltip": false
   },
-  // == Right Arrows ==
   "custom/right1": {
     "format": "",
     "tooltip": false
@@ -437,7 +429,6 @@
     "format": "",
     "tooltip": false
   },
-  // == Left Inverse ==
   "custom/leftin1": {
     "format": "",
     "tooltip": false
@@ -446,7 +437,6 @@
     "format": "",
     "tooltip": false
   },
-  // == Right Inverse ==
   "custom/rightin1": {
     "format": "",
     "tooltip": false
