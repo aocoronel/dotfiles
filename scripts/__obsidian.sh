@@ -2,10 +2,9 @@
 
 ### Configuration
 
-TERM=kitty
 TOOL_PATH="/tmp/obsidian-tool"
 
-if [ -z "$OBSIDIAN" ]; then
+if [ -z "$OBSIDIAN" ] || [ -z "$TERM" ]; then
   source "$HOME/.env"
 fi
 
@@ -110,7 +109,7 @@ main() {
     daily)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No vault selected" && exit
       case "$TOOL" in
-      "neovim") kitty -e nvim "$folder/$menu".md ;;
+      "neovim") $TERM -e nvim "$folder/$menu".md ;;
       "neovide") neovide "$folder/$menu".md ;;
       "obsidian") obsidian-cli open "$menu" --vault $JOURNAL ;;
       esac
@@ -140,7 +139,7 @@ main() {
         ;;
       esac
       case "$TOOL" in
-      nvim) kitty -e nvim "$folder/$daily.md" ;;
+      nvim) $TERM -e nvim "$folder/$daily.md" ;;
       neovide) neovide "$folder/$daily.md" ;;
       obsidian) obsidian-cli open "$daily" --vault "$JOURNAL" ;;
       *) notify-send -u low "Obsidian: Error" "No available tool" ;;
