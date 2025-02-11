@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 if [ -z "$WALLPAPERS" ]; then
-  source "$HOME/.env"
+  eval $(awk -F= '/^(WALLPAPERS)=/ {print "export " $1 "=" $2}' ~/.env)
 fi
 
 function get_wallpaper() {

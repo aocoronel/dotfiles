@@ -5,7 +5,7 @@
 TOOL_PATH="/tmp/obsidian-tool"
 
 if [ -z "$OBSIDIAN" ] || [ -z "$TERM" ]; then
-  source "$HOME/.env"
+  eval $(awk -F= '/^(OBSIDIAN|TERM)=/ {print "export " $1 "=" $2}' ~/.env)
 fi
 
 [ ! -f "/tmp/obsidian-workspace" ] && echo "$OBSIDIAN" /tmp/obsidian-workspace
@@ -13,10 +13,6 @@ fi
 [ ! -f "$TOOL_PATH" ] && echo "nvim" >"$TOOL_PATH"
 
 ##############################
-
-# display settings
-display_type=1
-max_str_width=200
 
 # keybindings
 workspace_mode="Alt+Tab"
