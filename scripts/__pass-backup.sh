@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 if [ -z "$PASSWORD_STORE_DIR" ]; then
-  eval $(awk -F= '/^(PASSWORD_STORE_DIR)=/ {print "export " $1 "=" $2}' ~/.env)
+  eval $(awk -F= '/^(PASSWORD_STORE_DIR)=/ {print "export " $1 "=" $2}' ~/.localenv)
 fi
 
 function gpg_export() {

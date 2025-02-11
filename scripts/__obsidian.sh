@@ -5,7 +5,7 @@
 TOOL_PATH="/tmp/obsidian-tool"
 
 if [ -z "$OBSIDIAN" ] || [ -z "$TERM" ]; then
-  eval $(awk -F= '/^(OBSIDIAN|TERM)=/ {print "export " $1 "=" $2}' ~/.env)
+  eval $(awk -F= '/^(OBSIDIAN|TERM)=/ {print "export " $1 "=" $2}' ~/.localenv)
 fi
 
 [ ! -f "/tmp/obsidian-workspace" ] && echo "$OBSIDIAN" /tmp/obsidian-workspace
