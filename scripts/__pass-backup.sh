@@ -6,8 +6,8 @@ fi
 
 function gpg_export() {
   read -p "Insert your email: " email
-  gpg --export --armor "$email" > "$HOME/public.gpg"
-  gpg --export-secret-keys --armor "$email" > "$HOME/private.gpg"
+  gpg --export --armor "$email" >"$HOME/public.gpg"
+  gpg --export-secret-keys --armor "$email" >"$HOME/private.gpg"
 }
 
 function gpg_import() {
@@ -26,24 +26,25 @@ function importpass() {
 }
 
 case "$1" in
-  "export")
-    gpg_export
-    exportpass
-    ;;
-  "import")
-    importpass
-    gpg_import
-    ;;
-  "export-gpg")
-    gpg_export
-    ;;
-  "import-gpg")
-    gpg_import
-    ;;
-  "")
-    echo "Available options:"
-    echo "export                    - Export gpg keys and pass, encrypts over openssl"
-    echo "import                    - Import gpg keys and pass"
-    echo "export-gpg                - Export only gpg keys"
-    echo "import-gpg                - Import only gpg keys"
+"export")
+  gpg_export
+  exportpass
+  ;;
+"import")
+  importpass
+  gpg_import
+  ;;
+"export-gpg")
+  gpg_export
+  ;;
+"import-gpg")
+  gpg_import
+  ;;
+"")
+  echo "Available options:"
+  echo "export                    - Export gpg keys and pass, encrypts over openssl"
+  echo "import                    - Import gpg keys and pass"
+  echo "export-gpg                - Export only gpg keys"
+  echo "import-gpg                - Import only gpg keys"
+  ;;
 esac

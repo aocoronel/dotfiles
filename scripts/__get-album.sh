@@ -5,8 +5,8 @@ if [ -z "$WALLPAPERS" ]; then
 fi
 
 function get_wallpaper() {
-  export album=$(ls $WALLPAPERS | fzf --prompt "Select an album")
-  nsxiv -t $WALLPAPERS/$album
+  export album=$(ls "$WALLPAPERS" | fzf --prompt "Select an album")
+  nsxiv -t "$WALLPAPERS/$album"
 }
 
 get_wallpaper

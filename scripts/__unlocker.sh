@@ -21,8 +21,8 @@ function unlock() {
     echo "Directory /mnt/go/$govault created."
   fi
   gocryptfs "$VAULT/$govault" "/mnt/go/$govault" &&
-  cd-tmux &&
-  fusermount3 -u "/mnt/go/$govault" && echo "$govault has been umounted successfully!"
+    cd-tmux &&
+    fusermount3 -u "/mnt/go/$govault" && echo "$govault has been umounted successfully!"
   sleep 1
   exit 0
 }
