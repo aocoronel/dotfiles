@@ -35,17 +35,16 @@ function sync_external() {
     echo "The beelzebub directory have been selected as destdrive"
     exit 0
   else
-    sudo rsync --progress -avh --delete /mnt/"$sourcedrive/" /mnt/"$destdrive/"
-    sudo chown -R $USER:$USER /mnt/"$destdrive/"
+    rsync --progress -avh --delete /mnt/"$sourcedrive/" /mnt/"$destdrive/"
   fi
 }
 
 function run_borg() {
-  borg create --stats --progress /mnt/"$sourcedrive/"::"$hostname"-"$now" "$destdrive/"
+  borg create --stats --progress /mnt/"$sourcedrive"::"$hostname"-"$now" "$destdrive/"
 }
 
 function help() {
-cat << EOF
+  cat <<EOF
 Sync Tool for External Drives
 Usage: $0 [option]
 Available options:
