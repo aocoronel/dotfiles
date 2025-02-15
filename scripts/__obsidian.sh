@@ -4,13 +4,15 @@
 
 TOOL_PATH="/tmp/obsidian-tool"
 
-if [ -z "$OBSIDIAN" ] || [ -z "$TERM" ]; then
-  eval $(awk -F= '/^(OBSIDIAN|TERM)=/ {print "export " $1 "=" $2}' ~/.localenv)
+source "$HOME/.env"
+
+if [ ! -f "/tmp/obsidian-workspace" ]; then
+  echo "$OBSIDIAN" >/tmp/obsidian-workspace
 fi
 
-[ ! -f "/tmp/obsidian-workspace" ] && echo "$OBSIDIAN" /tmp/obsidian-workspace
-
-[ ! -f "$TOOL_PATH" ] && echo "nvim" >"$TOOL_PATH"
+if [ ! -f "$TOOL_PATH" ]; then
+  echo "nvim" >"$TOOL_PATH"
+fi
 
 ##############################
 
@@ -21,6 +23,13 @@ today="Alt+a"
 tool_mode="Alt+t"
 delete="Alt+d"
 reset="Alt+q"
+
+# workspace_mode="Ctrl+1"
+# select_daily="Ctrl+2"
+# today="Ctrl+3"
+# tool_mode="Ctrl+t"
+# delete="Ctrl+s"
+# reset="Ctrl+q"
 
 # colors
 help_color="#7c5cff"
