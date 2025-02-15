@@ -1,7 +1,8 @@
 #!/bin/env bash
 
 if [ -z "$VAULT" ]; then
-  eval $(awk -F= '/^(VAULT)=/ {print "export " $1 "=" $2}' ~/.localenv)
+  var=$(grep "VAULT" "$HOME/.localenv")
+  export $var
 fi
 
 vaultdir=$(ls "$VAULT")

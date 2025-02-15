@@ -1,12 +1,13 @@
 #!/bin/env bash
 
 if [ -z "$WALLPAPERS" ]; then
-  eval $(awk -F= '/^(WALLPAPERS)=/ {print "export " $1 "=" $2}' ~/.localenv)
+  var=$(grep "WALLPAPERS" "$HOME/.localenv")
+  export $var
 fi
 
 function get_wallpaper() {
   export album=$(ls "$WALLPAPERS" | fzf --prompt "Select an album")
-  nsxiv -t "$WALLPAPERS/$album"
+  swayimg --gallery "$WALLPAPERS/$album"
 }
 
 get_wallpaper

@@ -1,7 +1,8 @@
 #!/bin/env bash
 
 if [ -z "$TERMCMD" ]; then
-  eval $(awk -F= '/^(TERMCMD|EDITOR)=/ {print "export " $1 "=" "\"" $2 "\""}' ~/.localenv)
+  var=$(grep "TERMCMD" "$HOME/.localenv")
+  export $var
 fi
 
 function tp() {
