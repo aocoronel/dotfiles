@@ -1,9 +1,9 @@
 session_name: master
 windows:
-- focus: 'true'
-  layout: 5d81,75x35,0,0,50
-  options: {}
-  panes:
-  - sh /home/aocoronel/motd.sh
-  start_directory: /home/aocoronel
-  window_name: zsh
+  - focus: "true"
+    layout: 5d81,75x35,0,0,50
+    options: {}
+    panes:
+      - pane
+    start_directory: /home/aocoronel
+    window_name: zsh
