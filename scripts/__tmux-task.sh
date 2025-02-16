@@ -5,9 +5,10 @@ source $HOME/.env
 current_command=$(tmux display-message -p "#{pane_current_command}")
 
 if [[ "$current_command" == "nvim" ]]; then
-  tmux send-keys -t 0 ':echo fnamemodify(expand("'%:p'"), ":h")' C-m
+  tmux send-keys -t 0 ":call writefile([fnamemodify(expand('%:p'), ':t')], '/tmp/filename_output.txt')" C-m
   sleep 0.1
-  file_name=$(tmux capture-pane -pS - -E - | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | tail -n1)
+  file_name=$(cat /tmp/filename_output.txt)
+  file_name=$(echo "$file_name" | sed 's/\.md//; s/th//')
 
   if [[ -n "$file_name" ]]; then
     tmux display-popup -h 90% -w 90% -E \
