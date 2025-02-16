@@ -1,7 +1,7 @@
 #!/bin/env bash
 
-file=$1
-format=$2
+file=$1   # FreeTube.db
+format=$2 # video/audio
 
 if [[ -z "$file" || -z "$format" ]]; then
   echo "Usage: $0 [file] [format]"
