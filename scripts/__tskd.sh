@@ -21,9 +21,9 @@ function tskd() {
   *-W[0-9][0-9]) # Matches YYYY-WXX
     year=$(echo "$1" | awk -F '-W' '{print $1}')
     week=$(echo "$1" | awk -F '-W' '{print $2}')
-    week=$(printf "%02d" "$week" &>/dev/null)
-    start_date=$(date -d "$year +$(((week) * 7)) days" '+%F')
-    end_date=$(date -d "$start_date +7 days" '+%F')
+    printf -v week "%02d" "$week"
+    start_date=$(date -d "$year-01-04 +$(((week - 1) * 7)) days -$(date -d "$year" +%u) days +1 day" '+%F')
+    end_date=$(date -d "$start_date +6 days" '+%F')
     ;;
   [0-9][0-9][0-9][0-9]) # Matches YYYY
     year=$1
