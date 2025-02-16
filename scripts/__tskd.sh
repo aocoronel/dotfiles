@@ -1,7 +1,5 @@
 #!/bin/env bash
 
-tmux=false
-
 month_list="January
 February
 March
@@ -40,28 +38,21 @@ function tskd() {
 
       start_date="$year-$month_number-01"
       end_date=$(date -d "$start_date +1 month" '+%F')
-    fi
-
-    if [[ $1 = "" ]]; then # Today
-      start_date=$(date '+%F')
-      end_date=$(date -d "$start_date +1 day" '+%F')
-    elif [ "$tmux" = true ]; then # YYYY-MM-DD
-      raw_date=$(basename -- "$1")
-    else # YYYY-MM-DD
-      raw_date="$1"
-      polish_date=$(echo "$raw_date" | sed 's/\.md//; s/th//')
-      start_date=$(date -d "$polish_date" '+%Y-%m-%d')
-      end_date=$(date -d "$start_date +1 day" '+%F')
+    else
+      if [[ $1 = "" ]]; then # Today
+        start_date=$(date '+%F')
+        end_date=$(date -d "$start_date +1 day" '+%F')
+      else # YYYY-MM-DD
+        raw_date="$1"
+        polish_date=$(echo "$raw_date" | sed 's/\.md//; s/th//')
+        start_date=$(date -d "$polish_date" '+%Y-%m-%d')
+        end_date=$(date -d "$start_date +1 day" '+%F')
+      fi
     fi
     ;;
   esac
 
   task "end.after:$start_date" and "end.before:$end_date" completed
-  [[ "$tmux" = true ]] && sleep 5
 }
-
-if [[ "$2" == "tmux" ]]; then
-  tmux=true
-fi
 
 tskd "$@"
