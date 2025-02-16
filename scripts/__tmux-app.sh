@@ -14,9 +14,6 @@ function tmux_profile() {
   fi
 }
 
-case "$1" in
-"edit") session=edit ;;
-"master") session=master ;;
-esac
+session=$1
 
 tmux_profile
