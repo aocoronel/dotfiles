@@ -19,8 +19,8 @@ function tskd() {
 
   case "$1" in
   *-W[0-9][0-9]) # Matches YYYY-WXX
-    year=${1:0:4}
-    week=$(echo "$1" | sed 's/.*-W//')
+    year=$(echo "$1" | awk -F '-W' '{print $1}')
+    week=$(echo "$1" | awk -F '-W' '{print $2}')
     week=$(printf "%02d" "$week" &>/dev/null)
     start_date=$(date -d "$year +$(((week) * 7)) days" '+%F')
     end_date=$(date -d "$start_date +7 days" '+%F')
