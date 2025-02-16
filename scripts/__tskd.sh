@@ -4,13 +4,10 @@ tmux=false
 
 function tskd() {
   if [[ ${1:0:1} =~ [0-9] ]]; then
-    # Format: 2025 01 01
-    year=$1
-    month=$2
-    day=$3
-    date="$year-$month-$day"
+    date=$1
     next_day=$(date -d "$date + 1 day" '+%F')
     task end.after:$date and end.before:$next_day completed
+    sleep 5
   else
     # Format: August\ 10th,\ 2024.md
     if [ "$tmux" = true ]; then
@@ -31,9 +28,9 @@ function tskd() {
 }
 
 case "$2" in
-  "tmux")
-    tmux=true
-    ;;
+"tmux")
+  tmux=true
+  ;;
 esac
 
 tskd "$1" "$2"

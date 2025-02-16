@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$HOME/.env"
+source $HOME/.env
 
 current_command=$(tmux display-message -p "#{pane_current_command}")
 
@@ -8,7 +8,7 @@ if [[ "$current_command" == "nvim" ]]; then
   tmux send-keys -t 0 ':echo fnamemodify(expand("'%:p'"), ":h")' C-m
   sleep 0.1
 
-  dir=$(tmux capture-pane -pS - -E - | tail -n 1)
+  dir=$(tmux capture-pane -pS - -E - | grep -oE '/[^[:space:]]+' | tail -n1)
 
   if [[ -n "$dir" ]]; then
     tmux display-popup -h 90% -w 90% -E \
@@ -17,5 +17,5 @@ if [[ "$current_command" == "nvim" ]]; then
     echo "Could not retrieve the directory path."
   fi
 else
-  echo "Not in nvim."
+  tmux display-popup -h 90% -w 90% -E
 fi
