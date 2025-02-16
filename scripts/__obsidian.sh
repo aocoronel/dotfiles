@@ -2,9 +2,11 @@
 
 ### Configuration
 
-TOOL_PATH="/tmp/obsidian-tool"
-
 source "$HOME/.env"
+
+TOOL_PATH="/tmp/obsidian-tool"
+JOURNAL_VAULT=$(dirname "$JOURNAL")
+JOURNAL_VAULT=$(basename "$JOURNAL_VAULT")
 
 if [ ! -f "/tmp/obsidian-workspace" ]; then
   echo "$OBSIDIAN" >/tmp/obsidian-workspace
@@ -146,7 +148,7 @@ main() {
       case "$TOOL" in
       nvim) $TERMCMD -e nvim "$folder/$daily.md" ;;
       neovide) neovide "$folder/$daily.md" ;;
-      obsidian) obsidian-cli open "$daily" --vault "$JOURNAL" ;;
+      obsidian) obsidian-cli open "$daily" --vault "$JOURNAL_VAULT" ;;
       *) notify-send -u low "Obsidian: Error" "No available tool" ;;
       esac
       ;;
