@@ -100,7 +100,7 @@ main() {
     notes)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No note selected" && exit
       case "$TOOL" in
-      nvim) $TERM -e nvim "$workspace/$menu.md" ;;
+      nvim) $TERMCMD -e nvim "$workspace/$menu.md" ;;
       neovide) neovide "$workspace/$menu.md" ;;
       obsidian) obsidian-cli open "$menu" --vault "$workspace_name" ;;
       esac
@@ -114,7 +114,7 @@ main() {
     daily)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No vault selected" && exit
       case "$TOOL" in
-      "neovim") $TERM -e nvim "$folder/$menu".md ;;
+      "neovim") $TERMCMD -e nvim "$folder/$menu".md ;;
       "neovide") neovide "$folder/$menu".md ;;
       "obsidian") obsidian-cli open "$menu" --vault $JOURNAL ;;
       esac
@@ -144,7 +144,7 @@ main() {
         ;;
       esac
       case "$TOOL" in
-      nvim) $TERM -e nvim "$folder/$daily.md" ;;
+      nvim) $TERMCMD -e nvim "$folder/$daily.md" ;;
       neovide) neovide "$folder/$daily.md" ;;
       obsidian) obsidian-cli open "$daily" --vault "$JOURNAL" ;;
       *) notify-send -u low "Obsidian: Error" "No available tool" ;;
