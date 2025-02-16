@@ -22,6 +22,7 @@ function otperror() {
 
 function deleteMenu() {
   delask=$(echo -e "1. Yes\n2. No" | _rofi -p '> ' -mesg "<span color='${label}'>Really delete</span> <span color='${help_color}'>$menu?</span>")
+  val=$?
   if [[ $val -eq 1 ]]; then
     notify-send -u low "Pass: Delete" "Cancelled!"
     mode=pass main
