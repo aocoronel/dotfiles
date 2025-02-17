@@ -6,11 +6,12 @@ set -eo pipefail
 
 bluetooth="blueberry gnome-bluetooth-3.0"
 xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv"
+temp="task taskwarrior-tui"
 wayland="waybar hyprland hyprlang hyprsunset hyprlock hypridle hyprctl cliphist jq xdg-desktop-portal-hyprland cmake meson cpio pkg-config hyprpolkitagent swww hyprpicker wlogout wl-clipboard wf-recorder"
 
 essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh ueberzugpp gnome-keyring playerctl ydotool brightnessctl at pacman-contrib"
 
-cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man lazygit task taskwarrior-tui zoxide ripgrep bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
+cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man lazygit zoxide ripgrep bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
 graphical="seahorse obsidian libreoffice-fresh shotcut gnome-disk-utility obs-studio gimp dmenu dunst neovide kitty foot picom scrcpy rofi-calc rofi networkmanager-openvpn fuzzel swayimg grim slurp satty pavucontrol"
 
 tts="rhvoice rhvoice-language-english rhvoice-voice-lyubov"
@@ -74,11 +75,11 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland # $temp
 
 echo "→ install AUR packages"
 
-yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin
+yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin task2
 
 echo "→ setting up syncthing"
 
