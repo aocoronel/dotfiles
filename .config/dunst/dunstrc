@@ -117,3 +117,10 @@ foreground        = "#f4f113"
 frame_color       = "#f4f113"
 highlight         = "#f4f113"
 default_icon =  ~/.config/dunst/emblems/critical.svg
+
+[taskwarrior]
+appname           = "taskwarrior"
+background        = "#1c1f24"
+foreground        = "#7c5cff"
+frame_color       = "#7c5cff"
+default_icon =  ~/.config/dunst/emblems/taskwarrior.svg
