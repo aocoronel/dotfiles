@@ -17,5 +17,5 @@ if [[ "$current_command" == "nvim" ]]; then
     echo "Could not retrieve the directory path."
   fi
 else
-  tmux display-popup -h 90% -w 90% -E
+  tmux display-popup -d "#{pane_current_path}" -h 90% -w 90%
 fi
