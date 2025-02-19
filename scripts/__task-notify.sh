@@ -3,39 +3,42 @@
 TMP_FILE="/tmp/taskwarrior_notified"
 touch "$TMP_FILE"
 
+notify() {
+  local ID DESC DUE_TIME DUE_TIME_EPOCH CURRENT_TIME SLEEP_TIME LAST_NOTIFIED FORMATTED_TIME TYPE
+  ID=$(jq -r '.id' <<<"$TASK")
+  DESC=$(jq -r '.description' <<<"$TASK")
+  DUE_TIME=$(jq -r '.due' <<<"$TASK")
+
+  [[ -z "$DUE_TIME" || "$DUE_TIME" == "null" ]] && return
+
+  FORMATTED_TIME=$(echo "$DUE_TIME" | sed -E 's/(.{4})(.{2})(.{2})T(.{2})(.{2})(.{2})Z/\4:\5/')
+  DUE_TIME_EPOCH=$(echo "$DUE_TIME" | sed -E 's/(.{4})(.{2})(.{2})T(.{2})(.{2})(.{2})Z/\1-\2-\3 \4:\5:\6/' | xargs -I{} date -u -d "{}" +%s)
+
+  CURRENT_TIME=$(date +%s)
+  SLEEP_TIME=$((DUE_TIME_EPOCH - CURRENT_TIME))
+
+  if ((SLEEP_TIME <= 0)); then
+    TYPE="overdue"
+  else
+    TYPE="due"
+  fi
+
+  LAST_NOTIFIED=$(awk -v id="$ID" '$1 == id {print $2}' "$TMP_FILE")
+  [[ -n "$LAST_NOTIFIED" && $((CURRENT_TIME - LAST_NOTIFIED)) -lt 1800 ]] && return
+
+  sed -i "/^$ID /d" "$TMP_FILE"
+  echo "$ID $CURRENT_TIME" >>"$TMP_FILE"
+
+  notify-send -a "taskwarrior" "Task is $TYPE" "$DESC at $FORMATTED_TIME"
+}
+
 while true; do
   task status:pending +READY due:today sort:due export | jq -c '.[]' | while read -r TASK; do
-    ID=$(echo "$TASK" | jq -r '.id')
-    DESC=$(echo "$TASK" | jq -r '.description')
-    DUE_TIME=$(echo "$TASK" | jq -r '.due')
+    notify
+  done
 
-    if [ -z "$DUE_TIME" ] || [ "$DUE_TIME" = "null" ]; then
-      continue
-    fi
-
-    FORMATTED_TIME=$(echo "$DUE_TIME" | sed -E 's/(.{4})(.{2})(.{2})T(.{2})(.{2})(.{2})Z/\4:\5/')
-    DUE_TIME_EPOCH=$(echo "$DUE_TIME" | sed -E 's/(.{4})(.{2})(.{2})T(.{2})(.{2})(.{2})Z/\1-\2-\3 \4:\5:\6/' | xargs -I{} date -u -d "{}" +%s)
-    # DUE_TIME_EPOCH=$(date -u -d "$(echo "$DUE_TIME" | sed -E 's/(.{4})(.{2})(.{2})T(.{2})(.{2})(.{2})Z/\1-\2-\3 \4:\5:\6/')" +%s 2>/dev/null)
-
-    CURRENT_TIME=$(date +%s)
-    SLEEP_TIME=$((DUE_TIME_EPOCH - CURRENT_TIME))
-
-    if [ "$SLEEP_TIME" -gt 0 ]; then
-      sleep "$SLEEP_TIME"
-    fi
-
-    if grep -q "$ID" "$TMP_FILE"; then
-      LAST_NOTIFIED=$(grep "$ID" "$TMP_FILE" | cut -d' ' -f2)
-      ELAPSED_TIME=$((CURRENT_TIME - LAST_NOTIFIED))
-      if [ "$ELAPSED_TIME" -lt 1800 ]; then
-        continue
-      fi
-    fi
-
-    sed -i "/^$ID /d" "$TMP_FILE"
-    echo "$ID $CURRENT_TIME" >>"$TMP_FILE"
-
-    notify-send -a "taskwarrior" "Task Due!" "$DESC at $FORMATTED_TIME"
+  task status:pending +READY due.before:today sort:due export | jq -c '.[]' | while read -r TASK; do
+    notify
   done
 
   sleep 60
