@@ -10,7 +10,7 @@ stow:
 check:
   gitleaks git
 
-# Config picom: Set config file
+# Config picom: Set config file (Xorg-only)
 config-picom:
   picom --config "$HOME/.config/picom.conf"
 
@@ -22,7 +22,7 @@ config-posh:
 config-udiskie:
   sh "$HOME/scripts/__setup-udiskie.sh"
 
-# Set kitty configuration file
+# Config kitty: Set config file
 config-kitty:
   kitty --config "$HOME/.config/kitty/kitty.conf"
 
@@ -33,12 +33,6 @@ install:
 # Install TPM
 config-tmux:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# Install Media Watcher for Activity Watch
-config-aw-media:
-  git clone https://github.com/2e3s/aw-watcher-media-player.git
-  cd aw-watcher-media-player
-  sudo unzip -j aw-watcher-media-player-linux.zip aw-watcher-media-player -d /usr/local/bin
 
 # Fix Arch Linux Keyring if downloaded packages retrieve a gpg corrupt signature
 fix-keyring:
@@ -51,11 +45,12 @@ fix-keyring:
 pip-extra:
   pipx install bandcamp-dl
   pipx install md2anki
+  pipx install khard
 
 # Install Oh-my-posh
 install-posh:
   curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Change Font
-font:
+gnome-font:
   gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
