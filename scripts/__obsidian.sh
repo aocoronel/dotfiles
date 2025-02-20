@@ -4,7 +4,7 @@
 
 source "$HOME/.env"
 
-TOOL_PATH="/tmp/obsidian-tool"
+TOOL_PATH=~/.local/share/obsidian-tool
 JOURNAL_VAULT=$(dirname "$JOURNAL")
 JOURNAL_VAULT=$(basename "$JOURNAL_VAULT")
 
