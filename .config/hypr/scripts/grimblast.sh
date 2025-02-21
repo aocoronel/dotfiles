@@ -91,7 +91,7 @@ SUBJECT=${2:-screen}
 FILE=${3:-$(getTargetDirectory)/$(date -Ins).png}
 FILE_EDITOR=${3:-$(tmp_editor_directory)/$(date -Ins).png}
 
-if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ] && [ "$ACTION" != "copysave" ] && [ "$ACTION" != "check" ]; then
+if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ] && [ "$ACTION" != "copysave" ] && [ "$ACTION" != "copysaverename" ] && [ "$ACTION" != "check" ]; then
   echo "Usage:"
   echo "  grimblast [--notify] [--cursor] [--freeze] [--wait N] [--scale <scale>] (copy|save|copysave|edit) [active|screen|output|area] [FILE|-]"
   echo "  grimblast check"
@@ -101,6 +101,7 @@ if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ]
   echo "  copy: Copy the screenshot data into the clipboard."
   echo "  save: Save the screenshot to a regular file or '-' to pipe to STDOUT."
   echo "  copysave: Combine the previous 2 options."
+  echo "  copysaverename: Combine the previous 2 options, and rename"
   echo "  edit: Open screenshot in the image editor of your choice (default is gimp). See man page for info."
   echo "  check: Verify if required tools are installed and exit."
   echo "  usage: Show this message and exit."
@@ -263,6 +264,23 @@ elif [ "$ACTION" = "edit" ]; then
     echo "$FILE_EDITOR"
   else
     notifyError "Error taking screenshot"
+  fi
+elif [ "$ACTION" = "copysaverename" ]; then
+  if takeScreenshot - "$GEOM" "$OUTPUT" | tee "$FILE" | wl-copy --type image/png || die "Clipboard error"; then
+    rename=$(zenity --entry --text="Rename $FILE")
+    if [ "$rename" = "" ]; then
+      echo "Cancelled rename"
+      notifyOk "$WHAT copied to buffer and saved to $FILE" -i "$FILE"
+      echo "$FILE"
+    else
+      RENAMEFILE=${3:-$(getTargetDirectory)/"$rename".png}
+      mv "$FILE" "$RENAMEFILE"
+      wl-copy --type image/png -- <$RENAMEFILE
+      notifyOk "$WHAT copied to buffer and saved to $RENAMEFILE" -i "$RENAMEFILE"
+      echo "$RENAMEFILE"
+    fi
+  else
+    notifyError "Error taking screenshot with grim"
   fi
 else
   if [ "$ACTION" = "copysave" ]; then
