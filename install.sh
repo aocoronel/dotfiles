@@ -79,7 +79,17 @@ sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland # $t
 
 echo "→ install AUR packages"
 
-yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin task2
+yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin
+
+echo "→ install taskwarrior v2"
+
+git clone --branch v2.6.2 --depth 1 https://github.com/GothenburgBitFactory/taskwarrior
+cd taskwarrior
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+sudo cmake --install build
+cd ..
+rm -rf taskwarrior
 
 echo "→ setting up syncthing"
 
