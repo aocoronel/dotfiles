@@ -15,7 +15,7 @@
     "custom/right3",
     "clock#date",
     "custom/right6",
-    "custom/media"
+    "custom/media",
   ],
   "modules-center": [
     "custom/paddc",
@@ -36,7 +36,7 @@
     "custom/pomodoro",
     "custom/right4",
     "custom/taskwarrior",
-    "custom/right7"
+    "custom/right7",
   ],
   "modules-right": [
     "network",
@@ -48,18 +48,18 @@
     "custom/weather",
     "custom/left8",
     "custom/update",
-    "custom/leftin2"
+    "custom/leftin2",
   ],
   "custom/ws": {
     "format": "  ",
     "tooltip": false,
     "min-length": 3,
-    "max-length": 3
+    "max-length": 3,
   },
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch workspace -1",
     "on-scroll-down": "hyprctl dispatch workspace +1",
-    "persistent-workspaces": {}
+    "persistent-workspaces": {},
   },
   "custom/cpuinfo": {
     "exec": "~/.config/waybar/scripts/cpu-temp.sh",
@@ -68,12 +68,12 @@
     "tooltip": true,
     "interval": 5,
     "min-length": 8,
-    "max-length": 8
+    "max-length": 8,
   },
   "memory": {
     "states": {
       "warning": 75,
-      "critical": 90
+      "critical": 90,
     },
     "format": "󰘚 {percentage}%",
     "format-critical": "󰀦 {percentage}%",
@@ -82,7 +82,7 @@
     "tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
     "interval": 5,
     "min-length": 7,
-    "max-length": 7
+    "max-length": 7,
   },
   "custom/cpu": {
     "exec": "~/.config/waybar/scripts/cpu-usage.sh",
@@ -91,67 +91,67 @@
     "tooltip": true,
     "interval": 5,
     "min-length": 6,
-    "max-length": 6
+    "max-length": 6,
   },
   "custom/distro": {
     "format": " ",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/quit": {
     "format": "󰗼  ",
     "tooltip": true,
     "tooltip-format": "Quit Hyprland",
-    "on-click": "hyprctl dispatch exit"
+    "on-click": "hyprctl dispatch exit",
   },
   "custom/lock": {
     "format": "󰍁  ",
     "tooltip": true,
     "tooltip-format": "Lock Screen",
-    "on-click": "hypridle"
+    "on-click": "hypridle",
   },
   "custom/reboot": {
     "format": "󰜉  ",
     "tooltip": true,
     "tooltip-format": "Reboot",
-    "on-click": "reboot"
+    "on-click": "reboot",
   },
   "custom/power": {
     "format": "   ",
     "tooltip": true,
     "tooltip-format": "Poweroff",
-    "on-click": "shutdown now"
+    "on-click": "shutdown now",
   },
   "group/power": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 500,
-      "transition-right-to-left": true
+      "transition-right-to-left": true,
     },
     "modules": [
       "custom/distro",
       "custom/power",
       "custom/reboot",
       "custom/lock",
-      "custom/quit"
-    ]
+      "custom/quit",
+    ],
   },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
       "activated": "󱑎 ",
-      "deactivated": "󱑂 "
+      "deactivated": "󱑂 ",
     },
     "tooltip": true,
     "tooltip-format-activated": "Presentation Mode",
     "tooltip-format-deactivated": "Idle Mode",
-    "start-activated": false
+    "start-activated": false,
   },
   "clock#time": {
     "format": "{:%H:%M}",
     "tooltip": true,
     "tooltip-format": "Standard Time: {:%I:%M %p}",
     "min-length": 6,
-    "max-length": 6
+    "max-length": 6,
   },
   "clock#date": {
     "format": "󰨳 {:%m-%d}",
@@ -163,31 +163,28 @@
       "format": {
         "months": "<span color='#7c5cff'><b>{}</b></span>",
         "weekdays": "<span color='#d9d9d9'>{}</span>",
-        "today": "<span color='#f38ba8'><b>{}</b></span>"
-      }
+        "today": "<span color='#f38ba8'><b>{}</b></span>",
+      },
     },
     "actions": {
       "on-click": "mode",
-      "on-click-right": "mode"
+      "on-click-right": "mode",
     },
     "min-length": 8,
-    "max-length": 8
+    "max-length": 8,
   },
   "group/keyboard": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 500,
-      "transition-right-to-left": true
+      "transition-right-to-left": true,
     },
-    "modules": [
-      "hyprland/language",
-      "hyprland/submap"
-    ]
+    "modules": ["hyprland/language", "hyprland/submap"],
   },
   "hyprland/submap": {
     "format": "{}",
     "max-length": 8,
-    "tooltip": false
+    "tooltip": false,
   },
   "network": {
     "interface": "wlan0",
@@ -198,7 +195,7 @@
     "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
     "tooltip-format-ethernet": "{ifname} ",
     "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50
+    "max-length": 50,
   },
   "custom/wifi": {
     "exec": "~/.config/waybar/scripts/wifi-status.sh",
@@ -209,7 +206,7 @@
     "on-click-right": "kitty -e bash -c nmtui",
     "interval": 1,
     "min-length": 1,
-    "max-length": 1
+    "max-length": 1,
   },
   "bluetooth": {
     "format": "󰂰",
@@ -225,7 +222,7 @@
     "on-click-right": "kitty -e bash -c bluetui",
     "interval": 1,
     "min-length": 1,
-    "max-length": 1
+    "max-length": 1,
   },
   "custom/media": {
     "exec": "~/.config/waybar/scripts/media-player.py",
@@ -234,19 +231,15 @@
     "tooltip": "{tooltip}",
     "on-click": "playerctl play-pause",
     "min-length": 5,
-    "max-length": 80
+    "max-length": 80,
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "󰝟 {volume}%",
     "format-icons": {
-      "default": [
-        "󰕿",
-        "󰖀",
-        "󰕾"
-      ],
+      "default": ["󰕿", "󰖀", "󰕾"],
       "headphone": "󰋋",
-      "headset": "󰋋"
+      "headset": "󰋋",
     },
     "tooltip": true,
     "tooltip-format": "Device: {desc}",
@@ -254,7 +247,7 @@
     "on-scroll-up": "~/.config/waybar/scripts/volume-control.sh -o i",
     "on-scroll-down": "~/.config/waybar/scripts/volume-control.sh -o d",
     "min-length": 6,
-    "max-length": 6
+    "max-length": 6,
   },
   "custom/backlight": {
     "exec": "~/.config/waybar/scripts/brightness-control.sh",
@@ -265,25 +258,17 @@
     "on-scroll-down": "~/.config/waybar/scripts/brightness-control.sh -o d",
     "interval": 1,
     "min-length": 6,
-    "max-length": 6
+    "max-length": 6,
   },
   "battery": {
     "states": {
       "full": 100,
       "good": 99,
       "warning": 30,
-      "critical": 15
+      "critical": 15,
     },
     "format": "{icon} {capacity}%",
-    "format-icons": [
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂"
-    ],
+    "format-icons": ["󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"],
     "format-full": "󱃌 {capacity}%",
     "format-warning": "󰁻 {capacity}%",
     "format-critical": "󱃍 {capacity}%",
@@ -292,39 +277,39 @@
     "tooltip-format-charging": "Charging: {time}",
     "interval": 1,
     "min-length": 6,
-    "max-length": 6
+    "max-length": 6,
   },
   "hyprland/language": {
     "format": "{}",
     "format-en": "  EN",
     "format-pt": "  BR",
-    "keyboard-name": "semico-usb-keyboard"
+    "keyboard-name": "semico-usb-keyboard",
   },
   "tray": {
     "icon-size": 16,
-    "spacing": 10
+    "spacing": 10,
   },
   "custom/paddw": {
     "format": " ",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/paddc": {
     "format": " ",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/taskwarrior": {
     "exec": "~/.config/waybar/scripts/task.sh",
-    "interval": 60,
+    "interval": 360,
     "format": "{}",
     "return-type": "json",
-    "on-click": "kitty -e bash -c taskwarrior-tui"
+    "on-click": "kitty -e bash -c taskwarrior-tui",
   },
   "custom/weather": {
     "format": "{}°",
     "tooltip": true,
     "interval": 3600,
     "exec": "~/.config/waybar/scripts/wttrbar",
-    "return-type": "json"
+    "return-type": "json",
   },
   "custom/update": {
     "exec": "~/.config/waybar/scripts/system-update.sh",
@@ -334,111 +319,106 @@
     "interval": 600,
     "tooltip": true,
     "min-length": 1,
-    "max-length": 5
+    "max-length": 5,
   },
   "custom/pomodoro": {
     "exec": "~/.config/waybar/scripts/pomo.sh",
     "interval": 1,
     "format": "{}",
     "return-type": "json",
-    "on-click": "kitty -e bash -c taskwarrior-tui"
+    "on-click": "kitty -e bash -c taskwarrior-tui",
   },
   "group/laptop": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 500,
       "children-class": "not-power",
-      "transition-left-to-right": false
+      "transition-left-to-right": false,
     },
-    "modules": [
-      "battery",
-      "bluetooth",
-      "custom/backlight",
-      "pulseaudio"
-    ]
+    "modules": ["battery", "bluetooth", "custom/backlight", "pulseaudio"],
   },
   "custom/left1": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left2": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left3": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left4": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left5": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left6": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left7": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left8": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left9": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/left10": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right1": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right2": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right3": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right4": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right5": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right6": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right7": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/right8": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/leftin1": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/leftin2": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/rightin1": {
     "format": "",
-    "tooltip": false
-  }
+    "tooltip": false,
+  },
 }
