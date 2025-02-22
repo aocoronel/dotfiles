@@ -3,9 +3,7 @@ windows:
   - focus: "true"
     layout: ce13,74x33,0,0[74x16,0,0,3,74x16,0,17,4]
     options: {}
-    shell_command_before:
-      - cd $APPS/invidious/
     panes:
       - podman-compose up
-    start_directory: /home/aocoronel
+    start_directory: /home/aocoronel/invidious
     window_name: python
