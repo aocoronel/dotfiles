@@ -50,7 +50,12 @@ pip-extra:
 # Install Oh-my-posh
 install-posh:
   curl -s https://ohmyposh.dev/install.sh | bash -s
-
 # Change Font
 gnome-font:
   gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
+# Install Invidious
+invidious:
+  docker run quay.io/invidious/youtube-trusted-session-generator
+  git clone https://github.com/iv-org/invidious.git
+  mv ./invidious.yaml ~/dotfiles/invidious/docker-compose.yml
+  echo "Manual changes required. See https://docs.invidious.io/installation/#docker-compose-method-production for details"
