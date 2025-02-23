@@ -6,6 +6,7 @@ function startup() {
   else
     tmuxp load "invidious" -d
     echo "Invidious Instance launched."
+    sleep 5
   fi
 }
 
