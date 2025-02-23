@@ -7,6 +7,7 @@ set -eo pipefail
 bluetooth="blueberry gnome-bluetooth-3.0"
 xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv"
 temp="task taskwarrior-tui"
+container="podman podman-compose podman-docker"
 wayland="waybar hyprland hyprlang hyprsunset hyprlock hypridle hyprctl cliphist jq xdg-desktop-portal-hyprland cmake meson cpio pkg-config hyprpolkitagent swww hyprpicker wlogout wl-clipboard wf-recorder"
 
 essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh ueberzugpp gnome-keyring playerctl ydotool brightnessctl at pacman-contrib"
@@ -75,7 +76,7 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland # $temp
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland $container # $temp
 
 echo "→ install AUR packages"
 
