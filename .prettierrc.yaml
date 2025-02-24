@@ -1,6 +1,7 @@
 overrides:
   - files: "*.md"
     options:
-      tabWidth: 5
-      indent_style: "space"
-      indent_size: 5
+      tabWidth: 4
+      useTabs: true
+      indent_style: tab
+      indent_size: 4
