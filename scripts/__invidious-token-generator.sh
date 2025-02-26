@@ -7,9 +7,6 @@ docker run quay.io/invidious/youtube-trusted-session-generator >token.txt
 visitor_data=$(grep "visitor_data" token.txt | awk -F ':' '{print $2}')
 po_token=$(grep "po_token" token.txt | awk -F ':' '{print $2}')
 
-sed -i "s/^\(\s*visitor_data:\s*\).*/\1$visitor_data/" "$invidious_config" && visitor_ok=True
-sed -i "s/^\(\s*po_token:\s*\).*/\1$po_token/" "$invidious_config" && po_ok=True
-
 sed -i "s/^\([[:space:]]*visitor_data:\)[[:space:]]*.*/\1 $visitor_data/" "$invidious_config" && visitor_ok=True
 sed -i "s/^\([[:space:]]*po_token:\)[[:space:]]*.*/\1 $po_token/" "$invidious_config" && po_ok=True
 
