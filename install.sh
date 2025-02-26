@@ -2,11 +2,29 @@
 
 set -eo pipefail
 
+while [[ "$1" != "" ]]; do
+  case "$1" in
+  "xorg")
+    wm=$xorg
+    shift
+    ;;
+  "wayland")
+    wm=$wayland
+    shift
+    ;;
+  *)
+    wm=$wayland
+    GPG_KEY=$1
+    ;;
+  esac
+done
+
 # Pacman Packages
 
-bluetooth="blueberry gnome-bluetooth-3.0"
-xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv"
-temp="task taskwarrior-tui"
+# bluetooth="blueberry gnome-bluetooth-3.0"
+# temp="task taskwarrior-tui"
+
+xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv python-psutil"
 container="podman podman-compose podman-docker"
 wayland="waybar hyprland hyprlang hyprsunset hyprlock hypridle hyprctl cliphist jq xdg-desktop-portal-hyprland cmake meson cpio pkg-config hyprpolkitagent swww hyprpicker wlogout wl-clipboard wf-recorder"
 
@@ -18,7 +36,7 @@ graphical="seahorse obsidian libreoffice-fresh shotcut gnome-disk-utility obs-st
 tts="rhvoice rhvoice-language-english rhvoice-voice-lyubov"
 
 lang="rustup npm luarocks"
-python="python-pipx python-psutil python-mutagen python-pillow"
+python="python-pipx python-mutagen python-pillow"
 
 tor="tor nyx"
 
@@ -42,8 +60,6 @@ echo "→ setting up dotfiles"
 cd "$HOME/dotfiles"
 stow .
 cd
-
-GPG_KEY=$1
 
 echo "→ setting up git"
 
@@ -76,13 +92,13 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wayland $container # $temp
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wm $container # $temp
 
 echo "→ install AUR packages"
 
 yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin
 
-echo "→ install taskwarrior v2"
+echo "→ install taskwarrior v2 from source"
 
 git clone --branch v2.6.2 --depth 1 https://github.com/GothenburgBitFactory/taskwarrior
 cd taskwarrior
