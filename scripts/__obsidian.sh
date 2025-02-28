@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__obsidian.sh
+
 ### Configuration
 
 source "$HOME/.env"

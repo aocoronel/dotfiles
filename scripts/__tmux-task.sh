@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-task.sh
+
 source $HOME/.env
 
 current_command=$(tmux display-message -p "#{pane_current_command}")

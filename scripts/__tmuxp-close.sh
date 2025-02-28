@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-close.sh
+
 function tc() {
   session=$(tmux ls | awk -F ':' '{print $1}')
   select=$(echo "$session" | rofi -dmenu -p "Select session to attach/load")

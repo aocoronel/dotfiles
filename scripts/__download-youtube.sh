@@ -1,7 +1,9 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__download-youtube.sh
+
 function help() {
-cat << eof
+  cat <<eof
 Youtube Video Downloader
 Usage: $0 [option] [file] [format]
 Available Formats:
@@ -51,23 +53,23 @@ function batch() {
 }
 
 if [ "$#" -eq 0 ]; then
-    echo "Error: No arguments provided."
-    help
-    exit 0
+  echo "Error: No arguments provided."
+  help
+  exit 0
 fi
 
 while [[ "$1" != "" ]]; do
-    case "$1" in
-        -a | --audio)
-            audio
-            ;;
-        -b | --batch)
-            file=$2
-            format=$3
-            batch
-            ;;
-        -v | --video)
-            video
-            ;;
-    esac
+  case "$1" in
+  -a | --audio)
+    audio
+    ;;
+  -b | --batch)
+    file=$2
+    format=$3
+    batch
+    ;;
+  -v | --video)
+    video
+    ;;
+  esac
 done

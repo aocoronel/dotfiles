@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__file-organizer.sh
+
 # Directory Organizer
 # Usage: $0 [source-directory] [dest-directory]
 

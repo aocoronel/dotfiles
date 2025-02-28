@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__mounter.sh
+
 function help() {
   echo "External Device Mounter"
   echo "Usage: $0 [option]"
@@ -68,33 +70,33 @@ function umount() {
 
 function read_option() {
   while true; do
-  help
-  read -p "Choose an option (add/iopen/open/close): " option
-  if [ "$option" == "open" ]; then
-    mount
-  elif [ "$option" == "iopen" ]; then
-    imount
-  elif [ "$option" == "close" ]; then
-    umount
-  elif [ "$option" == "add" ]; then
-    adddrive
-  else
-    exit 0
-  fi
-done
+    help
+    read -p "Choose an option (add/iopen/open/close): " option
+    if [ "$option" == "open" ]; then
+      mount
+    elif [ "$option" == "iopen" ]; then
+      imount
+    elif [ "$option" == "close" ]; then
+      umount
+    elif [ "$option" == "add" ]; then
+      adddrive
+    else
+      exit 0
+    fi
+  done
 }
 
 case $1 in
-  "help")
-    help
-    ;;
-  "open")
-    mount
-    ;;
-  "close")
-    umount
-    ;;
-  "")
-    read_option
-    ;;
+"help")
+  help
+  ;;
+"open")
+  mount
+  ;;
+"close")
+  umount
+  ;;
+"")
+  read_option
+  ;;
 esac

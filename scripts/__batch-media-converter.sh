@@ -1,11 +1,13 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__batch-media-converter.sh
+
 media_list=("ogg" "opus" "mp3" "mp4" "mkv" "webm" "m4a")
 
 echo "Media files in the current folder:"
 
 for media in "${media_list[@]}"; do
-  find . -maxdepth 1 -type f -iname "*.$media";
+  find . -maxdepth 1 -type f -iname "*.$media"
 done
 
 read -p "Choose source format: " source

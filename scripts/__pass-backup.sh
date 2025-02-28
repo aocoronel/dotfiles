@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__pass-backup.sh
+
 if [ -z "$PASSWORD_STORE_DIR" ]; then
   eval $(awk -F= '/^(PASSWORD_STORE_DIR)=/ {print "export " $1 "=" $2}' ~/.localenv)
 fi

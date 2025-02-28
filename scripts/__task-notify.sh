@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__task-notify.sh
+
 TMP_FILE="/tmp/taskwarrior_notified"
 touch "$TMP_FILE"
 

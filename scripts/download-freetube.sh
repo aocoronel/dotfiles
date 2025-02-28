@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/download-freetube.sh
+
 file=$1   # FreeTube.db
 format=$2 # video/audio
 
