@@ -6,12 +6,12 @@ hostname="$(hostnamectl hostname)"
 now="$(date +%Y-%d-%H%M)"
 
 function get_drives() {
-  sourcedrive=$(ls /mnt/ | fzf --prompt "Choose source directory: " --preview 'eza -l /mnt/{}')
+  sourcedrive=$(ls /mnt/ | fzf --prompt "Choose directory you to copy from: " --preview 'eza -l /mnt/{}')
   if [ -z "$sourcedrive" ]; then
     echo "No source directory chosen!"
     exit 1
   fi
-  destdrive=$(ls /mnt/ | fzf --prompt "Choose dest directory: " --preview 'eza -l /mnt/{}')
+  destdrive=$(ls /mnt/ | fzf --prompt "Choose directory to mirror to $sourcedrive: " --preview 'eza -l /mnt/{}')
   if [ -z "$destdrive" ]; then
     echo "No dest directory chosen!"
     exit 1
