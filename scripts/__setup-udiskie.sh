@@ -1,10 +1,12 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__setup-udiskie.sh
+
 file=50-udiskie.rules
 path=/etc/polkit-1/rules.d/50-udiskie.rules
 
 function run() {
-echo "
+  echo "
 polkit.addRule(function(action, subject) {
     if (subject.isInGroup("wheel")) {
         if (action.id.startsWith("org.freedesktop.udisks2.")) {
@@ -12,7 +14,7 @@ polkit.addRule(function(action, subject) {
         }
     }
 });
-" > $path && echo "$file has been written to $path"
+" >$path && echo "$file has been written to $path"
 }
 
 run

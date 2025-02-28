@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-manager.sh
+
 CONFIG="$HOME/.tmuxprofile"
 if [[ ! -f "$CONFIG" ]]; then
 	echo "No configuration file set!"

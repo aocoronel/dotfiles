@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__unlocker.sh
+
 if [ -z "$VAULT" ]; then
   var=$(grep "VAULT" "$HOME/.localenv")
   export $var

@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__rofipass.sh
+
 _rofi() {
   rofi -dmenu -i -no-levenshtein-sort -width 1000 "$@"
 }

@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__sync-external.sh
+
 hostname="$(hostnamectl hostname)"
 now="$(date +%Y-%d-%H%M)"
 

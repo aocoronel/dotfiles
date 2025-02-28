@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__invidious-token-generator.sh
+
 invidious_config=$HOME/invidious/docker-compose.yml
 
 docker run quay.io/invidious/youtube-trusted-session-generator >token.txt

@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__get-album.sh
+
 if [ -z "$WALLPAPERS" ]; then
   var=$(grep "WALLPAPERS" "$HOME/.localenv")
   export $var

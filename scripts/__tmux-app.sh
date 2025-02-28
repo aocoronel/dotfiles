@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-app.sh
+
 if [ -z "$TERMCMD" ]; then
   var=$(grep "TERMCMD" "$HOME/.localenv")
   export $var

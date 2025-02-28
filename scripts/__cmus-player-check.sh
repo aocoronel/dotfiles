@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__cmus-player-check.sh
+
 function check_player() {
   current_state=$(cmus-remote -Q | grep "status" | awk '{print $2}')
   if [ "$current_state" = "playing" ]; then

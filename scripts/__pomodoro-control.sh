@@ -1,12 +1,14 @@
 #!/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__pomodoro-control.sh
+
 TIMER_STATE_FILE="/tmp/pomodoro_timer_state"
 OUTPUT_FILE="/tmp/pomodoro_output"
 TIMER_SAVED="/tmp/pomodoro_timer_saved"
 SESSION_FILE="/tmp/pomodoro_session_count"
 
 function help() {
-	cat <<EOF
+  cat <<EOF
 Pomodoro Control
 Usage: $0 [option]
 Available options:
@@ -20,61 +22,61 @@ EOF
 }
 
 function reset() {
-	rm $TIMER_STATE_FILE
-	rm $TIMER_SAVED
-	rm $SESSION_FILE
-	rm $OUTPUT_FILE
+  rm $TIMER_STATE_FILE
+  rm $TIMER_SAVED
+  rm $SESSION_FILE
+  rm $OUTPUT_FILE
 }
 
 function timer() {
-	rm $TIMER_SAVED
+  rm $TIMER_SAVED
 }
 
 function session() {
-	rm $SESSION_FILE
+  rm $SESSION_FILE
 }
 
 function toggle() {
-	if [ -f "$TIMER_STATE_FILE" ]; then
-		rm $TIMER_STATE_FILE
-	else
-		sh "$HOME/scripts/__pomodoro.sh"
-	fi
-	rm $OUTPUT_FILE
+  if [ -f "$TIMER_STATE_FILE" ]; then
+    rm $TIMER_STATE_FILE
+  else
+    sh "$HOME/scripts/__pomodoro.sh"
+  fi
+  rm $OUTPUT_FILE
 }
 
 function rofi_control() {
-	choice=$(echo -e "toggle\ntimer\nsession\nreset" | rofi -dmenu)
-	if [ "$choice" = "reset" ]; then
-		reset
-	elif [ "$choice" = "session" ]; then
-		session
-	elif [ "$choice" = "timer" ]; then
-		timer
-	elif [ "$choice" = "toggle" ]; then
-		toggle
-	else
-		return
-	fi
+  choice=$(echo -e "toggle\ntimer\nsession\nreset" | rofi -dmenu)
+  if [ "$choice" = "reset" ]; then
+    reset
+  elif [ "$choice" = "session" ]; then
+    session
+  elif [ "$choice" = "timer" ]; then
+    timer
+  elif [ "$choice" = "toggle" ]; then
+    toggle
+  else
+    return
+  fi
 }
 
 case "$1" in
 "reset")
-	reset
-	;;
+  reset
+  ;;
 "timer")
-	timer
-	;;
+  timer
+  ;;
 "session")
-	session
-	;;
+  session
+  ;;
 "toggle")
-	toggle
-	;;
+  toggle
+  ;;
 "rofi")
-	rofi_control
-	;;
+  rofi_control
+  ;;
 "*")
-	help
-	;;
+  help
+  ;;
 esac
