@@ -38,9 +38,9 @@ pomodoro() {
 }
 
 core() {
-  local time=1500       # Default focus time (25 min)
-  local break=300       # Default short break (5 min)
-  local long_break=1200 # Long break (20 min)
+  local time=3000       # Default focus time (50 min)
+  local break=600       # Default short break (10 min)
+  local long_break=2400 # Long break (40 min)
 
   if [ -f "$TIMER_SAVED" ]; then
     local paused_time=$(cat "$TIMER_SAVED")
