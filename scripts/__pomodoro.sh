@@ -22,7 +22,7 @@ pomodoro() {
   while [ $seconds -gt 0 ]; do
     local minutes=$((seconds / 60))
     local remaining_seconds=$((seconds % 60))
-    echo "{\"text\":\"$symbol $minutes:$remaining_seconds\", \"class\":\"pomodoro\"}" >"$OUTPUT_FILE"
+    echo "{\"text\":\"$symbol $minutes:$remaining_seconds\", \"tooltip\": \"Current Session: $current_session\"}" >"$OUTPUT_FILE"
     echo "$seconds" >"$TIMER_SAVED"
     tmux set -g status-right "$symbol $minutes:$remaining_seconds"
     sleep 1
