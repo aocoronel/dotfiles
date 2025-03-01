@@ -22,6 +22,7 @@
 #custom-cpuinfo,
 #custom-lock,
 #custom-media,
+#custom-suspend,
 #custom-power,
 #custom-quit,
 #custom-reboot,
@@ -157,6 +158,7 @@ tooltip label {
 
 /* == Distro and Power Menu == */
 
+#custom-suspend,
 #custom-power,
 #custom-quit,
 #custom-lock,
