@@ -302,7 +302,8 @@
     "interval": 360,
     "format": "{}",
     "return-type": "json",
-    "on-click": "kitty -e bash -c taskwarrior-tui",
+    "on-click": "~/.config/waybar/scripts/task.sh all",
+    "on-click-right": "~/.config/waybar/scripts/task.sh today",
   },
   "custom/weather": {
     "format": "{}°",
