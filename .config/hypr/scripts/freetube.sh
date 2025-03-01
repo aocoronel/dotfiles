@@ -3,6 +3,8 @@
 invidious_config="$HOME/invidious/"
 invidious_last_run="$HOME/.cache/invidious_last_run"
 
+token_mode=$1
+
 function token_generator() {
   local today
   today=$(date +%Y-%m-%d)
@@ -24,8 +26,14 @@ function startup() {
       exit 1
     }
 
-    if token_generator; then
-      sh "$HOME/scripts/__invidious-token-generator.sh"
+    # To disable token cycling, use the "disable" argument,
+    # while passing the freetub.sh.
+    # E.g. ./freetube.sh disable
+    if [ "$token_mode" != "disable" ]; then
+      echo "Token Cycling Skipped."
+      if token_generator; then
+        sh "$HOME/scripts/__invidious-token-generator.sh"
+      fi
     fi
 
     podman-compose up -d
