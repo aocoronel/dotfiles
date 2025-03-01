@@ -17,7 +17,8 @@ else
   tasks=$(task status:pending count)
 fi
 
-tooltip="LMB: Show all remaining tasks"
+tooltip="Current Mode: $(cat "$modefile")"
+tooltip+="\nLMB: Show all remaining tasks"
 tooltip+="\nRMB: Show today remaining tasks"
 
 if [ -z "$tasks" ]; then
