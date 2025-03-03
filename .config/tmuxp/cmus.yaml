@@ -1,15 +1,15 @@
-session_name: 'cmus'
+session_name: "cmus"
 windows:
-- focus: 'true'
-  layout: b225,74x33,0,0,8
-  options: {}
-  panes:
-  - cmus
-  start_directory: /home/aocoronel
-  window_name: cmus
-- layout: b226,74x33,0,0,9
-  options: {}
-  panes:
-  - ranger $MUSIC
-  start_directory: /home/aocoronel
-  window_name: ranger
+  - focus: "true"
+    layout: tiled
+    options: {}
+    panes:
+      - cmus
+    start_directory: $HOME
+    window_name: cmus
+  - layout: tiled
+    options: {}
+    panes:
+      - ranger $MUSIC
+    start_directory: $HOME
+    window_name: ranger
