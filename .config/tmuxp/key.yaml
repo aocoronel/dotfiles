@@ -1,7 +1,8 @@
+# Xorg Only
 session_name: key
 windows:
   - focus: "true"
-    layout: 3793,151x36,0,0[151x18,0,0,7,151x17,0,19,8]
+    layout: tiled
     options: {}
     panes:
       - sxhkd &

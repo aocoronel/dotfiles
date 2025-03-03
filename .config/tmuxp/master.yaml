@@ -1,9 +1,9 @@
 session_name: master
 windows:
   - focus: "true"
-    layout: 5d81,75x35,0,0,50
+    layout: tiled
     options: {}
     panes:
       - pane
-    start_directory: /home/aocoronel
+    start_directory: $HOME
     window_name: zsh

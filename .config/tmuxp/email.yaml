@@ -1,9 +1,9 @@
-session_name: 'email'
+session_name: "email"
 windows:
-- focus: 'true'
-  options: {}
-  shell_command_before:
-    - mw -Y
-  panes:
-  - neomutt
-  window_name: zsh
+  - focus: "true"
+    options: {}
+    shell_command_before:
+      - mw -Y
+    panes:
+      - neomutt
+    window_name: zsh
