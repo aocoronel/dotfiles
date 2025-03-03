@@ -9,9 +9,9 @@ videoformats=("mkv" "webm" "m4v" "mpeg" "ogv" "avi" "mov")
 
 for format in "${videoformats[@]}"; do
   find . -type f -iname "*.$format" | while read -r video_file; do
-    mp4_file="${video_file%.$format}.mp4"
+    mp4_file="${video_file%."$format"}.mp4"
 
-    ffmpeg -i "$video_file" "$mp4_file"
+    ffmpeg -nostdin -i "$video_file" -vcodec libx264 -crf 23 -preset medium -acodec aac -b:a 128k "$mp4_file"
 
     rm "$video_file"
 
