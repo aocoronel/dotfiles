@@ -1,6 +1,5 @@
 # [Created by task 3.1.0 11/6/2024 16:09:30]
 data.location=/home/aocoronel/.task
-news.version=3.2.0
 
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and update location config as follows:
@@ -61,3 +60,9 @@ report.book.description=List books
 report.book.columns=project,description.desc,end
 report.book.sort=end-\/,project+
 report.book.filter=status:pending description="Read"
+
+# Taskwarrior TUI
+
+uda.taskwarrior-tui.shortcuts.1=~/scripts/__taskopen-annotation.sh
+
+news.version=2.6.0
