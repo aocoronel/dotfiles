@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__switch_to_tui.sh
+
 set -eo pipefail
 
 TASK_DESCRIPTION="$1"
