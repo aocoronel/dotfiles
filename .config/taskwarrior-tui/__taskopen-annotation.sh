@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Originally created by Piotr1215
+# Find the original config here:
+# https://github.com/Piotr1215/dotfiles/blob/master/.config/taskwarrior-tui/shortcut-scripts/__taskopen-annotation.sh
+
 TASK_UUID=$1
 TASK_ANNOTATED=$(task "$TASK_UUID" | grep "nvimline" | head -n 1)
 TASK_DESCRIPTION=$(task "$TASK_UUID" | grep "Description" | sed 's/Description //g')
