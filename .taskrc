@@ -26,33 +26,45 @@ include dark-violets-256.theme
 
 # Colors
 
+# task color
+
 # Virtual Tags
 
-color.today        = bold cyan
-color.yesterday    = red
-color.blocked      = white on grey
-color.blocking     = black on grey
+color.week         = rgb505
+color.blocked      = white on rgb000
+color.blocking     = black on gray0
+color.overdue      = bold white on rgb101
+color.due          = bold white on rgb100
+color.uda.priority.H   = bold white on rgb100
+color.uda.priority.M   = bold rgb110
+color.uda.priority.L   = bold rgb011
 
 # Tags
 
-color.tag.code     = green
-color.tag.started  = magenta
-color.tag.home     = yellow
-color.tag.book     = yellow
-color.tag.blog     = yellow
-color.tag.acdmy    = cyan
-color.tag.course   = cyan
+color.tag.acdmy    = rgb055
+color.tag.book     = rgb520
+color.tag.code     = rgb050
+color.tag.course   = rgb355
+color.tag.home     = rgb510
+color.tag.review   = rgb555
+color.tag.started  = rgb505
 
 # Context
 
 context.work.read=+work
 context.work.write=+work
-context.home.read=+home or +blog or +book
-context.home.write=+home or +blog or +book
+
+context.home.read=+home or +book
+context.home.write=+home or +book
+
 context.code.read=+code
 context.code.write=+code
-context.acdmy.read=+acdmy or +course
-context.acdmy.write=+acdmy or +course
+
+context.acdmy.read=+acdmy or +course or +research
+context.acdmy.write=+acdmy or +course or +research
+
+context.review.read=+review
+context.review.write=+review
 
 # Reports
 
@@ -63,6 +75,10 @@ report.book.filter=status:pending description="Read"
 
 # Taskwarrior TUI
 
-uda.taskwarrior-tui.shortcuts.1=~/scripts/__taskopen-annotation.sh
+uda.taskwarrior-tui.shortcuts.1=~/.config/taskwarrior-tui/__taskopen-annotation.sh
+uda.taskwarrior-tui.shortcuts.2=~/.config/taskwarrior-tui/__toggle_review_label.sh
+uda.taskwarrior-tui.shortcuts.3=~/.config/taskwarrior-tui/__cycle_priority.sh
+uda.taskwarrior-tui.shortcuts.4=~/.config/taskwarrior-tui/__annotate_with_note.sh
+uda.taskwarrior-tui.shortcuts.5=~/.config/taskwarrior-tui/__annotate_with_new_note.sh
 
 news.version=2.6.0
