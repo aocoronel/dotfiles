@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-nvim.sh
 

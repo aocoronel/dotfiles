@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__obsidian.sh
 
@@ -21,19 +21,19 @@ fi
 ##############################
 
 # keybindings
-workspace_mode="Alt+Tab"
-select_daily="Alt+s"
-today="Alt+a"
-tool_mode="Alt+t"
-delete="Alt+d"
-reset="Alt+q"
+# workspace_mode="Alt+Tab"
+# select_daily="Alt+s"
+# today="Alt+a"
+# tool_mode="Alt+t"
+# delete="Alt+d"
+# reset="Alt+q"
 
-# workspace_mode="Ctrl+1"
-# select_daily="Ctrl+2"
-# today="Ctrl+3"
-# tool_mode="Ctrl+t"
-# delete="Ctrl+s"
-# reset="Ctrl+q"
+workspace_mode="Ctrl+1"
+select_daily="Ctrl+2"
+today="Ctrl+3"
+tool_mode="Ctrl+t"
+delete="Ctrl+s"
+reset="Ctrl+q"
 
 # colors
 help_color="#7c5cff"
@@ -134,7 +134,8 @@ main() {
         folder="$JOURNAL/Week/"
         year_var=$(date +%Y)
         week_var=$(date +%W)
-        daily=$(echo "${year_var}-W${week_var}")
+        week=$(date -d "$week_var +7 day" '+%U')
+        daily=$(echo "${year_var}-W${week}")
         ;;
       "3. Month")
         folder="$JOURNAL/Month/"
