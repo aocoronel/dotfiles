@@ -4,6 +4,6 @@ windows:
     options: {}
     panes:
       - focus: "true"
-        shell_command: taskwarrior-tui
+        shell_command: tt
     start_directory: $HOME
     window_name: taskwarrior
