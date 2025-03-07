@@ -50,12 +50,22 @@ pip-extra:
 # Install Oh-my-posh
 install-posh:
   curl -s https://ohmyposh.dev/install.sh | bash -s
+
 # Change Font
 gnome-font:
   gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
+
 # Install Invidious
 invidious:
   docker run quay.io/invidious/youtube-trusted-session-generator
   git clone https://github.com/iv-org/invidious.git
   mv ./invidious.yaml ~/dotfiles/invidious/docker-compose.yml
   echo "Manual changes required. See https://docs.invidious.io/installation/#docker-compose-method-production for details"
+
+# Install X CMD
+config-xcmd:
+  eval "$(curl https://get.x-cmd.com)"
+
+# Taskwarrior TUI for V2
+taskwarrior-tui:
+  xdg-open https://github.com/kdheepak/taskwarrior-tui/releases/tag/v0.25.4
