@@ -56,3 +56,8 @@ alias upgrade='sudo pacman -Syu'
 
 # alias sxhd="$HOME/scripts/__restart-sxhkd.sh" # Xorg
 # alias tskchamp='taskchampion-sync-server -C $(pwgen) -d /home/aocoronel/.task'
+
+### Drives
+
+alias pdc='fusermount -u $BEELZEBUB && notify-send -u normal "Drive umounted"'
+alias pdu='pass /dev/pandora | gocryptfs $PANDORA $BEELZEBUB && notify-send -u normal "Drive mounted"'
