@@ -31,7 +31,7 @@ $0 apply
 EOF
 }
 
-function reset() {
+function apply() {
   git filter-branch -f --env-filter '
 if [ "$GIT_AUTHOR_EMAIL" = "aocoronel@particular.slmail.me" ]
 then
