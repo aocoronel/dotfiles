@@ -44,6 +44,7 @@ color.uda.priority.L   = bold rgb011
 color.tag.acdmy    = rgb055
 color.tag.book     = rgb520
 color.tag.code     = rgb050
+color.tag.work     = rgb450
 color.tag.course   = rgb355
 color.tag.home     = rgb510
 color.tag.review   = rgb555
