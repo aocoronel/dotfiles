@@ -83,3 +83,5 @@ zle -N kill_tmux_pane
 bindkey '^[t' kill_tmux_pane
 
 if [ "$RANGERCD" = true ]; then unset RANGERCD; ranger_cd; fi
+
+[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
