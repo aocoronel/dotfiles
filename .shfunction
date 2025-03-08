@@ -2,6 +2,7 @@
 
 # Move to default Tmux directory
 function cds() {
+  local session
   session=$(tmux display-message -p '#{session_path}')
   cd "$session" || exit
 }
@@ -12,6 +13,7 @@ function weather() {
 
 # Tmuxp Attacher
 function tp() {
+  local session select
   session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$session" | fzf --tmux "$@")
   if tmux has-session -t "$select"; then
@@ -23,19 +25,23 @@ function tp() {
 
 # Repo Fetch
 function rf() {
-  export repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
+  local repo
+  repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
+  export ${repo}
 
   [[ -n "$repo" ]] && cd "$repo" || exit
 }
 
 # Task Done Today
 function tdt() {
+  local date
   date=$(date +%F)
   task end.after:$date completed
 }
 
 # Ranger Shell Integration - Moves to last directory ranger exits
 function ranger_cd() {
+  local temp_file
   temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
   ranger --choosedir="$temp_file" -- "${@:-$PWD}"
   if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
@@ -43,13 +49,8 @@ function ranger_cd() {
   fi
   rm -f -- "$temp_file"
 }
-
-# Flashcards
-function flash() {
-  mdfc -o -w 100 $OBSIDIAN/OUROBOROS/flashcards.md
-}
-
 function changevol() {
+  local vol
   vol=$1
-  pactl set-sink-volume @DEFAULT_SINK@ $vol
+  pactl set-sink-volume @DEFAULT_SINK@ "$vol"
 }
