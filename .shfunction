@@ -1,5 +1,6 @@
 #!/bin/env bash
 
+# Move to default Tmux directory
 function cds() {
   session=$(tmux display-message -p '#{session_path}')
   cd "$session" || exit
@@ -9,8 +10,8 @@ function weather() {
   curl http://wttr.in/"$1"
 }
 
+# Tmuxp Attacher
 function tp() {
-  #Tmuxp Attacher
   session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$session" | fzf --tmux "$@")
   if tmux has-session -t "$select"; then
@@ -20,25 +21,35 @@ function tp() {
   fi
 }
 
-function cr() {
+# Repo Fetch
+function rf() {
   export repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
 
   [[ -n "$repo" ]] && cd "$repo" || exit
 }
 
 # Task Done Today
-function tskt() {
+function tdt() {
   date=$(date +%F)
   task end.after:$date completed
 }
 
 # Ranger Shell Integration - Moves to last directory ranger exits
-ranger_cd() {
-    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
-    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
-    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
-        cd -- "$chosen_dir"
-    fi
-    rm -f -- "$temp_file"
+function ranger_cd() {
+  temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+  ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+  if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+    cd -- "$chosen_dir"
+  fi
+  rm -f -- "$temp_file"
 }
 
+# Flashcards
+function flash() {
+  mdfc -o -w 100 $OBSIDIAN/OUROBOROS/flashcards.md
+}
+
+function changevol() {
+  vol=$1
+  pactl set-sink-volume @DEFAULT_SINK@ $vol
+}
