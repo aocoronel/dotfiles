@@ -31,8 +31,8 @@ function choose_file() {
   HEADER="A-a: Select All / A-s: Deselect All / C-/: Preview / A-d: Delete / C-r: Ripgrep (Multi-select) / C-l: List"
   PROMPT="Choose a file to read: "
   DELETE_BIND="Alt-d:execute(echo -n 'Delete {+} [y/N]? ' && read -r yn && [[ \$yn =~ ^[Yy]$ ]] && rm {+})+reload(ls)"
-  LS_RELOAD="reload:ls"
-  RG_RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  LS_RELOAD="change-preview(bat {})+reload(ls)"
+  RG_RELOAD="reload(rg --column --color=always --smart-case {q} || :)+change-preview(bat --style=full --color=always --highlight-line {2} {1} || bat --style=full --color=always {1})+change-preview-window(~4,+{2}+4/3,<80(up))"
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
           nvim {1} +{2}     # No selection. Open the current line in Vim.
           else
@@ -47,7 +47,7 @@ function choose_file() {
       --bind "ctrl-l:$LS_RELOAD" \
       --bind "ctrl-r:$RG_RELOAD" \
       --bind "enter:execute:$OPENER" \
-      --bind "start:$LS_RELOAD" \
+      --bind "start:enable-search+${LS_RELOAD}" \
       --delimiter : \
       --header "$HEADER" \
       --preview 'bat {}' \
