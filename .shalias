@@ -1,15 +1,11 @@
 #!/bin/env bash
 
-SCRIPTS="$HOME/scripts"
-ZCRIPTS="$HOME/zcripts"
-
-### Tools
+# Tools
 
 ## Classic
 
 alias cat='bat'
-alias changevol="pactl set-sink-volume @DEFAULT_SINK@ $1"
-alias lgd="lazygit -p $HOME/dotfiles/"
+alias lgd="lazygit -p \$HOME/dotfiles/"
 alias lg='lazygit'
 alias ls='eza --color=auto --group-directories-first'
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
@@ -38,12 +34,12 @@ alias tk='task limit:3'
 
 ## AI
 
-alias gc="sh $SCRIPTS/__gemini.sh code"
-alias gd="sh $SCRIPTS/__gemini.sh dir"
-alias gr="sh $SCRIPTS/__gemini.sh rg"
-alias g="sh $SCRIPTS/__gemini.sh p"
+alias gc="sh \$SCRIPTS/__gemini.sh code"
+alias gd="sh \$SCRIPTS/__gemini.sh dir"
+alias gr="sh \$SCRIPTS/__gemini.sh rg"
+alias g="sh \$SCRIPTS/__gemini.sh p"
 
-### Pacman
+## Pacman
 
 alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
 alias clearcache='pacman -Scc'
@@ -52,12 +48,12 @@ alias remove='sudo pacman -Rns'
 alias update='sudo pacman -Syy'
 alias upgrade='sudo pacman -Syu'
 
-### Deprecated
+## Deprecated
 
 # alias sxhd="$HOME/scripts/__restart-sxhkd.sh" # Xorg
 # alias tskchamp='taskchampion-sync-server -C $(pwgen) -d /home/aocoronel/.task'
 
-### Drives
+## Drives
 
 alias pdc='fusermount -u $BEELZEBUB && notify-send -u normal "Drive umounted"'
 alias pdu='pass /dev/pandora | gocryptfs $PANDORA $BEELZEBUB && notify-send -u normal "Drive mounted"'
