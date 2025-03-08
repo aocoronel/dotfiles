@@ -28,7 +28,7 @@ function notify_me() {
 }
 
 function choose_file() {
-  HEADER="A-a: Select All / A-s: Deselect All / C-/: Preview / A-d: Delete / A-r: Ripgrep (Multi-select) / A-l: List"
+  HEADER="A-a: Select All / A-s: Deselect All / C-/: Preview / A-d: Delete / C-r: Ripgrep (Multi-select) / C-l: List"
   PROMPT="Choose a file to read: "
   DELETE_BIND="Alt-d:execute(echo -n 'Delete {+} [y/N]? ' && read -r yn && [[ \$yn =~ ^[Yy]$ ]] && rm {+})+reload(ls)"
   LS_RELOAD="reload:ls"
@@ -51,7 +51,7 @@ function choose_file() {
       --delimiter : \
       --header "$HEADER" \
       --preview 'bat {}' \
-      --preview-window '75%' \
+      --preview-window up:65% \
       --prompt "$PROMPT" \
       --query "$*"
   )
