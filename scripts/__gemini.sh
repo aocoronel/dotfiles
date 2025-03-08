@@ -27,23 +27,33 @@ function notify_me() {
   notify-send -u normal "Gemini: Request" "Your request finished!"
 }
 
-function rfv() (
-  cd "$CHAT_DIR" || exit
-  sh ~/scripts/__fuzzy-grep.sh "$args"
-)
-
 function choose_file() {
-  local HEADER="A-d: Delete"
-  local PROMPT="Choose a file to read: "
-  local DELETE_BIND="Alt-d:execute(echo -n 'Delete {+} [y/N]? ' && read -r yn && [[ \$yn =~ ^[Yy]$ ]] && rm {+})+reload(find \"$CHAT_DIR\" -type f)"
+  HEADER="A-a: Select All / A-s: Deselect All / C-/: Preview / A-d: Delete / A-r: Ripgrep (Multi-select) / A-l: List"
+  PROMPT="Choose a file to read: "
+  DELETE_BIND="Alt-d:execute(echo -n 'Delete {+} [y/N]? ' && read -r yn && [[ \$yn =~ ^[Yy]$ ]] && rm {+})+reload(ls)"
+  LS_RELOAD="reload:ls"
+  RG_RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+          nvim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            nvim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
 
+  cd $CHAT_DIR
   RESULT=$(
-    find "$CHAT_DIR" -type f | fzf --tmux 88% \
+    fzf --disabled --ansi --multi --tmux 88% \
       --bind "$DELETE_BIND" \
+      --bind 'alt-a:select-all,alt-s:deselect-all,ctrl-/:toggle-preview' \
+      --bind "ctrl-l:$LS_RELOAD" \
+      --bind "ctrl-r:$RG_RELOAD" \
+      --bind "enter:execute:$OPENER" \
+      --bind "start:$LS_RELOAD" \
+      --delimiter : \
       --header "$HEADER" \
+      --preview 'bat {}' \
+      --preview-window '75%' \
       --prompt "$PROMPT" \
-      --preview-window right:60% \
-      --preview 'bat {}'
+      --query "$*"
   )
 
   if [ -n "$RESULT" ]; then
@@ -64,6 +74,7 @@ EOF
 }
 
 function generate_chat() {
+  local uuid
   if [ -z "$2" ]; then
     help
     exit
@@ -71,10 +82,10 @@ function generate_chat() {
   local id="$1"
   shift
   local question="$*"
-  local uuid=$(uuidgen)
+  uuid=$(date +%Y%M%d%H%M%S)
   local filename="$CHAT_DIR/$id-$uuid.md"
 
-  x gemini chat request "${question}" >"$filename"
+  x gemini chat request "$mode ${question}" >"$filename"
   status=$?
 
   if [ $status -ne 0 ]; then
@@ -99,11 +110,15 @@ fi
 case "$1" in
 # Specials
 "dir") choose_file ;;
-"rg")
-  args="$*"
-  rfv
-  ;;
 # IDs
-"code") generate_chat "code" "$@" ;;
-*) generate_chat "personal" "$@" ;;
+"code")
+  shift
+  mode="You are an AI assistant that helps user write code. Heres is my question:"
+  generate_chat "code" "$@"
+  ;;
+*)
+  shift
+  mode="You are an AI assistant that helps user think. Heres is my question:"
+  generate_chat "personal" "$@"
+  ;;
 esac
