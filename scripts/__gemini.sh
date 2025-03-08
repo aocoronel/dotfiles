@@ -27,19 +27,21 @@ function notify_me() {
   notify-send -u normal "Gemini: Request" "Your request finished!"
 }
 
+# shellcheck disable=SC2120
+# shellcheck disable=SC2016
 function choose_file() {
   HEADER="A-a: Select All / A-s: Deselect All / C-/: Preview / A-d: Delete / C-r: Ripgrep (Multi-select) / C-l: List"
   PROMPT="Choose a file to read: "
   DELETE_BIND="Alt-d:execute(echo -n 'Delete {+} [y/N]? ' && read -r yn && [[ \$yn =~ ^[Yy]$ ]] && rm {+})+reload(ls)"
-  LS_RELOAD="change-preview(bat {})+reload(ls)"
-  RG_RELOAD="reload(rg --column --color=always --smart-case {q} || :)+change-preview(bat --style=full --color=always --highlight-line {2} {1} || bat --style=full --color=always {1})+change-preview-window(~4,+{2}+4/3,<80(up))"
+  LS_RELOAD="change-preview(bat --color=always {})+reload(ls)"
+  RG_RELOAD="reload(rg --column --color=always --smart-case {q} || :)+change-preview(bat --color=always --highlight-line {2} {1} || bat --style=full --color=always {1})+change-preview-window(~4,+{2}+4/3,<80(up))"
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
           nvim {1} +{2}     # No selection. Open the current line in Vim.
           else
             nvim +cw -q {+f}  # Build quickfix list for the selected items.
           fi'
 
-  cd $CHAT_DIR
+  cd "$CHAT_DIR" || return
   RESULT=$(
     fzf --disabled --ansi --multi --tmux 88% \
       --bind "$DELETE_BIND" \
@@ -50,7 +52,7 @@ function choose_file() {
       --bind "start:enable-search+${LS_RELOAD}" \
       --delimiter : \
       --header "$HEADER" \
-      --preview 'bat {}' \
+      --preview 'bat --color=always {}' \
       --preview-window up:65% \
       --prompt "$PROMPT" \
       --query "$*"
@@ -62,6 +64,7 @@ function choose_file() {
     echo "Exitting..."
   fi
 }
+# shellcheck enable=all
 
 function help() {
   cat <<EOF
