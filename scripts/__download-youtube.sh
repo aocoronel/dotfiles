@@ -21,6 +21,10 @@ Available Options:
 eof
 }
 
+function yt_cmd() {
+  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@"
+}
+
 function download() {
   URL=$(xclip -o)
   title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
@@ -33,10 +37,6 @@ function download() {
   fi
 }
 
-function yt_cmd() {
-  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
-}
-
 function batch() {
   echo "Downloading from file $file as $format"
   if [ "$format" = "video" ]; then
@@ -46,7 +46,7 @@ function batch() {
   else
     help
   fi
-  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' -a "$file"
+  yt_cmd -a "$file"
 }
 
 if [ "$#" -eq 0 ]; then
@@ -58,6 +58,7 @@ fi
 while [[ "$1" != "" ]]; do
   case "$1" in
   -a | --audio)
+    shift
     mode=bestaudio
     download
     exit 0
@@ -69,6 +70,7 @@ while [[ "$1" != "" ]]; do
     exit 0
     ;;
   -v | --video)
+    shift
     mode=best
     download
     exit 0
