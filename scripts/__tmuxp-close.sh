@@ -2,16 +2,15 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-close.sh
 
-function tc() {
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/lib/tmux_functions.sh"
+
+function main() {
   session=$(tmux ls | awk -F ':' '{print $1}')
   select=$(echo "$session" | rofi -dmenu -p "Select session to attach/load")
   if [[ -n "$select" ]]; then
-    if tmux has-session -t "$select"; then
-      tmux kill-session -t "$select" && notify-send -u low "Session $select has been closed"
-    else
-      notify-send -u normal "Session $select isn't running"
-    fi
+    close_tmux "$select"
   fi
 }
 
-tc
+main
