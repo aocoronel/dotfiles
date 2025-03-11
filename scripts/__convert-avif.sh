@@ -2,8 +2,16 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__convert-avif.sh
 
-sizebefore_mb=$(du -ms | awk '{print $1}')
-sizebefore_kb=$(du -ks | awk '{print $1}')
+function get_mb() {
+  du -ms | awk '{print $1}'
+}
+
+function get_kb() {
+  du -ks | awk '{print $1}'
+}
+
+sizebefore_mb=$(get_mb)
+sizebefore_kb=$(get_kb)
 
 imageformats=("jpg" "png" "webp" "jpeg")
 
@@ -19,13 +27,12 @@ for format in "${imageformats[@]}"; do
   done
 done
 
-sizeafter_mb=$(du -ms | awk '{print $1}')
-sizeafter_kb=$(du -ks | awk '{print $1}')
-
+sizeafter_mb=$(get_mb)
 declare -i A=("$sizebefore_mb"-"$sizeafter_mb")
-declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
 
 if [ "$A" -eq 0 ]; then
+  sizeafter_kb=$(get_kb)
+  declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
   echo "$B" KB have been freed!
 else
   echo "$A" MB have been freed!
