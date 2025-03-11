@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/user/bin/env bash
+
+# shellcheck disable=SC2120
+# shellcheck disable=SC2016
 
 rfv() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'

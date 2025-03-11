@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # Environment Variables are sourced from .localenv at $HOME
 # Example:
