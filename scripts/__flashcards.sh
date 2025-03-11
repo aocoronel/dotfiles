@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
 
-FLASH_DIR="$OBSIDIAN/OUROBOROS/"
-FLASH_FILE="$FLASH_DIR/flashcards.md"
+# https://github.com/user/dotfiles/blob/main/scripts/__flashcards.sh
+
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/lib/get_env.sh"
+
+get_flashcard # Get FLASHCARD env
+
+if [ -z "$FLASHCARD" ]; then
+  echo "Error: FLASHCARD env at .localenv not found"
+  exit 1
+fi
+
+FLASH_DIR=$(dirname "$FLASHCARD")
+FLASH_FILE=$FLASHCARD
 NOW=$(date +%F)
 
 if [ ! -f "$FLASH_FILE" ]; then
+  echo "$FLASHCARD"
+  echo "$FLASH_FILE"
   echo "Flashcard not found!"
-  sleep 1
-  return 1
+  exit 1
 fi
 
 function flash_state() {
