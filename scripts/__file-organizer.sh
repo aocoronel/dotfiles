@@ -32,7 +32,7 @@ function directory_check() {
   [[ -d "$dir2/others" ]] || mkdir -p "$dir2/others"
 }
 
-function organizer() {
+function main() {
   find "$dir1" -type f -exec bash -c '
       dir2="$1"
       dest_dir=""
@@ -58,4 +58,4 @@ function organizer() {
 }
 
 directory_check
-organizer
+main

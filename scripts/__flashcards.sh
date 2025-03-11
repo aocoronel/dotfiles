@@ -38,7 +38,7 @@ function commit() {
   return 0
 }
 
-function flash() {
+function main() {
   INITIAL_STATE=$(flash_state)
   mdfc -o -w 100 "$FLASH_FILE"
   CURRENT_STATE=$(flash_state)
@@ -48,4 +48,4 @@ function flash() {
   fi
 }
 
-flash
+main
