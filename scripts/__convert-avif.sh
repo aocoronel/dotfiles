@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__convert-avif.sh
 
+if ! command -v magick &>/dev/null; then
+  echo "imagemagick could not be found. Please install it."
+  exit 1
+fi
+
 function get_mb() {
   du -ms | awk '{print $1}'
 }
