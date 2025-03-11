@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__convert-mp4.sh
 
+if ! command -v ffmpeg &>/dev/null; then
+  echo "ffmpeg could not be found. Please install it."
+  exit 1
+fi
+
 sizebefore_mb=$(du -ms | awk '{print $1}')
 sizebefore_kb=$(du -ks | awk '{print $1}')
 
