@@ -2,6 +2,11 @@
 
 # https://github.com/user/dotfiles/blob/main/scripts/__flashcards.sh
 
+if ! command -v mdfc &>/dev/null; then
+  echo "mdfc could not be found. Please install it."
+  exit 1
+fi
+
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/lib/get_env.sh"
 
