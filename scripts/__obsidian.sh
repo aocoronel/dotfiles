@@ -4,14 +4,32 @@
 
 ### Configuration
 
-source "$HOME/.env"
+## Get Environment Variables
+
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/lib/get_env.sh"
+
+get_obsidian
+get_journal
+get_term
+
+if [ -z "$JOURNAL" ]; then
+  echo "Error: JOURNAL env at .localenv not found"
+  exit 1
+elif [ -z "$OBSIDIAN" ]; then
+  echo "Error: OBSIDIAN env at .localenv not found"
+  exit 1
+elif [ -z "$TERMCMD" ]; then
+  echo "Error: TERMCMD env at .localenv not found"
+  exit 1
+fi
 
 TOOL_PATH=~/.local/share/obsidian-tool
 JOURNAL_VAULT=$(dirname "$JOURNAL")
 JOURNAL_VAULT=$(basename "$JOURNAL_VAULT")
 
 if [ ! -f "/tmp/obsidian-workspace" ]; then
-  echo "$OBSIDIAN" >/tmp/obsidian-workspace
+  touch /tmp/obsidian-workspace
 fi
 
 if [ ! -f "$TOOL_PATH" ]; then
@@ -41,11 +59,29 @@ label="#f067fc"
 div_color="#334433"
 
 _rofi() {
-  rofi -dmenu -i -no-levenshtein-sort -width 1000 "$@"
+  rofi -dmenu -i -no-levenshtein-sort -width 1000 -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}" "$@"
+}
+
+open() {
+  if [ "$mode" == "daily" ] || [ "$mode" == "today" ]; then
+    case "$TOOL" in
+    "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
+    "neovide") neovide "$obsidian_directory/$menu".md ;;
+    "obsidian") obsidian-cli open "$menu" --vault $JOURNAL_VAULT ;;
+    *) notify-send -u low "Obsidian: Error" "No available tool" ;;
+    esac
+  else
+    case "$TOOL" in
+    "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
+    "neovide") neovide "$obsidian_directory/$menu".md ;;
+    "obsidian") obsidian-cli open "$menu" --vault $obsidian_file ;;
+    *) notify-send -u low "Obsidian: Error" "No available tool" ;;
+    esac
+  fi
 }
 
 deleteMenu() {
-  delask=$(echo -e "1. Yes\n2. No" | _rofi -p '> ' -mesg "<span color='${label}'>Really delete</span> <span color='${help_color}'>$menu?</span>")
+  delask=$(echo -e "1. Yes\n2. No" | _rofi -dmenu -i -no-levenshtein-sort -width 1000 -p '> ' -mesg "<span color='${label}'>Really delete</span> <span color='${help_color}'>$menu?</span>")
   [[ $? -eq 1 ]] && exit
   if [[ "$delask" == "1. Yes" ]]; then
     rm -f "$workspace/$menu.md"
@@ -61,26 +97,24 @@ main() {
   case "$mode" in
   notes)
     TOOL=$(cat "$TOOL_PATH")
-    workspace=$(cat "/tmp/obsidian-workspace")
-    workspace_name=$(basename "$workspace")
-    notes=$(find "$workspace" -type f -name '*.md' -printf '%P\n' | sed 's/\.md$//')
-    menu=$(echo "${notes}" | _rofi -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}")
+    obsidian_directory=$(cat "/tmp/obsidian-workspace")
+    obsidian_file=$(basename "$obsidian_directory")
+    notes=$(find "$obsidian_directory" -type f -name '*.md' -printf '%P\n' | sed 's/\.md$//')
+    menu=$(echo "${notes}" | _rofi)
     ;;
   workspace)
-    menu=$(ls $OBSIDIAN | _rofi -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}")
+    menu=$(ls $OBSIDIAN | _rofi)
     ;;
   daily)
-    TOOL=$(cat "$TOOL_PATH")
-    folder="$JOURNAL/"
-    daily_notes=$(find "$folder" -type f -name '*.md' -printf '%P\n' | sed 's/\.md$//')
-    menu=$(echo "${daily_notes}" | _rofi -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}")
+    obsidian_directory="$JOURNAL/"
+    obsidian_file=$(find "$obsidian_directory" -type f -name '*.md' -printf '%P\n' | sed 's/\.md$//')
+    menu=$(echo "${obsidian_file}" | _rofi)
     ;;
   today)
-    TOOL=$(cat "$TOOL_PATH")
-    menu=$(echo -e "1. Day\n2. Week\n3. Month\n4. Year" | _rofi -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}")
+    menu=$(echo -e "1. Day\n2. Week\n3. Month\n4. Year" | _rofi)
     ;;
   tool)
-    menu=$(echo -e "nvim\nneovide\nobsidian" | _rofi -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}")
+    menu=$(echo -e "nvim\nneovide\nobsidian" | _rofi)
     ;;
   esac
 
@@ -103,11 +137,7 @@ main() {
     case "$mode" in
     notes)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No note selected" && exit
-      case "$TOOL" in
-      nvim) $TERMCMD -e nvim "$workspace/$menu.md" ;;
-      neovide) neovide "$workspace/$menu.md" ;;
-      obsidian) obsidian-cli open "$menu" --vault "$workspace_name" ;;
-      esac
+      open
       ;;
     workspace)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No vault selected" && exit
@@ -117,43 +147,34 @@ main() {
       ;;
     daily)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No vault selected" && exit
-      case "$TOOL" in
-      "neovim") $TERMCMD -e nvim "$folder/$menu".md ;;
-      "neovide") neovide "$folder/$menu".md ;;
-      "obsidian") obsidian-cli open "$menu" --vault $JOURNAL ;;
-      esac
+      open
       ;;
     today)
       [[ -z "$menu" ]] && notify-send -u low "Obsidian: Error" "No note selected" && exit
       case "$menu" in
       "1. Day")
-        folder="$JOURNAL/Daily/"
-        daily=$(date +%F)
+        obsidian_directory="$JOURNAL/Daily/"
+        obsidian_file=$(date +%F)
         ;;
       "2. Week")
-        folder="$JOURNAL/Week/"
+        obsidian_directory="$JOURNAL/Week/"
         year_var=$(date +%Y)
         week_var=$(date +%W)
         week=$(date -d "$week_var +7 day" '+%U')
-        daily=$(echo "${year_var}-W${week}")
+        obsidian_file=$(echo "${year_var}-W${week}")
         ;;
       "3. Month")
-        folder="$JOURNAL/Month/"
+        obsidian_directory="$JOURNAL/Month/"
         year_var=$(date +%Y)
         month_var=$(date +%B)
-        daily=$(echo "${month_var}, "${year_var}"")
+        obsidian_file=$(echo "${month_var}, "${year_var}"")
         ;;
       "4. Year")
-        folder="$JOURNAL/"
-        daily=$(date +%Y)
+        obsidian_directory="$JOURNAL"
+        obsidian_file=$(date +%Y)
         ;;
       esac
-      case "$TOOL" in
-      nvim) $TERMCMD -e nvim "$folder/$daily.md" ;;
-      neovide) neovide "$folder/$daily.md" ;;
-      obsidian) obsidian-cli open "$daily" --vault "$JOURNAL_VAULT" ;;
-      *) notify-send -u low "Obsidian: Error" "No available tool" ;;
-      esac
+      open
       ;;
     tool)
       echo "$menu" >"$TOOL_PATH"
