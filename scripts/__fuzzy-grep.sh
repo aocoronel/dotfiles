@@ -1,9 +1,11 @@
 #!/user/bin/env bash
 
+# https://github.com/user/dotfiles/blob/main/scripts/__fuzzy-grep.sh
+
 # shellcheck disable=SC2120
 # shellcheck disable=SC2016
 
-rfv() (
+main() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             nvim {1} +{2}     # No selection. Open the current line in Vim.
@@ -21,4 +23,4 @@ rfv() (
     --query "$*"
 )
 
-rfv
+main
