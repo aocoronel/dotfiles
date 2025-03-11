@@ -76,7 +76,7 @@ dir                 - Select cached chat data to read or edit
 EOF
 }
 
-function generate_chat() {
+function main() {
   local uuid
   if [ -z "$2" ]; then
     help
@@ -117,11 +117,11 @@ case "$1" in
 "code")
   shift
   mode="You are an AI assistant that helps user write code. Heres is my question:"
-  generate_chat "code" "$@"
+  main "code" "$@"
   ;;
 *)
   shift
   mode="You are an AI assistant that helps user think. Heres is my question:"
-  generate_chat "personal" "$@"
+  main "personal" "$@"
   ;;
 esac

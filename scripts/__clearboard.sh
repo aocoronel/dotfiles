@@ -9,7 +9,7 @@ fi
 
 clipmethod="$XDG_SESSION_TYPE"
 
-function clearboard() {
+function main() {
   if [ "$clipmethod" = "x11" ]; then
     dunstctl close-all
     echo "" | xclip -sel clip
@@ -22,4 +22,4 @@ function clearboard() {
   fi
 }
 
-clearboard
+main
