@@ -44,7 +44,7 @@ function startup() {
 
 function main() {
   startup
-  freetube
+  pgrep freetube && hyprctl dispatch focuswindow class:FreeTube || freetube
 }
 
 main
