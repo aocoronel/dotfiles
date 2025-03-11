@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 FLASH_DIR="$OBSIDIAN/OUROBOROS/"
 FLASH_FILE="$FLASH_DIR/flashcards.md"
