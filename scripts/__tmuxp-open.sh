@@ -3,7 +3,7 @@
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmuxp-open.sh
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/lib/get_var.sh"
+source "$SCRIPT_DIR/lib/get_env.sh"
 source "$SCRIPT_DIR/lib/tmux_functions.sh"
 
 function main() {
