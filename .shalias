@@ -32,6 +32,8 @@ alias taskclean='task +DELETED purge'
 alias taskgit='git -C "$HOME/.task/" add -A; git -C "$HOME/.task/" commit -a -m "Auto Commit"'
 alias tk='task limit:3'
 
+alias fv="sh \$SCRIPTS/__flashcards.sh"
+
 ## AI
 
 alias gc="sh \$SCRIPTS/__gemini.sh code"
