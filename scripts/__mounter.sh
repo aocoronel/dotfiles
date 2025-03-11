@@ -93,6 +93,9 @@ case $1 in
 "open")
   mount
   ;;
+"iopen")
+  imount
+  ;;
 "close")
   umount
   ;;
