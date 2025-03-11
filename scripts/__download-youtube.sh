@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__download-youtube.sh
 
+if ! command -v yt-dlp &>/dev/null; then
+  echo "yt-dlp could not be found. Please install it."
+  exit 1
+fi
+
 function help() {
   cat <<eof
 Youtube Video Downloader
@@ -16,40 +21,32 @@ Available Options:
 eof
 }
 
-function audio() {
+function download() {
   URL=$(xclip -o)
   title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
-  yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
-  if [ "$?" -eq 0 ]; then
-    notify-send -u normal "$title downloaded"
+  yt_cmd "$URL"
+  val=$?
+  if [ "$val" -eq 0 ]; then
+    notify-send -u normal "Downlaod YT: Success" "$title downloaded"
   else
-    notify-send -u normal "An error occurred!"
+    notify-send -u normal "Download YT: Error" "An error occurred! Maybe a wrong URL?"
   fi
-  exit 0
 }
 
-function video() {
-  URL=$(xclip -o)
-  title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
-  yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
-  if [ "$?" -eq 0 ]; then
-    notify-send -u normal "$title downloaded"
-  else
-    notify-send -u normal "An error occurred!"
-  fi
-  exit 0
+function yt_cmd() {
+  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
 }
 
 function batch() {
   echo "Downloading from file $file as $format"
   if [ "$format" = "video" ]; then
-    yt-dlp -x -f best --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$URL"
+    mode=best
   elif [ "$format" = "audio" ]; then
-    yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' -a "$file"
+    mode=bestaudio
   else
-    echo "Please choose audio or video, for the file format"
+    help
   fi
-  exit 0
+  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' -a "$file"
 }
 
 if [ "$#" -eq 0 ]; then
@@ -61,15 +58,24 @@ fi
 while [[ "$1" != "" ]]; do
   case "$1" in
   -a | --audio)
-    audio
+    mode=bestaudio
+    download
+    exit 0
     ;;
   -b | --batch)
     file=$2
     format=$3
     batch
+    exit 0
     ;;
   -v | --video)
-    video
+    mode=best
+    download
+    exit 0
+    ;;
+  -h | --help)
+    help
+    exit 0
     ;;
   esac
 done
