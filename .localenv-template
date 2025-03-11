@@ -1,0 +1,16 @@
+#!/bin/env bash
+
+# shellcheck disable=all
+
+# Tools
+
+SHELL=zsh
+VISUAL=nvim
+EDITOR=nvim
+PAGER=bat
+TERMCMD=kitty
+
+# Scripts
+
+SCRIPTS="$HOME/scripts/"
+PASSWORD_STORE_DIR="$HOME/.password-store/"
