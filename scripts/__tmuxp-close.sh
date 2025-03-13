@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-close.sh
 
+if ! command -v rofi &>/dev/null; then
+  echo "rofi could not be found. Please install it."
+  exit 1
+fi
+
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/lib/tmux_functions.sh"
 
