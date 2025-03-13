@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/download-freetube.sh
 
+if ! command -v jq &>/dev/null; then
+  echo "jq could not be found. Please install it."
+  exit 1
+fi
+
 file=$1   # FreeTube.db
 format=$2 # video/audio
 

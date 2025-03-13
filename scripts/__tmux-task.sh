@@ -3,6 +3,10 @@
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-task.sh
 
 source $HOME/.env
+if ! command -v task &>/dev/null; then
+  echo "task could not be found. Please install it."
+  exit 1
+fi
 
 current_command=$(tmux display-message -p "#{pane_current_command}")
 
