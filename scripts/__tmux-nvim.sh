@@ -2,7 +2,7 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-nvim.sh
 
-source $HOME/.env
+SHELL=${SHELL:-zsh}
 
 current_command=$(tmux display-message -p "#{pane_current_command}")
 
