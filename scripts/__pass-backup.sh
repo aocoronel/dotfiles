@@ -2,9 +2,7 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__pass-backup.sh
 
-if [ -z "$PASSWORD_STORE_DIR" ]; then
-  eval $(awk -F= '/^(PASSWORD_STORE_DIR)=/ {print "export " $1 "=" $2}' ~/.localenv)
-fi
+pass_dir=${PASSWORD_STORE_DIR:-$HOME/.password-store}
 
 function gpg_export() {
   read -p "Insert your email: " email
@@ -17,7 +15,7 @@ function gpg_import() {
   gpg --import "$HOME/private.gpg"
 }
 function exportpass() {
-  tar -czvf "$HOME/pass-bak.tar" "$PASSWORD_STORE_DIR" "$HOME/private.gpg" "$HOME/public.gpg"
+  tar -czvf "$HOME/pass-bak.tar" "$pass_dir" "$HOME/private.gpg" "$HOME/public.gpg"
   openssl enc -aes-256-cbc -e -in "$HOME/pass-bak.tar" -out "$HOME/pass-bak.tar.enc" -iter 10000
   shred -u "$HOME/pass-bak.tar"
 }
