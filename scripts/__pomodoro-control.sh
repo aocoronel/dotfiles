@@ -2,6 +2,11 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__pomodoro-control.sh
 
+if ! command -v rofi &>/dev/null; then
+  echo "rofi could not be found. Please install it."
+  exit 1
+fi
+
 TIMER_STATE_FILE="/tmp/pomodoro_timer_state"
 OUTPUT_FILE="/tmp/pomodoro_output"
 TIMER_SAVED="/tmp/pomodoro_timer_saved"

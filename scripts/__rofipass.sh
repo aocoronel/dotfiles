@@ -2,6 +2,14 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__rofipass.sh
 
+if ! command -v rofi &>/dev/null; then
+  echo "rofi could not be found. Please install it."
+  exit 1
+elif ! command -v pass &>/dev/null; then
+  echo "pass could not be found. Please install it."
+  exit 1
+fi
+
 _rofi() {
   rofi -dmenu -i -no-levenshtein-sort -width 1000 "$@"
 }

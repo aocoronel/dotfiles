@@ -2,6 +2,20 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-manager.sh
 
+if ! command -v tmux &>/dev/null; then
+  echo "tmux could not be found. Please install it."
+  exit 1
+elif ! command -v fzf &>/dev/null; then
+  echo "fzf could not be found. Please install it."
+  exit 1
+elif ! command -v bat &>/dev/null; then
+  echo "bat could not be found. Please install it."
+  exit 1
+elif ! command -v eza &>/dev/null; then
+  echo "eza could not be found. Please install it."
+  exit 1
+fi
+
 CONFIG="$HOME/.tmuxprofile"
 if [[ ! -f "$CONFIG" ]]; then
   echo "No configuration file set!"
