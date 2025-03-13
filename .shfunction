@@ -54,3 +54,12 @@ function changevol() {
   vol=$1
   pactl set-sink-volume @DEFAULT_SINK@ "$vol"
 }
+
+# Tmux Profile Open
+function tpo() {
+  if tmux has-session -t "$1"; then
+    tmux attach-session -t "$1"
+  else
+    tmuxp load "$1" -d && tmux attach-session -t "$1"
+  fi
+}
