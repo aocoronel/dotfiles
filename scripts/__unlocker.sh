@@ -2,9 +2,14 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__unlocker.sh
 
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+source "$SCRIPT_DIR/lib/get_env.sh"
+
+get_vault
+
 if [ -z "$VAULT" ]; then
-  var=$(grep "VAULT" "$HOME/.localenv")
-  export $var
+  echo "Error: VAULT env at .localenv not found"
+  exit 1
 fi
 
 vaultdir=$(ls "$VAULT")
