@@ -11,7 +11,8 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 source "$SCRIPT_DIR/lib/get_env.sh"
 source "$SCRIPT_DIR/lib/tmux_functions.sh"
 
-get_term # Get TERMCMD env
+get_term   # Get TERMCMD env
+get_editor # Get EDITOR env
 
 if [ -z "$TERMCMD" ]; then
   echo "Error: TERMCMD env at .localenv not found"
@@ -22,22 +23,27 @@ _rofi() {
   rofi -dmenu -i -no-levenshtein-sort -width 1000 -p "$mode" -mesg "${HELP}" -kb-custom-1 "${delete}" -kb-custom-2 "${switch_mode}" "$@"
 }
 
+_edit() {
+  exec "$TERMCMD" -e tmuxp edit "cmus"
+}
+
 switch_mode="Ctrl+s"
 delete="Ctrl-1"
 
 help_color="#7c5cff"
-div_color="#334433"
+# div_color="#334433"
 label="#f067fc"
 
 main() {
-  HELP="<span color='${label}'>Modes: </span><span color='${help_color}'>${switch_mode}</span>: toggle (tmux/tmuxp)
-<span color='${label}'>Actions: </span><span color='${help_color}'>${delete}</span>: Close session"
-
   case "$mode" in
   tmuxp)
+    HELP="<span color='${label}'>Modes: </span><span color='${help_color}'>${switch_mode}</span>: toggle (tmux/tmuxp)
+<span color='${label}'>Actions: </span><span color='${help_color}'>${delete}</span>: Edit project"
     session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
     ;;
   tmux)
+    HELP="<span color='${label}'>Modes: </span><span color='${help_color}'>${switch_mode}</span>: toggle (tmux/tmuxp)
+<span color='${label}'>Actions: </span><span color='${help_color}'>${delete}</span>: Close session"
     session=$(tmux ls | awk -F ":" '{print $1}')
     ;;
   *)
@@ -59,7 +65,14 @@ main() {
     main
     ;;
   10)
-    close_tmux "$menu"
+    case "$mode" in
+    tmux)
+      close_tmux "$menu"
+      ;;
+    tmuxp)
+      _edit
+      ;;
+    esac
     main
     ;;
   0)
