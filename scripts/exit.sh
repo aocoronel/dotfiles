@@ -1,34 +1,42 @@
 #!/usr/bin/env bash
 
+# https://github.com/user/dotfiles/blob/main/scripts/exit.sh
+
 function umount_dir() {
-  fusermount -u $BEELZEBUB
-  val=$?
+  if [ -z "$(ls -A "$BEELZEBUB")" ]; then
+    echo "Directory '$BEELZEBUB' is empty"
+    return 0
+  else
+    if fusermount -u "$BEELZEBUB"; then
+      echo "Successfully unmounted $BEELZEBUB"
+      return 0
+    else
+      echo "Failed to unmount $BEELZEBUB"
+      return 1
+    fi
+  fi
 }
 
-podman stop --all
-umount_dir
-
-if [ "$val" -ne 0 ]; then
-  echo "Umounting failed..."
-  echo "Working around this problem"
+function stop_services() {
+  echo "Stopping Podman Containers..."
+  podman stop --all
+  echo "Stopping Tmux Sessions..."
   tmux kill-server
-  fusermount
-fi
+  echo "Umounting Drives..."
+  umount_dir
+}
 
-if [ "$val" -ne 0 ]; then
-  echo "Issue persists..."
-  echo "Manual intervention required!"
-fi
-
-if [ "$val" -eq 0 ]; then
-  echo "Everything seems OK"
-  echo "Inspect Directory:"
-  lsof $BEELZEBUB
-  echo "Leave now? (y/N)"
-  read leave
-  if [ "$leave" = "y" ]; then
-    poweroff
+main() {
+  stop_services
+  if ! umount_dir; then
+    echo "Failed to umount $BEELZEBUB"
+    echo "Repeating the process..."
+    stop_services
   else
-    exit 1
+    echo "See ya!"
+    sleep 2
+    poweroff
   fi
-fi
+}
+
+main
