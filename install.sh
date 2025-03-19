@@ -22,13 +22,12 @@ done
 # Pacman Packages
 
 # bluetooth="blueberry gnome-bluetooth-3.0"
-# temp="task taskwarrior-tui"
 
 xorg="flameshot sxhkd redshift xwallpaper xclip nsxiv python-psutil"
 container="podman podman-compose podman-docker"
 wayland="waybar hyprland hyprlang hyprsunset hyprlock hypridle hyprctl cliphist jq xdg-desktop-portal-hyprland cmake meson cpio pkg-config hyprpolkitagent swww hyprpicker wlogout wl-clipboard wf-recorder"
 
-essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh ueberzugpp gnome-keyring playerctl ydotool brightnessctl at pacman-contrib"
+essentials="gvfs mtpfs gvfs-mtp polkit udiskie udisks2 fuse2 unzip zip direnv atomicparsley zsh ueberzugpp gnome-keyring playerctl ydotool brightnessctl at pacman-contrib task taskwarrior-tui"
 
 cli="rsync pass tmux pass-otp gocryptfs ffmpeg mpv cmus onefetch fastfetch lynx ranger bpytop eza fd fzf github-cli tldr man lazygit zoxide ripgrep bat cmatrix figlet tmuxp cmus gitleaks moreutils navi imagemagick just neomutt syncthing neovim mupdf mupdf-tools yt-dlp newsboat ddgr odt2text"
 graphical="seahorse obsidian libreoffice-fresh shotcut gnome-disk-utility obs-studio gimp dmenu dunst neovide kitty foot picom scrcpy rofi-calc rofi networkmanager-openvpn fuzzel swayimg grim slurp satty pavucontrol"
@@ -92,21 +91,11 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wm $container # $temp
+sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wm $container
 
 echo "→ install AUR packages"
 
 yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetube-bin
-
-echo "→ install taskwarrior v2 from source"
-
-git clone --branch v2.6.2 --depth 1 https://github.com/GothenburgBitFactory/taskwarrior
-cd taskwarrior
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build
-sudo cmake --install build
-cd ..
-rm -rf taskwarrior
 
 echo "→ setting up syncthing"
 
