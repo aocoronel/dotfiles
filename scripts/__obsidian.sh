@@ -70,6 +70,9 @@ open() {
     "obsidian") obsidian-cli open "$menu" --vault $JOURNAL_VAULT ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+      pgrep "$TOOL" && hyprctl dispatch focuswindow class:"$TOOL"
+    fi
   else
     case "$TOOL" in
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
@@ -77,6 +80,9 @@ open() {
     "obsidian") obsidian-cli open "$menu" --vault $obsidian_file ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+      pgrep "$TOOL" && hyprctl dispatch focuswindow class:"$TOOL"
+    fi
   fi
 }
 
