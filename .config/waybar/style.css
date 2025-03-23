@@ -31,6 +31,7 @@
 #custom-update,
 #custom-weather,
 #custom-wifi,
+#custom-workspaces,
 #custom-pomodoro,
 #custom-ws,
 #idle_inhibitor,
@@ -95,6 +96,12 @@ tooltip label {
 }
 
 /* === Workspace Buttons === */
+
+#custom-workspaces {
+  background: @pomodoro;
+  padding-left: 1px;
+  padding-right: 0;
+}
 
 #workspaces button {
   color: @module-fg;
@@ -296,9 +303,10 @@ tooltip label {
 /* == Pomodoro == */
 
 #custom-pomodoro {
-  background: @pomodoro;
-  padding-left: 1px;
-  padding-right: 0;
+  color: @module-fg;
+  box-shadow: none;
+  transition: none;
+  background: @workspaces;
 }
 
 /* == Tray Bar == */
