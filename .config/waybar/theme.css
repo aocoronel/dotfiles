@@ -28,6 +28,7 @@
 @define-color tooltip         #161618;
 
 @define-color power-fg        #000000;
+/* @define-color power-bg        #A587F4; */
 @define-color power-bg        #5ffcfc;
 
 @define-color cava            #7c5cff;

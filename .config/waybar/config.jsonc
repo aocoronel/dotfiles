@@ -107,6 +107,10 @@
     "format": " ",
     "tooltip": false,
   },
+  // "custom/distro": {
+  //   "format": "󱄅 ",
+  //   "tooltip": false,
+  // },
   "custom/quit": {
     "format": "󰗼  ",
     "tooltip": true,
