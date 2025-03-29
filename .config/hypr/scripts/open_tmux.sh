@@ -11,7 +11,12 @@ function tpo() {
 
   if pgrep -af "kitty --class $class_name" >/dev/null; then
     hyprctl dispatch focuswindow class:"$class_name"
-    tmux switch-client -t "$session_name"
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+      tmux switch-client -t "$session_name"
+    else
+      tmuxp load "$session_name" -d
+      tmux switch-client -t "$session_name"
+    fi
   else
     if tmux has-session -t "$session_name" 2>/dev/null; then
       exec kitty --class "$class_name" --title "$title_name" -e tmux attach-session -t "$session_name"
