@@ -24,13 +24,13 @@ if [ "$taskmode" == "taskwarrior" ]; then
 elif [ "$taskmode" == "org" ]; then
   if [ -f "$modefile" ]; then
     if [ "$(cat "$modefile")" = "all" ]; then
-      tasks=$(rg -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
+      tasks=$(rg --max-depth 2 -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
     elif [ "$(cat "$modefile")" = "today" ]; then
       TODAY=$(date +"%Y-%m-%d")
-      tasks=$(rg -o "SCHEDULED: <$TODAY" "$ORG_DIR" --no-filename | wc -l)
+      tasks=$(rg --max-depth 2 -o "SCHEDULED: <$TODAY" "$ORG_DIR" --no-filename | wc -l)
     fi
   else
-    tasks=$(rg -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
+    tasks=$(rg --max-depth 2 -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
   fi
 fi
 
