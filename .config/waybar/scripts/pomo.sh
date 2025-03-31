@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 OUTPUT_FILE="/tmp/pomodoro_output"
 

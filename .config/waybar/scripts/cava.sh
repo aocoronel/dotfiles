@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # GitHub: https://github.com/JaKooLit
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Author: Jesse Mirabel (@sejjy)
 # GitHub: https://github.com/sejjy/mechabar
@@ -74,7 +74,7 @@ while true; do
 		;;
 	"Scan for devices"*)
 		notify-send "Press '?' to show help."
-		kitty --title '󰂱  Bluetooth TUI' bash -c "bluetui" # Launch bluetui
+		kitty --title '󰂱  Bluetooth TUI' sh -c "bluetui" # Launch bluetui
 		;;
 	*)
 		# Extract device name

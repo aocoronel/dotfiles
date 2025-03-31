@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__update-image-links.sh
 

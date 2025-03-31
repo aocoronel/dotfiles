@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 total_clients=$(hyprctl clients -j | jq -r ".[].title" | wc -l)
 

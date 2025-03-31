@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 config="$HOME/.config/rofi/elegantvagrant.rasi"
 
