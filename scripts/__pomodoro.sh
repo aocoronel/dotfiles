@@ -73,15 +73,15 @@ core() {
     if [ ! -f "$TIMER_SAVED" ]; then
       notify-send "Pomodoro: Start" "Focus time! (25 minutes)"
     fi
-    pomodoro "$time" 🍅
+    pomodoro "$time" 
     echo "$session" >"$SESSION_FILE"
 
     if [ "$session" -eq 4 ]; then
       notify-send "Pomodoro: Break" "Long Break time! (20 minutes)"
-      pomodoro "$long_break" 🕤
+      pomodoro "$long_break" 
     else
       notify-send "Pomodoro: Break" "Break time! (5 minutes)"
-      pomodoro "$break" 🕤
+      pomodoro "$break" 
     fi
   done
 
