@@ -4,7 +4,7 @@ TITLE=$(playerctl metadata --format '{{xesam:title}}' 2>/dev/null)
 ARTIST=$(playerctl metadata --format '{{xesam:artist}}' 2>/dev/null)
 STATUS=$(playerctl status 2>/dev/null)
 
-tooltip=$"\nTitle: ${TITLE:-Unknown}"
+tooltip=$"Title: ${TITLE:-Unknown}"
 tooltip+=$"\nArtist: ${ARTIST:-Unknown}"
 
 if [ -z "$STATUS" ]; then
