@@ -246,7 +246,7 @@
     "max-length": 1,
   },
   "custom/media": {
-    "exec": "~/.config/waybar/scripts/media-player.py",
+    "exec": "~/.config/waybar/scripts/media-player.sh",
     "return-type": "json",
     "format": "{}",
     "tooltip": "{tooltip}",
