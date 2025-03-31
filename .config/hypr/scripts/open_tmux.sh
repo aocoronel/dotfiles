@@ -19,9 +19,9 @@ function tpo() {
     fi
   else
     if tmux has-session -t "$session_name" 2>/dev/null; then
-      exec kitty --class "$class_name" --title "$title_name" -e tmux attach-session -t "$session_name"
+      exec kitty -1 --class "$class_name" --title "$title_name" -e tmux attach-session -t "$session_name"
     else
-      exec kitty --class "$class_name" --title "$title_name" -e tmuxp load "$session_name"
+      exec kitty -1 --class "$class_name" --title "$title_name" -e tmuxp load "$session_name"
     fi
   fi
 }
