@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__download-youtube.sh
 
+clipmethod="$XDG_SESSION_TYPE"
+
 if ! command -v yt-dlp &>/dev/null; then
   echo "yt-dlp could not be found. Please install it."
   exit 1
@@ -26,7 +28,11 @@ function yt_cmd() {
 }
 
 function download() {
-  URL=$(xclip -o)
+  if [ "$clipmethod" = "x11" ]; then
+    URL=$(xclip -o)
+  elif [ "$clipmethod" = "wayland" ]; then
+    URL=$(wl-paste)
+  fi
   title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
   yt_cmd "$URL"
   val=$?
