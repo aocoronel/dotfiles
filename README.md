@@ -12,7 +12,7 @@
 - <strong>Keep things simple</strong>
 - Keep it easy to maintain
 - Lightweight system without sacrificing on visuals (keep it modern)
-     </details>
+       </details>
 
 <details>
   <summary>Goals</summary>
@@ -21,6 +21,13 @@
 - Keep the visuals consistent with an original theme (Elegant Vagrant)
 - Execute any task blazingly fast without any frictions to my workflow
 - Integrate CLI tools to produce results better than any GUI Tool
+    </details>
+
+<details>
+  <summary>Notes</summary>
+
+I'm currently using NixOS as my main OS for desktop usage. You can find my config at [aocoronel/dotfiles-nixos](https://github.com/aocoronel/dotfiles-nixos).
+
   </details>
 
 ## Footages
@@ -55,4 +62,3 @@
   <summary>Status Bar</summary>
      <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Waybar.jpg>
 </details>
-
