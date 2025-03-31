@@ -3,14 +3,16 @@
 ## Zinit
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-
-source "${ZINIT_HOME}/zinit.zsh"
+if [[ ! -d $ZINIT_HOME ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+() { source "${ZINIT_HOME}/zinit.zsh" }
 
 ## Plugins
 
 zinit ice depth=1
+zinit ice lucid wait"0"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
@@ -62,8 +64,11 @@ setopt hist_find_no_dups
 
 # Completions
 
-autoload -U compinit; compinit
+autoload -U compinit;
+compinit -C
 
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zsh/zcompcache
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
