@@ -1,20 +1,37 @@
-#!/bin/bash
+#!/bin/sh
 
 modefile=$HOME/.cache/waybar-task
+
+ORG_DIR="$HOME/org"
+taskmode="org"
+# taskmode="taskwarrior"
 
 case "$1" in
 "all") echo "all" >"$modefile" ;;
 "today") echo "today" >"$modefile" ;;
 esac
 
-if [ -f "$modefile" ]; then
-  if [ "$(cat "$modefile")" = "all" ]; then
+if [ "$taskmode" == "taskwarrior" ]; then
+  if [ -f "$modefile" ]; then
+    if [ "$(cat "$modefile")" = "all" ]; then
+      tasks=$(task status:pending count)
+    elif [ "$(cat "$modefile")" = "today" ]; then
+      tasks=$(task status:pending due:today count)
+    fi
+  else
     tasks=$(task status:pending count)
-  elif [ "$(cat "$modefile")" = "today" ]; then
-    tasks=$(task status:pending due:today count)
   fi
-else
-  tasks=$(task status:pending count)
+elif [ "$taskmode" == "org" ]; then
+  if [ -f "$modefile" ]; then
+    if [ "$(cat "$modefile")" = "all" ]; then
+      tasks=$(rg -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
+    elif [ "$(cat "$modefile")" = "today" ]; then
+      TODAY=$(date +"%Y-%m-%d")
+      tasks=$(rg -o "SCHEDULED: <$TODAY" "$ORG_DIR" --no-filename | wc -l)
+    fi
+  else
+    tasks=$(rg -o "^\*+\s+TODO" "$ORG_DIR" --no-filename | wc -l)
+  fi
 fi
 
 tooltip="Current Mode: $(cat "$modefile")"
