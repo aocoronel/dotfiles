@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 function open_tmuxp_term() {
   local select="$1"

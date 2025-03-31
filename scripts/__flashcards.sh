@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # https://github.com/user/dotfiles/blob/main/scripts/__flashcards.sh
 

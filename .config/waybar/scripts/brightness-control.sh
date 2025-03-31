@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Author: Jesse Mirabel (@sejjy)
 # GitHub: https://github.com/sejjy/mechabar

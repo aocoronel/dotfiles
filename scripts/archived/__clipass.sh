@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 if [ -z "$VAULT" ]; then
   source "$HOME/.env"
