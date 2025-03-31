@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__download-youtube.sh
 

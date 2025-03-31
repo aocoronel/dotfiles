@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # https://github.com/user/dotfiles/blob/main/scripts/exit.sh
 
