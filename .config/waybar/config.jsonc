@@ -103,14 +103,14 @@
     "min-length": 6,
     "max-length": 6,
   },
-  "custom/distro": {
-    "format": " ",
-    "tooltip": false,
-  },
   // "custom/distro": {
-  //   "format": "󱄅 ",
+  //   "format": " ",
   //   "tooltip": false,
   // },
+  "custom/distro": {
+    "format": "󱄅 ",
+    "tooltip": false,
+  },
   "custom/quit": {
     "format": "󰗼  ",
     "tooltip": true,
