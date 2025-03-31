@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 function create_pass() {
   read -p "Name your file to be saved: " filename
