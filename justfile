@@ -69,3 +69,8 @@ config-xcmd:
 # Taskwarrior TUI for V2
 taskwarrior-tui:
   xdg-open https://github.com/kdheepak/taskwarrior-tui/releases/tag/v0.25.4
+
+# Install Doom Emacs
+doom:
+  git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+  ~/.config/emacs/bin/doom install
