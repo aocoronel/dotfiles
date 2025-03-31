@@ -208,7 +208,7 @@
     "tooltip": false,
   },
   "network": {
-    "interface": "wlan0",
+    "interface": "wlp0s29u1u5",
     "format": "{bandwidthDownBits} ↓↑ {bandwidthUpBits}",
     "interval": 3,
     "format-disconnected": "",
