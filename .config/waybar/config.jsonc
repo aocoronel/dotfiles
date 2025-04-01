@@ -248,6 +248,7 @@
   "custom/media": {
     "exec": "~/.config/waybar/scripts/media-player.sh",
     "return-type": "json",
+    "interval": 3,
     "format": "{}",
     "tooltip": "{tooltip}",
     "on-click": "playerctl play-pause",
