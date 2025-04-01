@@ -4,7 +4,6 @@ STATUS=$(playerctl status 2>/dev/null)
 
 if [ -z "$STATUS" ]; then
   echo "No media playing"
-  continue
   sleep 10s
 fi
 
