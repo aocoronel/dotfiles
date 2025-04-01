@@ -15,7 +15,11 @@ while true; do
   tooltip=$"Title: ${TITLE:-Unknown}"
   tooltip+=$"\nArtist: ${ARTIST:-Unknown}"
 
-  echo "{\"text\": \"${TITLE:-No Title}\", \"tooltip\": \"$tooltip\"}"
+  if [ "$STATUS" == "Playing" ]; then
+    echo "{\"text\": \" ${TITLE:-No media}\", \"tooltip\": \"$tooltip\"}"
+  else
+    echo "{\"text\": \" ${TITLE:-No media}\", \"tooltip\": \"$tooltip\"}"
+  fi
 
   sleep 5s
 done
