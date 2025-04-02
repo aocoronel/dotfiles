@@ -1,10 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 modefile=$HOME/.cache/waybar-task
 
 ORG_DIR="$HOME/org"
 taskmode="org"
 # taskmode="taskwarrior"
+
+if [ ! -d "$ORG_DIR" ]; then
+  echo "~"
+fi
 
 case "$1" in
 "all") echo "all" >"$modefile" ;;
