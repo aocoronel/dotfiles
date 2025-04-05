@@ -13,6 +13,20 @@
 # Change the argument to True to still load settings configured via autoconfig.yml
 config.load_autoconfig(False)
 
+import os
+if os.path.exists(config.configdir / "theme.py"):
+    import theme
+    theme.setup(c, True)
+
+# Aliases for commands. The keys of the given dictionary are the
+# aliases, while the values are the commands they map to.
+# Type: Dict
+c.aliases = {'q': 'close', 'qa': 'quit', 'w': 'session-save', 'wq': 'quit --save', 'wqa': 'quit --save'}
+
+# Load a restored tab as soon as it takes focus.
+# Type: Bool
+c.session.lazy_restore = True
+
 # Always restore open sites when qutebrowser is reopened. Without this
 # option set, `:wq` (`:quit --save`) needs to be used to save open tabs
 # (and restore them), while quitting qutebrowser in any other way will
@@ -74,10 +88,24 @@ config.set('content.cookies.accept', 'all', 'devtools://*')
 # Type: Bool
 c.content.cookies.store = True
 
+# Allow websites to request geolocations.
+# Type: BoolAsk
+# Valid values:
+#   - true
+#   - false
+#   - ask
+c.content.geolocation = False
+
 # Value to send in the `Accept-Language` header. Note that the value
 # read from JavaScript is always the global value.
 # Type: String
 config.set('content.headers.accept_language', '', 'https://matchmaker.krunker.io/*')
+
+# Value to send in the `DNT` header. When this is set to true,
+# qutebrowser asks websites to not track your identity. If set to null,
+# the DNT header is not sent at all.
+# Type: Bool
+c.content.headers.do_not_track = False
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -186,10 +214,114 @@ config.set('content.local_content_can_access_file_urls', False, 'file:///home/ao
 # Type: Bool
 c.content.local_storage = False
 
+# Display PDF files via PDF.js in the browser without showing a download
+# prompt. Note that the files can still be downloaded by clicking the
+# download button in the pdf.js viewer. With this set to `false`, the
+# `:prompt-open-download --pdfjs` command (bound to `<Ctrl-p>` by
+# default) can be used in the download prompt.
+# Type: Bool
+c.content.pdfjs = True
+
 # Enable plugins in Web pages.
 # Type: Bool
 c.content.plugins = False
 
+# How to proceed on TLS certificate errors.
+# Type: String
+# Valid values:
+#   - ask: Ask how to proceed for every certificate error (unless non-overridable due to HSTS).
+#   - ask-block-thirdparty: Ask how to proceed for normal page loads, but silently block resource loads.
+#   - block: Automatically block loading on certificate errors.
+#   - load-insecurely: Force loading pages despite certificate errors. This is *insecure* and should be avoided. Instead of using this, consider fixing the underlying issue or importing a self-signed certificate via `certutil` (or Chromium) instead.
+c.content.tls.certificate_errors = 'ask'
+
 # Enable WebGL.
 # Type: Bool
 c.content.webgl = False
+
+# Editor (and arguments) to use for the `edit-*` commands. The following
+# placeholders are defined:  * `{file}`: Filename of the file to be
+# edited. * `{line}`: Line in which the caret is found in the text. *
+# `{column}`: Column in which the caret is found in the text. *
+# `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
+# Same as `{column}`, but starting from index 0.
+# Type: ShellCommand
+c.editor.command = ['kitty', '-e', 'nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l']
+
+# Encoding to use for the editor.
+# Type: Encoding
+c.editor.encoding = 'utf-8'
+
+# Command (and arguments) to use for selecting a single file in forms.
+# The command should write the selected file path to the specified file
+# or stdout. The following placeholders are defined: * `{}`: Filename of
+# the file to be written to. If not contained in any argument, the
+# standard output of the command is read instead.
+# Type: ShellCommand
+c.fileselect.single_file.command = ['kitty', '-e', 'ranger', '--choosefile={}']
+
+# Command (and arguments) to use for selecting multiple files in forms.
+# The command should write the selected file paths to the specified file
+# or to stdout, separated by newlines. The following placeholders are
+# defined: * `{}`: Filename of the file to be written to. If not
+# contained in any argument, the   standard output of the command is
+# read instead.
+# Type: ShellCommand
+c.fileselect.multiple_files.command = ['kitty', '-e', 'ranger', '--choosefiles={}']
+
+# Command (and arguments) to use for selecting a single folder in forms.
+# The command should write the selected folder path to the specified
+# file or stdout. The following placeholders are defined: * `{}`:
+# Filename of the file to be written to. If not contained in any
+# argument, the   standard output of the command is read instead.
+# Type: ShellCommand
+c.fileselect.folder.command = ['kitty', '-e', 'ranger', '--choosedir={}']
+
+# Characters used for hint strings.
+# Type: UniqueCharString
+c.hints.chars = 'qwertasdfgzxcvbhjkl'
+
+# Enable smooth scrolling for web pages. Note smooth scrolling does not
+# work with the `:scroll-px` command.
+# Type: Bool
+c.scrolling.smooth = True
+
+# Search engines which can be used via the address bar.  Maps a search
+# engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
+# placeholder. The placeholder will be replaced by the search term, use
+# `{{` and `}}` for literal `{`/`}` braces.  The following further
+# placeholds are defined to configure how special characters in the
+# search terms are replaced by safe characters (called 'quoting'):  *
+# `{}` and `{semiquoted}` quote everything except slashes; this is the
+# most   sensible choice for almost all search engines (for the search
+# term   `slash/and&amp` this placeholder expands to `slash/and%26amp`).
+# * `{quoted}` quotes all characters (for `slash/and&amp` this
+# placeholder   expands to `slash%2Fand%26amp`). * `{unquoted}` quotes
+# nothing (for `slash/and&amp` this placeholder   expands to
+# `slash/and&amp`). * `{0}` means the same as `{}`, but can be used
+# multiple times.  The search engine named `DEFAULT` is used when
+# `url.auto_search` is turned on and something else than a URL was
+# entered to be opened. Other search engines can be used by prepending
+# the search engine name to the search term, e.g. `:open google
+# qutebrowser`.
+# Type: Dict
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'wa': 'https://wiki.archlinux.org/?search={}', 'n': 'https://search.nixos.org/packages?query={}'}
+
+# Page(s) to open at the start.
+# Type: List of FuzzyUrl, or FuzzyUrl
+c.url.start_pages = 'https://aocoronel.github.io/links'
+
+# Map keys to other keys, so that they are equivalent in all modes. When
+# the key used as dictionary-key is pressed, the binding for the key
+# used as dictionary-value is invoked instead. This is useful for global
+# remappings of keys, for example to map <Ctrl-[> to <Escape>. NOTE:
+# This should only be used if two keys should always be equivalent, i.e.
+# for things like <Enter> (keypad) and <Return> (non-keypad). For normal
+# command bindings, qutebrowser works differently to vim: You always
+# bind keys to commands, usually via `:bind` or `config.bind()`. Instead
+# of using this setting, consider finding the command a key is bound to
+# (e.g. via `:bind gg`) and then binding the same command to the desired
+# key. Note that when a key is bound (via `bindings.default` or
+# `bindings.commands`), the mapping is ignored.
+# Type: Dict
+c.bindings.key_mappings = {'<Ctrl+6>': '<Ctrl+^>', '<Ctrl+Enter>': '<Ctrl+Return>', '<Ctrl+i>': '<Tab>', '<Ctrl+j>': '<Return>', '<Ctrl+m>': '<Return>', '<Ctrl+[>': '<Escape>', '<Enter>': '<Return>', '<Shift+Enter>': '<Return>', '<Shift+Return>': '<Return>'}
