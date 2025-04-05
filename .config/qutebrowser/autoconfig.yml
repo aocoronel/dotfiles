@@ -20,7 +20,8 @@ settings:
   backend:
     global: webengine
   bindings.commands:
-    global: null
+    global:
+      normal: {}
   bindings.key_mappings:
     global:
       <Ctrl+6>: <Ctrl+^>
@@ -34,12 +35,20 @@ settings:
       <Shift+Return>: <Return>
   changelog_after_upgrade:
     global: minor
+  colors.webpage.darkmode.algorithm:
+    global: brightness-rgb
+  colors.webpage.darkmode.contrast:
+    global: 0.0
   colors.webpage.darkmode.enabled:
     global: true
   colors.webpage.darkmode.policy.images:
     global: never
   colors.webpage.darkmode.policy.page:
     global: smart
+  colors.webpage.darkmode.threshold.background:
+    global: 0
+  colors.webpage.darkmode.threshold.foreground:
+    global: 256
   colors.webpage.preferred_color_scheme:
     global: auto
   completion.cmd_history_max_items:
@@ -176,7 +185,7 @@ settings:
     - ranger
     - --choosefile={}
   hints.chars:
-    global: qwertasdfgzxcvbhjkl
+    global: qweasdfzxchjklbn
   scrolling.smooth:
     global: true
   session.lazy_restore:
