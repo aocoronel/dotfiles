@@ -25,12 +25,12 @@ function unlock() {
   if [ ! -d "/mnt/go/$govault" ]; then
     echo "No directory found at /mnt/go/$govault. Creating one now..."
     sudo mkdir "/mnt/go/$govault"
-    sudo chown "$USER:$USER" "/mnt/go/$govault"
+    sudo chown "$USER:users" "/mnt/go/$govault"
     echo "Directory /mnt/go/$govault created."
   fi
   gocryptfs "$VAULT/$govault" "/mnt/go/$govault" &&
     cd-tmux &&
-    fusermount3 -u "/mnt/go/$govault" && echo "$govault has been umounted successfully!"
+    fusermount -u "/mnt/go/$govault" && echo "$govault has been umounted successfully!"
   sleep 1
   exit 0
 }
