@@ -31,6 +31,7 @@ alias sxh='nvim $HOME/.config/hypr/hyprland/keybinds.conf'
 alias taskclean='task +DELETED purge'
 alias taskgit='git -C "$HOME/.task/" add -A; git -C "$HOME/.task/" commit -a -m "Auto Commit"'
 alias tk='task limit:3'
+alias tt='taskwarrior-tui'
 
 alias fv="sh \$SCRIPTS/__flashcards.sh"
 
