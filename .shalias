@@ -58,4 +58,4 @@ alias upgrade='sudo pacman -Syu'
 ## Drives
 
 alias pdc='fusermount -u $BEELZEBUB && notify-send -u normal "Drive umounted"'
-alias pdu='pass /dev/pandora | gocryptfs $PANDORA $BEELZEBUB && notify-send -u normal "Drive mounted"'
+alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Drive mounted"'
