@@ -8,13 +8,13 @@
 uuid="$@"
 
 # Base directory where notes are stored
-notes_dir="$OBSIDIAN/OUROBOROS/"
+notes_dir="$HOME/org/"
 
 # Array of subdirectories to search in
-subdirs=("Notes" "Journals")
+subdirs=("personal.p" "roam")
 
 # Find files in the specified subdirectories and show fzf dialog to select an existing note
-filepath=$(find "${subdirs[@]/#/$notes_dir}" -type f -name '*.md' | fzf-tmux --preview "bat --color=always {}")
+filepath=$(find "${subdirs[@]/#/$notes_dir}" -type f -name '*.org' | fzf-tmux --preview "bat --color=always {}")
 
 # If fzf was cancelled, exit the script
 if [ -z "$filepath" ]; then
@@ -23,7 +23,7 @@ if [ -z "$filepath" ]; then
 fi
 
 # Annotate the task with the selected filepath
-task_output=$(task rc.bulk=0 rc.confirmation=off "$uuid" annotate "$filepath")
+task_output=$(task rc.bulk=0 rc.confirmation=off "$uuid" annotate "nvimline:1:$filepath")
 
 # Check if annotation was successful
 if [[ "$task_output" == *"Annotated"* ]]; then

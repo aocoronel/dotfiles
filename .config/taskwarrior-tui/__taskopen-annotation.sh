@@ -33,7 +33,11 @@ function taskopen() {
   DIR_NAME=$(dirname "$FILE_PATH")
 
   # Create a new tmux session which opens the file with neovim at the specific line number and highlighting it
-  cd "$DIR_NAME" && tmux new-session -d -s "$FILE_NAME" "direnv exec . $SHELL -c 'nvim +$LINE_NUMBER $FILE_PATH'"
+  if [ -z "$TMUX" ]; then
+    cd "$DIR_NAME" && emacsclient -r "+$LINE_NUMBER" "$FILE_PATH"
+  else
+    cd "$DIR_NAME" && tmux new-session -d -s "$FILE_NAME" "direnv exec . $SHELL -c 'nvim +$LINE_NUMBER $FILE_PATH'"
+  fi
 
   # Attach to the new session
   tmux switch-client -t "$FILE_NAME"
