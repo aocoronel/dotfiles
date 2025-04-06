@@ -8,7 +8,7 @@
 uuid="$1"
 
 # Directory where notes are stored
-notes_dir="$OBSIDIAN/OUROBOROS/"
+notes_dir="$HOME/org"
 templates_dir="$notes_dir/templates/"
 
 # Prompt for the new note name
@@ -26,7 +26,7 @@ else
 fi
 
 # Annotate the task with the filepath
-task_output=$(task rc.bukl=0 rc.confirmation=off "$uuid" annotate "$filepath")
+task_output=$(task rc.bukl=0 rc.confirmation=off "$uuid" annotate "nvimline:1:$filepath")
 
 # Check if annotation was successful
 if [[ "$task_output" == *"Annotated"* ]]; then
