@@ -32,6 +32,12 @@ function tskd() {
     start_date=$year-01-01
     end_date=$(date -d "$start_date +1 year" '+%F')
     ;;
+  *-[0-9][0-9]) # Matches YYYY-MM
+    year=$(echo "$1" | awk -F '-' '{print $1}')
+    month=$(echo "$1" | awk -F '-' '{print $2}')
+    start_date="$year"-"$month"-01
+    end_date=$(date -d "$start_date +1 month" '+%F')
+    ;;
   *)
     if echo "$1" | grep -q "$month_list"; then
       month_name=$(echo "$1" | awk -F ',' '{print $1}')
