@@ -1,5 +1,6 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
+# Forked from Cattpuccin Qutebrowser Mocha
 
 def setup(c, samecolorrows = False):
     palette = {
