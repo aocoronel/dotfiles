@@ -16,7 +16,6 @@ if ! tmux has-session -t "task"; then
   sleep 0.1
 fi
 
-tmux send-keys -t task:taskwarrior "tt" C-m
 tmux send-keys -t task:taskwarrior "/description:$TASK_DESCRIPTION" C-m
 
 tmux switch-client -t task
