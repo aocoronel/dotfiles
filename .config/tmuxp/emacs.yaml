@@ -1,0 +1,12 @@
+session_name: "emacs"
+windows:
+  - layout: tiled
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command_before:
+          - pkill emacs
+          - doom sync
+        shell_command: emacs --daemon
+    start_directory: $HOME
+    window_name: emacs
