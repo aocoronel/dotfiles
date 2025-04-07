@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 ORG_DIR=~/org/journal/daily/
+EMACS_MODE=true
 
 month_list="January
 February
@@ -103,4 +104,8 @@ if [ -z "$dates" ]; then
   exit 0
 fi
 
-rg -HN "\* DONE " "${dates[@]}"
+if [ "$EMACS_MODE" = "true" ]; then
+  rg -Hn "\* DONE " "${dates[@]}"
+else
+  rg -HN "\* DONE " "${dates[@]}"
+fi
