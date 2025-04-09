@@ -9,7 +9,7 @@ alias lgd="lazygit -p \$HOME/dotfiles/"
 alias lg='lazygit'
 alias ls='eza --color=auto --group-directories-first'
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
-alias nv='navi --path "$HOME/.config/navi/cheats/" --print'
+# alias nv='navi --path "$HOME/.config/navi/cheats/" --print'
 alias vim='nvim'
 alias v='nvim'
 
