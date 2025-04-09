@@ -35,7 +35,7 @@ source "$HOME/.shfunction"           # Functions
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(navi widget zsh)"
+# eval "$(navi widget zsh)"
 # eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
 eval "$(direnv hook zsh)"
