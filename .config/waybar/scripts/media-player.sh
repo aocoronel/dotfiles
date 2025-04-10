@@ -3,7 +3,7 @@
 STATUS=$(playerctl status 2>/dev/null)
 
 if [ -z "$STATUS" ]; then
-  echo "No media playing"
+  echo "{\"text\": \"\"}"
   sleep 10s
 fi
 
