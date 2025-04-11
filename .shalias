@@ -13,6 +13,7 @@ alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
 alias vim='nvim'
 alias v='nvim'
 alias e='hyprctl dispatch focuswindow class:"Emacs"; emacsclient -r'
+alias sm="$HOME/scripts/__ssh_manager.sh"
 
 ## TUI
 
