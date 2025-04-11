@@ -79,7 +79,7 @@ function ssh_cp() {
 function ssh_send() {
   remote_path="$1"
   local_path="$2"
-  user=${3:-}
+  user=$3
   [[ -n "$user" ]] && user+=@
   if [ -z "$port" ]; then
     rsync -avz "$user$ip:$remote_path" "$local_path"
