@@ -40,10 +40,12 @@ function get_data() {
 }
 
 function get_in() {
+  user=${1:-}
+  [[ -n "$user" ]] && user+=@
   if [ -z "$port" ]; then
-    ssh "$ip"
+    ssh "$user$ip"
   else
-    ssh -p "$port" "$ip"
+    ssh -p "$port" "$user$ip"
   fi
 }
 
@@ -111,8 +113,9 @@ function ssh_git() {
 
 case "$1" in
 in)
+  shift
   get_data
-  get_in
+  get_in "$1"
   exit 0
   ;;
 edit)
