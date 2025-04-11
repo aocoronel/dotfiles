@@ -18,11 +18,13 @@ function help() {
 SSH Manager
 Usage: $0 [option]
 Available options:
-edit                    - Edit ssh_machines file
-git                     - Run any git command
-help                    - Displays this message and exits
-in                      - Select machine to SSH in
-setup                   - Copy SSH pubkey to server
+cp   <remote_path> <local_path> <user>  - Copy file from remote
+edit                                    - Edit ssh_machines file
+git <git_cmd> <git_path> <user>         - Run any git command
+help                                    - Displays this message and exits
+in                                      - Select machine to SSH in
+send <remote_path> <local_path> <user>  - Send file to remote
+setup                                   - Copy SSH pubkey to server
 EOF
 }
 
@@ -55,6 +57,30 @@ function setup_ssh() {
     ssh-copy-id "$user$ip"
   else
     ssh-copy-id -P "$port" "$user$ip"
+  fi
+}
+
+function ssh_cp() {
+  remote_path="$1"
+  local_path="$2"
+  user=${3:-}
+  [[ -n "$user" ]] && user+=@
+  if [ -z "$port" ]; then
+    scp "$user$ip:$remote_path" "$local_path"
+  else
+    scp -P "$port" "$user$ip:$remote_path" "$local_path"
+  fi
+}
+
+function ssh_send() {
+  remote_path="$1"
+  local_path="$2"
+  user=${3:-}
+  [[ -n "$user" ]] && user+=@
+  if [ -z "$port" ]; then
+    rsync -avz "$user$ip:$remote_path" "$local_path"
+  else
+    rsync -avz --port="$port" "$user$ip:$remote_path" "$local_path"
   fi
 }
 
@@ -101,6 +127,16 @@ git)
   shift
   get_data
   ssh_git "$1" "$2" "$3"
+  exit 0
+  ;;
+cp)
+  get_data
+  ssh_cp "$1" "$2" "$3"
+  exit 0
+  ;;
+send)
+  get_data
+  ssh_send "$1" "$2" "$3"
   exit 0
   ;;
 help)
