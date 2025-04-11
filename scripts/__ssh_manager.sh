@@ -18,19 +18,24 @@ function help() {
 SSH Manager
 Usage: $0 [option]
 Available options:
+edit                    - Edit ssh_machines file
+git                     - Run any git command
 help                    - Displays this message and exits
 in                      - Select machine to SSH in
+setup                   - Copy SSH pubkey to server
 EOF
 }
 
-function get_in() {
+function get_data() {
   machine=$(awk -F "::" '{print $1}' "$ssh_file" | fzf --prompt "Select your machine: ")
 
   get_full_ip=$(grep "$machine" <"$ssh_file" | awk -F "::" '{print $2}')
 
   ip=$(echo "$get_full_ip" | awk -F ":" '{print $1}')
   port=$(echo "$get_full_ip" | awk -F ":" '{print $2}')
+}
 
+function get_in() {
   if [ -z "$port" ]; then
     ssh "$ip"
   else
@@ -38,9 +43,64 @@ function get_in() {
   fi
 }
 
+function edit_ssh() {
+  editor=${EDITOR:-nvim}
+  sh -c "$editor $ssh_file"
+}
+
+function setup_ssh() {
+  user=${1:-}
+  [[ -n "$user" ]] && user+=@
+  if [ -z "$port" ]; then
+    ssh-copy-id "$user$ip"
+  else
+    ssh-copy-id -P "$port" "$user$ip"
+  fi
+}
+
+function ssh_git() {
+  git_cmd="$1"
+  git_path="$2"
+  user="$3"
+  [[ -z "$git_cmd" ]] && {
+    echo "Not git command provided!"
+    exit 1
+  }
+  if [ -n "$user" ]; then
+    if [ -z "$port" ]; then
+      git "$git_cmd" ssh://"$user""@""$ip$git_path"
+    else
+      git "$git_cmd" ssh://"$user""@""$ip":"$port""$git_path"
+    fi
+  else
+    if [ -z "$port" ]; then
+      git "$git_cmd" ssh://"$ip$git_path"
+    else
+      git "$git_cmd" ssh://"$ip":"$port""$git_path"
+    fi
+  fi
+}
+
 case "$1" in
 in)
+  get_data
   get_in
+  exit 0
+  ;;
+edit)
+  edit_ssh
+  exit 0
+  ;;
+setup)
+  shift
+  get_data
+  setup_ssh "$1"
+  exit 0
+  ;;
+git)
+  shift
+  get_data
+  ssh_git "$1" "$2" "$3"
   exit 0
   ;;
 help)
