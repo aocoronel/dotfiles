@@ -67,25 +67,36 @@ function setup_ssh() {
 function ssh_cp() {
   remote_path="$1"
   local_path="$2"
-  user=${3:-}
-  [[ -n "$user" ]] && user+=@
+  user="${3:-}"
+
+  if [ -n "$user" ]; then
+    user+="@"
+  fi
+  source_path="${user}${ip}:${remote_path}"
+
   if [ -z "$port" ]; then
-    scp "$user$ip:$remote_path" "$local_path"
+    scp "$source_path" "$local_path"
   else
-    scp -P "$port" "$user$ip:$remote_path" "$local_path"
+    scp -P "$port" "$source_path" "$local_path"
   fi
 }
 
 function ssh_send() {
   remote_path="$1"
   local_path="$2"
-  user=$3
-  [[ -n "$user" ]] && user+=@
-  if [ -z "$port" ]; then
-    rsync -avz "$user$ip:$remote_path" "$local_path"
-  else
-    rsync -avz --port="$port" "$user$ip:$remote_path" "$local_path"
+  user="$3"
+
+  ssh_cmd="ssh"
+  if [ -n "$port" ]; then
+    ssh_cmd+=" -p $port"
   fi
+
+  if [ -n "$user" ]; then
+    user+="@"
+  fi
+  source_path="${user}${ip}:${remote_path}"
+
+  rsync -avz -e "$ssh_cmd" "$source_path" "$local_path"
 }
 
 function ssh_git() {
