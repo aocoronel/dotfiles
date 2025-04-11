@@ -146,19 +146,27 @@ git)
   exit 0
   ;;
 cp)
+  shift
   get_data
   ssh_cp "$1" "$2" "$3"
   exit 0
   ;;
 send)
+  shift
   get_data
   ssh_send "$1" "$2" "$3"
   exit 0
   ;;
 help)
   help
+  exit 0
+  ;;
+add)
+  ssh_add
+  exit 0
   ;;
 *)
   help
+  exit 0
   ;;
 esac
