@@ -5,9 +5,7 @@ shell=$(basename "$SHELL") # Required for NixOS
 ssh_file="$HOME/.ssh/ssh_machines"
 sh_profile="$HOME/.$shell"_profile
 
-if [ -f "$sh_profile" ]; then
-  source "$sh_profile"
-else
+if [ ! -f "$sh_profile" ]; then
   echo "Shell Profile is required!"
   echo "You must create a .$shell'_profile' at $HOME"
   exit 1
@@ -28,11 +26,15 @@ setup                                   - Copy SSH pubkey to server
 EOF
 }
 
+function ssh_add() {
+  source "$sh_profile"
+}
+
 function get_data() {
+  ssh_add
+
   machine=$(awk -F "::" '{print $1}' "$ssh_file" | fzf --prompt "Select your machine: ")
-
   get_full_ip=$(grep "$machine" <"$ssh_file" | awk -F "::" '{print $2}')
-
   ip=$(echo "$get_full_ip" | awk -F ":" '{print $1}')
   port=$(echo "$get_full_ip" | awk -F ":" '{print $2}')
 }
@@ -140,6 +142,9 @@ send)
   exit 0
   ;;
 help)
+  help
+  ;;
+*)
   help
   ;;
 esac
