@@ -19,14 +19,16 @@ function umount_dir() {
 
 function stop_services() {
   echo "Stopping Podman Containers..."
-  podman stop --all
+  podman stop --all >/dev/null
   echo "Stopping Tmux Sessions..."
   tmux kill-server
   echo "Umounting Drives..."
   umount_dir
+  echo "Slamming open Tombs..."
+  tomb slam
 }
 
-main() {
+function main() {
   stop_services
   if ! umount_dir; then
     echo "Failed to umount $BEELZEBUB"
