@@ -43,9 +43,9 @@ function get_in() {
   user=${1:-}
   [[ -n "$user" ]] && user+=@
   if [ -z "$port" ]; then
-    ssh "$user$ip"
+    ssh -C "$user$ip"
   else
-    ssh -p "$port" "$user$ip"
+    ssh -C -p "$port" "$user$ip"
   fi
 }
 
