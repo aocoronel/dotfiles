@@ -3,8 +3,8 @@
 STATUS=$(playerctl status 2>/dev/null)
 
 if [ -z "$STATUS" ]; then
-  echo "{\"text\": \"\"}"
-  sleep 10s
+  echo "{\"text\": ""}"
+  exit 0
 fi
 
 TITLE=$(playerctl metadata --format '{{xesam:title}}' 2>/dev/null)
@@ -18,5 +18,3 @@ if [ "$STATUS" == "Playing" ]; then
 else
   echo "{\"text\": \" ${TITLE:-No media}\", \"tooltip\": \"$tooltip\"}"
 fi
-
-sleep 5s
