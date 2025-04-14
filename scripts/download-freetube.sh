@@ -9,6 +9,7 @@ fi
 
 file=$1   # FreeTube.db
 format=$2 # video/audio
+action=$3 # store - Don't download
 
 if [[ -z "$file" || -z "$format" ]]; then
   echo "Usage: $0 [file] [format]"
@@ -29,9 +30,37 @@ function get_url() {
   fi
 }
 
+function get_data() {
+  playlist=$(jq -r '.playlistName' $file | fzf --prompt "Select a playlist: ")
+  if [[ -z "$playlist" ]]; then
+    echo "No playlist selected. Exiting."
+    exit 1
+  fi
+  jq -r --arg playlist "$playlist" '
+  select(.playlistName == $playlist) |
+  .videos[] |
+  "https://youtu.be/\(.videoId) | \(.author) - \(.title)"
+' "$file" >"$PWD/$playlist.txt"
+  if [[ ! -s "$playlist.txt" ]]; then
+    echo "No videos found in the selected playlist. Exiting."
+    exit 1
+  fi
+}
+
 function download() {
   ~/scripts/__download-youtube.sh -b $PWD/"$playlist".txt $format
 }
 
-get_url
-download
+function main() {
+  case "$action" in
+  store)
+    get_data
+    ;;
+  *)
+    get_url
+    download
+    ;;
+  esac
+}
+
+main
