@@ -1,0 +1,11 @@
+{
+  "group/laptop": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false,
+    },
+    "modules": ["battery", "bluetooth", "custom/backlight", "pulseaudio"],
+  },
+}

@@ -1,0 +1,13 @@
+{
+  "network": {
+    "interface": "wlp0s29u1u5",
+    "format": "{bandwidthDownBits} ↓↑ {bandwidthUpBits}",
+    "interval": 3,
+    "format-disconnected": "",
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+  },
+}

@@ -1,0 +1,12 @@
+// Requires Wttrbar:
+// https://github.com/bjesus/wttrbar
+
+{
+  "custom/weather": {
+    "format": "{}°",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "~/.config/waybar/scripts/wttrbar",
+    "return-type": "json",
+  },
+}

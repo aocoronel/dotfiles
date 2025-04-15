@@ -1,0 +1,10 @@
+{
+  "custom/taskwarrior": {
+    "exec": "~/.config/waybar/scripts/task.sh",
+    "interval": 360,
+    "format": "{}",
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/task.sh all",
+    "on-click-right": "~/.config/waybar/scripts/task.sh today",
+  },
+}

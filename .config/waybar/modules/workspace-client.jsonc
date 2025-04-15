@@ -1,0 +1,11 @@
+{
+  "custom/workspaces": {
+    "exec": "~/.config/waybar/scripts/clients.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 2,
+    "min-length": 8,
+    "max-length": 8,
+  },
+}
