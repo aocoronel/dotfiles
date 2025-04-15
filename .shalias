@@ -14,6 +14,7 @@ alias vim='nvim'
 alias v='nvim'
 alias e='hyprctl dispatch focuswindow class:"Emacs"; emacsclient -r'
 alias sm="$HOME/scripts/__ssh_manager.sh"
+alias rclone="rclone --verbose"
 
 ## TUI
 
@@ -60,5 +61,5 @@ alias upgrade='sudo pacman -Syu'
 
 ## Drives
 
-alias pdc='fusermount -u $BEELZEBUB && notify-send -u normal "Drive umounted"'
+alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Drive umounted"'
 alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Drive mounted"'
