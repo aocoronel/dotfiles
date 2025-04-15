@@ -1,0 +1,10 @@
+// Hyprland Only
+
+{
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "  EN",
+    "format-pt": "  BR",
+    "keyboard-name": "semico-usb-keyboard",
+  },
+}

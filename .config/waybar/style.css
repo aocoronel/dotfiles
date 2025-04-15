@@ -33,6 +33,7 @@
 #custom-wifi,
 #custom-workspaces,
 #custom-pomodoro,
+#custom-pomodoro-old,
 #custom-ws,
 #idle_inhibitor,
 #memory,
@@ -302,11 +303,20 @@ tooltip label {
 
 /* == Pomodoro == */
 
-#custom-pomodoro {
-  color: @module-fg;
+/* Legacy: Uses legacy.jsonc */
+#custom-pomodoro-old {
+  background: @pomodoro;
   box-shadow: none;
+  color: @module-fg;
   transition: none;
+}
+
+/* Default: Uses default.jsonc */
+#custom-pomodoro {
   background: @workspaces;
+  box-shadow: none;
+  color: @module-fg;
+  transition: none;
 }
 
 /* == Tray Bar == */
