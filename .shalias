@@ -1,42 +1,30 @@
 #!/bin/env bash
 
-# Tools
-
-## Classic
+## Replacement & Default Flags
 
 alias cat='bat'
+alias cp="cp --verbose"
+alias e='hyprctl dispatch focuswindow class:"Emacs"; emacsclient -r'
 alias lgd="lazygit -p \$HOME/dotfiles/"
 alias lg='lazygit'
 alias ls='eza --color=auto --group-directories-first'
+alias lynx="lynx -cookies"
 alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
-# alias nv='navi --path "$HOME/.config/navi/cheats/" --print'
+alias rclone="rclone --verbose"
+alias rr="ranger_cd"
+alias rsync="rsync -avz"
+alias sm="$HOME/scripts/__ssh_manager.sh"
+alias vidir="vidir --verbose"
 alias vim='nvim'
 alias v='nvim'
-alias e='hyprctl dispatch focuswindow class:"Emacs"; emacsclient -r'
-alias sm="$HOME/scripts/__ssh_manager.sh"
-alias rclone="rclone --verbose"
-
-## TUI
-
-alias lynx="lynx -cookies"
-alias rn="ranger .local/share/navi/cheats/"
-alias rr="ranger_cd"
-alias vidir="vidir --verbose"
 
 ## Shortcuts
 
-alias ctrash='gio trash --empty'
-
-alias historyc="rm $HOME/.zsh_history"
-
-alias sxh='nvim $HOME/.config/hypr/hyprland/keybinds.conf'
-
-alias taskclean='task +DELETED purge'
-alias taskgit='git -C "$HOME/.task/" add -A; git -C "$HOME/.task/" commit -a -m "Auto Commit"'
-alias tk='task limit:3'
-alias tt='taskwarrior-tui'
-
+alias ctrash='gio trash --empty' # Wipe Trash Bin
 alias fv="sh \$SCRIPTS/__flashcards.sh"
+alias historyc="rm $HOME/.zsh_history" # Clear ZSH history
+alias mountd="sudo mount -o uid=$UID,gid=$(id -g) /dev/$1 /mnt/$2"
+alias sxh='nvim $HOME/.config/hypr/hyprland/keybinds.conf' # Quick Access to System Bindings
 
 ## AI
 
@@ -54,12 +42,20 @@ alias remove='sudo pacman -Rns'
 alias update='sudo pacman -Syy'
 alias upgrade='sudo pacman -Syu'
 
-## Deprecated
+## Nix
 
-# alias sxhd="$HOME/scripts/__restart-sxhkd.sh" # Xorg
-# alias tskchamp='taskchampion-sync-server -C $(pwgen) -d /home/aocoronel/.task'
+alias nx="cd $HOME/nix/; just"
 
 ## Drives
 
-alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Drive umounted"'
-alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Drive mounted"'
+alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Mount" "Drive umounted"'
+alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Mount" "Drive mounted"'
+
+## Deprecated
+
+# alias sxhd="$HOME/scripts/__restart-sxhkd.sh" # Quick Access to System Bindings - Xorg only
+# alias tskchamp='taskchampion-sync-server -C $(pwgen) -d /home/aocoronel/.task'
+# alias taskclean='task +DELETED purge'
+# alias taskgit='git -C "$HOME/.task/" add -A; git -C "$HOME/.task/" commit -a -m "Auto Commit"'
+# alias tk='task limit:3'
+# alias tt='taskwarrior-tui'
