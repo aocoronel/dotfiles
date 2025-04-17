@@ -1,0 +1,13 @@
+autosave
+bookmarks
+cache
+command-history
+.config/doom/config.el
+.config/nvim/lazy-lock.json
+.config/ranger/plugins/devicons2
+__init__.py
+lib.pl
+playlists
+pt.utf-8.spl
+__pycache__
+search-history
