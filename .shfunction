@@ -4,7 +4,7 @@
 function cds() {
   local session
   session=$(tmux display-message -p '#{session_path}')
-  cd "$session" || exit
+  cd "$session" || return
 }
 
 function weather() {
@@ -29,15 +29,15 @@ function rf() {
   repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
   export ${repo}
 
-  [[ -n "$repo" ]] && cd "$repo" || exit
+  [[ -n "$repo" ]] && cd "$repo" || return
 }
 
 # Task Done Today
-function tdt() {
-  local date
-  date=$(date +%F)
-  task end.after:$date completed
-}
+# function tdt() {
+#   local date
+#   date=$(date +%F)
+#   task end.after:$date completed
+# }
 
 # Ranger Shell Integration - Moves to last directory ranger exits
 function ranger_cd() {
@@ -49,6 +49,7 @@ function ranger_cd() {
   fi
   rm -f -- "$temp_file"
 }
+
 function changevol() {
   local vol
   vol=$1
@@ -62,4 +63,33 @@ function tpo() {
   else
     tmuxp load "$1" -d && tmux attach-session -t "$1"
   fi
+}
+
+# Guarantee user ownership over mounted drive
+function mountd() {
+  sudo mount -o uid=$UID,gid="$(id -g)" "/dev/$1" "/mnt/$2"
+}
+
+# Specific Rsync
+# "Instead of cloning the whole directory, run it only on
+# specific directories from the source directory"
+function mirror() {
+  dest=$1
+  [[ -z "$dest" ]] && {
+    echo "Not destination drive selected"
+    return 1
+  }
+  declare -i i
+  i=1
+  find . -maxdepth 1 -type d | while read -r dir; do
+    if [ "$i" -eq 1 ]; then
+      i+=1
+      continue
+    fi
+    current_dir=$(echo "$dir" | awk -F '^./' '{print $2}')
+    echo "rsync -av --delete $dir/ $dest/$current_dir/"
+    rsync -az --delete "$dir/" "$dest/$current_dir/"
+    echo "Completed!"
+    echo
+  done
 }
