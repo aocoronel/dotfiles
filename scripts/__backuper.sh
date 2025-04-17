@@ -8,7 +8,7 @@ NOW="$(date +%Y-%d-%H%M)"
 function help() {
   cat <<EOF
 Sync Tool for External Drives
-Usage: $0 [command]
+Usage: __backuper.sh [command]
 Available commands:
 create                             - Use borg to backup
 list                               - List all borg backups
