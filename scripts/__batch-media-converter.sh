@@ -20,6 +20,6 @@ read -p "Choose wanted format: " dest
 
 for file in *."$source"; do
   output="${file%.*}.$dest"
-  ffmpeg -nostdin -i "$file" -preset medium -acodec aac -b:a 128k "$output"
+  ffmpeg -nostdin -i "$file" -preset medium -acodec aac -b:a 128k -vcodec libx264 -crf 23 "$output"
   echo "Converted: $file to $output"
 done

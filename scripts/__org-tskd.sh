@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ORG_DIR=~/org/journal/daily/
+ORG_DIR=$HOME/org/journal/daily/
 EMACS_MODE=true
 
 month_list="January

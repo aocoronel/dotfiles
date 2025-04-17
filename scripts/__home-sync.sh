@@ -7,7 +7,7 @@ function main() {
     echo "Please, create a new directory at:"
     echo "$HOME/home"
   fi
-  rsync --progress -avh --delete --exclude-from=$HOME/.rsync-ignore "$HOME/" "$HOME/home/"
+  rsync --progress -ah --delete --exclude-from=$HOME/.rsync-ignore "$HOME/" "$HOME/home/"
 }
 
 main

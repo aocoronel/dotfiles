@@ -7,13 +7,17 @@ if ! command -v mdfc &>/dev/null; then
   exit 1
 fi
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/lib/get_env.sh"
+ENV_FILE="$HOME/.scriptenv"
 
-get_flashcard # Get FLASHCARD env
+if [ -z "$ENV_FILE" ]; then
+  echo ".scriptenv is missing at $HOME!"
+  return 1
+fi
+
+source "$ENV_FILE"
 
 if [ -z "$FLASHCARD" ]; then
-  echo "Error: FLASHCARD env at .localenv not found"
+  echo "Error: FLASHCARD env at .scriptenv not found"
   exit 1
 fi
 
