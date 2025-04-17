@@ -67,7 +67,8 @@ open() {
     case "$TOOL" in
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
-    "obsidian") obsidian-cli open "$menu" --vault $JOURNAL_VAULT ;;
+    "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
+    "obsidian") obsidian-cli open "$menu" --vault "$JOURNAL_VAULT" ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -77,7 +78,8 @@ open() {
     case "$TOOL" in
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
-    "obsidian") obsidian-cli open "$menu" --vault $obsidian_file ;;
+    "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
+    "obsidian") obsidian-cli open "$menu" --vault "$obsidian_file" ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -120,7 +122,7 @@ main() {
     menu=$(echo -e "1. Day\n2. Week\n3. Month\n4. Year" | _rofi)
     ;;
   tool)
-    menu=$(echo -e "nvim\nneovide\nobsidian" | _rofi)
+    menu=$(echo -e "emacs\nnvim\nneovide\nobsidian" | _rofi)
     ;;
   esac
 

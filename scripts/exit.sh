@@ -7,7 +7,7 @@ function umount_dir() {
     echo "Directory '$BEELZEBUB' is empty"
     return 0
   else
-    if fusermount -u "$BEELZEBUB"; then
+    if fusermount -u -z "$BEELZEBUB"; then
       echo "Successfully unmounted $BEELZEBUB"
       return 0
     else

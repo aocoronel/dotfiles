@@ -30,19 +30,18 @@ function adddrive() {
   fi
 }
 
-function mount() {
+function _mount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   drive=$(ls /mnt/ | fzf --prompt "Previously mounted devices: ")
   passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
   pass="$(ls "$passdir/dev/" | awk -F. '{print $1}' | grep "$drive")"
   if [ "$pass" == "$drive" ]; then
-    password=$(pass dev/$pass)
+    password=$(pass "dev/$pass")
   else
     echo "$drive isn't in your pass store!"
     sleep 1
     exit 1
   fi
-  # dev/ is a prefix for pass
   echo "$password" | sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
   echo "" | xclip -sel clip
@@ -50,7 +49,7 @@ function mount() {
   exit 0
 }
 
-function imount() {
+function _imount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   echo "Previously mounted devices:" && ls /mnt/
   read -p "Name the drive: " drive
@@ -60,7 +59,7 @@ function imount() {
   exit 0
 }
 
-function umount() {
+function _umount() {
   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
   sudo umount "/mnt/$drive/"
   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
@@ -73,11 +72,11 @@ function read_option() {
     help
     read -p "Choose an option (add/iopen/open/close): " option
     if [ "$option" == "open" ]; then
-      mount
+      _mount
     elif [ "$option" == "iopen" ]; then
-      imount
+      _imount
     elif [ "$option" == "close" ]; then
-      umount
+      _umount
     elif [ "$option" == "add" ]; then
       adddrive
     else
@@ -91,15 +90,15 @@ case $1 in
   help
   ;;
 "open")
-  mount
+  _mount
   ;;
 "iopen")
-  imount
+  _imount
   ;;
 "close")
-  umount
+  _umount
   ;;
-"")
+*)
   read_option
   ;;
 esac

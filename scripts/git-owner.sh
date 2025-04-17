@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/git-owner.sh
+
 function help() {
   cat <<EOF
 Disclaimer!

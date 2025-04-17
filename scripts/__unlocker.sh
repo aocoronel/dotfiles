@@ -2,13 +2,17 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__unlocker.sh
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/lib/get_env.sh"
+ENV_FILE="$HOME/.scriptenv"
 
-get_vault
+if [ -z "$ENV_FILE" ]; then
+  echo ".scriptenv is missing at $HOME!"
+  return 1
+fi
+
+source "$ENV_FILE"
 
 if [ -z "$VAULT" ]; then
-  echo "Error: VAULT env at .localenv not found"
+  echo "Error: VAULT env at .scriptenv not found"
   exit 1
 fi
 
@@ -20,7 +24,7 @@ function cd-tmux() {
   tmux attach -t "$SESSION_NAME"
 }
 
-function unlock() {
+function main() {
   govault=$(echo "$vaultdir" | fzf --height 40% --prompt "Select vault to unlock: ")
   if [ ! -d "/mnt/go/$govault" ]; then
     echo "No directory found at /mnt/go/$govault. Creating one now..."
@@ -35,4 +39,4 @@ function unlock() {
   exit 0
 }
 
-unlock
+main

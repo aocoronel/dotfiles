@@ -9,15 +9,18 @@ if [ ! -d "$HOME/.x-cmd.root" ]; then
   echo "X-CMD is not installed!"
   echo "Check installation guide: https://get.x-cmd.com)"
   exit
-elif ! [ -x "$(command -v fzf)" ]; then
-  echo "fzf is not installed!"
-  echo "Please install it"
-  exit
-elif ! [ -x "$(command -v nvim)" ]; then
-  echo "nvim is not installed!"
-  echo "Please install it"
-  exit
 fi
+
+check_command() {
+  for cmd in "$@"; do
+    if ! command -v "$cmd" &>/dev/null; then
+      echo "Error: $cmd could not be found. Please install it." >&2
+      exit 1
+    fi
+  done
+}
+
+check_command fzf nvim
 
 function create_chat_dir() {
   mkdir -p "$CHAT_DIR"

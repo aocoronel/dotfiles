@@ -7,15 +7,17 @@ if ! command -v rofi &>/dev/null; then
   exit 1
 fi
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/lib/get_env.sh"
-source "$SCRIPT_DIR/lib/tmux_functions.sh"
+ENV_FILE="$HOME/.scriptenv"
 
-get_term   # Get TERMCMD env
-get_editor # Get EDITOR env
+if [ -z "$ENV_FILE" ]; then
+  echo ".scriptenv is missing at $HOME!"
+  return 1
+fi
 
-if [ -z "$TERMCMD" ]; then
-  echo "Error: TERMCMD env at .localenv not found"
+source "$ENV_FILE"
+
+if [ -z "$TERMCMD" ] || [ -z "$EDITOR" ]; then
+  echo "Error: TERMCMD or EDITOR env at .scriptenv not found"
   exit 1
 fi
 
@@ -24,7 +26,9 @@ _rofi() {
 }
 
 _edit() {
-  exec "$TERMCMD" -e tmuxp edit "cmus"
+  local profile
+  profile=$1
+  exec "$TERMCMD" -e tmuxp edit "$profile"
 }
 
 switch_mode="Ctrl+s"
@@ -70,7 +74,7 @@ main() {
       close_tmux "$menu"
       ;;
     tmuxp)
-      _edit
+      _edit "$menu"
       ;;
     esac
     main
