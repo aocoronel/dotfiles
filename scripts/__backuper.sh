@@ -1,80 +1,97 @@
-#!/usr/bin/env bash
+#!/usrbin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__sync-external.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__backuper.sh
 
 HOSTNAME="$(hostnamectl hostname)"
 NOW="$(date +%Y-%d-%H%M)"
+MOUNT_POINT="/mnt"
+BORG_REPO_INDICATOR="nonce"
+EXCLUDED_DIR="beelzebub"
 
 function help() {
   cat <<EOF
 Sync Tool for External Drives
 Usage: __backuper.sh [command]
 Available commands:
-create                             - Use borg to backup
-list                               - List all borg backups
+borg <cmd>                         - Run any borg command (local)
+create-remote <path/to/backup>     - Use borg to local backup
+create                             - Use borg to local backup
 mount                              - Mount borg
+remote <cmd>                       - Run any borg command (remote)
 rsync                              - Use rsync to sync source directory to dest directory
 Note: For borg, the source directory means the borg repository
 EOF
 }
 
-function get_drives() {
-  sourceonly=$1
-  sourcedrive=$(ls /mnt/ | fzf --prompt "Choose directory you to copy from: " --preview 'eza -l /mnt/{}')
-  if [ -z "$sourcedrive" ]; then
-    echo "No source directory chosen!"
+function get_drive() {
+  local prompt=$1
+  local drive
+  drive=$(ls "$MOUNT_POINT" | fzf --prompt "$prompt" --preview "eza -l $MOUNT_POINT/{}")
+  if [ -z "$drive" ]; then
+    echo "No directory chosen!"
     exit 1
   fi
+  echo "$drive"
+}
+
+function get_drives() {
+  sourceonly=$1
+  sourcedrive=$(get_drive "Choose directory you to copy from: ")
   if [ "$sourceonly" != "true" ]; then
-    destdrive=$(ls /mnt/ | fzf --prompt "Choose directory to mirror to $sourcedrive: " --preview 'eza -l /mnt/{}')
-    if [ -z "$destdrive" ]; then
-      echo "No dest directory chosen!"
-      exit 1
-    fi
+    destdrive=$(get_drive "Choose directory to mirror to $sourcedrive: ")
   fi
 }
 
-function is_borg() {
-  if ls "/mnt/$sourcedrive" | grep "nonce"; then
+function is_borg_repo() {
+  local drive=$1
+  if ls "$MOUNT_POINT/$drive" | grep -q "$BORG_REPO_INDICATOR"; then
     echo "This is a borg repository!"
-    exit 0
+    return 0
   fi
-  if ls "/mnt/$destdrive" | grep "nonce"; then
-    echo "This is a borg repository!"
-    exit 0
-  fi
+  return 1
 }
 
 function sync_external() {
-  # beelzebub is a directory I do not want to overwrite accidentally
-  # better safe than sorry
-  if [ "$destdrive" = "beelzebub" ]; then
+  if [ "$destdrive" = "$EXCLUDED_DIR" ]; then
     echo "Caution!"
-    echo "The beelzebub directory have been selected as destdrive"
+    echo "The $EXCLUDED_DIR directory has been selected as destdrive"
     exit 1
-  else
-    rsync --progress -avh --delete "/mnt/$sourcedrive/" /mnt/"$destdrive/"
   fi
+  rsync --progress --delete "$MOUNT_POINT/$sourcedrive/" "$MOUNT_POINT/$destdrive/"
 }
 
 function create_backup() {
-  borg create --stats --progress "/mnt/$sourcedrive::$HOSTNAME-$NOW" "/mnt/$destdrive/"
+  borg create --stats --progress "$MOUNT_POINT/$sourcedrive::$HOSTNAME-$NOW" "$MOUNT_POINT/$destdrive/"
 }
 
-function list_borg() {
-  borg list "/mnt/$sourcedrive"
+function remote_backup() {
+  local remote dest_path
+  dest_path="$1"
+  remote=$(cat ~/.ssh/borg_server)
+  borg create --stats --progress "$remote::$HOSTNAME-$NOW" "$dest_path"
+}
+
+function cmd_borg() {
+  local cmd=$1
+  borg "$cmd" "$MOUNT_POINT/$sourcedrive"
+}
+
+function remote_borg() {
+  local cmd=$1
+  local remote
+  remote=$(cat ~/.ssh/borg_server)
+  borg "$cmd" "$remote"
 }
 
 function mount_borg() {
-  destdrive="$sourcedrive"_mount
-  [[ ! -d "$destdrive" ]] && {
-    mkdir -p "$destdrive"
-    [[ ! -d "$destdrive" ]] && {
+  local mount_dir="${sourcedrive}_mount"
+  if [ ! -d "$MOUNT_POINT/$mount_dir" ]; then
+    mkdir -p "$MOUNT_POINT/$mount_dir" || {
       echo "Failed to create directory!"
       exit 1
     }
-  }
-  borg mount "/mnt/$sourcedrive" "/mnt/$destdrive"
+  fi
+  borg mount "$MOUNT_POINT/$sourcedrive" "$MOUNT_POINT/$mount_dir"
 }
 
 case "$1" in
@@ -83,9 +100,20 @@ mount)
   mount_borg
   exit 0
   ;;
-list)
-  get_drives true # Source Only
-  list_borg
+borg)
+  shift
+  get_drives true
+  cmd_borg "$@"
+  exit 0
+  ;;
+remote)
+  shift
+  get_drives true
+  remote_borg "$@"
+  exit 0
+  ;;
+create-remote)
+  remote_backup "$@"
   exit 0
   ;;
 create)
@@ -95,7 +123,9 @@ create)
   ;;
 rsync)
   get_drives
-  is_borg
+  if is_borg_repo "$sourcedrive" || is_borg_repo "$destdrive"; then
+    exit 1
+  fi
   sync_external
   exit 0
   ;;
