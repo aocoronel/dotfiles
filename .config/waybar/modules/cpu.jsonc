@@ -2,7 +2,7 @@
   "custom/cpu": {
     "exec": "~/.config/waybar/scripts/cpu-usage.sh",
     "return-type": "json",
-    "on-click": "kitty -e bash -c htop",
+    "on-click": "foot -e bash -c htop",
     "tooltip": true,
     "interval": 5,
     "min-length": 6,

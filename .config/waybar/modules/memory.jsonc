@@ -6,7 +6,7 @@
     },
     "format": "󰘚 {percentage}%",
     "format-critical": "󰀦 {percentage}%",
-    "on-click": "kitty -e bash -c htop",
+    "on-click": "foot -e bash -c htop",
     "tooltip": true,
     "tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
     "interval": 5,

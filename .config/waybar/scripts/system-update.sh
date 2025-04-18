@@ -43,7 +43,7 @@ if [ "$1" == "up" ]; then
     printf '\n'
     read -n 1 -p 'Press any key to continue...'
     "
-	kitty --title "󰞒  System Update" sh -c "${command}"
+	foot --title "󰞒  System Update" sh -c "${command}"
 fi
 
 # Check for AUR updates

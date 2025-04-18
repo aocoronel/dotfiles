@@ -74,7 +74,7 @@ while true; do
 		;;
 	"Scan for devices"*)
 		notify-send "Press '?' to show help."
-		kitty --title '󰂱  Bluetooth TUI' sh -c "bluetui" # Launch bluetui
+		foot --title '󰂱  Bluetooth TUI' sh -c "bluetui" # Launch bluetui
 		;;
 	*)
 		# Extract device name
