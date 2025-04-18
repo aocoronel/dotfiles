@@ -1,4 +1,4 @@
-session_name: "emacs"
+session_name: "server"
 windows:
   - layout: tiled
     options: {}
@@ -8,5 +8,6 @@ windows:
           - pkill emacs
           - doom sync
         shell_command: emacs --daemon
+      - shell_command: foot -s
     start_directory: $HOME
-    window_name: emacs
+    window_name: server
