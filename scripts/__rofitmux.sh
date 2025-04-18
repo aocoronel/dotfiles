@@ -21,6 +21,8 @@ if [ -z "$TERMCMD" ] || [ -z "$EDITOR" ]; then
   exit 1
 fi
 
+source "$(dirname "$(realpath $0)")/lib/tmux_functions.sh"
+
 _rofi() {
   rofi -dmenu -i -no-levenshtein-sort -width 1000 -p "$mode" -mesg "${HELP}" -kb-custom-1 "${delete}" -kb-custom-2 "${switch_mode}" "$@"
 }
