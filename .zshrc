@@ -30,6 +30,7 @@ zinit snippet OMZP::gpg-agent
 source "$HOME/.shalias"              # Aliases
 source "$HOME/.env"                  # Environment variables
 source "$HOME/.shfunction"           # Functions
+source "$HOME/.secrets"              # Env Secrets
 
 # Tools
 
