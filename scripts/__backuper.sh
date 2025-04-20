@@ -1,4 +1,4 @@
-#!/usrbin/env bash
+#!/usr/bin/env bash
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__backuper.sh
 
@@ -108,7 +108,6 @@ borg)
   ;;
 remote)
   shift
-  get_drives true
   remote_borg "$@"
   exit 0
   ;;
