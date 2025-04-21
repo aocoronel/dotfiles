@@ -24,7 +24,7 @@
     "on-click": "systemctl suspend",
   },
   "custom/power": {
-    "format": "   ",
+    "format": " 󰐥  ",
     "tooltip": true,
     "tooltip-format": "Poweroff",
     "on-click": "systemctl poweroff",

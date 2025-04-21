@@ -6,12 +6,6 @@
       "children-class": "not-power",
       "transition-left-to-right": false,
     },
-    "modules": [
-      "custom/wifi",
-      "battery",
-      "bluetooth",
-      "custom/backlight",
-      "pulseaudio",
-    ],
+    "modules": ["custom/wifi"],
   },
 }

@@ -213,6 +213,7 @@ tooltip label {
 /* == Wifi == */
 
 #custom-wifi {
+  background: @laptop;
   padding-left: 5px;
   padding-right: 8px;
 }
@@ -265,7 +266,7 @@ tooltip label {
 /* == Brightness == */
 
 #custom-backlight {
-  background: @backlight;
+  background: @laptop;
 }
 
 /* == Battery == */
