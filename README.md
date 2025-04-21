@@ -12,7 +12,7 @@
 - <strong>Keep things simple</strong>
 - Keep it easy to maintain
 - Lightweight system without sacrificing on visuals (keep it modern)
-       </details>
+      </details>
 
 <details>
   <summary>Goals</summary>
@@ -32,33 +32,32 @@ I'm currently using NixOS as my main OS for desktop usage. You can find my confi
 
 ## Footages
 
-### Overview
+<div align="center">
+  <img src="https://git.disroot.org/aocoronel/images/raw/branch/main/dotfiles/2025-04-21-nixos.webp">
+  <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Ranger, Cmatrix, Fuzzel and Waybar</p>
+</div>
 
-![My Dotfiles](https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Hyprland.jpg)
+The theme can be found in this directory, or in the official theme repository: [aocoronel/elegantvagrant](https://github.com/aocoronel/elegantvagrant)
 
-### Tools
+## Tools
 
-<details>
-  <summary>File Management</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Ranger.jpg>
-</details>
-<details>
-  <summary>Clipboard History</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Fuzzel.jpg>
-</details>
-<details>
-  <summary>Text Editor and Terminal Multiplexer</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Nvim-Tmux.jpg>
-</details>
-<details>
-  <summary>Window Switcher and Application Launcher</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Rofi.jpg>
-</details>
-<details>
-  <summary>Notifications</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Dunst.jpg>
-</details>
-<details>
-  <summary>Status Bar</summary>
-     <img src=https://git.disroot.org/aocoronel/images/raw/branch/main/2025-02-02-Waybar.jpg>
-</details>
+| Tools   | Function             |
+| ------- | -------------------- |
+| Cmus    | Music Player         |
+| Dunst   | Notifications        |
+| Emacs   | Multi-purpose        |
+| Foot    | Terminal Emulator    |
+| MPV     | Media Player         |
+| Neovim  | Text Editor          |
+| Ranger  | File Management      |
+| Rofi    | Multi-purpose        |
+| Swayimg | Image Viewer         |
+| Tmux    | Terminal Multiplexer |
+| Waybar  | Status Bar           |
+| Zsh     | Shell                |
+
+And many more...
+
+## License
+
+This repository is licensed under the MIT License, allowing for extensive use, modification, copying, and distribution.
