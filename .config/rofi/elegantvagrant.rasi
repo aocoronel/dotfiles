@@ -64,8 +64,8 @@
 }
 window {
     background-color: @background;
-    border:           4;
-    border-color:     @darkpurple;
+    border:           2;
+    border-color:     @purple;
     border-radius:    12;
     padding:          12;
     width:            50%;
