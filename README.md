@@ -12,7 +12,7 @@
 - <strong>Keep things simple</strong>
 - Keep it easy to maintain
 - Lightweight system without sacrificing on visuals (keep it modern)
-  </details>
+    </details>
 
 <details>
   <summary>Goals</summary>
@@ -21,7 +21,7 @@
 - Keep the visuals consistent with an original theme (Elegant Vagrant)
 - Execute any task blazingly fast without any frictions to my workflow
 - Integrate CLI tools to produce results better than any GUI Tool
-      </details>
+  </details>
 
 <details>
   <summary>Notes</summary>
@@ -37,7 +37,7 @@ I'm currently using NixOS as my main OS for desktop usage. You can find my confi
   <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Ranger, Cmatrix, Fuzzel, Hyprland and Waybar</p>
 </div>
 
-The theme can be found in this directory, or in the official theme repository: [aocoronel/elegantvagrant](https://github.com/aocoronel/elegantvagrant)
+The theme can be found in this repository, as a production example, or in the official theme repository: [aocoronel/elegantvagrant](https://github.com/aocoronel/elegantvagrant)
 
 ## Tools
 
