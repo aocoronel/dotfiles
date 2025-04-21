@@ -1,16 +1,21 @@
 // Waybar Config
 
 // Profiles:
-// "$HOME/.config/waybar/profiles/default.jsonc",
-// "$HOME/.config/waybar/profiles/legacy.jsonc",
+// "$HOME/.config/waybar/profiles/default-mechabar.jsonc",
+// "$HOME/.config/waybar/profiles/legacy-mechabar.jsonc",
 
 // Choose a Distro:
 // "$HOME/.config/waybar/modules/arch-linux.jsonc",
 // "$HOME/.config/waybar/modules/nixos.jsonc",
 
+// Choose a Machine:
+// "$HOME/.config/waybar/modules/desktop.jsonc",
+// "$HOME/.config/waybar/modules/laptop.jsonc",
+
 {
   "include": [
-    "$HOME/.config/waybar/profiles/default.jsonc",
+    "$HOME/.config/waybar/profiles/default-mechabar.jsonc",
     "$HOME/.config/waybar/modules/nixos.jsonc",
+    "$HOME/.config/waybar/modules/desktop.jsonc",
   ],
 }
