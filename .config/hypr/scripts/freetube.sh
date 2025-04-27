@@ -2,6 +2,7 @@
 
 invidious_config="$HOME/invidious/"
 invidious_last_run="$HOME/.cache/invidious_last_run"
+freetube_cmd="io.freetubeapp.FreeTube"
 
 token_mode=$1
 
@@ -44,7 +45,7 @@ function startup() {
 
 function main() {
   startup
-  pgrep freetube && hyprctl dispatch focuswindow class:FreeTube || freetube
+  pgrep $freetube_cmd && hyprctl dispatch focuswindow class:$freetube_cmd || $freetube_cmd
 }
 
 main
