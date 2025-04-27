@@ -14,12 +14,5 @@ if [ -n "$client_address" ]; then
     ;;
   esac
 else
-  case "$client_name" in
-  daily-note)
-    emacsclient -r
-    ;;
-  extra)
-    emacsclient -c
-    ;;
-  esac
+  emacs
 fi
