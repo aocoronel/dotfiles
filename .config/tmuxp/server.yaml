@@ -7,7 +7,7 @@ windows:
         shell_command_before:
           - pkill emacs
           - doom sync
-        shell_command: emacs --daemon
-      - shell_command: foot -s
+        # shell_command: emacs --daemon
+      - shell_command: alacritty --daemon
     start_directory: $HOME
     window_name: server
