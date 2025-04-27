@@ -6,7 +6,7 @@
     "format": "{}°",
     "tooltip": true,
     "interval": 3600,
-    "exec": "~/.config/waybar/scripts/wttrbar",
+    "exec": "wttrbar",
     "return-type": "json",
   },
 }
