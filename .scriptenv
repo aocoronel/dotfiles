@@ -6,7 +6,7 @@ export EDITOR=nvim
 export MANPAGER="nvim +Man!"
 export PAGER=bat
 export SHELL=zsh
-export TERMCMD=foot
+export TERMCMD=alacritty
 export VISUAL=nvim
 
 # Directories
