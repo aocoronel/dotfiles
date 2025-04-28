@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-shell=$(basename "$SHELL") # Required for NixOS
-
 ssh_file="$HOME/.ssh/ssh_machines"
-sh_profile="$HOME/.$shell"_profile
-
-if [ ! -f "$sh_profile" ]; then
-  echo "Shell Profile is required!"
-  echo "You must create a .$shell'_profile' at $HOME"
-  exit 1
-fi
 
 function help() {
   cat <<EOF
@@ -18,6 +9,7 @@ Usage: $0 [option]
 Available options:
 cp   <remote_path> <local_path> <user>  - Copy file from remote
 edit                                    - Edit ssh_machines file
+config                                  - Edit ssh config file
 git <git_cmd> <git_path> <user>         - Run any git command
 help                                    - Displays this message and exits
 in                                      - Select machine to SSH in
@@ -26,13 +18,7 @@ setup                                   - Copy SSH pubkey to server
 EOF
 }
 
-function ssh_add() {
-  source "$sh_profile"
-}
-
 function get_data() {
-  ssh_add
-
   machine=$(awk -F "::" '{print $1}' "$ssh_file" | fzf --prompt "Select your machine: ")
   get_full_ip=$(grep "$machine" <"$ssh_file" | awk -F "::" '{print $2}')
   ip=$(echo "$get_full_ip" | awk -F ":" '{print $1}')
@@ -52,6 +38,12 @@ function get_in() {
 function edit_ssh() {
   editor=${EDITOR:-nvim}
   sh -c "$editor $ssh_file"
+}
+
+function config_ssh() {
+  local ssh_config="$HOME/.ssh/config"
+  editor=${EDITOR:-nvim}
+  sh -c "$editor $ssh_config"
 }
 
 function setup_ssh() {
@@ -133,6 +125,10 @@ edit)
   edit_ssh
   exit 0
   ;;
+config)
+  config_ssh
+  exit 0
+  ;;
 setup)
   shift
   get_data
@@ -159,10 +155,6 @@ send)
   ;;
 help)
   help
-  exit 0
-  ;;
-add)
-  ssh_add
   exit 0
   ;;
 *)
