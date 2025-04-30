@@ -18,7 +18,7 @@ function get_input() {
 function main() {
   get_input
   select=$(get_urls | _rofi -p "󰖟 ")
-  xdg-open "$select"
+  xdg-open "$select" >/dev/null
 }
 
 main
