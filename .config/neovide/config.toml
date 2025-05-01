@@ -3,7 +3,6 @@ frame = "full"
 idle = true
 maximized = false
 mouse-cursor-icon = "arrow"
-neovim-bin = "/usr/bin/nvim"
 no-multigrid = false
 srgb = false
 tabs = true
