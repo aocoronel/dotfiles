@@ -6,21 +6,16 @@
 
 ## Get Environment Variables
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-source "$SCRIPT_DIR/lib/get_env.sh"
-
-get_obsidian
-get_journal
-get_term
+source "$HOME/.scriptenv"
 
 if [ -z "$JOURNAL" ]; then
-  echo "Error: JOURNAL env at .localenv not found"
+  echo "Error: JOURNAL env at .scripenv not found"
   exit 1
 elif [ -z "$OBSIDIAN" ]; then
-  echo "Error: OBSIDIAN env at .localenv not found"
+  echo "Error: OBSIDIAN env at .scripenv not found"
   exit 1
 elif [ -z "$TERMCMD" ]; then
-  echo "Error: TERMCMD env at .localenv not found"
+  echo "Error: TERMCMD env at .scripenv not found"
   exit 1
 fi
 
@@ -122,7 +117,7 @@ main() {
     menu=$(echo -e "1. Day\n2. Week\n3. Month\n4. Year" | _rofi)
     ;;
   tool)
-    menu=$(echo -e "emacs\nnvim\nneovide\nobsidian" | _rofi)
+    menu=$(echo -e "emacs\nneovim\nneovide\nobsidian" | _rofi)
     ;;
   esac
 
