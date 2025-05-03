@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# "Run arbritary commands to Emacs"
+
 client_name="$1"
 client_address=$(hyprctl clients -j | jq -r ".[] | select(.class == \"Emacs\") | .address")
 

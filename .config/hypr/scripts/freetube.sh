@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+# "Setup Invidious, than run FreeTube"
+
 invidious_config="$HOME/invidious/"
 invidious_last_run="$HOME/.cache/invidious_last_run"
 freetube_cmd="io.freetubeapp.FreeTube"

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# "Allows to cycle between same applications"
+# Example: Cycle Two Firefox Browsers
+
 active_class=$(hyprctl activewindow -j | jq -r '.class')
 
 mapfile -t windows < <(hyprctl clients -j | jq -r ".[] | select(.class == \"$active_class\") | .address")

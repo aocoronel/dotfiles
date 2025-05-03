@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# "Lists all open windows and prompt to move to it or
+# close the application"
+
 help_color="#7c5cff"
 label="#f067fc"
 

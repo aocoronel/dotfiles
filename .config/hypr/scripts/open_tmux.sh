@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# "Open a dedicated terminal with tmux and switch
+# predefined sessions using Tmuxp"
+
 function tpo() {
   local session_name="$1"
   local class_name="tmux"
