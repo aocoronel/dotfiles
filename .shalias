@@ -22,8 +22,8 @@ alias v='nvim'
 
 alias ctrash='gio trash --empty' # Wipe Trash Bin
 alias fv="sh \$SCRIPTS/__flashcards.sh"
-alias historyc="rm $HOME/.zsh_history"                     # Clear ZSH history
-alias sxh='nvim $HOME/.config/hypr/hyprland/keybinds.conf' # Quick Access to System Bindings
+alias historyc="rm $HOME/.zsh_history"                    # Clear ZSH history
+alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' # Quick Access to System Bindings
 
 ## AI
 
