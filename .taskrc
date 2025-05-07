@@ -50,6 +50,11 @@ report.book.columns=project,description.desc,end
 report.book.sort=end-\/,project+
 report.book.filter=status:pending
 
+report.termux.description=Termux (Tiny View)
+report.termux.columns=project,description,urgency,end
+report.termux.sort=end-\/,urgency-
+report.termux.filter=status:pending
+
 # Server
 
 sync.server.url=http:\/\/192.168.0.35:8080
