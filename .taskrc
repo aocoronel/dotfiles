@@ -7,8 +7,8 @@ include dark-violets-256.theme
 ## Virtual Tags
 
 color.week         = rgb505
-color.blocked      = white on rgb000
-color.blocking     = black on gray0
+color.blocked      = black on white
+color.blocking     = black on white
 color.overdue      = bold white on rgb101
 color.due          = bold white on rgb100
 color.uda.priority.H   = bold white on rgb100
