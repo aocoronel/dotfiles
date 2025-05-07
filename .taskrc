@@ -50,6 +50,12 @@ report.book.columns=project,description.desc,end
 report.book.sort=end-\/,project+
 report.book.filter=status:pending
 
+# Server
+
+sync.server.url=http:\/\/192.168.0.35:8080
+sync.server.client_id=6b00cabe-4e17-405f-878b-5b61a99cf326
+sync.encryption_secret=Chi7eiraAin2Uosuyo6Hee4o
+
 # Taskwarrior TUI
 
 uda.taskwarrior-tui.shortcuts.1=~/.config/taskwarrior-tui/__taskopen-annotation.sh
