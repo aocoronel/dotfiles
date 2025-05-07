@@ -2,12 +2,13 @@
 
 TASK_DIR=$HOME/.task/
 
-function main() {
-  local id args
-  id=$1
-  shift
-  args=$@
-}
+# tt m 2 hello world
+# Same as: task 2 modify hello world
+command=$1
+shift
+id=$1
+shift
+args=$@
 
 function task_add() {
   task add "$args"
@@ -21,17 +22,14 @@ function task_quick() {
   task add +quick "$args"
 }
 
-case "$1" in
+case "$command" in
 a)
-  main "$@"
   task_add
   ;;
 q)
-  main "$@"
   task_quick
   ;;
 m)
-  main "$@"
   task_modify
   ;;
 n)
