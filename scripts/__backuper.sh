@@ -112,6 +112,7 @@ remote)
   exit 0
   ;;
 create-remote)
+  shift
   remote_backup "$@"
   exit 0
   ;;
