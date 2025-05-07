@@ -9,6 +9,10 @@ export SHELL=zsh
 export TERMCMD=alacritty
 export VISUAL=nvim
 
+# Paths
+
+export PATH="$HOME/zscripts/:$PATH" # Others Scripts
+
 # Directories
 
 export BEELZEBUB=/mnt/beelzebub/
