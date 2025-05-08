@@ -8,7 +8,7 @@
 uuid="$1"
 
 # Directory where notes are stored
-notes_dir="$HOME/org"
+notes_dir="$HOME/obsidian/OUROBOROS/"
 templates_dir="$notes_dir/templates/"
 
 # Prompt for the new note name

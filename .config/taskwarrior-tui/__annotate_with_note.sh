@@ -8,13 +8,13 @@
 uuid="$@"
 
 # Base directory where notes are stored
-notes_dir="$HOME/org/"
+notes_dir="$HOME/obsidian/OUROBOROS/"
 
 # Array of subdirectories to search in
-subdirs=("personal.p" "roam")
+subdirs=("Notes")
 
 # Find files in the specified subdirectories and show fzf dialog to select an existing note
-filepath=$(find "${subdirs[@]/#/$notes_dir}" -type f -name '*.org' | fzf-tmux --preview "bat --color=always {}")
+filepath=$(find "${subdirs[@]/#/$notes_dir}" -type f -name '*.md' | fzf-tmux --preview "bat --color=always {}")
 
 # If fzf was cancelled, exit the script
 if [ -z "$filepath" ]; then
