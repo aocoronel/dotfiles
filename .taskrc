@@ -7,10 +7,18 @@ include dark-violets-256.theme
 ## Virtual Tags
 
 color.week         = rgb505
+# color.deleted
+# color.completed
+# color.active
+color.overdue      = bold white on rgb101
+# color.scheduled
+# color.due.today
+color.due          = bold white on rgb100
 color.blocked      = black on white
 color.blocking     = black on white
-color.overdue      = bold white on rgb101
-color.due          = bold white on rgb100
+# color.recurring
+# color.tagged
+
 color.uda.priority.H   = bold white on rgb100
 color.uda.priority.M   = bold rgb110
 color.uda.priority.L   = bold rgb011
@@ -69,6 +77,9 @@ uda.taskwarrior-tui.shortcuts.3=~/.config/taskwarrior-tui/__cycle_priority.sh
 uda.taskwarrior-tui.shortcuts.4=~/.config/taskwarrior-tui/__annotate_with_note.sh
 uda.taskwarrior-tui.shortcuts.5=~/.config/taskwarrior-tui/__annotate_with_new_note.sh
 
+uda.taskwarrior-tui.background_process=task sync
+uda.taskwarrior-tui.background_process_period=600
+
 # Notes
 
 # To use the default location of the XDG directories,
@@ -93,4 +104,4 @@ uda.taskwarrior-tui.shortcuts.5=~/.config/taskwarrior-tui/__annotate_with_new_no
 #include bubblegum-256.theme
 #include no-color.theme
 
-news.version=3.4.0
+news.version=3.1.0
