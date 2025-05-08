@@ -72,10 +72,10 @@ sync.encryption_secret=Chi7eiraAin2Uosuyo6Hee4o
 # Taskwarrior TUI
 
 uda.taskwarrior-tui.shortcuts.1=~/.config/taskwarrior-tui/__taskopen-annotation.sh
-uda.taskwarrior-tui.shortcuts.2=~/.config/taskwarrior-tui/__toggle_review_label.sh
-uda.taskwarrior-tui.shortcuts.3=~/.config/taskwarrior-tui/__cycle_priority.sh
-uda.taskwarrior-tui.shortcuts.4=~/.config/taskwarrior-tui/__annotate_with_note.sh
-uda.taskwarrior-tui.shortcuts.5=~/.config/taskwarrior-tui/__annotate_with_new_note.sh
+uda.taskwarrior-tui.shortcuts.2=~/.config/taskwarrior-tui/__cycle_priority.sh
+uda.taskwarrior-tui.shortcuts.3=~/.config/taskwarrior-tui/__annotate_with_note.sh
+uda.taskwarrior-tui.shortcuts.4=~/.config/taskwarrior-tui/__annotate_with_new_note.sh
+uda.taskwarrior-tui.shortcuts.9=~/.config/taskwarrior-tui/__toggle_review_label.sh
 
 uda.taskwarrior-tui.background_process=task sync
 uda.taskwarrior-tui.background_process_period=600
