@@ -3,8 +3,8 @@
 modefile=$HOME/.cache/waybar-task
 
 ORG_DIR="$HOME/org"
-taskmode="org"
-# taskmode="taskwarrior"
+# taskmode="org"
+taskmode="taskwarrior"
 
 if [ ! -d "$ORG_DIR" ]; then
   echo "~"
