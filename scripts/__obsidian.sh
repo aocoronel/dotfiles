@@ -63,7 +63,7 @@ open() {
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
     "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
-    "obsidian") obsidian-cli open "$menu" --vault "$JOURNAL_VAULT" ;;
+    "obsidian") obsidian-cli open "$obsidian_file" --vault "$JOURNAL_VAULT" ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -74,7 +74,7 @@ open() {
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
     "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
-    "obsidian") obsidian-cli open "$menu" --vault "$obsidian_file" ;;
+    "obsidian") obsidian-cli open "$obsidian_file" --vault "$obsidian_directory" ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -87,7 +87,7 @@ deleteMenu() {
   delask=$(echo -e "1. Yes\n2. No" | _rofi -dmenu -i -no-levenshtein-sort -width 1000 -p '> ' -mesg "<span color='${label}'>Really delete</span> <span color='${help_color}'>$menu?</span>")
   [[ $? -eq 1 ]] && exit
   if [[ "$delask" == "1. Yes" ]]; then
-    rm -f "$workspace/$menu.md"
+    rm -f "$obsidian_directory/$menu.md"
     notify-send -u normal "Obsidian: Delete" "Deleted $menu"
   fi
   mode=notes main
