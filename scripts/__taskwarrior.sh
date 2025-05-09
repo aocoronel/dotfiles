@@ -33,7 +33,7 @@ m)
   task_modify
   ;;
 n)
-  task tiny
+  task termux
   ;;
 t)
   taskwarrior-tui
