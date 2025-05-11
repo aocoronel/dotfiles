@@ -7,6 +7,7 @@
 ## Get Environment Variables
 
 source "$HOME/.scriptenv"
+source "$(dirname "$(realpath $0)")/lib/hyprland.sh" # Get Hyprland Lib
 
 if [ -z "$JOURNAL" ]; then
   echo "Error: JOURNAL env at .scripenv not found"
@@ -66,6 +67,12 @@ _get_method() {
   fi
 }
 
+_hyprland_focus() {
+  if [ "$XDG_CURRENT_DESKTOP" == "Hyprland" ]; then
+    focus Obsidian
+  fi
+}
+
 _encoder() {
   # "Encode filename to URL code" Obsidian Only
   local method=$1
@@ -92,6 +99,7 @@ open() {
       _get_method
       _encoder
       xdg-open "obsidian://$URI_ACTION?vault=$JOURNAL_VAULT&file=$obsidian_file"
+      _hyprland_focus
       ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
@@ -107,6 +115,7 @@ open() {
       _get_method
       _encoder menu
       xdg-open "obsidian://$URI_ACTION?vault=$obsidian_directory&file=$menu"
+      _hyprland_focus
       ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
