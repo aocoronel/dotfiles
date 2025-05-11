@@ -57,13 +57,42 @@ _rofi() {
   rofi -dmenu -i -no-levenshtein-sort -width 1000 -p "$mode/$TOOL" -mesg "${HELP}" -kb-custom-1 "${tool_mode}" -kb-custom-2 "${workspace_mode}" -kb-custom-3 "${select_daily}" -kb-custom-4 "${delete}" -kb-custom-5 "${today}" -kb-custom-6 "${reset}" "$@"
 }
 
+_get_method() {
+  # "Create file if does not exist" Obsidian Only
+  if [ ! -f "$obsidian_directory/$menu.md" ]; then
+    URI_ACTION="new"
+  else
+    URI_ACTION="open"
+  fi
+}
+
+_encoder() {
+  # "Encode filename to URL code" Obsidian Only
+  local method=$1
+  case "$method" in
+  "menu")
+    menu=$(echo "$menu" | sed 's/ /%20/; s/\/%2/; s/#/%25/')
+    ;;
+  "journal")
+    obsidian_file=$(echo "$obsidian_file" | sed 's/ /%20/; s/\/%2/; s/#/%25/')
+    ;;
+  esac
+  if [[ "$TOOL" == "obsidian" ]]; then
+    obsidian_directory=$(basename "$obsidian_directory")
+  fi
+}
+
 open() {
   if [ "$mode" == "daily" ] || [ "$mode" == "today" ]; then
     case "$TOOL" in
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
     "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
-    "obsidian") obsidian-cli open "$obsidian_file" --vault "$JOURNAL_VAULT" ;;
+    "obsidian")
+      _get_method
+      _encoder
+      xdg-open "obsidian://$URI_ACTION?vault=$JOURNAL_VAULT&file=$obsidian_file"
+      ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -74,7 +103,11 @@ open() {
     "neovim") $TERMCMD -e nvim "$obsidian_directory/$menu".md ;;
     "neovide") neovide "$obsidian_directory/$menu".md ;;
     "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
-    "obsidian") obsidian-cli open "$obsidian_file" --vault "$obsidian_directory" ;;
+    "obsidian")
+      _get_method
+      _encoder menu
+      xdg-open "obsidian://$URI_ACTION?vault=$obsidian_directory&file=$menu"
+      ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
     esac
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -170,7 +203,7 @@ main() {
         obsidian_directory="$JOURNAL/Month/"
         year_var=$(date +%Y)
         month_var=$(date +%B)
-        obsidian_file=$(echo "${month_var}, "${year_var}"")
+        obsidian_file=$(echo "${month_var}, ${year_var}")
         ;;
       "4. Year")
         obsidian_directory="$JOURNAL"
