@@ -60,10 +60,19 @@ _rofi() {
 
 _get_method() {
   # "Create file if does not exist" Obsidian Only
-  if [ ! -f "$obsidian_directory/$menu.md" ]; then
-    URI_ACTION="new"
+  local method=$1
+  if [ "$method" == "journal" ]; then
+    if [ ! -f "$JOURNAL/$daily/$obsidian_file.md" ]; then
+      URI_ACTION="new"
+    else
+      URI_ACTION="open"
+    fi
   else
-    URI_ACTION="open"
+    if [ ! -f "$obsidian_directory/$menu.md" ]; then
+      URI_ACTION="new"
+    else
+      URI_ACTION="open"
+    fi
   fi
 }
 
@@ -96,9 +105,9 @@ open() {
     "neovide") neovide "$obsidian_directory/$menu".md ;;
     "emacs") emacsclient -c -a "obsidian" "$obsidian_directory/$menu.md" ;;
     "obsidian")
-      _get_method
-      _encoder
-      xdg-open "obsidian://$URI_ACTION?vault=$JOURNAL_VAULT&file=$obsidian_file"
+      _get_method journal
+      _encoder journal
+      xdg-open "obsidian://$URI_ACTION?vault=$JOURNAL_VAULT&file=$(basename "$JOURNAL")/$daily/$obsidian_file.md"
       _hyprland_focus
       ;;
     *) notify-send -u low "Obsidian: Error" "No available tool" ;;
@@ -200,6 +209,7 @@ main() {
       "1. Day")
         obsidian_directory="$JOURNAL/Daily/"
         obsidian_file=$(date +%F)
+        daily=Daily
         ;;
       "2. Week")
         obsidian_directory="$JOURNAL/Week/"
@@ -207,16 +217,19 @@ main() {
         week_var=$(date +%W)
         week=$(date -d "$week_var +7 day" '+%U')
         obsidian_file=$(echo "${year_var}-W${week}")
+        daily=Week
         ;;
       "3. Month")
         obsidian_directory="$JOURNAL/Month/"
         year_var=$(date +%Y)
         month_var=$(date +%B)
         obsidian_file=$(echo "${month_var}, ${year_var}")
+        daily=Month
         ;;
       "4. Year")
         obsidian_directory="$JOURNAL"
         obsidian_file=$(date +%Y)
+        daily=""
         ;;
       esac
       open
