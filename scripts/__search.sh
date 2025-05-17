@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+mode=$1
+shift
+args=$*
 restart="Alt-r"
 
 function get_urls() {
@@ -11,21 +14,35 @@ function _rofi() {
 }
 
 function get_input() {
-  search=$(echo "" | _rofi -p "> " -mesg "Enter your Search")
+  if [ "$mode" == "sh" ]; then
+    search=$args
+    echo "$search"
+  else
+    search=$(echo "" | _rofi -p "> " -mesg "Enter your Search: ")
+  fi
   [[ -z $search ]] && exit 1
   query=$(echo "$search" | sed 's/ /+/')
 }
 
 function main() {
   get_input
-  select=$(get_urls | _rofi -p "󰖟 ")
+  if [ "$mode" == "sh" ]; then
+    select=$(get_urls | fzf)
+  else
+    select=$(get_urls | _rofi -p "󰖟 ")
+  fi
   val=$?
   case "$val" in
   10)
     main
     ;;
   esac
-  xdg-open "$select" >/dev/null
+  if [ "$mode" == "sh" ]; then
+  [[ -z $select ]] && exit 1
+    lynx -cookies $select
+  else
+    xdg-open "$select" >/dev/null
+  fi
 }
 
 main
