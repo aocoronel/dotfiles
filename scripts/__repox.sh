@@ -47,7 +47,11 @@ function fetch() {
   current_line=0
   total_lines=$(wc -l <"$TMP_DIR")
   while IFS= read -r repo; do
-    repo_name="$(basename "$repo")"
+    if [ -n "$REPOX" ]; then
+      repo_name=$(basename "$repo" .git)
+    else
+      repo_name="$(basename "$repo")"
+    fi
     if [ ! -d "$DEV_DIR/$sub_dir/$repo_name" ]; then
       if ! gh repo clone "$repo" "$DEV_DIR/$sub_dir/$repo_name"; then
         echo "An error occured at $repo"
