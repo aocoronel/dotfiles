@@ -17,6 +17,7 @@ alias sm="$HOME/scripts/__ssh_manager.sh"
 alias vidir="vidir --verbose"
 alias vim='nvim'
 alias v='nvim'
+alias s="$HOME/scripts/__search.sh sh"
 
 ## Shortcuts
 
