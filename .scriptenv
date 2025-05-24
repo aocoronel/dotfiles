@@ -3,7 +3,6 @@
 # Tools
 
 export EDITOR=nvim
-export MANPAGER="nvim +Man!"
 export PAGER=bat
 export SHELL=zsh
 export TERMCMD=alacritty
@@ -16,13 +15,13 @@ export PATH="$HOME/zscripts/:$PATH" # Others Scripts
 # Directories
 
 export BEELZEBUB=/mnt/beelzebub/
+export OBSIDIAN=$HOME/obsidian/
+
 export DEV=$BEELZEBUB/Pandora/dev/
 export FLASHCARD=$OBSIDIAN/OUROBOROS/flashcards.md
 export MUSIC="$HOME/music/"
-export OBSIDIAN=$HOME/obsidian/
 export VAULT=$BEELZEBUB/secret/vault/
 export WALLPAPERS=$BEELZEBUB/MEGA/gallery
-
 export JOURNAL=$OBSIDIAN/OUROBOROS/Journals/
 
 # Scripts

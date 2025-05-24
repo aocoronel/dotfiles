@@ -4,7 +4,6 @@
 
 alias cat='bat'
 alias cp="cp --verbose"
-alias e='hyprctl dispatch focuswindow class:"Emacs"; emacsclient -r'
 alias lgd="lazygit -p \$HOME/dotfiles/"
 alias lg='lazygit'
 alias ls='eza --color=auto --group-directories-first'
@@ -15,7 +14,6 @@ alias rr="ranger_cd"
 alias rsync="rsync -az"
 alias sm="$HOME/scripts/__ssh_manager.sh"
 alias vidir="vidir --verbose"
-alias vim='nvim'
 alias v='nvim'
 alias s="$HOME/scripts/__search.sh sh"
 
@@ -36,14 +34,16 @@ alias g="sh \$SCRIPTS/__gemini.sh p"
 
 ## Pacman
 
-alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
-alias clearcache='pacman -Scc'
-alias install='sudo pacman -S'
-alias remove='sudo pacman -Rns'
-alias update='sudo pacman -Syy'
-alias upgrade='sudo pacman -Syu'
+if command -v pacman; then
+  alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
+  alias clearcache='pacman -Scc'
+  alias install='sudo pacman -S'
+  alias remove='sudo pacman -Rns'
+  alias update='sudo pacman -Syy'
+  alias upgrade='sudo pacman -Syu'
+fi
 
-## Nix
+### Nix
 
 alias nx="cd $HOME/nix/; just"
 
