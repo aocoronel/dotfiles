@@ -1,8 +1,8 @@
-session_name: "bpytop"
+session_name: "btop"
 windows:
   - focus: "true"
     options: {}
     panes:
-      - bpytop
+      - btop
     start_directory: $HOME
     window_name: zsh
