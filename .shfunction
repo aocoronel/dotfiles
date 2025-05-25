@@ -113,6 +113,11 @@ function _obsidian_git() {
   done
 }
 
+# Fzf Change Directory
+function fcd() {
+  cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)"
+}
+
 # function y() {
 #   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 #   yazi "$@" --cwd-file="$tmp"
