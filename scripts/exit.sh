@@ -4,6 +4,8 @@
 
 source "$HOME/.scriptenv"
 
+EXIT_CMD=poweroff
+
 function umount_dir() {
   if [ -z "$(ls -A "$BEELZEBUB")" ]; then
     echo "Directory '$BEELZEBUB' is empty"
@@ -31,6 +33,7 @@ function stop_services() {
 }
 
 function main() {
+  local cmd=${1:-"$EXIT_CMD"}
   stop_services
   if ! umount_dir; then
     echo "Failed to umount $BEELZEBUB"
@@ -39,8 +42,12 @@ function main() {
   else
     echo "See ya!"
     sleep 2
-    poweroff
+    if [ "$cmd" == "reboot" ]; then
+      reboot
+    else
+      poweroff
+    fi
   fi
 }
 
-main
+main $@
