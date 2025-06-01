@@ -16,3 +16,5 @@ search-history
 .config/nvim/spell/pt.utf-8.add
 .config/nvim/spell/pt.utf-8.add.spl
 .newsboat/cache.db.lock
+.config/btop/btop.log
+imgs/
