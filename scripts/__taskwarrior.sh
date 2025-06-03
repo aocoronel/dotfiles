@@ -1,59 +1,52 @@
 #!/usr/bin/env bash
 
 TASK_DIR=$HOME/.task/
+TASK_GIT_DIR=$HOME/.task-git/
 
-# tt m 2 hello world
-# Same as: task 2 modify hello world
-command=$1
-shift
-id=$1
-shift
-args=$@
-
-
-function task_add() {
-  task add "$args"
+function commands() {
+  case "$command" in
+  a)
+    task add "$args"
+    ;;
+  d)
+    task list due:today "$args"
+    ;;
+  q)
+    task add +quick "$args"
+    ;;
+  m)
+    task "$id" modify "$args"
+    ;;
+  t)
+    taskwarrior-tui
+    ;;
+  k)
+    task limit:3 "$args"
+    ;;
+  clean)
+    task +DELETED purge
+    ;;
+  git)
+    git -C "$TASK_GIT_DIR" add -A
+    git -C "$TASK_GIT_DIR" commit -a -m "$(date +%F)"
+    ;;
+  *)
+    if [[ $(uname -a) =~ "Android" ]]; then
+      task termux "$args"
+    else
+      task list "$args"
+    fi
+    ;;
+  esac
 }
 
-function task_modify() {
-  task "$id" modify "$args"
+function main() {
+  command=$1
+  shift
+  id=$1
+  shift
+  args=$@
+  commands
 }
 
-function task_quick() {
-  task add +quick "$args"
-}
-
-case "$command" in
-a)
-  task_add
-  ;;
-q)
-  task_quick
-  ;;
-m)
-  task_modify
-  ;;
-n)
-  task termux
-  ;;
-t)
-  taskwarrior-tui
-  ;;
-k)
-  task limit:3
-  ;;
-clean)
-  task +DELETED purge
-  ;;
-git)
-  git -C "$TASK_DIR" add -A
-  git -C "$TASK_DIR" commit -a -m "Auto Commit"
-  ;;
-*)
-  if [[ $(uname -a) =~ "Android" ]]; then
-    task termux
-  else
-    task list
-  fi
-  ;;
-esac
+main "$@"
