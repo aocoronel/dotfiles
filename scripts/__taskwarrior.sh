@@ -70,7 +70,7 @@ function commands() {
     if [[ $(uname -a) =~ "Android" ]]; then
       task termux "$command" "$args"
     else
-      task list "$command" "$args"
+      task "$command" "$args"
     fi
     ;;
   esac
