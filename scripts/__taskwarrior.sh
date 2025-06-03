@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-TASK_DIR=$HOME/.task/
-TASK_GIT_DIR=$HOME/.task-git/
-
 function help() {
   cat <<EOF
 Usage: tt [command] [args]
@@ -12,7 +9,6 @@ Commands
 a [args]         - Add
 d [args]         - Due today
 e -i <id>        - Edit task
-git              - Commit changes
 k                - Five most urgent tasks
 m -i <id> [args] - Modify task
 purge            - Purge all deleted tasks
@@ -69,10 +65,6 @@ function commands() {
     ;;
   purge)
     task +DELETED purge
-    ;;
-  git)
-    git -C "$TASK_GIT_DIR" add -A
-    git -C "$TASK_GIT_DIR" commit -a -m "$(date +%F)"
     ;;
   *)
     if [[ $(uname -a) =~ "Android" ]]; then
