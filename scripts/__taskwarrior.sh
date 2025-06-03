@@ -10,6 +10,7 @@ id=$1
 shift
 args=$@
 
+
 function task_add() {
   task add "$args"
 }
@@ -49,6 +50,10 @@ git)
   git -C "$TASK_DIR" commit -a -m "Auto Commit"
   ;;
 *)
-  task list
+  if [[ $(uname -a) =~ "Android" ]]; then
+    task termux
+  else
+    task list
+  fi
   ;;
 esac
