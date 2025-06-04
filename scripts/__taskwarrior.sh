@@ -18,8 +18,21 @@ v                - VIT
 EOF
 }
 
+function repeat() {
+  task $@
+}
+
 function get_id() {
   task status:pending export | jq -r '.[] | "\(.id) | \(.description)"' | fzf | awk -F " " '{print $1}'
+}
+
+function _task() {
+  local args=$@
+  if [[ $(uname -a) =~ "Android" ]]; then
+    task termux "$args"
+  else
+    task "$args"
+  fi
 }
 
 function commands() {
@@ -28,13 +41,24 @@ function commands() {
     task add "$args"
     ;;
   d)
-    task list due:today "$args"
+    _task due:today "$args"
     ;;
   e)
     if [ -z "$id" ]; then
       id=$(get_id)
     fi
     task "$id" edit
+    ;;
+  r) # repeat
+    echo "Repeating: task $args"
+    echo "Enter task arguments (blank to quit):"
+    while true; do
+      read repeat_args
+      if [[ "$repeat_args" == "" ]] ; then
+        break
+      fi
+      repeat $args $repeat_args
+    done
     ;;
   q)
     task add +quick "$args"
@@ -61,17 +85,13 @@ function commands() {
     exit 0
     ;;
   k)
-    task limit:5 "$args"
+    _task limit:5 "$args"
     ;;
   purge)
     task +DELETED purge
     ;;
   *)
-    if [[ $(uname -a) =~ "Android" ]]; then
-      task termux "$command" "$args"
-    else
-      task "$command" "$args"
-    fi
+    _task "$command" "$args"
     ;;
   esac
 }
