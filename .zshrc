@@ -20,6 +20,8 @@ zinit ice lucid wait"0"
 zinit light Aloxaf/fzf-tab
 zinit ice lucid wait"0"
 zinit light zsh-users/zsh-autosuggestions
+zinit ice lucid wait"0"
+zinit light jeffreytse/zsh-vi-mode
 zinit ice lucid wait"2"
 zinit light MichaelAquilina/zsh-you-should-use
 
