@@ -6,9 +6,10 @@ Usage: tt [command] [args]
 Options:
 -i <id>          - Define an ID
 Commands
-d [args]         - Due today
+c [args]         - Change context
+d [args]         - Overdue and due today
 e -i <id>        - Edit task
-k                - Five most urgent tasks
+k [args]         - Five most urgent tasks
 m -i <id> [args] - Modify task
 purge            - Purge all deleted tasks
 q [args]         - +Quick tasks
@@ -37,8 +38,11 @@ function _task() {
 
 function commands() {
   case "$command" in
-  d) # due today
-    _task due:today "$args"
+  d) # overdue/due today
+    task status:pending +READY due.before:today sort:due "$args"
+    ;;
+  c) # context
+    task context "$args"
     ;;
   e) # edit
     if [ -z "$id" ]; then
