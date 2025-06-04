@@ -39,7 +39,7 @@ function _task() {
 function commands() {
   case "$command" in
   d) # overdue/due today
-    task status:pending +READY due.before:today sort:due "$args"
+    task status:pending +READY due.before:tomorrow sort:due "$args"
     ;;
   c) # context
     task context "$args"
