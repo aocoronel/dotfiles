@@ -35,11 +35,7 @@ notify() {
 }
 
 while true; do
-  task status:pending +READY due:today sort:due export | jq -c '.[]' | while read -r TASK; do
-    notify
-  done
-
-  task status:pending +READY due.before:today sort:due export | jq -c '.[]' | while read -r TASK; do
+  task status:pending +READY due.before:tomorrow sort:due export | jq -c '.[]' | while read -r TASK; do
     notify
   done
 
