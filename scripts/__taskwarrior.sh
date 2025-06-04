@@ -6,20 +6,20 @@ Usage: tt [command] [args]
 Options:
 -i <id>          - Define an ID
 Commands
-a [args]         - Add
 d [args]         - Due today
 e -i <id>        - Edit task
 k                - Five most urgent tasks
 m -i <id> [args] - Modify task
 purge            - Purge all deleted tasks
 q [args]         - +Quick tasks
-t                - Taskwarrior TUI
-v                - VIT
+s                - Sync
+t                - Open Taskwarrior TUI
+v                - Open VIT
 EOF
 }
 
 function repeat() {
-  task $@
+  task "$@"
 }
 
 function get_id() {
@@ -27,7 +27,7 @@ function get_id() {
 }
 
 function _task() {
-  local args=$@
+  local args=$*
   if [[ $(uname -a) =~ "Android" ]]; then
     task termux "$args"
   else
@@ -37,33 +37,23 @@ function _task() {
 
 function commands() {
   case "$command" in
-  a)
-    task add "$args"
-    ;;
-  d)
+  d) # due today
     _task due:today "$args"
     ;;
-  e)
+  e) # edit
     if [ -z "$id" ]; then
       id=$(get_id)
     fi
     task "$id" edit
     ;;
-  r) # repeat
-    echo "Repeating: task $args"
-    echo "Enter task arguments (blank to quit):"
-    while true; do
-      read repeat_args
-      if [[ "$repeat_args" == "" ]] ; then
-        break
-      fi
-      repeat $args $repeat_args
-    done
+  help)
+    help
+    exit 0
     ;;
-  q)
-    task add +quick "$args"
+  k) # show top 5
+    _task limit:5 "$args"
     ;;
-  m)
+  m) # modify
     if [ -z "$args" ]; then
       echo "No arguments used!"
       echo "Use: tt m <args>"
@@ -74,23 +64,33 @@ function commands() {
     fi
     task "$id" modify "$args"
     ;;
+  purge)
+    task +DELETED purge
+    ;;
+  q) # +quick
+    task add +quick "$args"
+    ;;
+  r) # repeat
+    echo "Repeating: task $args"
+    echo "Enter task arguments (blank to quit):"
+    while true; do
+      read repeat_args
+      if [[ "$repeat_args" == "" ]]; then
+        break
+      fi
+      repeat "$args" "$repeat_args"
+    done
+    ;;
+  s) # sync
+    task sync
+    ;;
   t)
     taskwarrior-tui
     ;;
   v)
     vit
     ;;
-  help)
-    help
-    exit 0
-    ;;
-  k)
-    _task limit:5 "$args"
-    ;;
-  purge)
-    task +DELETED purge
-    ;;
-  *)
+  *) # any command
     _task "$command" "$args"
     ;;
   esac
