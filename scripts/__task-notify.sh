@@ -26,7 +26,7 @@ notify() {
   fi
 
   LAST_NOTIFIED=$(awk -v id="$ID" '$1 == id {print $2}' "$TMP_FILE")
-  [[ -n "$LAST_NOTIFIED" && $((CURRENT_TIME - LAST_NOTIFIED)) -lt 1800 ]] && return
+  [[ -n "$LAST_NOTIFIED" && $((CURRENT_TIME - LAST_NOTIFIED)) -lt 3600 ]] && return
 
   sed -i "/^$ID /d" "$TMP_FILE"
   echo "$ID $CURRENT_TIME" >>"$TMP_FILE"
