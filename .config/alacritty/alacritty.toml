@@ -27,11 +27,13 @@ WINIT_X11_SCALE_FACTOR = "1.0"
 history = 5000
 multiplier = 3
 
-[colors]
+[colors.primary]
 # foreground = "#d8d8d8"
-# background = "#181818"
+# background = "#101010"
 # dim_foreground = "#828482"
 # bright_foreground = "None"
+
+[colors]
 cursor = { text = "CellBackground", cursor = "CellForeground" }
 vi_mode_cursor = { text = "CellBackground", cursor = "CellForeground" }
 
