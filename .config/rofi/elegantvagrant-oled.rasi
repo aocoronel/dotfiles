@@ -1,0 +1,191 @@
+/******************************************************************************
+ * ROFI Color Theme
+ * User: Augusto Coronel
+ * Copyright: Augusto Coronel
+ ******************************************************************************/
+
+*{
+
+    /* Elegant Vagrant */
+
+    /* Colors */
+    blue:                        rgba ( 70, 217, 255, 100% );
+    darkpurple:                  rgba ( 94, 18, 234, 100 % );
+    faintgrey:                   rgba ( 122, 122, 122, 100 % );
+    green:                       rgba ( 2, 247, 137, 100% );
+    grey1:                       rgba(3, 3, 3, 1);
+    grey2:                       rgba(5, 5, 5, 1);
+    grey3:                       rgba(15, 15, 16, 1);
+    pink1:                       rgba ( 252, 15, 153, 100% );
+    pink2:                       rgba ( 240, 103, 252, 100% );
+    purple:                      rgba ( 124, 92, 255, 100 % );
+    yellow:                      rgba ( 244, 241, 19, 100 % );
+
+    /* Background */
+
+    active-background:           @green;
+    background-color:            @grey3;
+    background:                  @grey2;
+    normal-background:           @background;
+    urgent-background:           @darkpurple;
+
+    alternate-active-background: @grey3;
+    alternate-normal-background: @grey2;
+    alternate-urgent-background: @darkpurple;
+
+    selected-active-background:  @grey3;
+    selected-normal-background:  @grey1;
+    selected-urgent-background:  @pink1;
+
+    /* Foreground */
+
+    active-foreground:           @grey3;
+    foreground:                  @faintgrey;
+    normal-foreground:           @foreground;
+    urgent-foreground:           @yellow;
+
+    alternate-active-foreground: @green;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-foreground: @yellow;
+
+    selected-active-foreground:  @green;
+    selected-normal-foreground:  @purple;
+    selected-urgent-foreground:  @yellow;
+
+    /* Border */
+
+    border-color:                @foreground;
+    bordercolor:                 @purple;
+
+    /* Separator */
+
+    separatorcolor:              @purple;
+
+}
+window {
+    background-color: @background;
+    border:           2;
+    border-color:     @purple;
+    border-radius:    12;
+    padding:          10;
+    width:            50%;
+}
+mainbox {
+    background-color: @background;
+    border:           0.3;
+    spacing:          10;
+    padding:          0;
+    children:         [ "inputbar", "message", "listview" ];
+}
+message {
+    background-color: @background;
+    padding:          0px;
+    margin:           0px;
+}
+textbox {
+    text-color:       @foreground;
+    background-color: @background;
+    margin:           10px;
+    padding:          10px;
+}
+listview {
+    background-color: @background;
+    border-color:     @separatorcolor;
+    fixed-height:     0;
+    lines:            10;
+    spacing:          2px;
+    padding:          1;
+}
+mode-switcher {
+    border:           2px solid 0px 0px ;
+    border-color:     @separatorcolor;
+}
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+inputbar {
+    padding:          1px;
+    spacing:          0;
+    text-color:       @normal-foreground;
+}
+case-indicator {
+    spacing:          0;
+    text-color:       @normal-foreground;
+    background-color: @background;
+}
+entry {
+    background-color: @background;
+    spacing:          0;
+    text-color:       @normal-foreground;
+    placeholder:      "Search...";
+    placeholder-color: inherit;
+}
+prompt {
+    enabled:          true;
+    background-color: @background;
+    spacing:          0;
+    margin:           0px 10px 0px 0px;
+    text-color:       @normal-foreground;
+}
+inputbar {
+    background-color: @background;
+    children:         [ textbox-prompt-colon,entry,case-indicator, prompt ];
+}
+textbox-prompt-colon {
+    expand:           false;
+    background-color: @background;
+    str:              " ";
+    margin:           0px 0.4em 0em 0em ;
+    text-color:       @purple;
+}
+element {
+    border:           0;
+    padding:          7px;
+}
+element-icon {
+  background-color:   transparent;
+  size:               22;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+element.selected.normal {
+    background-color: @background;
+    text-color:       @selected-normal-foreground;
+    border: 1;
+    border-radius: 12;
+}
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
