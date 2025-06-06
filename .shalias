@@ -16,6 +16,7 @@ alias sm="$HOME/scripts/__ssh_manager.sh"
 alias vidir="vidir --verbose"
 alias v='nvim'
 alias s="$HOME/scripts/__search.sh sh"
+alias o="$HOME/scripts/__obsidian-helper.sh"
 
 ## Shortcuts
 
