@@ -3,7 +3,8 @@
 
 /* === General === */
 
-@import "theme.css";
+/* @import "dark-theme.css"; */
+@import "oled-theme.css";
 
 * {
   font-family: "JetBrainsMono Nerd Font";
