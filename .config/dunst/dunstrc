@@ -98,21 +98,21 @@
     mouse_right_click = close_all
 
 [urgency_low]
-background        = "#1c1f24"
+background        = "#0f0f0f"
 foreground        = "#02f789"
 frame_color       = "#02f789"
 highlight         = "#02f789"
 default_icon =  ~/.config/dunst/emblems/low.svg
 
 [urgency_normal]
-background        = "#1c1f24"
+background        = "#0f0f0f"
 foreground        = "#46d9ff"
 frame_color       = "#46d9ff"
 highlight         = "#46d9ff"
 default_icon =  ~/.config/dunst/emblems/normal.svg
 
 [urgency_critical]
-background        = "#1c1f24"
+background        = "#0f0f0f"
 foreground        = "#f4f113"
 frame_color       = "#f4f113"
 highlight         = "#f4f113"
@@ -120,7 +120,7 @@ default_icon =  ~/.config/dunst/emblems/critical.svg
 
 [taskwarrior]
 appname           = "taskwarrior"
-background        = "#1c1f24"
+background        = "#0f0f0f"
 foreground        = "#7c5cff"
 frame_color       = "#7c5cff"
 default_icon =  ~/.config/dunst/emblems/taskwarrior.svg
