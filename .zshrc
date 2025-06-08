@@ -22,7 +22,7 @@ zinit ice lucid wait"0"
 zinit light zsh-users/zsh-autosuggestions
 zinit ice lucid wait"0"
 zinit light jeffreytse/zsh-vi-mode
-zinit ice lucid wait"2"
+zinit ice lucid wait"0"
 zinit light MichaelAquilina/zsh-you-should-use
 
 ## oh-my-zsh
@@ -33,11 +33,11 @@ zinit ice lucid wait"0"
 zinit snippet OMZP::gpg-agent
 zinit ice lucid wait"0"
 zinit snippet OMZP::taskwarrior
-zinit ice lucid wait"2"
+zinit ice lucid wait"0"
 zinit snippet OMZP::cp
-zinit ice lucid wait"2"
+zinit ice lucid wait"0"
 zinit snippet OMZP::nmap
-zinit ice lucid wait"2"
+zinit ice lucid wait"0"
 zinit snippet OMZP::rsync
 
 # Sources
@@ -57,7 +57,7 @@ eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)
 eval "$(direnv hook zsh)"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#121212,bg+:#262626
+  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#050505,bg+:#262626
   --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
   --color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#87afaf
   --color=border:#262626,label:#aeaeae,query:#d9d9d9
