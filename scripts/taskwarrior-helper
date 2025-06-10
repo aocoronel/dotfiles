@@ -2,20 +2,23 @@
 
 function help() {
   cat <<EOF
-Usage: tt [command] [args]
-Options:
--i <id>          - Define an ID
+Usage:
+  taskwarrior-helper FLAG <FLAG_ARGS> COMMAND <COMMAND_ARGS>
+
+Flags:
+  -i <id>          - Define an ID
+
 Commands
-c [args]         - Change context
-d [args]         - Overdue and due today
-e -i <id>        - Edit task
-k [args]         - Five most urgent tasks
-m -i <id> [args] - Modify task
-purge            - Purge all deleted tasks
-q [args]         - +Quick tasks
-s                - Sync
-t                - Open Taskwarrior TUI
-v                - Open VIT
+  c [args]         - Change context
+  d [args]         - Overdue and due today
+  e -i <id>        - Edit task
+  k [args]         - Five most urgent tasks
+  m -i <id> [args] - Modify task
+  purge            - Purge all deleted tasks
+  q [args]         - +Quick tasks
+  s                - Sync
+  t                - Open Taskwarrior TUI
+  v                - Open VIT
 EOF
 }
 
