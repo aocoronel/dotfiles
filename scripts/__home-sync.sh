@@ -11,9 +11,7 @@ STOW_DIR="$HOME/stow/" # Special directory, which I use neostow
 DIR=$1
 
 if [ ! -d "$HOME/home" ]; then
-  echo "Please, create a new directory or symlink at:"
-  echo "$HOME/home"
-  exit 1
+  mkdir "$HOME/home"
 fi
 
 if [ ! -f "$RSYNC_FILE" ]; then
