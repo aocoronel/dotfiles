@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/converter
+
+set -evo pipefail
+
+if ! command -v magick &>/dev/null; then
+  echo "imagemagick could not be found. Please install it."
+  exit 1
+fi
+
+function help() {
+  cat <<EOF
+Bulk Image Converter
+
+Usage:
+  converter FLAG <FLAG_INPUT> COMMAND INPUT
+  converter -h | converter help
+
+Flags:
+-h                          Displays this message and exits
+-f                          Specify a format (Default: avif)
+-r                          Remove original file
+EOF
+}
+
+function get_mb() {
+  du -ms | awk '{print $1}'
+}
+
+function get_kb() {
+  du -ks | awk '{print $1}'
+}
+
+function convert() {
+  local FORMAT=${FORMAT:-avif}
+  local imageformats=("jpg" "png" "webp" "jpeg" "avif")
+
+  for original_format in "${imageformats[@]}"; do
+    for target_format in "${imageformats[@]}"; do
+      if [[ "$original_format" == "$target_format" ]]; then
+        continue
+      fi
+    done
+    find . -type f -iname "*.$original_format" | while read -r image_file; do
+      image_file="${image_file%.$original_format}.$FORMAT"
+      magick "$image_file" "$image_file"
+      if [ "$REMOVE" -eq 1 ]; then
+        rm "$image_file"
+      fi
+      echo "Converted: $image_file to $image_file"
+    done
+  done
+}
+
+function main() {
+  sizebefore_mb=$(get_mb)
+  sizebefore_kb=$(get_kb)
+  convert
+  sizeafter_mb=$(get_mb)
+  declare -i A=("$sizebefore_mb"-"$sizeafter_mb")
+  if [ "$A" -eq 0 ]; then
+    sizeafter_kb=$(get_kb)
+    declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
+    echo "$B" KB have been freed!
+  else
+    echo "$A" MB have been freed!
+  fi
+}
+
+while getopts ":hrf:" opt; do
+  case "$opt" in
+  h)
+    help
+    exit 0
+    ;;
+  r)
+    REMOVE=1
+    ;;
+  f)
+    FORMAT=$OPTARG
+    ;;
+  ?)
+    echo "Error: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+main
