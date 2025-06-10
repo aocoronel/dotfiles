@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__backuper.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/borg-helper
 
 HOSTNAME="$(hostnamectl hostname)"
 NOW="$(date +%Y-%d-%H%M)"
@@ -10,16 +10,19 @@ EXCLUDED_DIR="beelzebub"
 
 function help() {
   cat <<EOF
-Sync Tool for External Drives
-Usage: __backuper.sh [command]
-Available commands:
-borg <cmd>                         - Run any borg command (local)
-create-remote <path/to/backup>     - Use borg to local backup
-create                             - Use borg to local backup
-mount                              - Mount borg
-remote <cmd>                       - Run any borg command (remote)
-rsync                              - Use rsync to sync source directory to dest directory
-Note: For borg, the source directory means the borg repository
+Borg Helper Tool
+
+Usage:
+  borg-helper COMMAND
+
+Commands:
+  borg <BORG_COMMAND>              Run any borg command (local)
+  create-remote <PATH/TO/BACKUP>   Use borg to local backup
+  create                           Use borg to local backup
+  mount                            Mount borg
+  remote <BORG_COMMAND>            Run any borg command (remote)
+  rsync                            Use rsync to sync source directory
+                                   to dest directory
 EOF
 }
 
