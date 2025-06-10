@@ -12,14 +12,18 @@ fi
 function help() {
   cat <<eof
 Youtube Video Downloader
-Usage: $0 [option] [file] [format]
+
+Usage:
+  download-youtube OPTION <OPTION_ARGS> FILE FORMAT
+
 Available Formats:
-audio, video
+  audio, video
+
 Available Options:
--a, --audio                           - Downloads given YT URL to audio
--b, --batch [file] [format]           - Downloads all URL in a file to audio
--h, --help                            - Displays this message and exits
--v, --video                           - Downloads all URL in a file to video
+  -a, --audio                        Downloads given YT URL to audio
+  -b, --batch [file] [format]        Downloads all URL in a file to audio
+  -h, --help                         Displays this message and exits
+  -v, --video                        Downloads all URL in a file to video
 eof
 }
 
