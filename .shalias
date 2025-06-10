@@ -24,7 +24,7 @@ alias ctrash='gio trash --empty' # Wipe Trash Bin
 alias fv="sh \$SCRIPTS/__flashcards.sh"
 alias historyc="rm $HOME/.zsh_history"                    # Clear ZSH history
 alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' # Quick Access to System Bindings
-alias tt="$HOME/scripts/__taskwarrior.sh"
+alias tt="$HOME/scripts/taskwarrior-helper"
 alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022"
 
 ## AI
