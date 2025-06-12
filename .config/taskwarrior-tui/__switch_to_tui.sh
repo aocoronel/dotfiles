@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__switch_to_tui.sh
+# https://github.com/aocoronel/dotfiles/blob/main/.config/taskwarrior-tui/__switch_to_tui.sh
 
 set -eo pipefail
 
