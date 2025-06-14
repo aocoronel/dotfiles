@@ -5,16 +5,19 @@ ssh_file="$HOME/.ssh/ssh_machines"
 function help() {
   cat <<EOF
 SSH Manager
-Usage: $0 [option]
-Available options:
-cp   <remote_path> <local_path> <user>  - Copy file from remote
-edit                                    - Edit ssh_machines file
-config                                  - Edit ssh config file
-git <git_cmd> <git_path> <user>         - Run any git command
-help                                    - Displays this message and exits
-in                                      - Select machine to SSH in
-send <remote_path> <local_path> <user>  - Send file to remote
-setup                                   - Copy SSH pubkey to server
+
+Usage:
+  sshmanager COMMAND <COMMAND_ARGS>
+
+Available commands:
+  config                                    Edit ssh config file
+  cp   <remote_path> <local_path> <user>    Copy file from remote
+  edit                                      Edit ssh_machines file
+  git <git_cmd> <git_path> <user>           Run any git command
+  help                                      Displays this message and exits
+  in                                        Select machine to SSH in
+  send <remote_path> <local_path> <user>    Send file to remote
+  setup                                     Copy SSH pubkey to server
 EOF
 }
 
@@ -26,8 +29,9 @@ function get_data() {
 }
 
 function get_in() {
-  user=${1:-}
+  local user=${1:-}
   [[ -n "$user" ]] && user+=@
+
   if [ -z "$port" ]; then
     ssh -C "$user$ip"
   else
@@ -35,20 +39,21 @@ function get_in() {
   fi
 }
 
-function edit_ssh() {
-  editor=${EDITOR:-nvim}
+function edit_sshmachines() {
+  local editor=${EDITOR:-vim}
   sh -c "$editor $ssh_file"
 }
 
 function config_ssh() {
   local ssh_config="$HOME/.ssh/config"
-  editor=${EDITOR:-nvim}
+  local editor=${EDITOR:-nvim}
   sh -c "$editor $ssh_config"
 }
 
 function setup_ssh() {
-  user=${1:-}
+  local user=${1:-}
   [[ -n "$user" ]] && user+=@
+
   if [ -z "$port" ]; then
     ssh-copy-id "$user$ip"
   else
@@ -57,9 +62,9 @@ function setup_ssh() {
 }
 
 function ssh_cp() {
-  remote_path="$1"
-  local_path="$2"
-  user="${3:-}"
+  local remote_path="$1"
+  local local_path="$2"
+  local user="${3:-}"
 
   if [ -n "$user" ]; then
     user+="@"
@@ -74,9 +79,9 @@ function ssh_cp() {
 }
 
 function ssh_send() {
-  remote_path="$1"
-  local_path="$2"
-  user="$3"
+  local remote_path="$1"
+  local local_path="$2"
+  local user="$3"
 
   ssh_cmd="ssh"
   if [ -n "$port" ]; then
@@ -92,9 +97,9 @@ function ssh_send() {
 }
 
 function ssh_git() {
-  git_cmd="$1"
-  git_path="$2"
-  user="$3"
+  local git_cmd="$1"
+  local git_path="$2"
+  local user="$3"
   [[ -z "$git_cmd" ]] && {
     echo "Not git command provided!"
     exit 1
@@ -116,13 +121,12 @@ function ssh_git() {
 
 case "$1" in
 in)
-  shift
   get_data
   get_in "$1"
   exit 0
   ;;
 edit)
-  edit_ssh
+  edit_sshmachines
   exit 0
   ;;
 config)
@@ -130,25 +134,21 @@ config)
   exit 0
   ;;
 setup)
-  shift
   get_data
   setup_ssh "$1"
   exit 0
   ;;
 git)
-  shift
   get_data
   ssh_git "$1" "$2" "$3"
   exit 0
   ;;
 cp)
-  shift
   get_data
   ssh_cp "$1" "$2" "$3"
   exit 0
   ;;
 send)
-  shift
   get_data
   ssh_send "$1" "$2" "$3"
   exit 0
