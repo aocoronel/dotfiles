@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__mounter.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/mounter
 
 function help() {
-  echo "External Device Mounter"
-  echo "Usage: $0 [option]"
-  echo "Available options:"
-  echo "add                           - Creates a directory in /mnt/"
-  echo "open                          - Open luks device and mount it using pass"
-  echo "iopen                         - Open luks device and mount it using prompted password"
-  echo "close                         - Closes luks device and umount it"
+  cat <<EOF
+External Driver Mounter
+
+Usage:
+  mounter COMMAND
+  mounter add
+
+Commands:
+  add          Creates a directory in /mnt/"
+  close        Closes luks device and umount it"
+  iopen        Open luks device and mount it using prompted password"
+  open         Open luks device and mount it using pass"
+EOF
 }
 
 function adddrive() {
@@ -17,20 +23,19 @@ function adddrive() {
   ls /mnt/
   read -p "Name your drive: " drivename
   if [ ! -d "/mnt/$drivename" ]; then
-    echo "No directory found at /mnt/$drivename. Creating one now..."
     sudo mkdir "/mnt/$drivename"
     sudo chown "$USER:$USER" "/mnt/$drivename"
     echo "Directory /mnt/$drivename created."
     sleep 1
     exit 0
-  elif [ -d "mnt/$drivename" ]; then
+  elif [ -d "/mnt/$drivename" ]; then
     echo "Drive already exists!"
     sleep 1
     exit 1
   fi
 }
 
-function _mount() {
+function mounter() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   drive=$(ls /mnt/ | fzf --prompt "Previously mounted devices: ")
   passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
@@ -49,7 +54,7 @@ function _mount() {
   exit 0
 }
 
-function _imount() {
+function imount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   echo "Previously mounted devices:" && ls /mnt/
   read -p "Name the drive: " drive
@@ -59,7 +64,7 @@ function _imount() {
   exit 0
 }
 
-function _umount() {
+function unmount() {
   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
   sudo umount "/mnt/$drive/"
   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
@@ -72,11 +77,11 @@ function read_option() {
     help
     read -p "Choose an option (add/iopen/open/close): " option
     if [ "$option" == "open" ]; then
-      _mount
+      mounter
     elif [ "$option" == "iopen" ]; then
-      _imount
+      imount
     elif [ "$option" == "close" ]; then
-      _umount
+      unmount
     elif [ "$option" == "add" ]; then
       adddrive
     else
@@ -90,13 +95,13 @@ case $1 in
   help
   ;;
 "open")
-  _mount
+  mounter
   ;;
 "iopen")
-  _imount
+  imount
   ;;
 "close")
-  _umount
+  unmount
   ;;
 *)
   read_option
