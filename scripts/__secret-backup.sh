@@ -48,7 +48,7 @@ while getopts ":g" opt; do
     GPG_ONLY=true
     ;;
   ?)
-    text "$RED" "Error: Invalid option '-$OPTARG'" >&2
+    echo "Error: Invalid option '-$OPTARG'" >&2
     exit 1
     ;;
   esac
@@ -70,8 +70,9 @@ case "$1" in
   gpg_import
   ;;
 *)
-  echo "Available options:"
-  echo "export -g                  - Export gpg keys and pass, encrypts over openssl"
-  echo "import -g                  - Import gpg keys and pass"
+  echo "Usage:"
+  echo "export               Export gpg keys and pass, encrypts over openssl"
+  echo "import               Import gpg keys and pass"
+  echo "Use -g flag for gpg operations only"
   ;;
 esac
