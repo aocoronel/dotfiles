@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/repox
+
 # "Quickly clone all Git repos, or fetch all"
 
 DEV_DIR=${DEV:-$HOME/dev}
@@ -9,18 +11,20 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-function usage() {
+function help() {
   cat <<EOF
-Repox: Clone/Fetch all Git repos
-Usage: __repox.sh [option] <command> [sub-dir]
-Available options:
--v                   - Enable verbose
--r                   - Use Repox File
-Available commands:
-help                 - Display this message and exits
-Examples:
-__repox.sh github # $DEV_DIR/github/
-__repox.sh codeberg # $DEV_DIR/codeberg/
+Git Repository Cloner/Fetcher
+
+Usage:
+  repox FLAG <FLAG_INPUT> SUB_DIRECTORY
+  repox github         # $DEV_DIR/github/
+  repox codeberg       # $DEV_DIR/codeberg/
+
+Commands:
+  help                        Displays this message and exits
+
+Flags:
+  -r                   - Use Repox File
 EOF
 }
 
@@ -56,16 +60,12 @@ function fetch() {
       if ! gh repo clone "$repo" "$DEV_DIR/$sub_dir/$repo_name"; then
         echo "An error occured at $repo"
       fi
-      if [ -n "$VERBOSE" ]; then
-        message="Cloned $repo"
-      fi
+      message="Cloned $repo"
     else
       if ! git -C "$DEV_DIR/$sub_dir/$repo_name" fetch; then
         echo "An error occured at $repo"
       fi
-      if [ -n "$VERBOSE" ]; then
-        message="Fetched $repo"
-      fi
+      message="Fetched $repo"
     fi
     bar
   done <"$TMP_DIR"
@@ -74,7 +74,7 @@ function fetch() {
 function main() {
   if [ -z "$sub_dir" ]; then
     echo "Missing sub directory!"
-    echo "Usage: __repox.sh github"
+    echo "Usage: repox github"
     exit 1
   fi
   if [ -n "$REPOX" ]; then
@@ -91,9 +91,6 @@ while getopts ":hvr" opt; do
   h)
     help
     exit 0
-    ;;
-  v)
-    VERBOSE=true
     ;;
   r)
     REPOX=true
