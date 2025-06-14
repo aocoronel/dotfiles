@@ -21,8 +21,6 @@ Commands:
   create                           Use borg to local backup
   mount                            Mount borg
   remote <BORG_COMMAND>            Run any borg command (remote)
-  rsync                            Use rsync to sync source directory
-                                   to dest directory
 EOF
 }
 
