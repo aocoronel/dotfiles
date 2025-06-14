@@ -46,3 +46,15 @@ Header:children_add(function()
 	end
 	return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):fg("#46d9ff")
 end, 500, Header.LEFT)
+
+local function disable_linemode_on_android()
+  local uname = io.popen("uname -o"):read("*l")
+  if uname and uname:lower():find("android") then
+    ya.manager({
+      event = "set_linemode",
+      args = { "none" }
+    })
+  end
+end
+
+disable_linemode_on_android()
