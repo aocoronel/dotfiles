@@ -21,6 +21,7 @@ function main() {
     else
       if [ "$VERBOSE" = "true" ]; then
         echo "Vault: $vault. Not a Git repository."
+        echo
       fi
       continue
     fi
@@ -33,7 +34,7 @@ while getopts ":v" opt; do
     VERBOSE=true
     ;;
   ?)
-    text "$RED" "Error: Invalid option '-$OPTARG'" >&2
+    echo "Error: Invalid option '-$OPTARG'" >&2
     exit 1
     ;;
   esac
