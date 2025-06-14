@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__obsidian.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/rofi-obsidian
 
 ### Configuration
 
@@ -21,7 +21,6 @@ elif [ -z "$TERMCMD" ]; then
 fi
 
 TOOL_PATH=~/.local/share/obsidian-tool
-JOURNAL_VAULT=$(dirname "$JOURNAL")
 JOURNAL_VAULT=$(basename "$JOURNAL_VAULT")
 
 if [ ! -f "/tmp/obsidian-workspace" ]; then
