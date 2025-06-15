@@ -37,7 +37,7 @@ function sync_stow() {
 }
 
 function main() {
-  sync_main
+  # sync_main
   if [ -d "$STOW_DIR" ]; then
     sync_stow
   fi
