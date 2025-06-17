@@ -8,8 +8,8 @@ keymap = [
   # Plugins
   { on = [ "b", "D" ], run = "plugin bookmarks delete_all", desc = "Delete all bookmarks" },
   { on = [ "b", "d" ], run = "plugin bookmarks delete", desc = "Delete a bookmark" },
-  { on  = "<Esc>", run  = "close", desc = "Cancel input" },
-  { on   = "l", run  = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+  { on = "<Esc>", run  = "close", desc = "Cancel input" },
+  { on = "l", run  = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
   { on = "m", run = "plugin bookmarks save", desc = "Save current position as a bookmark" },
   { on = [ "'" ], run = "plugin bookmarks jump", desc = "Jump to a bookmark" },
   { on = [ "`" ], run = "plugin bookmarks jump", desc = "Jump to a bookmark" },
