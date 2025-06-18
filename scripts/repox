@@ -56,14 +56,24 @@ function fetch() {
     else
       repo_name="$(basename "$repo")"
     fi
-    if [ ! -d "$DEV_DIR/$sub_dir/$repo_name" ]; then
-      if ! gh repo clone "$repo" "$DEV_DIR/$sub_dir/$repo_name"; then
-        echo "An error occured at $repo"
+    local local_repo="$DEV_DIR/$sub_dir/$repo_name"
+    if [ ! -d "$local_repo" ]; then
+      if [ "$sub_dir" == "github" ]; then
+        if ! gh repo clone "$repo" "$local_repo"; then
+          echo "An error occured at $repo"
+        fi
+      else
+        mkdir -p "$DEV_DIR/$sub_dir"
+        if ! git -C "$DEV_DIR/$sub_dir" clone "$repo"; then
+          echo "An error occured at $repo"
+          continue
+        fi
       fi
       message="Cloned $repo"
     else
-      if ! git -C "$DEV_DIR/$sub_dir/$repo_name" fetch; then
+      if ! git -C "$local_repo" fetch; then
         echo "An error occured at $repo"
+        continue
       fi
       message="Fetched $repo"
     fi
