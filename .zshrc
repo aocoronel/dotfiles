@@ -29,7 +29,6 @@ zinit light MichaelAquilina/zsh-you-should-use
 
 zinit ice lucid wait"0"
 zinit snippet OMZP::eza
-zinit ice lucid wait"0"
 zinit snippet OMZP::gpg-agent
 zinit ice lucid wait"0"
 zinit snippet OMZP::taskwarrior
