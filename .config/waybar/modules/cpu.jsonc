@@ -1,11 +1,7 @@
 {
-  "custom/cpu": {
-    "exec": "~/.config/waybar/scripts/cpu-usage.sh",
-    "return-type": "json",
-    "on-click": "foot -e bash -c htop",
-    "tooltip": true,
-    "interval": 5,
-    "min-length": 6,
-    "max-length": 6,
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%",
+    "max-length": 10,
   },
 }

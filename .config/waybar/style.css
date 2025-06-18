@@ -19,7 +19,7 @@
 #bluetooth,
 #clock,
 #custom-backlight,
-#custom-cpu,
+#cpu,
 #custom-cpuinfo,
 #custom-lock,
 #custom-media,
@@ -161,7 +161,7 @@ tooltip label {
 
 /* == CPU == */
 
-#custom-cpu {
+#cpu {
   background: @cpu;
 }
 
