@@ -24,7 +24,8 @@ Commands:
   help                        Displays this message and exits
 
 Flags:
-  -r                   - Use Repox File
+  -r                   Use Repox File
+  -p <path>            Use a .repox file
 EOF
 }
 
@@ -96,7 +97,7 @@ function main() {
   fetch
 }
 
-while getopts ":hvr" opt; do
+while getopts ":hvrp:" opt; do
   case "$opt" in
   h)
     help
@@ -104,6 +105,9 @@ while getopts ":hvr" opt; do
     ;;
   r)
     REPOX=true
+    ;;
+  p)
+    REPOX_FILE="$OPTARG"
     ;;
   ?)
     echo "Error: Invalid option '-$OPTARG'" >&2
