@@ -1,7 +1,15 @@
 {
   "cpu": {
-    "interval": 1,
+    "states": {
+      "warning": 75,
+      "critical": 90,
+    },
     "format": " {usage}%",
-    "max-length": 10,
+    "format-critical": "󰀦 {usage}%",
+    "on-click": "alacritty -e btop",
+    "tooltip": true,
+    "interval": 5,
+    "min-length": 7,
+    "max-length": 7,
   },
 }
