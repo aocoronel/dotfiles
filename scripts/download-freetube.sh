@@ -7,18 +7,8 @@ if ! command -v jq &>/dev/null; then
   exit 1
 fi
 
-file=$1   # FreeTube.db
-format=$2 # video/audio
-action=$3 # store - Don't download
-
-if [[ -z "$file" || -z "$format" ]]; then
-  echo "Usage: $0 [file] [format]"
-  echo "Format: video/audio"
-  exit 1
-fi
-
 function get_url() {
-  playlist=$(jq -r '.playlistName' $file | fzf --prompt "Select a playlist: ")
+  get_playlist
   if [[ -z "$playlist" ]]; then
     echo "No playlist selected. Exiting."
     exit 1
@@ -31,7 +21,7 @@ function get_url() {
 }
 
 function get_data() {
-  playlist=$(jq -r '.playlistName' $file | fzf --prompt "Select a playlist: ")
+  get_playlist
   if [[ -z "$playlist" ]]; then
     echo "No playlist selected. Exiting."
     exit 1
@@ -47,20 +37,65 @@ function get_data() {
   fi
 }
 
+function get_playlist() {
+  playlist=$(jq -r '.playlistName' $file | fzf --prompt "Select a playlist: ")
+}
+
 function download() {
-  ~/scripts/__download-youtube.sh -b $PWD/"$playlist".txt $format
+  ~/scripts/yt-download -b $PWD/"$playlist".txt $format
+}
+
+function convert_csv() {
+  local CSV_FILE=$file.csv
+  echo "PlaylistBrowseId,PlaylistName,MediaId,Title,Artists,Duration,ThumbnailUrl" >"$CSV_FILE"
+  get_playlist
+  if [[ -z "$playlist" ]]; then
+    echo "No playlist selected. Exiting."
+    exit 1
+  fi
+  jq -r --arg playlist "$playlist" '
+  select(.playlistName == $playlist) |
+  .videos[] |
+  [
+    "",                                    # PlaylistBrowseId (empty)
+    $playlist,                             # PlaylistName
+    .videoId,                              # MediaId
+    .title,                                # Title
+    .author,                               # Artists
+    .lengthSeconds,                        # Duration
+    "https://i.ytimg.com/vi/\(.videoId)/sddefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCghqEJQEGHgg6AJIWg&rs=AMzJL3mxVLf0HKKFUs-7skSC69E4P2M43Q" # ThumbnailUrl
+  ] | @csv
+' "$file" >>"$CSV_FILE"
+  if [[ ! -s "$playlist.txt" ]]; then
+    echo "No videos found in the selected playlist. Exiting."
+    exit 1
+  fi
 }
 
 function main() {
-  case "$action" in
+  case "$1" in
   store)
+    shift
+    file=$1 # FreeTube.db
     get_data
     ;;
+  convert)
+    shift
+    file=$1 # FreeTube.db
+    convert_csv
+    ;;
   *)
+    file=$1   # FreeTube.db
+    format=$2 # video/audio
+    if [[ -z "$file" || -z "$format" ]]; then
+      echo "Usage: $0 [file] [format]"
+      echo "Format: video/audio"
+      exit 1
+    fi
     get_url
     download
     ;;
   esac
 }
 
-main
+main "$@"
