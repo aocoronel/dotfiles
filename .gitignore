@@ -18,3 +18,5 @@ search-history
 .newsboat/cache.db.lock
 .config/btop/btop.log
 imgs/
+.config/yazi/plugins
+.config/yazi/catpuccin.tmTheme
