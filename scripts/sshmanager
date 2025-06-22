@@ -57,7 +57,7 @@ function setup_ssh() {
   if [ -z "$port" ]; then
     ssh-copy-id "$user$ip"
   else
-    ssh-copy-id -P "$port" "$user$ip"
+    ssh-copy-id -p "$port" "$user$ip"
   fi
 }
 
