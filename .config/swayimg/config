@@ -202,7 +202,7 @@ r = reload
 i = info
 
 Shift+Delete = exec rm "%"; skip_file
-Shift+c = exec ~/.config/swayimg/scripts/paste.sh %
+Shift+c = exec ~/.config/swayimg/scripts/copy.sh %
 Shift+x = exec ~/.config/swayimg/scripts/set-wallpaper.sh %
 Escape = exit
 q = exit
