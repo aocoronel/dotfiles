@@ -41,20 +41,21 @@ The theme can be found in this repository, as a production example, or in the of
 
 ## Tools
 
-| Tools   | Function             |
-| ------- | -------------------- |
-| Cmus    | Music Player         |
-| Dunst   | Notifications        |
-| Emacs   | Multi-purpose        |
-| Foot    | Terminal Emulator    |
-| MPV     | Media Player         |
-| Neovim  | Text Editor          |
-| Ranger  | File Management      |
-| Rofi    | Multi-purpose        |
-| Swayimg | Image Viewer         |
-| Tmux    | Terminal Multiplexer |
-| Waybar  | Status Bar           |
-| Zsh     | Shell                |
+| Tools         | Function             |
+| ------------- | -------------------- |
+| Cmus          | Music Player         |
+| Dunst         | Notifications        |
+| Emacs         | Multi-purpose        |
+| Alacritty     | Terminal Emulator    |
+| MPV           | Media Player         |
+| Neovim        | Text Editor          |
+| Neomutt       | Mail Client          |
+| Ranger + Yazi | File Management      |
+| Rofi          | Multi-purpose        |
+| Swayimg       | Image Viewer         |
+| Taskwarrior   | Task Management      |
+| Tmux          | Terminal Multiplexer |
+| Zsh           | Shell                |
 
 And many more...
 
