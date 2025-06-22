@@ -1,8 +1,6 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 image=$1
-
-imageformat=$(echo "$image" | awk -F '.' '{print $NF}')
 
 tempfile=$(mktemp --suffix=.png)
 
