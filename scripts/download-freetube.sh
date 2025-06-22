@@ -14,10 +14,6 @@ function get_url() {
     exit 1
   fi
   jq -r "select(.playlistName == \"$playlist\") | .videos[].videoId | \"https://youtu.be/\" + ." "$file" >$PWD/"$playlist".txt
-  if [[ ! -s "$playlist.txt" ]]; then
-    echo "No videos found in the selected playlist. Exiting."
-    exit 1
-  fi
 }
 
 function get_data() {
