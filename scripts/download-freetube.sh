@@ -27,10 +27,6 @@ function get_data() {
   .videos[] |
   "https://youtu.be/\(.videoId) | \(.author) - \(.title)"
 ' "$file" >"$PWD/$playlist.txt"
-  if [[ ! -s "$playlist.txt" ]]; then
-    echo "No videos found in the selected playlist. Exiting."
-    exit 1
-  fi
 }
 
 function get_playlist() {
@@ -62,10 +58,6 @@ function convert_csv() {
     "https://i.ytimg.com/vi/\(.videoId)/sddefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCghqEJQEGHgg6AJIWg&rs=AMzJL3mxVLf0HKKFUs-7skSC69E4P2M43Q" # ThumbnailUrl
   ] | @csv
 ' "$file" >>"$CSV_FILE"
-  if [[ ! -s "$playlist.txt" ]]; then
-    echo "No videos found in the selected playlist. Exiting."
-    exit 1
-  fi
 }
 
 function main() {
