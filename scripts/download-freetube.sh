@@ -38,13 +38,13 @@ function download() {
 }
 
 function convert_csv() {
-  local CSV_FILE=$file.csv
-  echo "PlaylistBrowseId,PlaylistName,MediaId,Title,Artists,Duration,ThumbnailUrl" >"$CSV_FILE"
   get_playlist
   if [[ -z "$playlist" ]]; then
     echo "No playlist selected. Exiting."
     exit 1
   fi
+  local CSV_FILE=$playlist.csv
+  echo "PlaylistBrowseId,PlaylistName,MediaId,Title,Artists,Duration,ThumbnailUrl" >"$CSV_FILE"
   jq -r --arg playlist "$playlist" '
   select(.playlistName == $playlist) |
   .videos[] |
