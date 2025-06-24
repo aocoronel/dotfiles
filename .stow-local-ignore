@@ -21,3 +21,8 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+
+^/install.sh
+^/justfile
+^/justfile
+^/invidious.yaml
