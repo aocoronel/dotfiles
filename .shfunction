@@ -1,14 +1,20 @@
 #!/bin/env bash
 
-# Move to default Tmux directory
+# Move to starting Tmux directory
 function cds() {
   local session
   session=$(tmux display-message -p '#{session_path}')
   cd "$session" || return
 }
 
+# Use https://github.com/chubin/wttr.in
 function weather() {
   curl http://wttr.in/"$1"
+}
+
+# Use https://github.com/chubin/cheat.sh
+function cheat() {
+  curl cht.sh/$@
 }
 
 # Tmuxp Attacher
@@ -26,18 +32,13 @@ function tp() {
 # Repo Fetch
 function rf() {
   local repo
-  repo=$(fd . "$DEV" --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
-  export ${repo}
-
-  [[ -n "$repo" ]] && cd "$repo" || return
+  repo=$(fd . $DEV/**/ --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
+  if [[ -n "$repo" ]]; then
+    cd "$repo" || return
+  else
+    echo "No repository selected"
+  fi
 }
-
-# Task Done Today
-# function tdt() {
-#   local date
-#   date=$(date +%F)
-#   task end.after:$date completed
-# }
 
 # Ranger Shell Integration - Moves to last directory ranger exits
 function ranger_cd() {
@@ -50,19 +51,11 @@ function ranger_cd() {
   rm -f -- "$temp_file"
 }
 
+# Change System Volume: changevol 100%
 function changevol() {
   local vol
   vol=$1
   pactl set-sink-volume @DEFAULT_SINK@ "$vol"
-}
-
-# Tmux Profile Open
-function tpo() {
-  if tmux has-session -t "$1"; then
-    tmux attach-session -t "$1"
-  else
-    tmuxp load "$1" -d && tmux attach-session -t "$1"
-  fi
 }
 
 # Guarantee user ownership over mounted drive
@@ -99,6 +92,7 @@ function fcd() {
   cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)"
 }
 
+# Yazi Shell Integration - Moves to last directory yazi exits
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
