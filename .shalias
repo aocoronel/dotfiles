@@ -27,13 +27,6 @@ alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' # Quick Access to Syst
 alias tt="$HOME/scripts/taskwarrior-helper"
 alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022"
 
-## AI
-
-alias gc="sh \$SCRIPTS/__gemini.sh code"
-alias gd="sh \$SCRIPTS/__gemini.sh dir"
-alias gr="sh \$SCRIPTS/__gemini.sh rg"
-alias g="sh \$SCRIPTS/__gemini.sh p"
-
 ## Pacman
 
 if command -v pacman; then
