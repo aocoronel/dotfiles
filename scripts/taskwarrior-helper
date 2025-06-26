@@ -6,14 +6,15 @@ Usage:
   taskwarrior-helper FLAG <FLAG_ARGS> COMMAND <COMMAND_ARGS>
 
 Flags:
-  -i <id>          Define an ID
+  -h                   Display this message and exits
 
 Commands
   c [CONTEXT]            Change context
   d [TASK_ARGS]          Overdue and due today
-  e -i <id>              Edit task
+  e <id>                 Edit task
+  help                   Display this message and exits
   k [TASK_ARGS]          List five most urgent tasks
-  m -i <id> [TASK_ARGS]  Modify task
+  m <id> [TASK_ARGS]     Modify task
   purge                  Purge all deleted tasks
   q [TASK_ARGS]          Manage +quick tasks
   s                      Synchronize Database
@@ -118,10 +119,11 @@ function commands() {
   esac
 }
 
-while getopts ":i:" opt; do
+while getopts ":h" opt; do
   case "$opt" in
-  i)
-    id=$OPTARG
+  h)
+    help
+    exit 0
     ;;
   ?)
     echo "Error: Invalid option '-$OPTARG'" >&2
@@ -135,6 +137,10 @@ shift $((OPTIND - 1))
 function main() {
   command=$1
   shift
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
+    id=$1
+    shift
+  fi
   args="$@"
   commands
 }
