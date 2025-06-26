@@ -22,31 +22,33 @@ function umount_dir() {
 }
 
 function stop_services() {
-  echo "Stopping Podman Containers..."
-  podman stop --all >/dev/null
-  echo "Stopping Tmux Sessions..."
-  tmux kill-server
-  echo "Umounting Drives..."
-  umount_dir
-  echo "Slamming open Tombs..."
-  tomb slam
+  command -v podman >/dev/null 2>&1 || {
+    echo "Stopping Podman Containers..."
+    podman stop --all >/dev/null
+  }
+  command -v tmux >/dev/null 2>&1 || {
+    echo "Stopping Tmux Sessions..."
+    tmux kill-server
+  }
+  if [[ -d "$BEELZEBUB" ]]; then
+    echo "Umounting Drives..."
+    umount_dir
+  fi
+  command -v tomb >/dev/null 2>&1 || {
+    echo "Slamming open Tombs..."
+    tomb slam
+  }
 }
 
 function main() {
   local cmd=${1:-"$EXIT_CMD"}
   stop_services
-  if ! umount_dir; then
-    echo "Failed to umount $BEELZEBUB"
-    echo "Repeating the process..."
-    stop_services
+  echo "See ya!"
+  sleep 2
+  if [ "$cmd" == "reboot" ]; then
+    reboot
   else
-    echo "See ya!"
-    sleep 2
-    if [ "$cmd" == "reboot" ]; then
-      reboot
-    else
-      poweroff
-    fi
+    poweroff
   fi
 }
 
