@@ -6,20 +6,30 @@ Usage:
   taskwarrior-helper FLAG <FLAG_ARGS> COMMAND <COMMAND_ARGS>
 
 Flags:
-  -i <id>          - Define an ID
+  -i <id>          Define an ID
 
 Commands
-  c [args]         - Change context
-  d [args]         - Overdue and due today
-  e -i <id>        - Edit task
-  k [args]         - Five most urgent tasks
-  m -i <id> [args] - Modify task
-  purge            - Purge all deleted tasks
-  q [args]         - +Quick tasks
-  s                - Sync
-  t                - Open Taskwarrior TUI
-  v                - Open VIT
+  c [CONTEXT]            Change context
+  d [TASK_ARGS]          Overdue and due today
+  e -i <id>              Edit task
+  k [TASK_ARGS]          List five most urgent tasks
+  m -i <id> [TASK_ARGS]  Modify task
+  purge                  Purge all deleted tasks
+  q [TASK_ARGS]          Manage +quick tasks
+  s                      Synchronize Database
+  t                      Launch Taskwarrior TUI
+  v                      Launch VIT
 EOF
+}
+
+function check_dependencies() {
+  local check_command=$@
+  for cmd in $check_command; do
+    command -v "$cmd" >/dev/null 2>&1 || {
+      echo "$cmd is not installed. Install it and try again."
+      exit 1
+    }
+  done
 }
 
 function repeat() {
@@ -27,6 +37,7 @@ function repeat() {
 }
 
 function get_id() {
+  check_dependencies jq fzf
   task status:pending export | jq -r '.[] | "\(.id) | \(.description)"' | fzf | awk -F " " '{print $1}'
 }
 
@@ -45,7 +56,11 @@ function commands() {
     task status:pending +READY due.before:tomorrow sort:due "$args"
     ;;
   c) # context
-    task context "$args"
+    if [ -z "$args" ]; then
+      task context none
+    else
+      task context "$args"
+    fi
     ;;
   e) # edit
     if [ -z "$id" ]; then
