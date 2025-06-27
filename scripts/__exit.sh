@@ -22,11 +22,11 @@ function umount_dir() {
 }
 
 function stop_services() {
-  command -v podman >/dev/null 2>&1 || {
+  command -v podman >/dev/null 2>&1 && {
     echo "Stopping Podman Containers..."
     podman stop --all >/dev/null
   }
-  command -v tmux >/dev/null 2>&1 || {
+  command -v tmux >/dev/null 2>&1 && {
     echo "Stopping Tmux Sessions..."
     tmux kill-server
   }
@@ -34,7 +34,7 @@ function stop_services() {
     echo "Umounting Drives..."
     umount_dir
   fi
-  command -v tomb >/dev/null 2>&1 || {
+  command -v tomb >/dev/null 2>&1 && {
     echo "Slamming open Tombs..."
     tomb slam
   }
