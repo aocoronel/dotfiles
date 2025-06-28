@@ -31,3 +31,8 @@ playlists
 pt.utf-8.spl
 __pycache__
 search-history
+.config/obsidian
+.config/fontconfig/conf.d
+.config/msmtp
+.config/lazygit
+.config/mutt
