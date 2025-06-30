@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+
+SYNC_FILE="$PWD/.sync"
+DIR=$PWD
+DIRECTION=out
+SYNC_CMD="rclone sync"
+
+function help() {
+  cat <<EOF
+Sync Helper
+Usage: syncer FLAG <FLAG_ARG> COMMAND
+Available flags:
+-b                       Sync from cloud to local
+-h                       Displays this message and exits
+-s <SYNC_CMD>            Specify command other than 'rsync sync'
+-t <ABSOLUTE_PATH>       Target a different project directory
+-v                       Enable verbose
+Available commands:
+edit                   Edit the .sync file
+help                   Displays this message and exits
+EOF
+}
+
+function initialize_sync() {
+  local source_file destination
+  SYNC_CMD=${SYNC_CMD:-rclone sync}
+  DIRECTION=${DIRECTION:-out}
+  source_file="$1"
+  destination=$2
+  if [ "$DIRECTION" == "out" ]; then
+    $SYNC_CMD "$source_file" "$destination"
+  elif [ "$DIRECTION" == "in" ]; then
+    $SYNC_CMD "$destination" "$source_file"
+  fi
+}
+
+check_sync_file() {
+  if [[ ! -f "$SYNC_FILE" ]]; then
+    echo "Error: $SYNC_FILE not found" >&2
+    exit 1
+  fi
+}
+
+process_sync_entry() {
+  local working_data="$1"
+  local direction="$2"
+  local source_file_part destination_part val=0
+
+  source_file_part="$(awk -F '=' '{print $1}' <<<"$working_data")"
+  source_file_part="$DIR/$source_file_part" # Append current dir to file
+
+  if [ "$direction" == "out" ]; then
+    source_file_part="$(find "$source_file_part" | head -n 1)" # Get absolute path
+    val=$?
+    [[ -z "$source_file_part" ]] && return 1
+  fi
+
+  if [[ "$val" -eq 0 ]]; then
+    destination_part=$(awk -F '=' '{print $2}' <<<"$working_data") # Get destination
+    [[ -z "$destination_part" ]] && return 1
+    _SOURCE_FILE="$source_file_part"
+    _DESTINATION="$destination_part"
+    return 0 # Success
+  else
+    return 1 # Failure
+  fi
+}
+
+function manual() {
+  check_sync_file
+  local tmp_file
+  tmp_file=$(mktemp)
+
+  local _SOURCE_FILE _DESTINATION # Declare variables to be populated by process_sync_entry
+
+  while IFS= read -r working_data; do
+    if process_sync_entry "$working_data" "$DIRECTION"; then
+      local run_command
+      if [ "$DIRECTION" == "in" ]; then
+        run_command="$SYNC_CMD $_DESTINATION $_SOURCE_FILE"
+      elif [ "$DIRECTION" == "out" ]; then
+        run_command="$SYNC_CMD $_SOURCE_FILE $_DESTINATION"
+      fi
+      echo "$run_command" >>"$tmp_file"
+    else
+      if [ -n "$VERBOSE" ]; then
+        echo "File or directory $source_file_part does not exist. Skipping..." >&2
+      fi
+    fi
+  done <"$SYNC_FILE"
+
+  local RUN
+  RUN=$(fzf <"$tmp_file")
+  if [[ -z "$RUN" ]]; then
+    echo "Error: No command selected" >&2
+    rm "$tmp_file" # Clean up temp file
+    exit 1
+  fi
+  rm "$tmp_file" # Clean up temp file
+  $RUN
+}
+
+function main() {
+  check_sync_file
+  local _SOURCE_FILE _DESTINATION # Declare variables to be populated by process_sync_entry
+
+  while IFS= read -r working_data; do
+    if process_sync_entry "$working_data" "$DIRECTION"; then
+      if ! initialize_sync "$_SOURCE_FILE" "$_DESTINATION"; then
+        echo "Error: Failed to sync $_SOURCE_FILE to $_DESTINATION" >&2
+        continue
+      fi
+    else
+      if [ -n "$VERBOSE" ]; then
+        echo "File or directory $_SOURCE_FILE does not exist. Skipping..." >&2
+      fi
+      continue
+    fi
+  done <"$SYNC_FILE"
+}
+
+while getopts ":hbt:vs" opt; do
+  case "$opt" in
+  h)
+    help
+    exit 0
+    ;;
+  t)
+    DIR="$OPTARG"
+    SYNC_FILE="$OPTARG/.sync"
+    ;;
+  b)
+    DIRECTION=in
+    ;;
+  v)
+    VERBOSE=true
+    ;;
+  s)
+    SYNC_CMD=$OPTARG
+    ;;
+  ?)
+    echo "Error: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+case "$1" in
+help)
+  help
+  exit 0
+  ;;
+edit)
+  if [ -z "$EDITOR" ]; then
+    EDITOR=vim
+  fi
+  $EDITOR "$SYNC_FILE"
+  ;;
+manual)
+  manual
+  ;;
+esac
+
+main
