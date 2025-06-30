@@ -60,3 +60,7 @@ install-task-tui:
 install-doom:
   git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
   ~/.config/emacs/bin/doom install
+
+# Install Termux Packages
+install-termux:
+  pkg install oh-my-posh zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit exiftool ffmpeg just bat eza git-crypt man mpv ripgrep yt-dlp stow neovim cmake gnupg taskwarrior lynx bc imagemagick timewarrior wget jq
