@@ -18,7 +18,6 @@ zinit ice lucid wait"0"
 zinit light zsh-users/zsh-completions
 zinit ice lucid wait"0"
 zinit light Aloxaf/fzf-tab
-zinit ice lucid wait"0"
 zinit light zsh-users/zsh-autosuggestions
 zinit ice lucid wait"0"
 zinit light jeffreytse/zsh-vi-mode
