@@ -40,7 +40,7 @@ alias tt="\$HOME/scripts/taskwarrior-helper"  # Shortcuts to interact with taskw
 
 ## Arch Linux
 
-if command -v pacman; then
+if command -v pacman &>/dev/null; then
   alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
   alias clearcache='pacman -Scc'
   alias install='sudo pacman -S'
@@ -51,7 +51,7 @@ fi
 
 ## NixOS
 
-if command -v nix; then
+if command -v nix &>/dev/null; then
   alias nx="cd \$HOME/nix/; just"
 fi
 
