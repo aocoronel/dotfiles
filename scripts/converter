@@ -2,8 +2,6 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/converter
 
-set -evo pipefail
-
 if ! command -v magick &>/dev/null; then
   echo "imagemagick could not be found. Please install it."
   exit 1
@@ -37,18 +35,16 @@ function convert() {
   local imageformats=("jpg" "png" "webp" "jpeg" "avif")
 
   for original_format in "${imageformats[@]}"; do
-    for target_format in "${imageformats[@]}"; do
-      if [[ "$original_format" == "$target_format" ]]; then
-        continue
-      fi
-    done
+    if [ "$FORMAT" == "$original_format" ]; then
+      continue
+    fi
     find . -type f -iname "*.$original_format" | while read -r image_file; do
-      image_file="${image_file%.$original_format}.$FORMAT"
-      magick "$image_file" "$image_file"
-      if [ "$REMOVE" -eq 1 ]; then
+      convert_image_file="${image_file%.$original_format}.$FORMAT"
+      magick "$image_file" "$convert_image_file"
+      if [[ "$REMOVE" -eq 1 ]]; then
         rm "$image_file"
       fi
-      echo "Converted: $image_file to $image_file"
+      echo "Converted: $image_file to $convert_image_file"
     done
   done
 }
@@ -58,10 +54,10 @@ function main() {
   sizebefore_kb=$(get_kb)
   convert
   sizeafter_mb=$(get_mb)
-  declare -i A=("$sizebefore_mb"-"$sizeafter_mb")
-  if [ "$A" -eq 0 ]; then
+  declare -i A=("$sizeafter_mb"-"$sizebefore_mb")
+  if [[ "$A" -eq 0 ]]; then
     sizeafter_kb=$(get_kb)
-    declare -i B=("$sizebefore_kb"-"$sizeafter_kb")
+    declare -i B=("$sizeafter_kb"-"$sizebefore_kb")
     echo "$B" KB have been freed!
   else
     echo "$A" MB have been freed!
