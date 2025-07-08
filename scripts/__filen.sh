@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-EMAIL=$(pass personal/filen | sed -n 's/^email=//p')
-PASSWORD=$(pass personal/filen | head -n 1)
-OTP=$(pass otp personal/filen)
+EMAIL=$(pass personal/filen.io | sed -n 's/^email=//p')
+PASSWORD=$(pass personal/filen.io | head -n 1)
+OTP=$(pass otp personal/filen.io)
 W_USER=user
 W_PASSWORD=secret
 
