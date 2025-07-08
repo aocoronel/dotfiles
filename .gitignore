@@ -36,3 +36,5 @@ search-history
 .config/msmtp
 .config/lazygit
 .config/mutt
+.config/GIMP/3.0
+.config/gh
