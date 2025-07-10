@@ -18,7 +18,7 @@ config-picom:
 config-posh:
   oh-my-posh --config "$HOME/.config/picom.conf"
 
-# Run install.sh (Arch Linux)
+# Run install.sh (Arch Linux) >> Unmaintained
 install:
   sh "$HOME/dotfiles/install.sh"
 
@@ -52,10 +52,6 @@ install-invidious:
 install-xcmd:
   eval "$(curl https://get.x-cmd.com)"
 
-# Taskwarrior TUI for V2
-install-task-tui:
-  xdg-open https://github.com/kdheepak/taskwarrior-tui/releases/tag/v0.25.4
-
 # Install Doom Emacs
 install-doom:
   git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
@@ -63,4 +59,8 @@ install-doom:
 
 # Install Termux Packages
 install-termux:
-  pkg install oh-my-posh zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit exiftool ffmpeg just bat eza git-crypt man mpv ripgrep yt-dlp stow neovim cmake gnupg taskwarrior lynx bc imagemagick timewarrior wget jq
+  pkg install oh-my-posh zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit exiftool ffmpeg just bat eza git-crypt man mpv ripgrep yt-dlp stow neovim gcc gnupg taskwarrior lynx bc imagemagick timewarrior wget jq
+
+# Install Gemini CLI (reugn/gemini-cli)
+install-gemini:
+  go install github.com/reugn/gemini-cli/cmd/gemini@latest
