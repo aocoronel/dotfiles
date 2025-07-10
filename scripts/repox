@@ -7,10 +7,6 @@
 DEV_DIR=${DEV:-$HOME/dev}
 REPOX_FILE="$HOME/.repox"
 
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-
 function help() {
   cat <<EOF
 Git Repository Cloner/Fetcher
@@ -21,27 +17,15 @@ Usage:
   repox codeberg       # $DEV_DIR/codeberg/
 
 Commands:
-  help                        Displays this message and exits
+  fetch               Fetch all repos
+  pull                Pull all repos
+  status              Check status from all repos
 
 Flags:
-  -r                   Use Repox File
+  -h, --help           Displays this message and exits
   -p <path>            Use a .repox file
+  -r                   Use Repox File
 EOF
-}
-
-function bar() {
-  ((current_line++))
-  percentage=$((current_line * 100 / total_lines))
-  progress_bar="["
-  for ((i = 0; i < percentage; i += 5)); do
-    progress_bar+="#"
-  done
-  for ((i = percentage; i < 100; i += 5)); do
-    progress_bar+=" "
-  done
-  progress_bar+="]"
-  printf "\r${BLUE}Progress: ${GREEN}%s ${BLUE}%d%% - %s${NC}" "$progress_bar" "$percentage" "$message"
-  echo
 }
 
 function get_repos() {
@@ -49,8 +33,10 @@ function get_repos() {
 }
 
 function fetch() {
-  current_line=0
-  total_lines=$(wc -l <"$TMP_DIR")
+  CMD=${CMD:-fetch}
+  success_count=0
+  error_count=0
+
   while IFS= read -r repo; do
     if [ -n "$REPOX" ]; then
       repo_name=$(basename "$repo" .git)
@@ -61,25 +47,33 @@ function fetch() {
     if [ ! -d "$local_repo" ]; then
       if [ "$sub_dir" == "github" ]; then
         if ! gh repo clone "$repo" "$local_repo"; then
+          ((error_count++))
           echo "An error occured at $repo"
         fi
       else
         mkdir -p "$DEV_DIR/$sub_dir"
         if ! git -C "$DEV_DIR/$sub_dir" clone "$repo"; then
           echo "An error occured at $repo"
+          ((error_count++))
           continue
         fi
       fi
-      message="Cloned $repo"
     else
-      if ! git -C "$local_repo" fetch; then
-        echo "An error occured at $repo"
-        continue
+      if [ "$CMD" == "status" ]; then
+        if git -C "$local_repo" "$CMD" --porcelain | grep -q .; then
+          git -C "$local_repo" "$CMD"
+        fi
+      else
+        if ! git -C "$local_repo" "$CMD"; then
+          echo "An error occured at $repo"
+          ((error_count++))
+          continue
+        fi
       fi
-      message="Fetched $repo"
     fi
-    bar
+    ((success_count++))
   done <"$TMP_DIR"
+  echo -e "\nRepox finished with:\n$error_count errors\n$success_count success"
 }
 
 function main() {
@@ -97,7 +91,7 @@ function main() {
   fetch
 }
 
-while getopts ":hvrp:" opt; do
+while getopts ":hvrp:-" opt; do
   case "$opt" in
   h)
     help
@@ -105,6 +99,9 @@ while getopts ":hvrp:" opt; do
     ;;
   r)
     REPOX=true
+    ;;
+  -)
+    break
     ;;
   p)
     REPOX_FILE="$OPTARG"
@@ -119,12 +116,26 @@ done
 shift $((OPTIND - 1))
 
 case "$1" in
-help)
+--help)
   usage
   exit 0
   ;;
-*)
+fetch)
+  shift
   sub_dir=$1
+  CMD=fetch
+  main
+  ;;
+pull)
+  shift
+  sub_dir=$1
+  CMD=pull
+  main
+  ;;
+status)
+  shift
+  sub_dir=$1
+  CMD=status
   main
   ;;
 esac
