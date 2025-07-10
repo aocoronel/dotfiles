@@ -1,5 +1,8 @@
 #!/bin/env bash
 
+# This script is currently not being fully maintained and may not reflect my recent software changes
+# I recommend you to have a look at my NixOS config at aocoronel/nix
+
 set -eo pipefail
 
 while [[ "$1" != "" ]]; do
@@ -91,7 +94,7 @@ cd
 
 echo "→ install pacman packages"
 
-sudo pacman -S $essentials $cli $graphical $tts $lang $python $tor $wm $container
+sudo pacman -S "$essentials" "$cli" "$graphical" "$tts" "$lang" "$python" "$tor" "$wm" "$container"
 
 echo "→ install AUR packages"
 
@@ -99,7 +102,7 @@ yay -S buku zen-browser-bin obsidian-cli-bin cava mutt-wizard obfs4proxy freetub
 
 echo "→ setting up syncthing"
 
-sudo systemctl enable syncthing@$USER.service
+sudo systemctl enable "syncthing@$USER.service"
 
 echo "→ install fonts"
 
@@ -115,8 +118,6 @@ echo "→ setting zsh as default shell"
 
 cd "$HOME"
 sudo chsh -s "$(which zsh)" "$user"
-zsh
-source "$HOME/.zshrc"
 
 echo "→ install oh-my-posh"
 
