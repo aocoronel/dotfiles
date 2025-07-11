@@ -29,13 +29,14 @@ alias v='nvim'
 
 ## Script Shortcuts
 
+alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}' " # Shortcuts to interact with taskwarrior
 alias fv="sh \$SCRIPTS/__flashcards.sh"                        # Flashcards in the CLI
+alias jnd="jn journal day Journals/Daily"                      # Create daily note
 alias o="\$HOME/scripts/__obsidian-helper.sh"                  # Obsidian Git Commands
 alias rr="ranger_cd"                                           # Change directory for ranger
 alias s="\$HOME/.local/bin/search -s"                          # Search the web using Mullvad Leta
 alias sm="\$HOME/scripts/sshmanager"                           # Easily access SSH hosts
 alias tt="\$HOME/scripts/taskwarrior-helper"                   # Shortcuts to interact with taskwarrior
-alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}' " # Shortcuts to interact with taskwarrior
 
 # Distros
 
