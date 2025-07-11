@@ -1,4 +1,4 @@
-#!/user/bin/env bash
+#!/usr/bin/env bash
 
 # https://github.com/user/dotfiles/blob/main/scripts/__fuzzy-grep.sh
 
