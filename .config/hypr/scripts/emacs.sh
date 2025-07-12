@@ -2,6 +2,11 @@
 
 # "Run arbritary commands to Emacs"
 
+if ! command -v emacs &>/dev/null; then
+  echo "Emacs is not installed."
+  exit 1
+fi
+
 client_name="$1"
 client_address=$(hyprctl clients -j | jq -r ".[] | select(.class == \"Emacs\") | .address")
 
