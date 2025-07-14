@@ -12,38 +12,25 @@ fi
 ## Plugins
 
 zinit ice depth=1
-zinit ice lucid wait"0"
 zinit light zsh-users/zsh-syntax-highlighting
-zinit ice lucid wait"0"
 zinit light zsh-users/zsh-completions
-zinit ice lucid wait"0"
 zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
-zinit ice lucid wait"0"
 zinit light jeffreytse/zsh-vi-mode
-zinit ice lucid wait"0"
 zinit light MichaelAquilina/zsh-you-should-use
 
 ## oh-my-zsh
 
-zinit ice lucid wait"0"
-zinit snippet OMZP::eza
 zinit snippet OMZP::gpg-agent
-zinit ice lucid wait"0"
 zinit snippet OMZP::taskwarrior
-zinit ice lucid wait"0"
-zinit snippet OMZP::cp
-zinit ice lucid wait"0"
-zinit snippet OMZP::nmap
-zinit ice lucid wait"0"
-zinit snippet OMZP::rsync
 
 # Sources
 
-source "$HOME/.shalias"              # Aliases
 source "$HOME/.env"                  # Environment variables
-source "$HOME/.shfunction"           # Functions
 source "$HOME/.secrets"              # Env Secrets
+source "$HOME/.shalias"              # Aliases
+source "$HOME/.shfunction"           # Functions
+source "$HOME/.zsh_custom"           # Custom config
 
 # Tools
 
