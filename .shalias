@@ -5,6 +5,10 @@
 ## Command Replacement
 
 alias cat='bat'
+alias la='eza --color=auto --group-directories-first -a'
+alias lda='eza --color=auto --group-directories-first -Da'
+alias ld='eza --color=auto --group-directories-first -D'
+alias ll='eza --color=auto --group-directories-first -l'
 alias ls='eza --color=auto --group-directories-first'
 
 ## Default Flags
@@ -53,9 +57,7 @@ fi
 
 ## NixOS
 
-if command -v nix &>/dev/null; then
-  alias nx="cd \$HOME/nix/; just"
-fi
+alias nx="cd \$HOME/nix/; just"
 
 ## Termux
 
