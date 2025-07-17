@@ -1,0 +1,8 @@
+! COLORS FOR NSXIV
+Nsxiv.window.background:   #161616
+Nsxiv.window.foreground:   #7C5CFF
+Nsxiv.bar.foreground:      #ffffff
+Nsxiv.bar.background:      #161616
+Nsxiv.mark.foreground:     #7C5CFF
+Xcursor.size: 24
+Xcursor.theme: Adwaita
