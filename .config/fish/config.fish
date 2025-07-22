@@ -4,6 +4,8 @@ if status is-interactive
     # oh-my-posh init fish | source
     direnv hook fish | source
 
+    fish_vi_key_bindings
+
     set FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS'
   --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#050505,bg+:#262626
   --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
