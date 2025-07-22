@@ -15,7 +15,7 @@ function install_fzf() {
       ln -sf "$file" "$HOME/.config/fish/$dir/$(basename "$file")"
     done
   done
-  echo "SETUVAR FZF_COMPLETE:0" >>"$REPO_DIR/fish_variables"
+  echo "SETUVAR FZF_COMPLETE:2" >>"$REPO_DIR/fish_variables"
 }
 
 function main() {
