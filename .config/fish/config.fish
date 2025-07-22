@@ -1,10 +1,24 @@
 if status is-interactive
-    fzf --fish | source
-    zoxide init --cmd cd fish | source
+    if type -q fzf
+        fzf --fish | source
+    end
+    if type -q zoxide
+        zoxide init --cmd cd fish | source
+    end
+    # if type -q oh-my-posh
     # oh-my-posh init fish | source
-    direnv hook fish | source
+    # end
+    if type -q direnv
+        direnv hook fish | source
+    end
 
     fish_vi_key_bindings
+
+    if test -d ~/.config/fish/fzf.fish
+        return 0
+    else
+        sh "$HOME/.config/fish/install_plugin.sh"
+    end
 
     set FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS'
   --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#050505,bg+:#262626
