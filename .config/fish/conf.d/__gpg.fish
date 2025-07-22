@@ -1,3 +1,9 @@
+if test -z $TTY
+    set TTY /dev/pts/0
+end
+
+set -x GPG_TTY $TTY
+
 gpg-connect-agent updatestartuptty /bye &>/dev/null
 
 if test $(gpgconf --list-options gpg-agent 2>/dev/null | awk -F: '$1=="enable-ssh-support" {print $10}') = 1
