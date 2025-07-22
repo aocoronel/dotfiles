@@ -14,7 +14,7 @@ if status is-interactive
 
     fish_vi_key_bindings
 
-    if test -d ~/.config/fish/fzf.fish
+    if test -d ~/.config/fish/plugins/fzf.fish
         return 0
     else
         sh "$HOME/.config/fish/install_plugin.sh"
