@@ -26,8 +26,9 @@ alias lgd "lazygit -p \$HOME/dotfiles/"
 alias mks "sudo make clean install"
 alias nethunter 'nmap -v -sn 192.168.0.1/24 | grep -v "host down"' # Search for all open hosts
 alias sshadb "adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" # Use SSH over ADB
-alias sxh 'nvim $HOME/.config/hypr/modules/keybinds.conf' # Quick Access to System Bindings
+alias sxh 'nvim $HOME/.config/sxhkd/sxhkdrc' # Quick Access to System Bindings
 alias v nvim
+alias sx "sh \$HOME/scripts/__sxhkd"
 
 ## Script Shortcuts
 
