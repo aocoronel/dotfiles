@@ -4,7 +4,7 @@ set -gx VISUAL nvim
 set -gx EDITOR nvim
 set -gx PAGER bat
 set -gx MANPAGER "nvim +Man!"
-set -gx WAYLAND_DISPLAY wayland-1
+# set -gx WAYLAND_DISPLAY wayland-1
 
 # PATH
 
@@ -12,6 +12,7 @@ set PATH "$HOME/scripts/" $PATH # Own Scripts
 set PATH "$HOME/zscripts/" $PATH # Others Scripts
 set PATH "$HOME/.cargo/bin/" $PATH # Rust
 set PATH "$HOME/.config/emacs/bin" $PATH # Emacs
+set PATH "$HOME/.config/sxhkd/" $PATH # Sxhkd
 set PATH "$HOME/go/bin" $PATH # Golang
 set PATH "$HOME/.local/bin/" $PATH # Alternative
 set PATH "$HOME/.local/share/gem/ruby/3.3.0/bin" $PATH # Ruby
