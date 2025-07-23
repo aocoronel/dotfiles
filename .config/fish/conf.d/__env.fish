@@ -1,10 +1,10 @@
 # Tools
 
-set -g VISUAL nvim
-set -g EDITOR nvim
-set -g PAGER bat
-set -g MANPAGER "nvim +Man!"
-set -g WAYLAND_DISPLAY wayland-1
+set -gx VISUAL nvim
+set -gx EDITOR nvim
+set -gx PAGER bat
+set -gx MANPAGER "nvim +Man!"
+set -gx WAYLAND_DISPLAY wayland-1
 
 # PATH
 
@@ -20,12 +20,12 @@ set PATH /run/wrappers/bin $PATH # NixOS
 
 # Directories
 
-set -g OBSIDIAN $HOME/obsidian/
-set -g JOURNAL $OBSIDIAN/journal/Journals/
+set -gx OBSIDIAN $HOME/obsidian/
+set -gx JOURNAL $OBSIDIAN/journal/Journals/
 
-set -g BEELZEBUB /mnt/beelzebub/
-set -g ATLAS /mnt/go/atlas/
+set -gx BEELZEBUB /mnt/beelzebub/
+set -gx ATLAS /mnt/go/atlas/
 
-set -g DEV "$HOME/dev/"
-set -g SCRIPTS "$HOME/scripts/"
-set -g PASSWORD_STORE_DIR "$HOME/.password-store/"
+set -gx DEV "$HOME/dev/"
+set -gx SCRIPTS "$HOME/scripts/"
+set -gx PASSWORD_STORE_DIR "$HOME/.password-store/"
