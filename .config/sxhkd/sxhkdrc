@@ -1,6 +1,21 @@
 # Tmux Session Manager
-super + s; {o,c,g,p}
-  {__tmuxp-open.sh,__tmuxp-close.sh,buku_run,__pomodoro.sh}
+super + c;
+  {rofi-tmux}
+
+super + alt + c;
+  __clearboard
+
+super + d;
+  rofipass -f
+
+super + D;
+  pass.sh -r
+
+super + y;
+  yt-download -a
+
+super + b;
+  bash -c "~/.local/bin/bmark -r list | rofi -dmenu | xargs -I {} xdg-open '{}'
 
 # Screenshooter
 super + g;
@@ -9,11 +24,13 @@ super + g;
 # Browser
 super + F1;
   zen-browser
-  zen-browser -P
 
 # Explorer
 super + e;
-  ghostty -e ranger
+  st -e ranger
+
+super + 0;
+  freetube
 
 # Rofi run
 super + r;
