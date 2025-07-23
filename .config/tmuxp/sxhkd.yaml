@@ -1,9 +1,9 @@
 # Xorg Only
-session_name: key
+session_name: sxhkd
 windows:
   - focus: "true"
     layout: tiled
     options: {}
     panes:
       - sxhkd &
-    window_name: zsh
+    window_name: sxhkh
