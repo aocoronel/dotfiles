@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# "Open a dedicated terminal with tmux and switch
+# predefined sessions using Tmuxp"
+
+function tpo() {
+  local session_name="$1"
+
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+    exec st -e tmux attach-session -t "$session_name"
+  else
+    exec st -e tmuxp load "$session_name"
+  fi
+}
+
+tpo "$1"

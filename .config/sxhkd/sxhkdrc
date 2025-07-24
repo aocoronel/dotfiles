@@ -1,23 +1,48 @@
-# Tmux Session Manager
-super + c;
-  {rofi-tmux}
+# Launch Terminal with Tmux
+super + Return;
+  __open_tmux master
 
+# Emoji Picker
+super + period;
+  rofi-emoji
+
+# Clear Clipboard
 super + alt + c;
-  __clearboard
+  clearboard.sh
 
+# Clipoard Manager
+super + v;
+  clipmenu -fn "JetBrainsMono Nerd" -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'
+
+# Password Manager
 super + d;
   rofipass -f
 
+# Lesspass Passwords
 super + D;
   pass.sh -r
 
-super + y;
-  yt-download -a
-
+# Bookmark Manager
 super + b;
   bash -c "~/.local/bin/bmark -r list | rofi -dmenu | xargs -I {} xdg-open '{}'
 
-# Screenshooter
+# Search Web using Leta
+super + shift + y;
+  search
+
+# Drun
+super + r;
+  rofi -modes drun,run -show run
+
+# Obsidian Quick Switcher
+super + F2
+  rofi-obsidian
+
+# Download Youtube Audio
+super + y;
+  yt-download -a
+
+# Screenshoot
 super + g;
   flameshot gui
 
@@ -25,44 +50,13 @@ super + g;
 super + F1;
   zen-browser
 
-# Explorer
-super + e;
-  st -e ranger
-
+# FreeTube
 super + 0;
   freetube
 
-# Rofi run
-super + r;
-  rofi -modes drun,run -show run
-
-# Obsidian Quick Switcher
-super + o
-  __rofi-obsidian.sh o
-
-# Obsidian Quick Switcher for neovim
-super + shift + o
-  __rofi-obsidian.sh n
-
-# DuckDuckGo
-super + shift + y
-  rofi -lines 5 -eh 2 -show ddgrsearch -modi "ddgrsearch:ddgr_search.py"
-
-# Switch Obsidian Workspace
-super + control + o
-  __switch-workspace.sh
-
-# Rofi
-super + d; {p,t}
-  {__passmenu-rofi.sh,__passmenu-otp.sh}
-
-# Call
-super + c; {c,n,shift + n,o,h,p,r,f}
-  {__clearboard.sh,cmus-remote -n,cmus-remote -r,__obsidian-daily.sh -s,obsidian-cli open Homepage --vault HEPHAESTUS,__cmus-player-check.sh,obs,__app-opener.sh}
-
-# Calc
-super + shift + c
-  rofi -show calc -modi calc -no-show-match -no-sort > /dev/null
+# Tmux Session Manager, Cmus Toggle
+super + c; {c,p}
+  {rofi-tmux, __cmus-remote}
 
 # Quick Audio Download
 super + y
