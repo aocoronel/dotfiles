@@ -1,6 +1,14 @@
+###############################
+#          Terminal           #
+###############################
+
 # Launch Terminal with Tmux
 super + Return;
   __open_tmux master
+
+###############################
+#          Clipboard          #
+###############################
 
 # Emoji Picker
 super + period;
@@ -13,6 +21,10 @@ super + alt + c;
 # Clipoard Manager
 super + v;
   clipmenu -fn "JetBrainsMono Nerd" -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'
+
+###############################
+#             Rofi            #
+###############################
 
 # Password Manager
 super + d;
@@ -35,12 +47,20 @@ super + r;
   rofi -modes drun,run -show run
 
 # Obsidian Quick Switcher
-super + F2
-  rofi-obsidian
+super + shift + o;
+  rofi-obsidian o
 
-# Download Youtube Audio
-super + y;
-  yt-download -a
+# Tmux Session Manager, Cmus Toggle
+super + c; {c,p}
+  {rofi-tmux, __cmus-remote}
+
+# Pomodoro Control
+super + p;
+  sh ~/.config/waybar/scripts/pomodoro-control.sh rofi
+
+###############################
+#          GUI Tools          #
+###############################
 
 # Screenshoot
 super + g;
@@ -51,13 +71,32 @@ super + F1;
   zen-browser
 
 # FreeTube
-super + 0;
+super + F2;
   freetube
 
-# Tmux Session Manager, Cmus Toggle
-super + c; {c,p}
-  {rofi-tmux, __cmus-remote}
+###############################
+#       Audio Managment       #
+###############################
 
-# Quick Audio Download
-super + y
-  __download-youtube.sh -a
+# Decrease volume
+super + shift + comma;
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# Increase volume
+super + shift + period;
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# Mute
+super + shift + n;
+    pactl set-sink-volume @DEFAULT_SINK@ 0%
+
+###############################
+#            Extras           #
+###############################
+
+# Download Youtube Audio
+super + y;
+  yt-download -a
+
+super + e; {u,r}
+  {sh "$HOME/zscripts/rtsp" -h,sh "$HOME/zscripts/uptimer" call}
