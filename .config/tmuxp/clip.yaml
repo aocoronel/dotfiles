@@ -1,0 +1,9 @@
+# Xorg Only
+session_name: clipmenud
+windows:
+  - focus: "true"
+    layout: tiled
+    options: {}
+    panes:
+      - clipmenud
+    window_name: clipmenud
