@@ -29,6 +29,8 @@ alias sshadb "adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" # Use SSH ov
 alias sxh 'nvim $HOME/.config/sxhkd/sxhkdrc' # Quick Access to System Bindings
 alias v nvim
 alias sx "sh \$HOME/scripts/__sxhkd"
+alias rc "rebos gen commit $(date +%F%H%M)"
+alias rb "rebos gen current build"
 
 ## Script Shortcuts
 
