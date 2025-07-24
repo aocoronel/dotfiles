@@ -28,7 +28,7 @@ alias nethunter 'nmap -v -sn 192.168.0.1/24 | grep -v "host down"' # Search for 
 alias sshadb "adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" # Use SSH over ADB
 alias sxh 'nvim $HOME/.config/sxhkd/sxhkdrc' # Quick Access to System Bindings
 alias v nvim
-alias sx "sh \$HOME/scripts/__sxhkd"
+alias sx "sh \$HOME/.config/sxhkd/__sxhkd"
 alias rc "rebos gen commit $(date +%F%H%M)"
 alias rb "rebos gen current build"
 
