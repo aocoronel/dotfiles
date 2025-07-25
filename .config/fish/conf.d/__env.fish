@@ -8,8 +8,7 @@ set -gx MANPAGER "nvim +Man!"
 
 # PATH
 
-set PATH "$HOME/scripts/" $PATH # Own Scripts
-set PATH "$HOME/zscripts/" $PATH # Others Scripts
+set PATH "$(find ~/.local/bin -type d | paste -sd ':' -)" $PATH # All subdirectories
 set PATH "$HOME/.cargo/bin/" $PATH # Rust
 set PATH "$HOME/.config/emacs/bin" $PATH # Emacs
 set PATH "$HOME/.config/sxhkd/" $PATH # Sxhkd
