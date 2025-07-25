@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/sshmanager
+
+# "Declare your SSH servers and select using fzf"
+
 ssh_file="$HOME/.ssh/ssh_machines"
 
 function help() {

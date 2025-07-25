@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__obsidian-helper.sh
+
 # "Run git command in all Obsidian vaults"
 
 source "$HOME/.scriptenv"

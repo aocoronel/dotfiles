@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__download-youtube.sh
 
+# "Download videos/audio from Youtube from clipboard or batch from file"
+
 clipmethod="$XDG_SESSION_TYPE"
 
 if ! command -v yt-dlp &>/dev/null; then

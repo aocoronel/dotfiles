@@ -2,6 +2,13 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-task.sh
 
+# "Taskwarrior + Nvim integration to show completed tasks
+# Support file formats:
+# YYYY-MM-DD.md - Day"
+# YYYY-MM.md - Month"
+# YYYY-[W]WW.md - Week"
+# YYYY.md - Year"
+
 ENV_FILE="$HOME/.scriptenv"
 
 if [ -z "$ENV_FILE" ]; then

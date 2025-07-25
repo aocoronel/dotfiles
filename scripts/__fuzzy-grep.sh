@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# https://github.com/user/dotfiles/blob/main/scripts/__fuzzy-grep.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/__fuzzy-grep.sh
+
+# "Integrate fzf with rg to search files"
 
 # shellcheck disable=SC2120
 # shellcheck disable=SC2016
