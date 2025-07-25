@@ -14,7 +14,7 @@ check_command() {
 
 check_command tmux fzf bat eza
 
-CONFIG="$HOME/.tmuxprofile"
+CONFIG="$HOME/.config/tmuxprofile"
 
 if [[ ! -f "$CONFIG" ]]; then
   echo "No configuration file set!"
