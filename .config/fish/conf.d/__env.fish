@@ -8,6 +8,7 @@ set -gx MANPAGER "nvim +Man!"
 
 # PATH
 
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 set PATH "$(find -L ~/.local/bin -type d | paste -sd ':' -)" $PATH # All subdirectories
 set PATH "$HOME/.cargo/bin/" $PATH # Rust
 set PATH "$HOME/.config/emacs/bin" $PATH # Emacs
