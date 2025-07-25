@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/exit.sh
-
 # "Gracefully halt the system"
 
 source "$HOME/.scriptenv"

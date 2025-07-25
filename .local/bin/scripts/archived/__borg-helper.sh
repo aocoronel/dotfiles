@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/borg-helper
-
 HOSTNAME="$(hostnamectl hostname)"
 NOW="$(date +%Y-%d-%H%M)"
 MOUNT_POINT="/mnt"

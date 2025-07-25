@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/mounter
-
 # "Easily mount encrypted devices using PasswordStore"
 
 function help() {
