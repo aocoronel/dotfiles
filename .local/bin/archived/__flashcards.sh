@@ -7,17 +7,17 @@ if ! command -v mdfc &>/dev/null; then
   exit 1
 fi
 
-ENV_FILE="$HOME/.scriptenv"
+ENV_FILE="$XDG_CONFIG_HOME/scriptenv"
 
 if [ -z "$ENV_FILE" ]; then
-  echo ".scriptenv is missing at $HOME!"
+  echo "scriptenv is missing at $XDG_CONFIG_HOME"
   return 1
 fi
 
 source "$ENV_FILE"
 
 if [ -z "$FLASHCARD" ]; then
-  echo "Error: FLASHCARD env at .scriptenv not found"
+  echo "Error: FLASHCARD env at scriptenv not found"
   exit 1
 fi
 

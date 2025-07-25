@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-ENV_FILE="$HOME/.scriptenv"
+ENV_FILE="$XDG_CONFIG_HOME/scriptenv"
 
 if [ -z "$ENV_FILE" ]; then
-  echo ".scriptenv is missing at $HOME!"
+  echo "scriptenv is missing at $XDG_CONFIG_HOME"
   return 1
 fi
 
 source "$ENV_FILE"
 
 if [ -z "$WALLPAPERS" ]; then
-  echo "Error: WALLPAPERS env at .scriptenv not found"
+  echo "Error: WALLPAPERS env at scriptenv not found"
   exit 1
 fi
 

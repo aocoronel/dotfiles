@@ -2,7 +2,7 @@
 
 # "Gracefully halt the system"
 
-source "$HOME/.scriptenv"
+source "$XDG_CONFIG_HOME/scriptenv"
 
 EXIT_CMD=poweroff
 

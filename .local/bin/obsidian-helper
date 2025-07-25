@@ -2,7 +2,7 @@
 
 # "Run git command in all Obsidian vaults"
 
-source "$HOME/.scriptenv"
+source "$XDG_CONFIG_HOME/scriptenv"
 
 function main() {
   command="$1"
