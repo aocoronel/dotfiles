@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__invidious-token-generator.sh
 
+# "Rotate Youtube visitor data and po_token"
+
 invidious_config=$HOME/invidious/docker-compose.yml
 
 docker run quay.io/invidious/youtube-trusted-session-generator >token.txt

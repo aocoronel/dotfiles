@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/mounter
 
+# "Easily mount encrypted devices using PasswordStore"
+
 function help() {
   cat <<EOF
 External Driver Mounter
@@ -102,6 +104,9 @@ case $1 in
   ;;
 "close")
   unmount
+  ;;
+"add")
+  adddrive
   ;;
 *)
   read_option
