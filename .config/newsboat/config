@@ -1,0 +1,3 @@
+include ~/.config/newsboat/elegantvagrant-oled
+show-read-feeds no
+refresh-on-startup yes
