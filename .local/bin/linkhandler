@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  url="$(xclip -o)"
+else
+  url="$1"
+fi
+
+realname=$(echo "$url" | sed "s/.*\///;s/%20/ /g")
+
+if [ -n "$TERMUX_VERSION" ]; then
+  setsid -f xdg-open "$url" >/dev/null 2>&1
+else
+  case "$url" in
+  *mkv | *webm | *mp4 | *youtube.com/watch* | *youtube.com/playlist* | *youtube.com/shorts* | *youtu.be*)
+    setsid -f mpv -quiet "$url" >/dev/null 2>&1
+    ;;
+  *png | *jpg | *jpe | *jpeg | *gif | *webp)
+    wget --quiet "$url" -O "/tmp/$realname" && nsxiv -a "/tmp/$realname" >/dev/null 2>&1 &
+    ;;
+  *pdf | *cbz | *cbr)
+    wget --quiet "$url" -O "/tmp/$realname" && zathura "/tmp/$realname" >/dev/null 2>&1 &
+    ;;
+  *mp3 | *flac | *opus | *mp3?source*)
+    wget --quiet "$url" -O "/tmp/$realname" && cmus-remote --queue "/tmp/$realname" >/dev/null 2>&1 &
+    ;;
+  *)
+    setsid -f xdg-open "$url" >/dev/null 2>&1
+    ;;
+  esac
+fi
