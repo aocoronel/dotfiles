@@ -11,7 +11,7 @@ alias ls 'eza --color=auto --group-directories-first'
 
 alias cp "cp --verbose"
 alias gemini "gemini -c \$HOME/gemini_cli_config.json"
-alias lynx "lynx -cookies"
+alias lynx "lynx -cookies -cfg $HOME/.config/lynxrc"
 alias rclone "rclone --verbose"
 alias rsync "rsync -az"
 alias vidir "vidir --verbose"
