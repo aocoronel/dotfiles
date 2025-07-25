@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tskd.sh
+# https://github.com/aocoronel/dotfiles/blob/main/scripts/tskd
+
+# "View your taskwarrior completed tasks using a natural language search"
 
 month_list="January
 February

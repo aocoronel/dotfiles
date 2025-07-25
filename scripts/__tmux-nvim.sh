@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-nvim.sh
 
+# "Nvim + Tmux integration to launch a floating terminal"
+
 SHELL=${SHELL:-zsh}
 
 current_command=$(tmux display-message -p "#{pane_current_command}")

@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__task-notify.sh
 
+# "Notify if taskwarrior tasks are due today or overdue"
+
 TMP_FILE="/tmp/taskwarrior_notified"
 touch "$TMP_FILE"
 

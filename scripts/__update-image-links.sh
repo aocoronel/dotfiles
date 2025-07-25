@@ -2,6 +2,8 @@
 
 # https://github.com/aocoronel/dotfiles/blob/main/scripts/__update-image-links.sh
 
+# "Convert all markdown links to images to AVIF"
+
 ft=${1:-md}
 
 find . -name "*.$ft" -exec grep -lE '\.jpg|\.png|\.webp' {} \; | while read -r file; do
