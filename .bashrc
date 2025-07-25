@@ -5,9 +5,10 @@ HISTTIMEFORMAT="%F %T "
 
 set -o vi
 
-source $HOME/.shalias
-source $HOME/.env
-source $HOME/.shfunction
+source "$HOME/.config/env"
+source "$HOME/.config/secrets"
+source "$HOME/.config/shalias"
+source "$HOME/.config/shfunction"
 
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"

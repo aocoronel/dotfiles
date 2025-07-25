@@ -26,11 +26,10 @@ zinit snippet OMZP::taskwarrior
 
 # Sources
 
-source "$HOME/.env"                  # Environment variables
-source "$HOME/.secrets"              # Env Secrets
-source "$HOME/.shalias"              # Aliases
-source "$HOME/.shfunction"           # Functions
-source "$HOME/.zsh_custom"           # Custom config
+source "$HOME/.config/env"                  # Environment variables
+source "$HOME/.config/secrets"              # Env Secrets
+source "$HOME/.config/shalias"              # Aliases
+source "$HOME/.config/shfunction"           # Functions
 
 # Tools
 
