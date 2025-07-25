@@ -1,60 +1,70 @@
 #!/bin/env bash
 
-# Commands
+# Sudo Commands
+
+for command in mount umount sv pacman su shutdown poweroff reboot; do
+  alias \$command="sudo \$command"
+done
+unset command
 
 ## Command Replacement
 
-alias cat='bat'
-alias la='eza --color=auto --group-directories-first -a'
-alias lda='eza --color=auto --group-directories-first -Da'
-alias ld='eza --color=auto --group-directories-first -D'
-alias ll='eza --color=auto --group-directories-first -l'
-alias ls='eza --color=auto --group-directories-first'
+alias cat='bat' \
+  la='eza --color=auto --group-directories-first -a' \
+  lda='eza --color=auto --group-directories-first -Da' \
+  ld='eza --color=auto --group-directories-first -D' \
+  ll='eza --color=auto --group-directories-first -l' \
+  ls='eza --color=auto --group-directories-first'
 
 ## Default Flags
 
-alias cp="cp --verbose"
-alias gemini="gemini -c \$HOME/gemini_cli_config.json"
-alias lynx="lynx -cookies -cfg $HOME/.config/lynxrc"
-alias rclone="rclone --verbose"
-alias rsync="rsync -az"
-alias vidir="vidir --verbose"
+alias cp="cp -v" \
+  mv="mv -v" \
+  rm="rm -v" \
+  gemini="gemini -c \$HOME/gemini_cli_config.json" \
+  lynx="lynx -cookies -cfg \$HOME/.config/lynxrc" \
+  rclone="rclone --verbose" \
+  rsync="rsync -azrPl" \
+  vidir="vidir --verbose" \
+  grep="grep --color=auto" \
+  diff="diff --color=auto" \
+  ip="ip -color=auto"
 
 ## Command Shortcuts
 
-alias ctrash='gio trash --empty'                                               # Wipe Trash Bin
-alias dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'" # Dmenu Coloring
-alias historyc="rm \$HOME/.zsh_history"                                        # Clear ZSH history
-alias lg='lazygit'
-alias lgd="lazygit -p \$HOME/dotfiles/"
-alias mks="sudo make clean install"
-alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'  # Search for all open hosts
-alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" # Use SSH over ADB
-alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf'           # Quick Access to System Bindings
-alias v='nvim'
+alias ctrash='gio trash --empty' \
+  dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'" \
+  historyc="rm \$HOME/.zsh_history" \
+  lg='lazygit' \
+  lgd="lazygit -p \$HOME/dotfiles/" \
+  mks="sudo make clean install" \
+  nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"' \
+  sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" \
+  sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' \
+  v='nvim'
 
 ## Script Shortcuts
 
-alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}' " # Shortcuts to interact with taskwarrior
-alias fv="sh \$SCRIPTS/__flashcards.sh"                        # Flashcards in the CLI
-alias jnd="jn journal day Journals/Daily"                      # Create daily note
-alias o="\$HOME/scripts/__obsidian-helper.sh"                  # Obsidian Git Commands
-alias rr="ranger_cd"                                           # Change directory for ranger
-alias s="\$HOME/.local/bin/search -s"                          # Search the web using Mullvad Leta
-alias sm="\$HOME/scripts/sshmanager"                           # Easily access SSH hosts
-alias tt="\$HOME/scripts/taskwarrior-helper"                   # Shortcuts to interact with taskwarrior
+alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
+  fv="sh \$SCRIPTS/__flashcards.sh" \
+  jnd="jn journal day Journals/Daily" \
+  o="\$HOME/scripts/__obsidian-helper.sh" \
+  rr="ranger_cd" \
+  s="\$HOME/.local/bin/search -s" \
+  sm="\$HOME/.local/bin/sshmanager" \
+  tt="\$HOME/scripts/taskwarrior-helper"
 
 # Distros
 
 ## Arch Linux
 
 if command -v pacman &>/dev/null; then
-  alias autoremove='pacman -Qdtq | sudo pacman -Rns -'
-  alias clearcache='pacman -Scc'
-  alias install='sudo pacman -S'
-  alias remove='sudo pacman -Rns'
-  alias update='sudo pacman -Syy'
-  alias upgrade='sudo pacman -Syu'
+  alias autoremove='pacman -Qdtq | sudo pacman -Rns -' \
+    clearcache='pacman -Scc' \
+    install='sudo pacman -S' \
+    remove='sudo pacman -Rns' \
+    update='sudo pacman -Syy' \
+    upgrade='sudo pacman -Syu'
 fi
 
 ## NixOS
@@ -64,11 +74,11 @@ alias nx="cd \$HOME/nix/; just"
 ## Termux
 
 if [ -n "$TERMUX_VERSION" ]; then
-  alias autoremove='apt autoremove'
-  alias install='pkg install'
-  alias remove='pkg uninstall'
-  alias update='pkg update'
-  alias upgrade='pkg upgrade'
+  alias autoremove='apt autoremove' \
+    install='pkg install' \
+    remove='pkg uninstall' \
+    update='pkg update' \
+    upgrade='pkg upgrade'
 fi
 
 # Nmap: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/nmap/nmap.plugin.zsh
@@ -87,24 +97,22 @@ fi
 #  -F - fast scan
 #  --script=vuln - also access vulnerabilities in target
 
-alias nmap_open_ports="nmap --open"
-alias nmap_list_interfaces="nmap --iflist"
-alias nmap_slow="sudo nmap -sS -v -T1"
-alias nmap_fin="sudo nmap -sF -v"
-alias nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v"
-alias nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4"
-alias nmap_ping_through_firewall="nmap -PS -PA"
-alias nmap_fast="nmap -F -T5 --version-light --top-ports 300"
-alias nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn"
-alias nmap_check_for_vulns="nmap --script=vuln"
-alias nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 "
-alias nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute "
-alias nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all "
-alias nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy "
-alias nmap_ping_scan="nmap -n -sP"
+alias nmap_open_ports="nmap --open" \
+  nmap_list_interfaces="nmap --iflist" \
+  nmap_slow="sudo nmap -sS -v -T1" \ nmap_fin="sudo nmap -sF -v" \
+  nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v" \
+  nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4" \
+  nmap_ping_through_firewall="nmap -PS -PA" \
+  nmap_fast="nmap -F -T5 --version-light --top-ports 300" \
+  nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn" \
+  nmap_check_for_vulns="nmap --script=vuln" \
+  nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 " \
+  nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute " \
+  nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " \
+  nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy " \
+  nmap_ping_scan="nmap -n -sP"
 
 ## Deprecated
 
 # alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Mount" "Drive umounted"'
 # alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Mount" "Drive mounted"'
-# alias sxhd="$HOME/scripts/__restart-sxhkd.sh" # Quick Access to System Bindings - Xorg only
