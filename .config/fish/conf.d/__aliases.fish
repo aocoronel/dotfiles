@@ -1,3 +1,8 @@
+for command in mount umount sv pacman updatedb su shutdown poweroff reboot
+    alias $command "sudo $command"
+end
+set -e command
+
 # Command Replacementt
 
 alias cat bat
@@ -9,11 +14,13 @@ alias ls 'eza --color=auto --group-directories-first'
 
 ## Default Flags
 
-alias cp "cp --verbose"
+alias cp "cp -v"
 alias gemini "gemini -c \$HOME/gemini_cli_config.json"
 alias lynx "lynx -cookies -cfg $HOME/.config/lynxrc"
+alias mv "mv -v"
 alias rclone "rclone --verbose"
-alias rsync "rsync -az"
+alias rm "rm -v"
+alias rsync "rsync -azrPl"
 alias vidir "vidir --verbose"
 
 ## Command Shortcuts
@@ -40,7 +47,7 @@ alias jnd "jn journal day Journals/Daily" # Create daily note
 alias o "\$HOME/scripts/__obsidian-helper.sh" # Obsidian Git Commands
 alias rr ranger_cd # Change directory for ranger
 alias s "\$HOME/.local/bin/search -s" # Search the web using Mullvad Leta
-alias sm "\$HOME/scripts/sshmanager" # Easily access SSH hosts
+alias sm "\$HOME/.local/bin/sshmanager" # Easily access SSH hosts
 alias tt "\$HOME/scripts/taskwarrior-helper" # Shortcuts to interact with taskwarrior
 
 # Distros
