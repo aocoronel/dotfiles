@@ -1,0 +1,25 @@
+[Added Associations]
+
+[Default Applications]
+application/pdf=zathura.desktop;
+
+inode/directory=yazi.desktop
+
+text/html=app.zen_browser.zen.desktop
+
+video/mkv=mpv.desktop
+video/mp4=mpv.desktop
+video/webm=mpv.desktop
+
+image/avif=nsxiv.desktop;
+image/gif=nsxiv.desktop;
+image/jpeg=nsxiv.desktop;
+image/png=nsxiv.desktop;
+image/webp=nsxiv.desktop;
+
+x-scheme-handler/about=app.zen_browser.zen.desktop
+x-scheme-handler/http=app.zen_browser.zen.desktop
+x-scheme-handler/https=app.zen_browser.zen.desktop
+x-scheme-handler/unknown=app.zen_browser.zen.desktop
+
+[Removed Associations]
