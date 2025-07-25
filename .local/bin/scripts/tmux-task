@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__tmux-task.sh
-
 # "Taskwarrior + Nvim integration to show completed tasks
 # Support file formats:
 # YYYY-MM-DD.md - Day"

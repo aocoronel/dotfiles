@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/user/dotfiles/blob/main/scripts/__rofitmux.sh
-
 # "Open running tmux sessions or start new sessions using tmuxp"
 
 if ! command -v rofi &>/dev/null; then

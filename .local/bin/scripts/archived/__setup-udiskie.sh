@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__setup-udiskie.sh
-
 file=50-udiskie.rules
 path=/etc/polkit-1/rules.d/50-udiskie.rules
 

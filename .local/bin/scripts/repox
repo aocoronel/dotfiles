@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/repox
-
 # "Quickly clone all Git repos, or fetch all"
 
 DEV_DIR=${DEV:-$HOME/dev}

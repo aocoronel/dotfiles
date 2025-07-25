@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__gemini.sh
-
 CHAT_DIR="$HOME/.chat/"
 EDITOR="${EDITOR:-nvim}"
 

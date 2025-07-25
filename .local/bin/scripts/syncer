@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/syncer
-
 # "Declare which files/directories to sync using rclone"
 
 SYNC_FILE="$PWD/.sync"
