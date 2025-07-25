@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/taskwarrior-helper
-
 # "Useful shorthands to interact with Taskwarrior"
 
 function help() {

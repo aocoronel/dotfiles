@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/download-freetube.sh
-
 # "Downloads videos/audio from a FreeTube playlist file"
 
 if ! command -v jq &>/dev/null; then

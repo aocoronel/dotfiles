@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__update-image-links.sh
-
 # "Convert all markdown links to images to AVIF"
 
 ft=${1:-md}

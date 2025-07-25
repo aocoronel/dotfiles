@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__pacman-bak.sh
-
 if ! command -v yay &>/dev/null; then
   echo "yay could not be found. Please install it."
   exit 1

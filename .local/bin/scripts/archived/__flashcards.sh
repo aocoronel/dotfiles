@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__flashcards.sh
-
 # "Review flashcards with Git support"
 
 if ! command -v mdfc &>/dev/null; then

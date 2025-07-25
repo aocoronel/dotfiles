@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__invidious-token-generator.sh
-
 # "Rotate Youtube visitor data and po_token"
 
 invidious_config=$HOME/invidious/docker-compose.yml

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__unlocker.sh
-
 ENV_FILE="$HOME/.scriptenv"
 
 if [ -z "$ENV_FILE" ]; then

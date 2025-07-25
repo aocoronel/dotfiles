@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__pass-backup.sh
-
 pubkeys="$PWD/public.keys.gpg"
 privatekeys="$PWD/private.keys.gpg"
 tarball="$HOME/gpg.tar.gz"

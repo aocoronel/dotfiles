@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/tmux-manager
-
 # "Preview, select, kill and open Tmux sessions using fzf"
 # "Has features to work with: zoxide and tmuxp"
 

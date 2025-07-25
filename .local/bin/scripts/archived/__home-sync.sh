@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/aocoronel/dotfiles/blob/main/scripts/__home-sync.sh
 # Neostow Reference: https://github.com/aocoronel/neostow/blob/main/src/neostow
 
 # 1. "Make a $HOME backup using rsync"
