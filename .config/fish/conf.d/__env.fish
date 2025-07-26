@@ -8,7 +8,6 @@ set -gx MANPAGER "nvim +Man!"
 
 # PATH
 
-set -gx XDG_CONFIG_HOME "$HOME/.config"
 set PATH "$(find -L ~/.local/bin -type d | paste -sd ':' -)" $PATH # All subdirectories
 set PATH "$HOME/.cargo/bin/" $PATH # Rust
 set PATH "$HOME/.config/emacs/bin" $PATH # Emacs
@@ -21,12 +20,14 @@ set PATH /run/wrappers/bin $PATH # NixOS
 
 # Directories
 
-set -gx OBSIDIAN $HOME/obsidian/
-set -gx JOURNAL $OBSIDIAN/journal/Journals/
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 
-set -gx BEELZEBUB /mnt/beelzebub/
-set -gx ATLAS /mnt/go/atlas/
+set -gx PASSWORD_STORE_DIR "$HOME/.password-store/"
 
 set -gx DEV "$HOME/dev/"
-set -gx SCRIPTS "$HOME/scripts/"
-set -gx PASSWORD_STORE_DIR "$HOME/.password-store/"
+set -gx GO_PATH "$DEV/go/"
+
+set -gx REPOX_FILE "$HOME/.local/share/repox"
+
+set -gx OBSIDIAN "$HOME/obsidian/"
+set -gx JOURNAL "$OBSIDIAN/journal/Journals/"
