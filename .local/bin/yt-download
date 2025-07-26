@@ -37,8 +37,13 @@ function download() {
   elif [ "$clipmethod" = "wayland" ]; then
     URL=$(wl-paste)
   fi
+  [[ -z $URL ]] && {
+    URL=$1
+    shift
+  }
+  dest=${1:-$HOME}
   title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
-  yt_cmd "$URL"
+  yt_cmd "$URL" -P $dest
   val=$?
   if [ "$val" -eq 0 ]; then
     notify-send -u normal "Downlaod YT: Success" "$title downloaded"
@@ -70,7 +75,7 @@ while [[ "$1" != "" ]]; do
   -a | --audio)
     shift
     mode=bestaudio
-    download
+    download $@
     exit 0
     ;;
   -b | --batch)
@@ -82,7 +87,7 @@ while [[ "$1" != "" ]]; do
   -v | --video)
     shift
     mode=best
-    download
+    download $@
     exit 0
     ;;
   -h | --help)
