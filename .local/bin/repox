@@ -51,7 +51,7 @@ function _git() {
 }
 
 function _parallel() {
-  local dev_dir repox_file query
+  local dev_dir repox_file
   dev_dir=$1
   repox_file=$2
   cmd=$3
