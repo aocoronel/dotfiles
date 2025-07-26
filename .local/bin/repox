@@ -1,108 +1,106 @@
 #!/usr/bin/env bash
 
-# "Quickly clone all Git repos, or fetch all"
-
-DEV_DIR=${DEV:-$HOME/dev}
-REPOX_FILE="$HOME/.repox"
-
 function help() {
   cat <<EOF
-Git Repository Cloner/Fetcher
+A git repository utility
 
 Usage:
-  repox FLAG <FLAG_INPUT> SUB_DIRECTORY
-  repox github         # $DEV_DIR/github/
-  repox codeberg       # $DEV_DIR/codeberg/
+  repox FLAG <FLAG_INPUT> COMMAND SUB_DIRECTORY
+  repox COMMAND github
+  repox COMMAND codeberg
 
 Commands:
+  clone               Clone all repos
   fetch               Fetch all repos
   pull                Pull all repos
   status              Check status from all repos
 
 Flags:
   -h, --help           Displays this message and exits
-  -p <path>            Use a .repox file
-  -r                   Use Repox File
+  -p <parallel>        Set parallels to use
+  -c <path/to/repox>   Use a specific repox file
 EOF
 }
 
-function get_repos() {
-  gh repo list | grep "$(whoami)" | awk -F " " '{print $1}' >$TMP_DIR
+function _git() {
+  local repo repo_name local_repo
+  repo=$1
+  repo_name=$(basename "$repo" .git)
+  local_repo="$dev_dir/$sub_dir/$repo_name"
+
+  if [ ! -d "$local_repo" ]; then
+    cmd=clone
+  fi
+
+  if [ "$cmd" == "status" ]; then
+    if git -C "$local_repo" "$cmd" --porcelain | grep -q .; then
+      echo "Git status of repository: $repo"
+      git -C "$local_repo" "$cmd"
+    fi
+  elif [ "$cmd" == "clone" ]; then
+    if ! git -C "$local_repo" "$cmd" "$repo"; then
+      echo "An error occured at $repo"
+      return 1
+    fi
+  else
+    if ! git -C "$local_repo" "$cmd"; then
+      echo "An error occured at $repo"
+      return 1
+    fi
+  fi
 }
 
-function fetch() {
-  CMD=${CMD:-fetch}
-  success_count=0
-  error_count=0
+function _parallel() {
+  local dev_dir repox_file query
+  dev_dir=$1
+  repox_file=$2
+  cmd=$3
+  parallels=${parallels:-10}
+  query="'$parallels' sh '$(realpath "$0")' --parallel '$dev_dir' '$cmd'"
 
-  while IFS= read -r repo; do
-    if [ -n "$REPOX" ]; then
-      repo_name=$(basename "$repo" .git)
-    else
-      repo_name="$(basename "$repo")"
-    fi
-    local local_repo="$DEV_DIR/$sub_dir/$repo_name"
-    if [ ! -d "$local_repo" ]; then
-      if [ "$sub_dir" == "github" ]; then
-        if ! gh repo clone "$repo" "$local_repo"; then
-          ((error_count++))
-          echo "An error occured at $repo"
-        fi
-      else
-        mkdir -p "$DEV_DIR/$sub_dir"
-        if ! git -C "$DEV_DIR/$sub_dir" clone "$repo"; then
-          echo "An error occured at $repo"
-          ((error_count++))
-          continue
-        fi
-      fi
-    else
-      if [ "$CMD" == "status" ]; then
-        if git -C "$local_repo" "$CMD" --porcelain | grep -q .; then
-          git -C "$local_repo" "$CMD"
-        fi
-      else
-        if ! git -C "$local_repo" "$CMD"; then
-          echo "An error occured at $repo"
-          ((error_count++))
-          continue
-        fi
-      fi
-    fi
-    ((success_count++))
-  done <"$TMP_DIR"
-  echo -e "\nRepox finished with:\n$error_count errors\n$success_count success"
+  parallel -j "$query" :::: "$repox_file"
 }
 
 function main() {
+  local sub_dir cmd repox_file dev_dir
+
+  cmd=$1
+  sub_dir=$2
+
   if [ -z "$sub_dir" ]; then
     echo "Missing sub directory!"
-    echo "Usage: repox github"
     exit 1
   fi
-  if [ -n "$REPOX" ]; then
-    TMP_DIR="$REPOX_FILE" # URL to all Git repos
+
+  repox_file=${REPOX_FILE:-$HOME/.repox}
+
+  if [[ -n "$DEV" ]]; then
+    dev_dir="$DEV/$sub_dir"
   else
-    TMP_DIR="/tmp/repox"
-    get_repos # Use gh to get all Github repos
+    dev_dir="$HOME/dev/$sub_dir"
   fi
-  fetch
+
+  mkdir -p "$dev_dir"
+
+  _parallel "$dev_dir" "$repox_file" "$cmd"
+
+  echo -e "\nRepox finished"
 }
 
-while getopts ":hvrp:-" opt; do
+while getopts ":h-p:c:" opt; do
   case "$opt" in
   h)
     help
     exit 0
     ;;
-  r)
-    REPOX=true
-    ;;
   -)
     break
     ;;
-  p)
+  c)
     REPOX_FILE="$OPTARG"
+    ;;
+  p)
+    parallels="$OPTARG"
     ;;
   ?)
     echo "Error: Invalid option '-$OPTARG'" >&2
@@ -119,21 +117,25 @@ case "$1" in
   exit 0
   ;;
 fetch)
-  shift
-  sub_dir=$1
-  CMD=fetch
-  main
+  main "$@"
+  ;;
+clone)
+  main "$@"
   ;;
 pull)
-  shift
-  sub_dir=$1
-  CMD=pull
-  main
+  main "$@"
   ;;
 status)
-  shift
-  sub_dir=$1
-  CMD=status
-  main
+  main "$@"
+  ;;
+--parallel)
+  # $1 parallel / $2 dev_dir / $3 cmd / $4 repox_file
+  dev_dir=$2
+  cmd=$3
+  _git "$4"
+  ;;
+*)
+  echo "Error: No known command: $1"
+  exit 1
   ;;
 esac
