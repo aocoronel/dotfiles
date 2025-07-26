@@ -28,8 +28,10 @@ function _git() {
   repo_name=$(basename "$repo" .git)
   local_repo="$dev_dir/$sub_dir/$repo_name"
 
-  if [ ! -d "$local_repo" ]; then
+  if [ ! -d "$local_repo" ] && [ "$cmd" != "clone" ]; then
     cmd=clone
+  elif [ -d "$local_repo" ] && [ "$cmd" == "clone" ]; then
+    return 1
   fi
 
   if [ "$cmd" == "status" ]; then
