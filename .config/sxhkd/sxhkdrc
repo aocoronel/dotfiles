@@ -12,7 +12,7 @@ super + Return;
 
 # Emoji Picker
 super + period;
-  rofi-emoji
+  cat "$HOME/.local/share/emojis" | rofi -dmenu | xclip -sel clip
 
 # Clear Clipboard
 super + alt + c;
