@@ -32,12 +32,13 @@ alias lg lazygit
 alias lgd "lazygit -p \$HOME/dotfiles/"
 alias mks "sudo make clean install"
 alias nethunter 'nmap -v -sn 192.168.0.1/24 | grep -v "host down"' # Search for all open hosts
+alias pushall "parallel git push ::: github forgejo origin"
+alias rb "rebos gen current build"
+alias rc "rebos gen commit $(date +%F%H%M)"
 alias sshadb "adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" # Use SSH over ADB
+alias sx "sh \$HOME/.config/sxhkd/__sxhkd"
 alias sxh 'nvim $HOME/.config/sxhkd/sxhkdrc' # Quick Access to System Bindings
 alias v nvim
-alias sx "sh \$HOME/.config/sxhkd/__sxhkd"
-alias rc "rebos gen commit $(date +%F%H%M)"
-alias rb "rebos gen current build"
 
 ## Script Shortcuts
 
