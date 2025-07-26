@@ -2,10 +2,12 @@
 
 # Sudo Commands
 
-for command in mount umount sv pacman su shutdown poweroff reboot; do
-  alias \$command="sudo \$command"
-done
-unset command
+[[ "$SHELL" != $(which bash) ]] && {
+  for command in mount umount sv pacman su shutdown poweroff reboot; do
+    alias \$command="sudo \$command"
+  done
+  unset command
+}
 
 ## Command Replacement
 
