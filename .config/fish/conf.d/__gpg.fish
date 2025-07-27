@@ -1,8 +1,4 @@
-if test -z $TTY
-    set TTY /dev/pts/0
-end
-
-set -x GPG_TTY $TTY
+set -x GPG_TTY $(tty)
 
 gpg-connect-agent updatestartuptty /bye &>/dev/null
 
