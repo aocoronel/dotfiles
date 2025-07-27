@@ -53,7 +53,7 @@ function ranger_cd() {
   if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
     cd -- "$chosen_dir"
   fi
-  rm -f -- "$temp_file"
+  rm -f -- "$temp_file" >/dev/null
 }
 
 # Change System Volume: changevol 100%
@@ -104,5 +104,5 @@ function y() {
   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     builtin cd -- "$cwd"
   fi
-  rm -f -- "$tmp"
+  rm -f -- "$tmp" >/dev/null
 }
