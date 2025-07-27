@@ -16,7 +16,7 @@ super + period;
 
 # Clear Clipboard
 super + alt + c;
-  clearboard.sh
+  clearboard
 
 # Clipoard Manager
 super + v;
