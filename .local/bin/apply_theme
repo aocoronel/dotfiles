@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+dotfiles_dir=$HOME/dotfiles/.config
+current_dir="$PWD"
+
+function elegantvagrant() {
+  fd -t f | while IFS= read -r repo; do
+    mkdir -p "$dotfiles_dir/$(dirname "$repo")"
+    ln -vsf "$current_dir/$repo" "$dotfiles_dir/$repo"
+  done
+
+  mv "$dotfiles_dir/emacs/elegant-vagrant-theme.el" "$dotfiles_dir/doom/themes/"
+  rmdir "$dotfiles_dir/emacs"
+  mv "$dotfiles_dir/ranger/elegantvagrant.py" "$dotfiles_dir/ranger/colorschemes/elegantvagrant.py"
+  mv "$dotfiles_dir/fuzzel/elegantvagrant_oled.ini" "$dotfiles_dir/fuzzel/fuzzel.ini"
+}
+
+case "$1" in
+elegantvagrant)
+  elegantvagrant
+  ;;
+esac
