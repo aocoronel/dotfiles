@@ -59,7 +59,7 @@ function _parallel() {
   cmd=$3
   parallels=${parallels:-10}
 
-  parallel -j "$parallels" sh "$(realpath "$0")" --parallel "$dev_dir" "$cmd" :::: "$repox_file"
+  parallel -j "$parallels" bash "$(realpath "$0")" --parallel "$dev_dir" "$cmd" :::: "$repox_file"
 }
 
 function main() {
