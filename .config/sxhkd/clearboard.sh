@@ -1,1 +1,0 @@
-/home/aocoronel/.config/hypr/scripts/clearboard.sh
