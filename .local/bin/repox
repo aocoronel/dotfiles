@@ -57,7 +57,7 @@ function _parallel() {
   dev_dir=$1
   repox_file=$2
   cmd=$3
-  parallels=${parallels:-10}
+  parallels=${parallels:-4}
 
   parallel -j "$parallels" bash "$(realpath "$0")" --parallel "$dev_dir" "$cmd" :::: "$repox_file"
 }
