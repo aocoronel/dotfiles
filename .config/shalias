@@ -43,7 +43,8 @@ alias ctrash='gio trash --empty' \
   nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"' \
   sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" \
   sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' \
-  v='nvim'
+  v='nvim' \
+  t='task'
 
 ## Script Shortcuts
 
@@ -101,7 +102,8 @@ fi
 
 alias nmap_open_ports="nmap --open" \
   nmap_list_interfaces="nmap --iflist" \
-  nmap_slow="sudo nmap -sS -v -T1" \ nmap_fin="sudo nmap -sF -v" \
+  nmap_slow="sudo nmap -sS -v -T1" \
+  nmap_fin="sudo nmap -sF -v" \
   nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v" \
   nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4" \
   nmap_ping_through_firewall="nmap -PS -PA" \
