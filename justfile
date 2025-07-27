@@ -1,8 +1,8 @@
-# Default just
+# List recipes (default)
 list:
   just --list
 
-# Run stow
+# Apply dotfiles
 stow:
   stow -R .
 
@@ -10,23 +10,11 @@ stow:
 check:
   gitleaks git
 
-# Config picom: Set config file (Xorg-only)
-config-picom:
-  picom --config "$HOME/.config/picom.conf"
-
-# Config oh-my-posh: Set config file
-config-posh:
-  oh-my-posh --config "$HOME/.config/picom.conf"
-
-# Run install.sh (Arch Linux) >> Unmaintained
-install:
-  sh "$HOME/dotfiles/install.sh"
-
-# Install TPM
+# Install Tmux Package Manager
 install-tpm:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# Fix Arch Linux Keyring if downloaded packages retrieve a gpg corrupt signature
+# Fix Arch Linux Keyring if has a corrupt signature
 fix-keyring:
   sudo rm -R /etc/pacman.d/gnupg/
   sudo rm -R /root/.gnupg/
@@ -44,13 +32,9 @@ gnome-font:
 # Install Invidious
 install-invidious:
   docker run quay.io/invidious/youtube-trusted-session-generator
-  git clone https://github.com/iv-org/invidious.git
-  mv ./invidious.yaml ~/dotfiles/invidious/docker-compose.yml
+  git clone https://github.com/iv-org/invidious.git $HOME/invidious
+  mv -f ./invidious.yaml ~/invidious/docker-compose.yml
   echo "Manual changes required. See https://docs.invidious.io/installation/#docker-compose-method-production for details"
-
-# Install X CMD
-install-xcmd:
-  eval "$(curl https://get.x-cmd.com)"
 
 # Install Doom Emacs
 install-doom:
