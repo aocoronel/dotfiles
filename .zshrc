@@ -2,27 +2,41 @@
 
 ## Zinit
 
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [[ ! -d $ZINIT_HOME ]]; then
-    mkdir -p "$(dirname $ZINIT_HOME)"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-() { source "${ZINIT_HOME}/zinit.zsh" }
+PROMPT='%B%F{99}%2~ %(!.#.❯)%f%b '
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{11}(%b)%f'
+zstyle ':vcs_info:*' enable git
 
-## Plugins
+export TRANSIENT_PROMPT_TRANSIENT_PROMPT='%B%F{10}❯%b%f '
+export TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
 
-zinit ice depth=1
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light Aloxaf/fzf-tab
-zinit light zsh-users/zsh-autosuggestions
-zinit light jeffreytse/zsh-vi-mode
-zinit light MichaelAquilina/zsh-you-should-use
+plugins=("olets/zsh-transient-prompt" "zsh-users/zsh-syntax-highlighting" "zsh-users/zsh-completions" "Aloxaf/fzf-tab" "zsh-users/zsh-autosuggestions" "jeffreytse/zsh-vi-mode" "MichaelAquilina/zsh-you-should-use")
+plugin_dir="$HOME/.local/share/zsh/"
+mkdir -p "$plugin_dir"
+
+for plugin in ${plugins[@]}; do
+  [ ! -d "$plugin_dir/$plugin" ] && git clone https://github.com/$plugin  --single-branch --depth 1 "$plugin_dir/$plugin"
+done
+
+source $plugin_dir/olets/zsh-transient-prompt/transient-prompt.plugin.zsh
+source $plugin_dir/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source $plugin_dir/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
+source $plugin_dir/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $plugin_dir/MichaelAquilina/zsh-you-should-use/you-should-use.plugin.zsh
+source $plugin_dir/MichaelAquilina/zsh-you-should-use/zsh-you-should-use.plugin.zsh
+
+unset plugins plugin_dir
 
 ## oh-my-zsh
 
-zinit snippet OMZP::gpg-agent
-zinit snippet OMZP::taskwarrior
+# zinit snippet OMZP::gpg-agent
+# zinit snippet OMZP::taskwarrior
 
 # Sources
 
@@ -37,7 +51,7 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 # eval "$(navi widget zsh)"
 # eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
+# eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
 eval "$(direnv hook zsh)"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
