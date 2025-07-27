@@ -33,11 +33,6 @@ source $plugin_dir/MichaelAquilina/zsh-you-should-use/zsh-you-should-use.plugin.
 
 unset plugins plugin_dir
 
-## oh-my-zsh
-
-# zinit snippet OMZP::gpg-agent
-# zinit snippet OMZP::taskwarrior
-
 # Sources
 
 source "$HOME/.config/env"                  # Environment variables
@@ -47,12 +42,11 @@ source "$HOME/.config/shfunction"           # Functions
 
 # Tools
 
+# eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
+# eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-# eval "$(navi widget zsh)"
-# eval "$(starship init zsh)"
-# eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
-eval "$(direnv hook zsh)"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#050505,bg+:#262626
