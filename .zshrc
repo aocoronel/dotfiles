@@ -1,6 +1,4 @@
-# Plugins
-
-## Zinit
+## Prompt
 
 PROMPT='%B%F{99}%2~ %(!.#.❯)%f%b '
 autoload -Uz vcs_info
@@ -10,6 +8,8 @@ setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{11}(%b)%f'
 zstyle ':vcs_info:*' enable git
+
+# Plugins
 
 export TRANSIENT_PROMPT_TRANSIENT_PROMPT='%B%F{10}❯%b%f '
 export TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
@@ -29,7 +29,6 @@ source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 source $plugin_dir/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $plugin_dir/MichaelAquilina/zsh-you-should-use/you-should-use.plugin.zsh
-source $plugin_dir/MichaelAquilina/zsh-you-should-use/zsh-you-should-use.plugin.zsh
 
 unset plugins plugin_dir
 
