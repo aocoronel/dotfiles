@@ -5,7 +5,7 @@ set -gx EDITOR nvim
 set -gx PAGER bat
 set -gx MANPAGER "nvim +Man!"
 # set -gx WAYLAND_DISPLAY wayland-1
-set -x GPG_TTY $(tty)
+set -gx GPG_TTY $(tty)
 
 # PATH
 
