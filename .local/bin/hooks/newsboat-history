@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# "FreeTube friendly history file from watched YouTube videos
+# from Newsboat"
+
+NEWSBOAT_HISTORY_FILE=$HOME/.local/share/newsboat-history.db
+
+function _list() {
+  jq '"\(.title) // https://www.youtube.com/watch?v=\(.videoId) //  \(.description) "' "$NEWSBOAT_HISTORY_FILE"
+}
+
+function _get_metadata() {
+  timewatched=$(date +%s)
+  timewatched="$timewatched"000
+  video_json=$(yt-dlp -j "$URL" | jq --arg timewatched "$timewatched" '{
+  videoId: .id,
+  title: .title,
+  author: .uploader,
+  authorId: .channel_id,
+  published: ((.timestamp * 1000) + 3000),
+  description: .description,
+  viewCount: .view_count,
+  lengthSeconds: .duration,
+  watchProgress: null,
+  timeWatched: $timewatched,
+  isLive: .is_live,
+  type: "video",
+  lastViewedPlaylistType: "",
+  lastViewedPlaylistItemId: null
+}')
+}
+
+function main() {
+  _get_metadata || notify-send "Newsboat: Error" "Unable to insert history for current url"
+  if [[ ! -f "$NEWSBOAT_HISTORY_FILE" ]]; then
+    echo "$video_json" | sed 's/  "/"/g; s/: "/:"/g; s/} $/}/' | tr -d '\n' >"$NEWSBOAT_HISTORY_FILE"
+    echo "" >>"$NEWSBOAT_HISTORY_FILE"
+  else
+    echo "$video_json" | sed 's/  "/"/g; s/: "/:"/g; s/} $/}/' | tr -d '\n' >>"$NEWSBOAT_HISTORY_FILE"
+    echo "" >>"$NEWSBOAT_HISTORY_FILE"
+  fi
+}
+
+case "$1" in
+help)
+  help
+  exit 0
+  ;;
+list)
+  _list
+  exit 0
+  ;;
+*)
+  URL="$1"
+  main
+  ;;
+esac
