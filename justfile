@@ -48,3 +48,7 @@ install-termux:
 # Install Gemini CLI (reugn/gemini-cli)
 install-gemini:
   go install github.com/reugn/gemini-cli/cmd/gemini@latest
+
+# Install Clipmenu
+install-clipmenu:
+  git clone https://github.com/cdown/clipmenu.git $HOME/dev/3p/clipmenu
