@@ -6,7 +6,9 @@ theme_dir=$HOME/.config/theme
 function elegantvagrant() {
   git clone "https://codeberg.org/aocoronel/elegantvagrant" "$theme_dir/elegantvagrant"
 
-  fd . "$theme_dir/elegantvagrant" -t f | while IFS= read -r repo; do
+  cd "$theme_dir/elegantvagrant" || return 1
+  fd . -t f | while IFS= read -r repo; do
+    echo "$repo"
     mkdir -p "$dotfiles_dir/$(dirname "$repo")"
     ln -vsf "$theme_dir/elegantvagrant/$repo" "$dotfiles_dir/$repo"
   done
