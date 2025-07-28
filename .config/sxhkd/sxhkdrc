@@ -51,8 +51,8 @@ super + shift + o;
   rofi-obsidian o
 
 # Tmux Session Manager, Cmus Toggle
-super + c; {c,p}
-  {rofi-tmux, __cmus-remote}
+super + c; {c,p, n, shift + n}
+  {rofi-tmux, __cmus-remote, cmus-remote -n, cmus-remote -p}
 
 # Pomodoro Control
 super + p;
@@ -98,5 +98,5 @@ super + shift + n;
 super + y;
   yt-download -a
 
-super + e; {u,r}
-  {sh "$HOME/zscripts/rtsp" -h,sh "$HOME/zscripts/uptimer" call}
+super + e; {r, u}
+  {rtsp -h,uptimer call}
