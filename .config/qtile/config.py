@@ -38,11 +38,11 @@ from qtile_extras import widget
 
 # Leader key
 
-mod = "mod4"     # Super Key
+mod = "mod4"  # Super Key
 
 # Home Var
 
-home = os.path.expanduser('~')
+home = os.path.expanduser("~")
 
 # Binaries
 
@@ -50,66 +50,105 @@ term = "alacritty"
 
 # Functions
 
+
 @lazy.function
 def toggle_view(qtile):
     for win in qtile.current_group.windows:
         if hasattr(win, "toggle_minimize"):
             win.toggle_minimize()
 
+
 @lazy.function
 def smart_layout(qtile):
     current_layout_name = qtile.current_group.layout.name
-    if current_layout_name == 'columns':
-        qtile.current_group.layout = 'max'
-    elif current_layout_name == 'max':
-        qtile.current_group.layout = 'columns'
+    if current_layout_name == "columns":
+        qtile.current_group.layout = "max"
+    elif current_layout_name == "max":
+        qtile.current_group.layout = "columns"
+
 
 # Keybindings
 
 keys = [
     Key([mod, "shift"], "Return", lazy.spawn(term)),
-
     # Qtile keybindings
-    Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
-    Key([mod,], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-
+    Key(
+        [mod, "shift"],
+        "Tab",
+        lazy.widget["keyboardlayout"].next_keyboard(),
+        desc="Next keyboard layout.",
+    ),
+    Key(
+        [
+            mod,
+        ],
+        "Tab",
+        lazy.next_layout(),
+        desc="Toggle between layouts",
+    ),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Quit Qtile"),
-
     # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-
     # Motion
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down a section"),
+    Key(
+        [mod, "shift"],
+        "j",
+        lazy.layout.shuffle_down(),
+        desc="Move window down a section",
+    ),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up a section"),
-
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key(
+        [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
+    ),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-
     # Columns essentials
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    Key([mod, "shift"], "space", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
-    Key([mod, "shift", "control"], "h", lazy.layout.swap_column_left(), desc="Swap columns to left"),
-    Key([mod, "shift", "control"], "l", lazy.layout.swap_column_right(), desc="Swap columns to right"),
-
+    Key(
+        [mod, "shift"],
+        "space",
+        lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack",
+    ),
+    Key(
+        [mod, "shift", "control"],
+        "h",
+        lazy.layout.swap_column_left(),
+        desc="Swap columns to left",
+    ),
+    Key(
+        [mod, "shift", "control"],
+        "l",
+        lazy.layout.swap_column_right(),
+        desc="Swap columns to right",
+    ),
     # Extra management
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
-    Key([mod], "t", lazy.window.toggle_floating(), desc='toggle floating'),
-    Key([mod], "f", smart_layout(), lazy.window.toggle_fullscreen(), desc='toggle fullscreen'),
-    Key([mod, "shift"], "m", toggle_view(), desc="Toggle hide/show all windows on current group"),
-
-    Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
-    Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
+    Key([mod], "m", lazy.layout.maximize(), desc="Toggle between min and max sizes"),
+    Key([mod], "t", lazy.window.toggle_floating(), desc="toggle floating"),
+    Key(
+        [mod],
+        "f",
+        smart_layout(),
+        lazy.window.toggle_fullscreen(),
+        desc="toggle fullscreen",
+    ),
+    Key(
+        [mod, "shift"],
+        "m",
+        toggle_view(),
+        desc="Toggle hide/show all windows on current group",
+    ),
+    Key([mod], "period", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([mod], "comma", lazy.prev_screen(), desc="Move focus to prev monitor"),
 ]
 
 # Group Settings
@@ -121,7 +160,9 @@ keys = [
 groups = [
     Group("1", label="1", matches=[Match(wm_class="zen-beta")]),
     Group("2", label="2"),
-    Group("3", label="3", matches=[Match(wm_class="obsidian"), Match(wm_class="neovide")]),
+    Group(
+        "3", label="3", matches=[Match(wm_class="obsidian"), Match(wm_class="neovide")]
+    ),
     Group("4", label="4"),
     Group("5", label="5"),
     Group("6", label="6"),
@@ -130,7 +171,17 @@ groups = [
     Group("9", label="9", matches=[Match(wm_class="freetube")]),
 ]
 
-group_layouts = ["columns", "columns", "columns", "columns", "columns", "columns", "columns", "columns", "columns"]
+group_layouts = [
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+    "columns",
+]
 
 # for i in range(len(group_names)):
 #     groups.append(
@@ -161,71 +212,68 @@ for i in groups:
 # Customization
 
 ElegantVagrant = [
-    ["#00000000", "#00000000"], # color00
-    ["#ffffff", "#ffffff"],     # color01
-    ["#1c1f24", "#1c1f24"],     # color02
-    ["#02f789", "#02f789"],     # color03
-    ["#f067fc", "#f067fc"],     # color04
-    ["#7C5CFF", "#7C5CFF"],     # color05
-    ["#f4f113", "#f4f113"],     # color06
-    ["#5e12ea", "#5e12ea"],     # color07
-    ["#46d9ff", "#46d9ff"],     # color08
-    ["#fc0f99", "#fc0f99"],     # color09
+    ["#00000000", "#00000000"],  # color00
+    ["#ffffff", "#ffffff"],  # color01
+    ["#1c1f24", "#1c1f24"],  # color02
+    ["#02f789", "#02f789"],  # color03
+    ["#f067fc", "#f067fc"],  # color04
+    ["#7C5CFF", "#7C5CFF"],  # color05
+    ["#f4f113", "#f4f113"],  # color06
+    ["#5e12ea", "#5e12ea"],  # color07
+    ["#46d9ff", "#46d9ff"],  # color08
+    ["#fc0f99", "#fc0f99"],  # color09
 ]
 
 colors = ElegantVagrant
 
 # Layouts
 
-layout_theme = {"border_width": 2,
-                "margin": 1,
-                "border_focus": colors[7],
-                "border_normal": colors[0]
-                }
+layout_theme = {
+    "border_width": 2,
+    "margin": 1,
+    "border_focus": colors[7],
+    "border_normal": colors[0],
+}
 
 layouts = [
-    #layout.Bsp(**layout_theme),
-    #layout.Floating(**layout_theme)
-    #layout.RatioTile(**layout_theme),
-    #layout.VerticalTile(**layout_theme),
-    #layout.Matrix(**layout_theme),
-    #layout.MonadTall(**layout_theme),
-    #layout.MonadWide(**layout_theme),
-    #layout.Tile(**layout_theme),
+    # layout.Bsp(**layout_theme),
+    # layout.Floating(**layout_theme)
+    # layout.RatioTile(**layout_theme),
+    # layout.VerticalTile(**layout_theme),
+    # layout.Matrix(**layout_theme),
+    # layout.MonadTall(**layout_theme),
+    # layout.MonadWide(**layout_theme),
+    # layout.Tile(**layout_theme),
     layout.Max(
-         border_width = 0,
-         margin = 0,
-         ),
-    #layout.Stack(**layout_theme, num_stacks=2),
-    layout.Columns(
-        border_widt = 2,
-        margin = 2,
-        border_focus = colors[7],
-        border_normal = colors[0],
-        border_focus_stack = colors[9],
+        border_width=0,
+        margin=0,
     ),
-    #layout.TreeTab(**layout_theme),
-    #layout.Zoomy(**layout_theme),
+    # layout.Stack(**layout_theme, num_stacks=2),
+    layout.Columns(
+        border_widt=2,
+        margin=2,
+        border_focus=colors[7],
+        border_normal=colors[0],
+        border_focus_stack=colors[9],
+    ),
+    # layout.TreeTab(**layout_theme),
+    # layout.Zoomy(**layout_theme),
 ]
 
 # Widgets
 
-widget_defaults = dict(
-    font="Ubuntu Bold",
-    fontsize = 11,
-    padding = 0,
-    background=colors[0]
-)
+widget_defaults = dict(font="Ubuntu Bold", fontsize=11, padding=0, background=colors[0])
 
 extension_defaults = widget_defaults.copy()
 
+
 def init_widgets_list():
     widgets_list = [
-        widget.Spacer(length = 5),
+        widget.Spacer(length=5),
         widget.Clock(
-                 foreground = colors[6],
-                 format = "%a, %b %d - %H:%M",
-                 ),
+            foreground=colors[6],
+            format="%a, %b %d - %H:%M",
+        ),
         # widget.Spacer(length = 7),
         # widget.Pomodoro(
         #     notifications_on = True,
@@ -233,74 +281,86 @@ def init_widgets_list():
         #     color_inactive = colors[9],
         #     color_break = colors[3],
         #     ),
-        widget.Spacer(length = 7),
+        widget.Spacer(length=7),
         widget.Cmus(),
         widget.Spacer(bar.STRETCH),
         widget.GroupBox(
-                 fontsize = 11,
-                 margin_y = 3,
-                 margin_x = 4,
-                 padding_y = 2,
-                 padding_x = 3,
-                 borderwidth = 2,
-                 active = colors[8],
-                 inactive = colors[1],
-                 hide_unused = True,
-                 rounded = True,
-                 highlight_color = colors[2],
-                 highlight_method = "line",
-                 this_current_screen_border = colors[7],
-                 this_screen_border = colors [4],
-                 other_current_screen_border = colors[7],
-                 other_screen_border = colors[4],
-                 ),
+            fontsize=11,
+            margin_y=3,
+            margin_x=4,
+            padding_y=2,
+            padding_x=3,
+            borderwidth=2,
+            active=colors[8],
+            inactive=colors[1],
+            hide_unused=True,
+            rounded=True,
+            highlight_color=colors[2],
+            highlight_method="line",
+            this_current_screen_border=colors[7],
+            this_screen_border=colors[4],
+            other_current_screen_border=colors[7],
+            other_screen_border=colors[4],
+        ),
         widget.Spacer(bar.STRETCH),
         widget.Net(
-                 format = '{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}',
-                 foreground = colors[3],
-                 ),
-        widget.Spacer(length = 5),
+            format="{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}",
+            foreground=colors[3],
+        ),
+        widget.Spacer(length=5),
         # widget.Battery(
         #         hide_crash = True,
         #         format = '󰁹{percent: 2.0%}',
         #         foreground = colors[6],
         #         ),
-        widget.Spacer(length = 5),
+        widget.Spacer(length=5),
         widget.CPU(
-                 format = '  {load_percent}%',
-                 foreground = colors[9],
-                 ),
-        widget.Spacer(length = 5),
+            format="  {load_percent}%",
+            foreground=colors[9],
+        ),
+        widget.Spacer(length=5),
         widget.Memory(
-                 foreground = colors[8],
-                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term + ' -e bpytop')},
-                 format = '{MemUsed: .0f}{mm}',
-                 fmt = '  {}',
-                 ),
-        widget.Spacer(length = 5),
+            foreground=colors[8],
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(term + " -e bpytop")},
+            format="{MemUsed: .0f}{mm}",
+            fmt="  {}",
+        ),
+        widget.Spacer(length=5),
         widget.KeyboardLayout(
-                 foreground = colors[5],
-                 fmt = '  {}',
-                 configured_keyboards = ['us', 'br'],
-                 ),
-        widget.Spacer(length = 5),
-        widget.Systray(padding = 3),
-        widget.Spacer(length = 5),
-        ]
+            foreground=colors[5],
+            fmt="  {}",
+            configured_keyboards=["us", "br"],
+        ),
+        widget.Spacer(length=5),
+        widget.Systray(padding=3),
+        widget.Spacer(length=5),
+    ]
     return widgets_list
 
+
 def init_widgets_screen1():
-      widgets_screen1 = init_widgets_list()
-      return widgets_screen1
+    widgets_screen1 = init_widgets_list()
+    return widgets_screen1
+
 
 # def init_widgets_screen2():
 #      widgets_screen2 = init_widgets_list()
 #      return widgets_screen2
 
+
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), background="#00000000", size=24, opacity=1)),
-#        Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24, opacity=1)),
-]
+    return [
+        Screen(
+            top=bar.Bar(
+                widgets=init_widgets_screen1(),
+                background="#00000000",
+                size=24,
+                opacity=1,
+            )
+        ),
+        #        Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24, opacity=1)),
+    ]
+
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -309,8 +369,15 @@ if __name__ in ["config", "__main__"]:
 #   widgets_screen2 = init_widgets_screen2()
 
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
@@ -325,16 +392,16 @@ floating_layout = layout.Floating(
     border_width=2,
     float_rules=[
         *layout.Floating.default_float_rules,
-        Match(wm_class="dialog"),         # dialog boxes
-        Match(wm_class="download"),       # downloads
-        Match(wm_class="error"),          # error msgs
+        Match(wm_class="dialog"),  # dialog boxes
+        Match(wm_class="download"),  # downloads
+        Match(wm_class="error"),  # error msgs
         Match(wm_class="file_progress"),  # file progress boxes
-        Match(wm_class="notification"),   # notifications
-        Match(wm_class='pinentry-gtk-2'), # GPG key password entry
-        Match(wm_class="toolbar"),        # toolbars
-        Match(wm_class="zenity"),         # Zenity popups
-        Match(title="pinentry"),          # GPG key password entry
-    ]
+        Match(wm_class="notification"),  # notifications
+        Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
+        Match(wm_class="toolbar"),  # toolbars
+        Match(wm_class="zenity"),  # Zenity popups
+        Match(title="pinentry"),  # GPG key password entry
+    ],
 )
 
 auto_fullscreen = True
@@ -352,9 +419,11 @@ wl_xcursor_size = 24
 
 # Autostart
 
+
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
+
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
