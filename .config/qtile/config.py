@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 
 # Binaries
 
-term = "kitty"
+term = "alacritty"
 
 # Functions
 
@@ -67,11 +67,11 @@ def smart_layout(qtile):
 # Keybindings
 
 keys = [
-    Key([mod], "Return", lazy.spawn(term)),
+    Key([mod, "shift"], "Return", lazy.spawn(term)),
 
     # Qtile keybindings
     Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod,], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
