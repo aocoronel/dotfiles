@@ -7,6 +7,7 @@ if ! command -v rofi &>/dev/null; then
   exit 1
 fi
 
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config/}
 ENV_FILE="$XDG_CONFIG_HOME/scriptenv"
 
 if [ -z "$ENV_FILE" ]; then
