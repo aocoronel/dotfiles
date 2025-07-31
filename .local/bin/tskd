@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "View your taskwarrior completed tasks using a natural language search"
 
@@ -15,7 +15,7 @@ October
 November
 December"
 
-function tskd() {
+tskd() {
   local start_date=""
   local end_date=""
 
@@ -23,7 +23,7 @@ function tskd() {
   *-W[0-9][0-9]) # Matches YYYY-WXX
     year=$(echo "$1" | awk -F '-W' '{print $1}')
     week=$(echo "$1" | awk -F '-W' '{print $2}')
-    printf -v week "%02d" "$week"
+    week=$(printf "%02d" "$week")
     start_date=$(date -d "$year-01-04 +$(((week - 1) * 7)) days -$(date -d "$year" +%u) days +1 day" '+%F')
     end_date=$(date -d "$start_date +6 days" '+%F')
     ;;
@@ -47,7 +47,7 @@ function tskd() {
       start_date="$year-$month_number-01"
       end_date=$(date -d "$start_date +1 month" '+%F')
     else
-      if [[ $1 = "" ]]; then # Today
+      if [ -z $1 ]; then # Today
         start_date=$(date '+%F')
         end_date=$(date -d "$start_date +1 day" '+%F')
       else # YYYY-MM-DD
