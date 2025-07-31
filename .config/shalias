@@ -49,13 +49,12 @@ alias ctrash='gio trash --empty' \
 ## Script Shortcuts
 
 alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
-  fv="sh \$SCRIPTS/__flashcards.sh" \
   jnd="jn journal day Journals/Daily" \
-  o="\$HOME/scripts/__obsidian-helper.sh" \
+  o="__obsidian-helper.sh" \
   rr="ranger_cd" \
-  s="\$HOME/.local/bin/search -s" \
-  sm="\$HOME/.local/bin/sshmanager" \
-  tt="\$HOME/scripts/taskwarrior-helper"
+  s="search -s" \
+  sm="sshmanager" \
+  tt="taskwarrior-helper"
 
 # Distros
 
