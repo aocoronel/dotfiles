@@ -13,8 +13,10 @@ function elegantvagrant() {
     ln -vsf "$theme_dir/elegantvagrant/$repo" "$dotfiles_dir/$repo"
   done
 
-  mv "$dotfiles_dir/emacs/elegant-vagrant-theme.el" "$dotfiles_dir/doom/themes/"
+  mkdir -p "$dotfiles_dir/doom/themes/"
+  mv "$dotfiles_dir/emacs/elegant-vagrant-theme.el" "$dotfiles_dir/doom/themes/elegant-vagrant-theme.el"
   rmdir "$dotfiles_dir/emacs"
+  mkdir -p "$dotfiles_dir/ranger/colorschemes"
   mv "$dotfiles_dir/ranger/elegantvagrant.py" "$dotfiles_dir/ranger/colorschemes/elegantvagrant.py"
   mv "$dotfiles_dir/fuzzel/elegantvagrant_oled.ini" "$dotfiles_dir/fuzzel/fuzzel.ini"
 }
