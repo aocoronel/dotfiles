@@ -52,3 +52,6 @@ install-gemini:
 # Install Clipmenu
 install-clipmenu:
   git clone https://github.com/cdown/clipmenu.git $HOME/dev/3p/clipmenu
+
+install-taskwarrior-tui-2v:
+  xdg-open https://github.com/kdheepak/taskwarrior-tui/releases/tag/v0.25.4
