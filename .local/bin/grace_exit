@@ -1,27 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "Gracefully halt the system"
 
-source "$XDG_CONFIG_HOME/scriptenv"
-
 EXIT_CMD=poweroff
 
-function umount_dir() {
-  if [ -z "$(ls -A "$BEELZEBUB")" ]; then
-    echo "Directory '$BEELZEBUB' is empty"
-    return 0
-  else
-    if fusermount -u -z "$BEELZEBUB"; then
-      echo "Successfully unmounted $BEELZEBUB"
-      return 0
-    else
-      echo "Failed to unmount $BEELZEBUB"
-      return 1
-    fi
-  fi
-}
-
-function stop_services() {
+stop_services() {
   command -v podman >/dev/null 2>&1 && {
     echo "Stopping Podman Containers..."
     podman stop --all >/dev/null
@@ -30,26 +13,22 @@ function stop_services() {
     echo "Stopping Tmux Sessions..."
     tmux kill-server
   }
-  if [[ -d "$BEELZEBUB" ]]; then
-    echo "Umounting Drives..."
-    umount_dir
-  fi
   command -v tomb >/dev/null 2>&1 && {
     echo "Slamming open Tombs..."
     tomb slam
   }
 }
 
-function main() {
-  local cmd=${1:-"$EXIT_CMD"}
+main() {
+  cmd=${1:-"$EXIT_CMD"}
   stop_services
   echo "See ya!"
   sleep 2
-  if [ "$cmd" == "reboot" ]; then
+  if [ "$cmd" = "reboot" ]; then
     reboot
   else
     poweroff
   fi
 }
 
-main $@
+main "$@"

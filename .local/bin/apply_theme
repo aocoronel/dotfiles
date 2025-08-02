@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 dotfiles_dir=$HOME/dotfiles/.config
 theme_dir=$HOME/.config/theme
 
-function elegantvagrant() {
+elegantvagrant() {
   git clone "https://codeberg.org/aocoronel/elegantvagrant" "$theme_dir/elegantvagrant"
 
   cd "$theme_dir/elegantvagrant" || return 1
