@@ -71,7 +71,7 @@ function mountd() {
 # Specific Rsync
 # "Instead of cloning the whole directory, run it only on
 # specific directories from the source directory"
-function mirror() {
+function rsync-mirror() {
   dest=$1
   [[ -z "$dest" ]] && {
     echo "Not destination drive selected"
