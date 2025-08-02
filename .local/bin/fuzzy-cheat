@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # shellcheck disable=SC2120
 
 CHEAT_DIR=${CHEAT_DIR:-$HOME/.local/share/cheats}
 
-function main() (
+main() (
   RELOAD='reload:rg --no-filename --no-line-number --color=always --smart-case {q} || :'
   cd "$CHEAT_DIR" || return 1
   fzf --disabled --ansi --multi \

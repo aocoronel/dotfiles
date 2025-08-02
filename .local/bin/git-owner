@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
-function help() {
+help() {
   cat <<EOF
 Disclaimer!
 
@@ -31,7 +31,7 @@ $0 apply
 EOF
 }
 
-function apply() {
+apply() {
   git filter-branch -f --env-filter '
 if [ "$GIT_AUTHOR_EMAIL" = "aocoronel@particular.slmail.me" ]
 then

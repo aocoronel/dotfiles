@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "Rotate Youtube visitor data and po_token"
 
@@ -12,7 +12,7 @@ po_token=$(grep "po_token" token.txt | awk -F ':' '{print $2}')
 sed -i "s/^\([[:space:]]*visitor_data:\)[[:space:]]*.*/\1 $visitor_data/" "$invidious_config" && visitor_ok=True
 sed -i "s/^\([[:space:]]*po_token:\)[[:space:]]*.*/\1 $po_token/" "$invidious_config" && po_ok=True
 
-if [ "$visitor_ok" == "True" ] || [ "$po_ok" == "True" ]; then
+if [ "$visitor_ok" = "True" ] || [ "$po_ok" = "True" ]; then
   echo "Tokens successfully updated!"
 else
   echo "Tokens failed to be updated!"

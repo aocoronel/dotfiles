@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
-function help() {
+help() {
   cat <<EOF
 A git repository utility
 
@@ -22,25 +22,24 @@ Flags:
 EOF
 }
 
-function _git() {
-  local repo repo_name local_repo
+_git() {
   repo=$1
   repo_name=$(basename "$repo" .git)
   local_repo="$dev_dir/$sub_dir/$repo_name"
 
   if [ ! -d "$local_repo" ] && [ "$cmd" != "clone" ]; then
     cmd=clone
-  elif [ -d "$local_repo" ] && [ "$cmd" == "clone" ]; then
+  elif [ -d "$dev_dir/$sub_dir" ] && [ "$cmd" = "clone" ]; then
     return 1
   fi
 
-  if [ "$cmd" == "status" ]; then
+  if [ "$cmd" = "status" ]; then
     if git -C "$local_repo" "$cmd" --porcelain | grep -q .; then
       echo "Git status of repository: $repo"
       git -C "$local_repo" "$cmd"
     fi
-  elif [ "$cmd" == "clone" ]; then
-    if ! git -C "$local_repo" "$cmd" "$repo"; then
+  elif [ "$cmd" = "clone" ]; then
+    if ! git -C "$dev_dir/$sub_dir" "$cmd" "$repo"; then
       echo "An error occured at $repo"
       return 1
     fi
@@ -52,8 +51,7 @@ function _git() {
   fi
 }
 
-function _parallel() {
-  local dev_dir repox_file
+_parallel() {
   dev_dir=$1
   repox_file=$2
   cmd=$3
@@ -62,9 +60,7 @@ function _parallel() {
   parallel -j "$parallels" bash "$(realpath "$0")" --parallel "$dev_dir" "$cmd" :::: "$repox_file"
 }
 
-function main() {
-  local sub_dir cmd repox_file dev_dir
-
+main() {
   cmd=$1
   sub_dir=$2
 
@@ -75,7 +71,7 @@ function main() {
 
   repox_file=${REPOX_FILE:-$HOME/.repox}
 
-  if [[ -n "$DEV" ]]; then
+  if [ -n "$DEV" ]; then
     dev_dir="$DEV/$sub_dir"
   else
     dev_dir="$HOME/dev/$sub_dir"
@@ -85,7 +81,7 @@ function main() {
 
   _parallel "$dev_dir" "$repox_file" "$cmd"
 
-  echo -e "\nRepox finished"
+  printf "\nRepox finished"
 }
 
 while getopts ":h-p:c:" opt; do

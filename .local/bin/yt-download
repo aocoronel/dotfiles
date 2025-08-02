@@ -85,7 +85,7 @@ case "$1" in
   ;;
 -v | --video)
   shift
-  mode=best
+  mode=b
   download $@
   exit 0
   ;;

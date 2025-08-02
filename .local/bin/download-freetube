@@ -1,24 +1,24 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "Downloads videos/audio from a FreeTube playlist file"
 
-if ! command -v jq &>/dev/null; then
+if ! command -v jq >/dev/null; then
   echo "jq could not be found. Please install it."
   exit 1
 fi
 
-function get_url() {
+get_url() {
   get_playlist
-  if [[ -z "$playlist" ]]; then
+  if [ -z "$playlist" ]; then
     echo "No playlist selected. Exiting."
     exit 1
   fi
-  jq -r "select(.playlistName == \"$playlist\") | .videos[].videoId | \"https://youtu.be/\" + ." "$file" >$PWD/"$playlist".txt
+  jq -r "select(.playlistName == \"$playlist\") | .videos[].videoId | \"https://youtu.be/\" + ." "$file" >"$PWD/$playlist.txt"
 }
 
-function get_data() {
+get_data() {
   get_playlist
-  if [[ -z "$playlist" ]]; then
+  if [ -z "$playlist" ]; then
     echo "No playlist selected. Exiting."
     exit 1
   fi
@@ -29,21 +29,21 @@ function get_data() {
 ' "$file" >"$PWD/$playlist.txt"
 }
 
-function get_playlist() {
-  playlist=$(jq -r '.playlistName' $file | fzf --prompt "Select a playlist: ")
+get_playlist() {
+  playlist=$(jq -r '.playlistName' "$file" | fzf --prompt "Select a playlist: ")
 }
 
-function download() {
-  ~/scripts/yt-download -b $PWD/"$playlist".txt $format
+download() {
+  ~/scripts/yt-download -b "$PWD/$playlist.txt" "$format"
 }
 
-function convert_csv() {
+convert_csv() {
   get_playlist
-  if [[ -z "$playlist" ]]; then
+  if [ -z "$playlist" ]; then
     echo "No playlist selected. Exiting."
     exit 1
   fi
-  local CSV_FILE=$playlist.csv
+  CSV_FILE="$playlist.csv"
   echo "PlaylistBrowseId,PlaylistName,MediaId,Title,Artists,Duration,ThumbnailUrl" >"$CSV_FILE"
   jq -r --arg playlist "$playlist" '
   select(.playlistName == $playlist) |
@@ -60,7 +60,7 @@ function convert_csv() {
 ' "$file" >>"$CSV_FILE"
 }
 
-function main() {
+main() {
   case "$1" in
   store)
     shift
@@ -75,7 +75,7 @@ function main() {
   *)
     file=$1   # FreeTube.db
     format=$2 # video/audio
-    if [[ -z "$file" || -z "$format" ]]; then
+    if [ -z "$file" ] || [ -z "$format" ]; then
       echo "Usage: $0 [file] [format]"
       echo "Format: video/audio"
       exit 1
