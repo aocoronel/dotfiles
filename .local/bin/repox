@@ -122,6 +122,9 @@ clone)
 pull)
   main "$@"
   ;;
+push)
+  main "$@"
+  ;;
 status)
   main "$@"
   ;;
