@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 if [ -z "$1" ]; then
   url="$(xclip -o)"
@@ -13,7 +13,7 @@ if [ -n "$TERMUX_VERSION" ]; then
 else
   case "$url" in
   *mkv | *webm | *mp4 | *youtube.com/watch* | *youtube.com/playlist* | *youtube.com/shorts* | *youtu.be*)
-    [[ -x "$(command -v newsboat-history)" ]] && bash "$(dirname "$(realpath "$0")")/hooks/newsboat-history" "$url" &
+    [ -x "$(command -v newsboat-history)" ] && bash "$(dirname "$(realpath "$0")")/hooks/newsboat-history" "$url" &
     setsid -f mpv -quiet "$url" >/dev/null 2>&1
     ;;
   *png | *jpg | *jpe | *jpeg | *gif | *webp)

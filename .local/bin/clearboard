@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 clipmethod="$XDG_SESSION_TYPE"
 
-function main() {
+main() {
   if [ "$clipmethod" = "x11" ]; then
     echo "" | xclip -sel clip
     [ -x "$(command -v clipmenu)" ] && {
-      [[ -n "$XDG_RUNTIME_DIR" ]] && {
+      [ -n "$XDG_RUNTIME_DIR" ] && {
         rm -rf "$XDG_RUNTIME_DIR/clipmenu.7.1000/" || notify-send "Clipmenu: Error" "Failed to wipe clipboard history"
       }
     }

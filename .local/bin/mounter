@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "Easily mount encrypted devices using PasswordStore"
 
-function help() {
+help() {
   cat <<EOF
 External Driver Mounter
 
@@ -18,10 +18,11 @@ Commands:
 EOF
 }
 
-function adddrive() {
+adddrive() {
   echo "Existing drives:"
   ls /mnt/
-  read -p "Name your drive: " drivename
+  printf "Name your drive: "
+  read -r drivename
   if [ ! -d "/mnt/$drivename" ]; then
     sudo mkdir "/mnt/$drivename"
     sudo chown "$USER:$USER" "/mnt/$drivename"
@@ -35,7 +36,7 @@ function adddrive() {
   fi
 }
 
-function mounter() {
+mounter() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   drive=$(ls /mnt/ | fzf --prompt "Previously mounted devices: ")
   passdir="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
@@ -54,17 +55,18 @@ function mounter() {
   exit 0
 }
 
-function imount() {
+imount() {
   device=$(ls /dev | grep -E "sd[a-z]+[0-9]+$" | fzf --prompt "Choose a drive to mount: ")
   echo "Previously mounted devices:" && ls /mnt/
-  read -p "Name the drive: " drive
+  printf "Name the drive: "
+  read -r drive
   sudo cryptsetup luksOpen "/dev/$device" "$drive" && echo "$device has been opened and named as $drive!"
   sudo mount "/dev/mapper/$drive" "/mnt/$drive/" && echo "$drive has been mounted to /mnt/$drive!"
   sleep 1
   exit 0
 }
 
-function unmount() {
+unmount() {
   drive=$(ls /dev/mapper/ | fzf --prompt "Choose a drive to umount: ")
   sudo umount "/mnt/$drive/"
   sudo cryptsetup luksClose "$drive" && echo "$drive has been umounted!"
@@ -72,17 +74,18 @@ function unmount() {
   exit 0
 }
 
-function read_option() {
+read_option() {
   while true; do
     help
-    read -p "Choose an option (add/iopen/open/close): " option
-    if [ "$option" == "open" ]; then
+    printf "Choose an option (add/iopen/open/close): "
+    read -r option
+    if [ "$option" = "open" ]; then
       mounter
-    elif [ "$option" == "iopen" ]; then
+    elif [ "$option" = "iopen" ]; then
       imount
-    elif [ "$option" == "close" ]; then
+    elif [ "$option" = "close" ]; then
       unmount
-    elif [ "$option" == "add" ]; then
+    elif [ "$option" = "add" ]; then
       adddrive
     else
       exit 0

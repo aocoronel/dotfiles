@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # "Nvim + Tmux integration to launch a floating terminal"
 
@@ -6,13 +6,13 @@ SHELL=${SHELL:-zsh}
 
 current_command=$(tmux display-message -p "#{pane_current_command}")
 
-if [[ "$current_command" == "nvim" ]]; then
+if [ "$current_command" = "nvim" ]; then
   tmux send-keys -t 0 ':echo fnamemodify(expand("'%:p'"), ":h")' C-m
   sleep 0.1
 
   dir=$(tmux capture-pane -pS - -E - | grep -oE '/[^[:space:]]+' | tail -n1)
 
-  if [[ -n "$dir" ]]; then
+  if [ -n "$dir" ]; then
     tmux display-popup -h 90% -w 90% -E \
       "$SHELL -c 'cd \"$dir\" && exec $SHELL'"
   else
