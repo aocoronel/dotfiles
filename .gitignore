@@ -78,3 +78,8 @@ lib.pl
 playlists
 pt.utf-8.spl
 search-history
+.config/Meltytech
+.config/tenacity
+.config/QtProject.conf
+.config/secrets
+.local/bin/zscripts
