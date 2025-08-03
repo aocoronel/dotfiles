@@ -1,4 +1,4 @@
-data.location=~/.task
+data.location=~/.local/share/task
 
 # Colors
 
@@ -63,11 +63,11 @@ report.termux.columns=id,description,urgency,end
 report.termux.sort=end-\/,urgency-
 report.termux.filter=status:pending
 
-# Server
+# Server Taskwarrior 3
 
-sync.server.url=http:\/\/192.168.0.35:8080
-sync.server.client_id=6b00cabe-4e17-405f-878b-5b61a99cf326
-sync.encryption_secret=Chi7eiraAin2Uosuyo6Hee4o
+# sync.server.url=http:\/\/192.168.0.35:8080
+# sync.server.client_id=6b00cabe-4e17-405f-878b-5b61a99cf326
+# sync.encryption_secret=Chi7eiraAin2Uosuyo6Hee4o
 
 # Taskwarrior TUI
 
