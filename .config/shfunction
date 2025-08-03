@@ -51,7 +51,7 @@ function ranger_cd() {
   temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
   ranger --choosedir="$temp_file" -- "${@:-$PWD}"
   if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
-    cd -- "$chosen_dir"
+    cd -- "$chosen_dir" || return 1
   fi
   rm -f -- "$temp_file" >/dev/null
 }
@@ -94,7 +94,7 @@ function rsync-mirror() {
 
 # Fzf Change Directory
 function fcd() {
-  cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)"
+  cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)" || return 1
 }
 
 # Yazi Shell Integration - Moves to last directory yazi exits
@@ -102,7 +102,7 @@ function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    builtin cd -- "$cwd"
+    builtin cd -- "$cwd" || return 1
   fi
   rm -f -- "$tmp" >/dev/null
 }
