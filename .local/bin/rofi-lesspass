@@ -1,0 +1,104 @@
+#!/usr/bin/sh
+
+if ! command -v lesspass >/dev/null; then
+  echo "Lesspass is not installed."
+  exit 1
+fi
+
+getPass() {
+  MAINPASS=$(lesspass "$SITE" "$LESSPASS_LOGIN" "$MASTERPASS" --COUNTER "$COUNTER" -luds -L 35 || echo 1)
+
+  [ "$MAINPASS" -eq 1 ] && {
+    echo "Password failed to be generated!"
+    notify-send "LessPass: ERROR" "Password failed to be generated!"
+    exit 1
+  }
+
+  _copy "$MAINPASS" || {
+    echo "ERROR: Failed to copy password"
+    notify-send "LessPass: ERROR" "Failed to copy password"
+    exit 1
+  }
+
+  echo "Password copied! Clearing in 5 seconds..."
+  notify-send "LessPass: Copy" "Clearing the password from clipboard in 3 seconds..." --expire-time="4500 --wait"
+
+  wipeClipboard || {
+    echo "Failed to clear password!"
+    notify-send "LessPass: ERROR" "Failed to clear password!"
+    exit 1
+  }
+
+  echo "Password cleared!"
+  exit 0
+}
+
+wipeClipboard() {
+  _copy "" 0 || return 1
+  [ -x "$(command -v cliphist)" ] && cliphist wipe || return 1
+  [ -x "$(command -v clipmenu)" ] && clipdel -d "$MAINPASS" || return 1
+  unset "$MAINPASS"
+}
+
+_copy() {
+  clipmethod="$XDG_SESSION_TYPE"
+  copy="$1"
+  [ "$clipmethod" = "x11" ] && echo "$copy" | xclip -sel clip || return 1
+  [ "$clipmethod" = "wayland" ] && echo "$copy" | wl-copy || return 1
+}
+
+_rofi() {
+  HELP="<span color='#7c5cff'>Enter SITE</span>"
+  rofi -dmenu -i -no-levenshtein-sort -width 1000 -p ">" -mesg "${HELP}"
+}
+
+getArgs() {
+  COUNTER=${COUNTER:-1}
+
+  # Get site
+  SITE=$1
+  [ -z "$SITE" ] && {
+    PASSWORD_STORE_DIR=${PASSWORD_STORE_DIR:-$HOME/.password-store}
+    SITE=$(find -L "$PASSWORD_STORE_DIR" -type f -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' | _rofi)
+    SITE=$(basename "$SITE")
+  }
+
+  # Get login
+  [ -z "$LESSPASS_LOGIN" ] && [ -n "$2" ] && LESSPASS_LOGIN=$2
+  [ -z "$LESSPASS_LOGIN" ] && LESSPASS_LOGIN=$(whoami)
+
+  echo "$LESSPASS_LOGIN"
+
+  [ -z "$SITE" ] || [ -z "$LESSPASS_LOGIN" ] && {
+    echo "Usage: lesspass [-c COUNTER] SITE [LESSPASS_LOGIN]"
+    exit 1
+  }
+
+  # Get master password
+  [ -f "$HOME/.password-store/lesspass.gpg" ] && MASTERPASS=$(pass lesspass)
+  [ -z "$MASTERPASS" ] && {
+    echo "Please create a lesspass password at your $PASSWORD_STORE_DIR"
+    exit 1
+  }
+}
+
+main() {
+  getArgs "$@"
+  getPass
+}
+
+while getopts ":c:" opt; do
+  case "$opt" in
+  c)
+    COUNTER=$OPTARG
+    ;;
+  ?)
+    echo "ERROR: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+main "$@"
