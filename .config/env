@@ -11,16 +11,16 @@ export GPG_TTY=$(tty)
 
 # PATH
 
+export GOBIN="$HOME/dev/go/bin"
+export GOPATH="$HOME/dev/go/"
 export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
 export PATH="$HOME/.cargo/bin/:$PATH"                                 # Rust
 export PATH="$HOME/.config/emacs/bin:$PATH"                           # Emacs
-export PATH="$HOME/go/bin:$PATH"                                      # Golang
+export PATH="$GOBIN:$PATH"                                            # Golang
 export PATH="$HOME/.local/bin/:$PATH"                                 # Alternative
 export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"             # Ruby
 export PATH="$HOME/.local/share/gem/ruby/3.3.0/gems/:$PATH"           # Ruby
 export PATH="/run/wrappers/bin:$PATH"                                 # NixOS
-export GOBIN="$HOME/dev/go/bin"
-export GOPATH="$HOME/dev/go/"
 
 # Directories
 
