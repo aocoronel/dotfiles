@@ -12,7 +12,10 @@ if [ -n "$TERMUX_VERSION" ]; then
   setsid -f xdg-open "$url" >/dev/null 2>&1
 else
   case "$url" in
-  *mkv | *webm | *mp4 | *youtube.com/watch* | *youtube.com/playlist* | *youtube.com/shorts* | *youtu.be*)
+  *mkv | *webm | *mp4)
+    setsid -f mpv -quiet "$url" >/dev/null 2>&1
+    ;;
+  *youtube.com/watch* | *youtube.com/playlist* | *youtube.com/shorts* | *youtu.be*)
     [ -x "$(command -v newsboat-history)" ] && bash "$(dirname "$(realpath "$0")")/hooks/newsboat-history" "$url" &
     setsid -f mpv -quiet "$url" >/dev/null 2>&1
     ;;
