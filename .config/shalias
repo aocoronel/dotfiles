@@ -1,14 +1,5 @@
 #!/bin/env bash
 
-# Sudo Commands
-
-[[ "$SHELL" != $(which bash) ]] && {
-  for command in mount umount sv pacman su shutdown poweroff reboot; do
-    alias \$command="sudo \$command"
-  done
-  unset command
-}
-
 ## Command Replacement
 
 alias cat='bat' \
@@ -50,7 +41,7 @@ alias ctrash='gio trash --empty' \
 
 alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
   jnd="jn journal day Journals/Daily" \
-  o="__obsidian-helper.sh" \
+  o="obsidian-helper" \
   rr="ranger_cd" \
   s="search -s" \
   sm="sshmanager" \
@@ -119,3 +110,12 @@ alias nmap_open_ports="nmap --open" \
 
 # alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Mount" "Drive umounted"'
 # alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Mount" "Drive mounted"'
+
+# Sudo Commands for Artix
+
+# [[ "$SHELL" != $(which bash) ]] && {
+#   for command in mount umount sv pacman su shutdown poweroff reboot; do
+#     alias \$command="sudo \$command"
+#   done
+#   unset command
+# }
