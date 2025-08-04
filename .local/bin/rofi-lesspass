@@ -6,9 +6,9 @@ if ! command -v lesspass >/dev/null; then
 fi
 
 getPass() {
-  MAINPASS=$(lesspass "$SITE" "$LESSPASS_LOGIN" "$MASTERPASS" --COUNTER "$COUNTER" -luds -L 35 || echo 1)
+  MAINPASS=$(lesspass "$SITE" "$LESSPASS_LOGIN" "$MASTERPASS" --counter "$COUNTER" -luds -L 35 || echo 1)
 
-  [ "$MAINPASS" -eq 1 ] && {
+  [ "$MAINPASS" = "1" ] && {
     echo "Password failed to be generated!"
     notify-send "LessPass: ERROR" "Password failed to be generated!"
     exit 1
@@ -21,7 +21,7 @@ getPass() {
   }
 
   echo "Password copied! Clearing in 5 seconds..."
-  notify-send "LessPass: Copy" "Clearing the password from clipboard in 3 seconds..." --expire-time="4500 --wait"
+  notify-send "LessPass: Copy" "Clearing the password from clipboard in 5 seconds..." --expire-time=4500 --wait
 
   wipeClipboard || {
     echo "Failed to clear password!"
@@ -35,16 +35,16 @@ getPass() {
 
 wipeClipboard() {
   _copy "" 0 || return 1
-  [ -x "$(command -v cliphist)" ] && cliphist wipe || return 1
-  [ -x "$(command -v clipmenu)" ] && clipdel -d "$MAINPASS" || return 1
+  [ -x "$(command -v cliphist)" ] && cliphist wipe
+  [ -x "$(command -v clipmenu)" ] && clipdel -d "$MAINPASS"
   unset "$MAINPASS"
 }
 
 _copy() {
   clipmethod="$XDG_SESSION_TYPE"
   copy="$1"
-  [ "$clipmethod" = "x11" ] && echo "$copy" | xclip -sel clip || return 1
-  [ "$clipmethod" = "wayland" ] && echo "$copy" | wl-copy || return 1
+  [ "$clipmethod" = "x11" ] && echo "$copy" | xclip -sel clip
+  [ "$clipmethod" = "wayland" ] && echo "$copy" | wl-copy
 }
 
 _rofi() {
