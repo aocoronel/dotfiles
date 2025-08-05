@@ -7,23 +7,22 @@ NEWSBOAT_HISTORY_FILE=$HOME/.local/share/newsboat-history.db
 getPlayer() {
   case "$1" in
   freetube)
-    player=freetube
+    setsid -f freetube "https://www.youtube.com/watch?v=$videoId" >/dev/null
     ;;
   *)
-    player="mpv -quiet"
+    setsid -f mpv -quiet "https://www.youtube.com/watch?v=$videoId" >/dev/null
     ;;
   esac
 }
 
-main() {
-  getPlayer "$@"
-  [ -f "$NEWSBOAT_HISTORY_FILE" ] &&
-    jq -c '. | {author, title, description, videoId}' "$NEWSBOAT_HISTORY_FILE" |
-    fzf |
-      jq -r '.videoId' |
-      xargs -I {} setsid -f "$player" "https://www.youtube.com/watch?v={}" >/dev/null 2>&1
-
-  echo "Starting video in the background..."
+runPlayer() {
+  videoId=$(jq -c '. | {author, title, description, videoId}' "$NEWSBOAT_HISTORY_FILE" | fzf | jq -r '.videoId')
+  [ -z "$videoId" ] && return 1
+  getPlayer "$1"
 }
 
-main "$@"
+main() {
+  [ -f "$NEWSBOAT_HISTORY_FILE" ] && runPlayer "$1" && echo "Starting video in the background..."
+}
+
+main "$1"
