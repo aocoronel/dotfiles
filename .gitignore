@@ -57,8 +57,6 @@
 .config/starship/starship.toml
 .config/systemd/user
 .config/udiskie
-.config/user-dirs.conf
-.config/user-dirs.dirs
 .config/wall
 .config/waybar
 .config/yazi/catpuccin.tmTheme
