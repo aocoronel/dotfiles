@@ -17,9 +17,14 @@ image/jpeg=nsxiv.desktop;
 image/png=nsxiv.desktop;
 image/webp=nsxiv.desktop;
 
-x-scheme-handler/about=app.zen_browser.zen.desktop
-x-scheme-handler/http=app.zen_browser.zen.desktop
-x-scheme-handler/https=app.zen_browser.zen.desktop
-x-scheme-handler/unknown=app.zen_browser.zen.desktop
+x-scheme-handler/about=zen-browser
+x-scheme-handler/http=zen-browser
+x-scheme-handler/https=zen-browser
+x-scheme-handler/unknown=zen-browser
+
+; x-scheme-handler/about=app.zen_browser.zen.desktop
+; x-scheme-handler/http=app.zen_browser.zen.desktop
+; x-scheme-handler/https=app.zen_browser.zen.desktop
+; x-scheme-handler/unknown=app.zen_browser.zen.desktop
 
 [Removed Associations]
