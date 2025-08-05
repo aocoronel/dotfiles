@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# "Play video from FreeTube history file"
+
+NEWSBOAT_HISTORY_FILE=$HOME/.local/share/newsboat-history.db
+
+getPlayer() {
+  case "$1" in
+  freetube)
+    player=freetube
+    ;;
+  *)
+    player="mpv -quiet"
+    ;;
+  esac
+}
+
+main() {
+  getPlayer "$@"
+  [ -f "$NEWSBOAT_HISTORY_FILE" ] &&
+    rg "" "$NEWSBOAT_HISTORY_FILE" |
+    fzf |
+      jq -r '.videoId' |
+      xargs -I {} setsid -f "$player" "https://www.youtube.com/watch?v={}" >/dev/null 2>&1
+
+  echo "Starting video in the background..."
+}
+
+main "$@"
