@@ -1,96 +1,130 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
-# "Download videos/audio from Youtube from clipboard or batch from file"
+# "Download videos/audio from Youtube from clipboard or batch from BATCH_FILE"
 
 clipmethod="$XDG_SESSION_TYPE"
 
-if ! command -v yt-dlp &>/dev/null; then
+if ! command -v yt-dlp >/dev/null; then
   echo "yt-dlp could not be found. Please install it."
   exit 1
 fi
 
-function help() {
-  cat <<eof
+help() {
+  cat <<EOF
 Youtube Video Downloader
 
 Usage:
-  download-youtube OPTION <OPTION_ARGS> FILE FORMAT
-
-Available Formats:
-  audio, video
+  yt-download FLAG <FLAG_ARGS> URL FILE
 
 Available Options:
-  -a, --audio                        Downloads given YT URL to audio
-  -b, --batch [file] [format]        Downloads all URL in a file to audio
-  -h, --help                         Displays this message and exits
-  -v, --video                        Downloads all URL in a file to video
-eof
+  -a, --audio URL      Downloads given YT URL to audio
+  -b, --batch FILE     Downloads all URL in a BATCH_FILE to audio
+  -h, --help           Displays this message and exits
+  -v, --video URL      Downloads all URL in a BATCH_FILE to video
+EOF
 }
 
-function yt_cmd() {
-  yt-dlp -x -f "$mode" --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@"
+downloadVideo() {
+  [ -n "$VIDEO" ] && yt-dlp -x -f bv --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@" &
+  [ -n "$AUDIO" ] && yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@" &
 }
 
-function download() {
-  if [ "$clipmethod" = "x11" ]; then
-    URL=$(xclip -o)
-  elif [ "$clipmethod" = "wayland" ]; then
-    URL=$(wl-paste)
-  fi
-  [[ -z $URL ]] && {
+getUrl() {
+  if [ -n "$1" ]; then
     URL=$1
-    shift
-  }
-  dest=${1:-$HOME}
-  title="$(yt-dlp --get-title $URL)" && notify-send -u normal "Initiating the download..."
-  yt_cmd "$URL" -P $dest
-  val=$?
-  if [ "$val" -eq 0 ]; then
-    notify-send -u normal "Downlaod YT: Success" "$title downloaded"
   else
-    notify-send -u normal "Download YT: Error" "An error occurred! Maybe a wrong URL?"
+    if [ "$clipmethod" = "x11" ]; then
+      URL=$(xclip -o)
+    elif [ "$clipmethod" = "wayland" ]; then
+      URL=$(wl-paste)
+    fi
   fi
 }
 
-function batch() {
-  echo "Downloading from file $file as $format"
-  if [ "$format" = "video" ]; then
-    mode=best
-  elif [ "$format" = "audio" ]; then
-    mode=bestaudio
-  else
-    help
-  fi
-  yt_cmd -a "$file"
+isFormatSet() {
+  [ -z "$AUDIO" ] || [ -z "$VIDEO" ] && {
+    echo "ERROR: Format not set!"
+    exit 1
+  }
+}
+
+batch() {
+  OUTPUT_DIR=${OUTPUT_DIR:-$HOME}
+
+  isFormatSet
+  echo "Downloading from file $BATCH_FILE"
+  downloadVideo -a "$BATCH_FILE" -P "$OUTPUT_DIR"
+  echo "Finished!"
+}
+
+getTitle() {
+  title="$(yt-dlp --get-title $URL)"
+}
+
+main() {
+  OUTPUT_DIR=${OUTPUT_DIR:-$HOME}
+
+  isFormatSet
+  getUrl "$1"
+  getTitle &
+  notify-send -u normal "Youtube Downloader" "Initiating the download..."
+  downloadVideo "$URL" -P "$OUTPUT_DIR" || notify-send -u normal "Youtube Downloader: Error" "An error occurred! Maybe a wrong URL?"
+  wait
+  notify-send -u normal "Youtube Downloader: Success" "$title downloaded"
 }
 
 if [ "$#" -eq 0 ]; then
-  echo "Error: No arguments provided."
-  help
+  echo "ERROR: No arguments provided."
   exit 0
 fi
 
-case "$1" in
--a | --audio)
-  shift
-  mode=bestaudio
-  download $@
-  exit 0
-  ;;
--b | --batch)
-  file=$2
-  format=$3
-  batch
-  exit 0
-  ;;
--v | --video)
-  shift
-  mode=b
-  download $@
-  exit 0
-  ;;
--h | --help)
-  help
-  exit 0
-  ;;
-esac
+while getopts ":h-avd:" opt; do
+  case "$opt" in
+  h)
+    help
+    exit 0
+    ;;
+  -)
+    break
+    ;;
+  a)
+    AUDIO=1
+    ;;
+  v)
+    VIDEO=1
+    ;;
+  d)
+    OUTPUT_DIR=$OPTARG
+    ;;
+  ?)
+    echo "ERROR: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+while [ “$#“ -ne 0 ]; do
+  case "$1" in
+  --audio)
+    shift
+    AUDIO=1
+    ;;
+  --video)
+    shift
+    VIDEO=1
+    ;;
+  -b | --batch)
+    BATCH_FILE=$2
+    batch
+    exit 0
+    ;;
+  --help)
+    help
+    exit 0
+    ;;
+  esac
+done
+
+main "$@"
