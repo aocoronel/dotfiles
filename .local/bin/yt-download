@@ -1,8 +1,6 @@
 #!/usr/bin/sh
 
-# "Download videos/audio from Youtube from clipboard or batch from BATCH_FILE"
-
-clipmethod="$XDG_SESSION_TYPE"
+# "Download videos/audio from Youtube from clipboard or batch from file"
 
 if ! command -v yt-dlp >/dev/null; then
   echo "yt-dlp could not be found. Please install it."
@@ -19,17 +17,29 @@ Usage:
 Available Options:
   -a, --audio URL      Downloads given YT URL to audio
   -b, --batch FILE     Downloads all URL in a BATCH_FILE to audio
+  -d, --directory DIR  Set output directory for downloaded files
   -h, --help           Displays this message and exits
   -v, --video URL      Downloads all URL in a BATCH_FILE to video
 EOF
 }
 
 downloadVideo() {
-  [ -n "$VIDEO" ] && yt-dlp -x -f bv --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@" &
-  [ -n "$AUDIO" ] && yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@" &
+  yt-dlp -x --format "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@"
+}
+
+downloadAudio() {
+  yt-dlp -x -f bestaudio --add-metadata --embed-thumbnail --no-playlist --downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M' "$@"
+}
+
+initializeDownload() {
+  [ -n "$AUDIO" ] && downloadAudio "$URL" -P "$OUTPUT_DIR" &
+  [ -n "$VIDEO" ] && downloadVideo "$URL" -P "$OUTPUT_DIR" &
+  wait
 }
 
 getUrl() {
+  clipmethod="$XDG_SESSION_TYPE"
+
   if [ -n "$1" ]; then
     URL=$1
   else
@@ -39,10 +49,16 @@ getUrl() {
       URL=$(wl-paste)
     fi
   fi
+
+  if ! echo "$URL" | grep -q "^https://"; then
+    notify-send -u normal "Youtube Downloader: Error" "An error occurred! Maybe a wrong URL?"
+    echo "An error occurred! Maybe a wrong URL?"
+    exit 1
+  fi
 }
 
 isFormatSet() {
-  [ -z "$AUDIO" ] || [ -z "$VIDEO" ] && {
+  [ -z "$AUDIO" ] && [ -z "$VIDEO" ] && {
     echo "ERROR: Format not set!"
     exit 1
   }
@@ -53,12 +69,12 @@ batch() {
 
   isFormatSet
   echo "Downloading from file $BATCH_FILE"
-  downloadVideo -a "$BATCH_FILE" -P "$OUTPUT_DIR"
+  initializeDownload
   echo "Finished!"
 }
 
 getTitle() {
-  title="$(yt-dlp --get-title $URL)"
+  title="$(yt-dlp --get-title "$URL")"
 }
 
 main() {
@@ -68,8 +84,10 @@ main() {
   getUrl "$1"
   getTitle &
   notify-send -u normal "Youtube Downloader" "Initiating the download..."
-  downloadVideo "$URL" -P "$OUTPUT_DIR" || notify-send -u normal "Youtube Downloader: Error" "An error occurred! Maybe a wrong URL?"
+
+  initializeDownload
   wait
+
   notify-send -u normal "Youtube Downloader: Success" "$title downloaded"
 }
 
@@ -105,11 +123,15 @@ done
 
 shift $((OPTIND - 1))
 
-while [ “$#“ -ne 0 ]; do
+while [ "$#" -ne 0 ]; do
   case "$1" in
   --audio)
     shift
     AUDIO=1
+    ;;
+  --directory)
+    shift
+    OUTPUT_DIR=$1
     ;;
   --video)
     shift
@@ -123,6 +145,9 @@ while [ “$#“ -ne 0 ]; do
   --help)
     help
     exit 0
+    ;;
+  *)
+    break
     ;;
   esac
 done
