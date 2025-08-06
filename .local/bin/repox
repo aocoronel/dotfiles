@@ -132,6 +132,10 @@ status)
   # $1 parallel / $2 dev_dir / $3 cmd / $4 repox_file
   dev_dir=$2
   cmd=$3
+  if echo "$4" | grep "#"; then
+    echo "Skipped $4"
+    exit 1
+  fi
   _git "$4"
   ;;
 *)
