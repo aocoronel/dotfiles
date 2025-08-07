@@ -53,5 +53,13 @@ install-gemini:
 install-clipmenu:
   git clone https://github.com/cdown/clipmenu.git $HOME/dev/3p/clipmenu
 
+# Install taskwarrior-tui binary for task2
 install-taskwarrior-tui-2v:
-  xdg-open https://github.com/kdheepak/taskwarrior-tui/releases/tag/v0.25.4
+  wget https://github.com/kdheepak/taskwarrior-tui/releases/download/v0.25.4/taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
+  tar xf taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
+  rm taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
+  sudo mv taskwarrior-tui /usr/local/bin/
+
+# Download task2 source code
+install-task2:
+  wget https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v2.6.2/task-2.6.2.tar.gz
