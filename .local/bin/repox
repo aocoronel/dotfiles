@@ -1,4 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
+
+trap killJobs SIGINT
+
+killJobs() {
+  kill "$(jobs -p)"
+  exit 0
+}
 
 help() {
   cat <<EOF
@@ -25,7 +32,7 @@ EOF
 _git() {
   repo=$1
   repo_name=$(basename "$repo" .git)
-  local_repo="$dev_dir/$sub_dir/$repo_name"
+  local_repo="$dev_dir/$repo_name"
 
   if [ ! -d "$local_repo" ] && [ "$cmd" != "clone" ]; then
     cmd=clone
@@ -40,24 +47,34 @@ _git() {
     fi
   elif [ "$cmd" = "clone" ]; then
     if ! git -C "$dev_dir/$sub_dir" "$cmd" "$repo"; then
-      echo "An error occured at $repo"
+      echo "ERROR: An error occured at $repo"
       return 1
     fi
   else
     if ! git -C "$local_repo" "$cmd"; then
-      echo "An error occured at $repo"
+      echo "ERROR: An error occured at $repo"
       return 1
     fi
   fi
 }
 
 _parallel() {
-  dev_dir=$1
-  repox_file=$2
-  cmd=$3
   parallels=${parallels:-4}
 
-  parallel -j "$parallels" bash "$(realpath "$0")" --parallel "$dev_dir" "$cmd" :::: "$repox_file"
+  cat "$repox_file" | while IFS= read -r repo; do
+    jobs_running=$(jobs -p | wc -l)
+
+    while [ "$jobs_running" -ge "$parallels" ]; do
+      wait -n
+      jobs_running=$(jobs -p | wc -l)
+    done
+    if echo "$repo" | grep "#"; then
+      continue
+    fi
+    _git "$repo" &
+  done
+
+  wait
 }
 
 main() {
@@ -70,6 +87,10 @@ main() {
   fi
 
   repox_file=${REPOX_FILE:-$HOME/.repox}
+  [ ! -f "$repox_file" ] && {
+    echo "ERROR: No repox file found"
+    exit 1
+  }
 
   if [ -n "$DEV" ]; then
     dev_dir="$DEV/$sub_dir"
@@ -79,7 +100,7 @@ main() {
 
   mkdir -p "$dev_dir"
 
-  _parallel "$dev_dir" "$repox_file" "$cmd"
+  _parallel
 
   printf "\nRepox finished"
 }
@@ -100,7 +121,7 @@ while getopts ":h-p:c:" opt; do
     parallels="$OPTARG"
     ;;
   ?)
-    echo "Error: Invalid option '-$OPTARG'" >&2
+    echo "ERROR: Invalid option '-$OPTARG'" >&2
     exit 1
     ;;
   esac
@@ -128,18 +149,8 @@ push)
 status)
   main "$@"
   ;;
---parallel)
-  # $1 parallel / $2 dev_dir / $3 cmd / $4 repox_file
-  dev_dir=$2
-  cmd=$3
-  if echo "$4" | grep "#"; then
-    echo "Skipped $4"
-    exit 1
-  fi
-  _git "$4"
-  ;;
 *)
-  echo "Error: No known command: $1"
+  echo "ERROR: No known command: $1"
   exit 1
   ;;
 esac
