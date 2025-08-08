@@ -68,7 +68,7 @@ _parallel() {
       wait -n
       jobs_running=$(jobs -p | wc -l)
     done
-    if echo "$repo" | grep "#"; then
+    if echo "$repo" | grep "#" &>/dev/null; then
       continue
     fi
     _git "$repo" &
@@ -102,7 +102,7 @@ main() {
 
   _parallel
 
-  printf "\nRepox finished"
+  echo -e "$(tput setaf 82)Repox finished$(tput sgr0)"
 }
 
 while getopts ":h-p:c:" opt; do
@@ -150,7 +150,7 @@ status)
   main "$@"
   ;;
 *)
-  echo "ERROR: No known command: $1"
+  echo "ERROR: Invalid command"
   exit 1
   ;;
 esac
