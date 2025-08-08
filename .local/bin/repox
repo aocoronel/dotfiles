@@ -36,7 +36,7 @@ _git() {
 
   if [ ! -d "$local_repo" ] && [ "$cmd" != "clone" ]; then
     cmd=clone
-  elif [ -d "$dev_dir/$sub_dir" ] && [ "$cmd" = "clone" ]; then
+  elif [ -d "$dev_dir/$repo_name" ] && [ "$cmd" = "clone" ]; then
     return 1
   fi
 
@@ -46,7 +46,7 @@ _git() {
       git -C "$local_repo" "$cmd"
     fi
   elif [ "$cmd" = "clone" ]; then
-    if ! git -C "$dev_dir/$sub_dir" "$cmd" "$repo"; then
+    if ! git -C "$dev_dir" "$cmd" "$repo"; then
       echo "ERROR: An error occured at $repo"
       return 1
     fi
