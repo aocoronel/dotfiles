@@ -43,7 +43,7 @@ install-doom:
 
 # Install Termux Packages
 install-termux:
-  pkg install oh-my-posh zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit exiftool ffmpeg just bat eza git-crypt man mpv ripgrep yt-dlp stow neovim gcc gnupg taskwarrior lynx bc imagemagick timewarrior wget jq
+  pkg install zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit git ffmpeg just bat eza git-crypt mandoc mpv ripgrep yt-dlp stow neovim gnupg taskwarrior lynx imagemagick timewarrior wget jq fd  moreutils newsboat restic unzip wget pass helix libllvm nodejs
 
 # Install Gemini CLI (reugn/gemini-cli)
 install-gemini:
