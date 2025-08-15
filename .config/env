@@ -11,6 +11,7 @@ export GPG_TTY=$(tty)
 
 # PATH
 
+export MIRROR_DIR=$HOME/dev/github/mirror-config
 export GOBIN="$HOME/dev/go/bin"
 export GOPATH="$HOME/dev/go/"
 export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
