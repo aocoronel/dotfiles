@@ -37,7 +37,7 @@ function tp() {
 # Repo Fetch
 function rf() {
   local repo
-  repo=$(fd . $DEV/**/ --type=directory --max-depth 1 --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
+  repo=$(fd . "$DEV" --type=directory --max-depth 2 --exclude go/ --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
   if [[ -n "$repo" ]]; then
     cd "$repo" || return
   else
