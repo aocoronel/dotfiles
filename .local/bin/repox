@@ -59,13 +59,13 @@ _git() {
 }
 
 _parallel() {
-  parallels=${parallels:-4}
+  parallels=${parallels:-5}
 
   cat "$repox_file" | while IFS= read -r repo; do
     jobs_running=$(jobs -p | wc -l)
 
     while [ "$jobs_running" -ge "$parallels" ]; do
-      wait -n
+      wait
       jobs_running=$(jobs -p | wc -l)
     done
     if echo "$repo" | grep "#" &>/dev/null; then
@@ -73,8 +73,6 @@ _parallel() {
     fi
     _git "$repo" &
   done
-
-  wait
 }
 
 main() {
@@ -102,6 +100,7 @@ main() {
 
   _parallel
 
+  sleep 2
   echo -e "$(tput setaf 82)Repox finished$(tput sgr0)"
 }
 
