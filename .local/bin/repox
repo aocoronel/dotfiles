@@ -65,7 +65,7 @@ _parallel() {
     jobs_running=$(jobs -p | wc -l)
 
     while [ "$jobs_running" -ge "$parallels" ]; do
-      wait
+      wait -n
       jobs_running=$(jobs -p | wc -l)
     done
     if echo "$repo" | grep "#" &>/dev/null; then
@@ -100,7 +100,12 @@ main() {
 
   _parallel
 
-  sleep 2
+  case "$cmd" in
+  pull | clone | fetch)
+    sleep 2
+    ;;
+  esac
+
   echo -e "$(tput setaf 82)Repox finished$(tput sgr0)"
 }
 
