@@ -97,6 +97,12 @@ function fcd() {
   cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)" || return 1
 }
 
+function repox-github() {
+  local cmd
+  cmd=${1:-status}
+  repox -p 5 -c "$HOME/stow/dev/github/.repox" "$cmd" github
+}
+
 # Yazi Shell Integration - Moves to last directory yazi exits
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
