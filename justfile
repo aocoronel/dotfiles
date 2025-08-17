@@ -21,10 +21,6 @@ fix-keyring:
   gpg --refresh-keys
   sudo pacman-key --init && sudo pacman-key --populate archlinux
 
-# Install Oh-my-posh
-install-posh:
-  curl -s https://ohmyposh.dev/install.sh | bash -s
-
 # Change Font
 gnome-font:
   gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
@@ -45,16 +41,12 @@ install-doom:
 install-termux:
   pkg install zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit git ffmpeg just bat eza git-crypt mandoc mpv ripgrep yt-dlp stow neovim gnupg taskwarrior lynx imagemagick timewarrior wget jq fd  moreutils newsboat restic unzip wget pass helix libllvm nodejs
 
-# Install Gemini CLI (reugn/gemini-cli)
-install-gemini:
-  go install github.com/reugn/gemini-cli/cmd/gemini@latest
-
-# Install Clipmenu
+# Install Clipmenu (Xorg)
 install-clipmenu:
   git clone https://github.com/cdown/clipmenu.git $HOME/dev/3p/clipmenu
 
 # Install taskwarrior-tui binary for task2
-install-taskwarrior-tui-2v:
+install-task2-tui:
   wget https://github.com/kdheepak/taskwarrior-tui/releases/download/v0.25.4/taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
   tar xf taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
   rm taskwarrior-tui-x86_64-unknown-linux-gnu.tar.gz
