@@ -11,9 +11,6 @@ export GPG_TTY=$(tty)
 
 # PATH
 
-export MIRROR_DIR=$HOME/dev/github/mirror-config
-export GOBIN="$HOME/dev/go/bin"
-export GOPATH="$HOME/dev/go/"
 export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
 export PATH="$HOME/.cargo/bin/:$PATH"                                 # Rust
 export PATH="$HOME/.config/emacs/bin:$PATH"                           # Emacs
@@ -23,12 +20,17 @@ export PATH="/run/wrappers/bin:$PATH"                                 # NixOS
 
 # Directories
 
+export DEV="$HOME/dev/" # Dev Dir
+
 export OBSIDIAN=$HOME/obsidian/
 export JOURNAL=$OBSIDIAN/journal/Journals/
 
-export BEELZEBUB=/mnt/beelzebub/
-export ATLAS=/mnt/go/atlas/
+export PASSWORD_STORE_DIR="$HOME/.password-store/" # PasswordStore
+export MIRROR_DIR=$HOME/dev/github/mirror-config   # Mirror
 
-export DEV="$HOME/dev/"
-export SCRIPTS="$HOME/scripts/"
-export PASSWORD_STORE_DIR="$HOME/.password-store/"
+# Programming
+
+export CARGO_HOME="$HOME/.cache/cargo/"
+export GOBIN="$HOME/dev/go/bin"
+export GOPATH="$HOME/dev/go/"
+export RUSTUP_HOME="$HOME/.cache/rustup/"
