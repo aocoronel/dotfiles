@@ -1,9 +1,8 @@
-session_name: master
+session_name: "jn"
 windows:
   - focus: "true"
-    layout: tiled
     options: {}
     panes:
-      - pane
+      - jn fzf
     start_directory: $HOME
-    window_name: master
+    window_name: jn

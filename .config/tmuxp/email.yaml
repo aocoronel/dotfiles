@@ -6,4 +6,4 @@ windows:
       - mw -Y
     panes:
       - neomutt
-    window_name: zsh
+    window_name: email

@@ -3,5 +3,6 @@ windows:
 - focus: 'true'
   options: {}
   panes:
-  - ranger $DEV
+  -
+  start_directory: $HOME/dev/github/
   window_name: zsh
