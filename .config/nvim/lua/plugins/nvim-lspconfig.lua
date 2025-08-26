@@ -28,6 +28,16 @@ local config = function()
     },
   })
 
+  -- Nim
+  lspconfig.nim_langserver.setup({
+    cmd = { "nimlangserver" },
+    filetypes = { "nim" },
+  })
+  lspconfig.nimls.setup({
+    cmd = { "nimlsp" },
+    filetypes = { "nim" },
+  })
+
   -- Nix
   lspconfig.nil_ls.setup({
     cmd = { "nil" },
