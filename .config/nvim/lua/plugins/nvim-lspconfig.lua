@@ -33,7 +33,7 @@ local config = function()
     cmd = { "nimlangserver" },
     filetypes = { "nim" },
   })
-  lspconfig.nimls.setup({
+  lspconfig.nimlsp.setup({
     cmd = { "nimlsp" },
     filetypes = { "nim" },
   })
