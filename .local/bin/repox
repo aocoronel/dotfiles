@@ -62,7 +62,7 @@ _parallel() {
   parallels=${parallels:-5}
 
   cat "$repox_file" | while IFS= read -r repo; do
-    while [ "$(jobs | wc -l)" -gt "$parallels" ]; do
+    while [ "$(jobs | wc -l)" -eq "$parallels" ]; do
       wait -n
     done
     if echo "$repo" | grep "#" &>/dev/null; then
