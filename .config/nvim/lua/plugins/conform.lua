@@ -22,6 +22,7 @@ return {
         json = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier" },
+        nim = { "nph" },
         nix = { "alejandra" },
         python = { "black" },
         rust = { "rustfmt" },
@@ -32,6 +33,11 @@ return {
       },
       formatters = {
         injected = { options = { ignore_errors = true } },
+        nph = {
+          command = "nph",
+          stdin = false,
+          args = { "$FILENAME" },
+        },
       },
     }
     return opts
