@@ -12,6 +12,12 @@
           "c"
         ],
         "path": "./c.json"
+      },
+      {
+        "language": [
+          "nim"
+        ],
+        "path": "./nim.json"
       }
     ]
   },
