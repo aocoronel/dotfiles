@@ -4,7 +4,7 @@ dotfiles_dir=$HOME/dotfiles/.config
 theme_dir=$HOME/.config/theme
 
 elegantvagrant() {
-  git clone "https://codeberg.org/aocoronel/elegantvagrant" "$theme_dir/elegantvagrant"
+  git clone "https://github.com/aocoronel/elegantvagrant" "$theme_dir/elegantvagrant"
 
   cd "$theme_dir/elegantvagrant" || return 1
   fd . -t f | while IFS= read -r repo; do
