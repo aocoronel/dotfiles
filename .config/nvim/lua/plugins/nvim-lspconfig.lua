@@ -29,14 +29,34 @@ local config = function()
   })
 
   -- Nim
+  local lspconfig = require("lspconfig")
+  local util = require("lspconfig.util")
+
   lspconfig.nim_langserver.setup({
     cmd = { "nimlangserver" },
     filetypes = { "nim" },
+
+    root_dir = function(fname)
+      if fname:find("%.nimble/") then
+        return nil
+      end
+
+      return util.root_pattern("*.nimble")(fname) or util.find_git_ancestor(fname)
+    end,
+
+    on_attach = function(client, bufnr)
+      local filename = vim.api.nvim_buf_get_name(bufnr)
+      if filename:find("%.nimble/") then
+        vim.schedule(function()
+          vim.lsp.stop_client(client.id)
+        end)
+      end
+    end,
   })
-  lspconfig.nimls.setup({
-    cmd = { "nimlsp" },
-    filetypes = { "nim" },
-  })
+  -- lspconfig.nimls.setup({
+  --   cmd = { "nimlsp" },
+  --   filetypes = { "nim" },
+  -- })
 
   -- Nix
   lspconfig.nil_ls.setup({
