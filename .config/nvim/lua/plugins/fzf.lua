@@ -3,5 +3,6 @@ return {
   dependencies = { "echasnovski/mini.icons" },
   opts = {},
   lazy = true,
+  enabled = false,
   cmd = "FzfLua",
 }

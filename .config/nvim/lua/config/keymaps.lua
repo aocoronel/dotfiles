@@ -92,7 +92,7 @@ keymap.set("n", "<leader>cc", ":CsvViewToggle display_mode=border header_lnum=1"
 
 -- Zoxide
 
-keymap.set("n", "<leader>gz", ":FzfLua zoxide<CR>", { desc = "[Z]oxide" })
+-- keymap.set("n", "<leader>gz", ":FzfLua zoxide<CR>", { desc = "[Z]oxide" })
 
 -- Footnotes
 
