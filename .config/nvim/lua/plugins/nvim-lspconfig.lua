@@ -41,6 +41,12 @@ local config = function()
   --   filetypes = { "nim" },
   -- })
 
+  -- Odin
+  lspconfig.ols.setup({
+    cmd = { "ols" },
+    filetypes = { "odin" },
+  })
+
   -- Nix
   lspconfig.nil_ls.setup({
     cmd = { "nil" },
