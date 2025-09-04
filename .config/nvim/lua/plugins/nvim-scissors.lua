@@ -26,7 +26,6 @@ local config = function()
         },
       },
     },
-    ---@type "yq"|"jq"|"none"|string[]
     jsonFormatter = "jq",
 
     backdrop = {

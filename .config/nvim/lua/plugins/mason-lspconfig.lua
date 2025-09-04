@@ -3,7 +3,7 @@ return {
   opts = {
     ensure_installed = {
       "bashls",
-      "clang-format",
+      -- "clang-format",
       -- "dockerls",
       "efm",
       -- "emmet_ls",
@@ -14,7 +14,7 @@ return {
       -- "jsonls",
       -- "lua_ls",
       -- "markdown_oxide",
-      -- "marksman",
+      "marksman",
       "prettier",
       -- "pyright",
       "shellcheck",

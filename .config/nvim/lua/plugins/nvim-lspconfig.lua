@@ -1,13 +1,3 @@
--- Linters
-
--- "black",
--- "fixjson",
--- "prettier",
--- "prettierd",
--- "rustfmt",
--- "shfmt",
--- "stylua",
-
 local config = function()
   local lspconfig = require("lspconfig")
 
@@ -29,30 +19,30 @@ local config = function()
   })
 
   -- Nim
-  local lspconfig = require("lspconfig")
-  local util = require("lspconfig.util")
-
-  lspconfig.nim_langserver.setup({
-    cmd = { "nimlangserver" },
-    filetypes = { "nim" },
-  })
+  -- local lspconfig = require("lspconfig")
+  -- local util = require("lspconfig.util")
+  --
+  -- lspconfig.nim_langserver.setup({
+  --   cmd = { "nimlangserver" },
+  --   filetypes = { "nim" },
+  -- })
   -- lspconfig.nimls.setup({
   --   cmd = { "nimlsp" },
   --   filetypes = { "nim" },
   -- })
 
   -- Odin
-  lspconfig.ols.setup({
-    cmd = { "ols" },
-    filetypes = { "odin" },
-  })
+  -- lspconfig.ols.setup({
+  --   cmd = { "ols" },
+  --   filetypes = { "odin" },
+  -- })
 
   -- Nix
-  lspconfig.nil_ls.setup({
-    cmd = { "nil" },
-    filetypes = { "nix" },
-    root_markers = { "flake.nix", ".git" },
-  })
+  -- lspconfig.nil_ls.setup({
+  --   cmd = { "nil" },
+  --   filetypes = { "nix" },
+  --   root_markers = { "flake.nix", ".git" },
+  -- })
 
   -- json
   lspconfig.jsonls.setup({
@@ -88,21 +78,21 @@ local config = function()
   })
 
   -- typescript
-  lspconfig.ts_ls.setup({
-    filetypes = {
-      "typescript",
-      "javascript",
-      "typescriptreact",
-      "javascriptreact",
-    },
-    commands = {},
-    settings = {
-      typescript = {
-        indentStyle = "space",
-        indentSize = 2,
-      },
-    },
-  })
+  -- lspconfig.ts_ls.setup({
+  --   filetypes = {
+  --     "typescript",
+  --     "javascript",
+  --     "typescriptreact",
+  --     "javascriptreact",
+  --   },
+  --   commands = {},
+  --   settings = {
+  --     typescript = {
+  --       indentStyle = "space",
+  --       indentSize = 2,
+  --     },
+  --   },
+  -- })
 
   -- bash
   lspconfig.bashls.setup({
@@ -123,28 +113,28 @@ local config = function()
   })
 
   -- rust
-  require("lspconfig").bacon_ls.setup({
-    filetypes = { "rust" },
-  })
+  -- require("lspconfig").bacon_ls.setup({
+  --   filetypes = { "rust" },
+  -- })
 
   -- typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
-  lspconfig.emmet_ls.setup({
-    filetypes = {
-      "typescriptreact",
-      "javascriptreact",
-      "javascript",
-      "css",
-      "sass",
-      "scss",
-      "less",
-      "svelte",
-      "vue",
-      "html",
-    },
-  })
+  -- lspconfig.emmet_ls.setup({
+  --   filetypes = {
+  --     "typescriptreact",
+  --     "javascriptreact",
+  --     "javascript",
+  --     "css",
+  --     "sass",
+  --     "scss",
+  --     "less",
+  --     "svelte",
+  --     "vue",
+  --     "html",
+  --   },
+  -- })
 
   -- docker
-  lspconfig.dockerls.setup({})
+  -- lspconfig.dockerls.setup({})
 
   -- C/C++
   lspconfig.clangd.setup({
@@ -177,10 +167,10 @@ local config = function()
       "sh",
       "javascript",
       "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "svelte",
-      "vue",
+      -- "typescript",
+      -- "typescriptreact",
+      -- "svelte",
+      -- "vue",
       "docker",
       "html",
       "css",
@@ -199,15 +189,15 @@ local config = function()
       languages = {
         lua = { luacheck, stylua },
         python = { flake8, black },
-        typescript = { eslint, prettier_d },
+        -- typescript = { eslint, prettier_d },
         json = { eslint, fixjson },
         jsonc = { eslint, fixjson },
         sh = { shellcheck, shfmt },
         javascript = { eslint, prettier_d },
-        javascriptreact = { eslint, prettier_d },
-        typescriptreact = { eslint, prettier_d },
-        svelte = { eslint, prettier_d },
-        vue = { eslint, prettier_d },
+        -- javascriptreact = { eslint, prettier_d },
+        -- typescriptreact = { eslint, prettier_d },
+        -- svelte = { eslint, prettier_d },
+        -- vue = { eslint, prettier_d },
         docker = { hadolint, prettier_d },
         html = { prettier_d },
         css = { prettier_d },
