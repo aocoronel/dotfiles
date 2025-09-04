@@ -45,7 +45,8 @@ alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
   rr="ranger_cd" \
   s="search -s" \
   sm="sshmanager" \
-  tt="taskwarrior-helper"
+  tt="taskwarrior-helper" \
+  sear="python \$PYTHONPATH/sear.py"
 
 # Distros
 
