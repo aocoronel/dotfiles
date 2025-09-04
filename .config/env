@@ -18,6 +18,7 @@ export PATH="$GOBIN:$PATH"                                            # Golang
 export PATH="$HOME/.local/bin/:$PATH"                                 # Alternative
 export PATH="/run/wrappers/bin:$PATH"                                 # NixOS
 export PATH=$HOME/.nimble/bin:$PATH                                   # Nim
+export PYTHONPATH=$HOME/dev/python/
 
 # Directories
 
