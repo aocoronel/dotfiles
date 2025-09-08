@@ -14,7 +14,6 @@ alias cat='bat' \
 alias cp="cp -v" \
   mv="mv -v" \
   rm="rm -v" \
-  gemini="gemini -c \$HOME/gemini_cli_config.json" \
   lynx="lynx -cookies -cfg \$HOME/.config/lynxrc" \
   rclone="rclone --verbose" \
   rsync="rsync -azrPl" \
