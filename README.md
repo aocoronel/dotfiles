@@ -26,7 +26,9 @@
 <details>
   <summary>Notes</summary>
 
-I'm currently using NixOS as my main OS for desktop usage. You can find my config at [aocoronel/dotfiles-nixos](https://github.com/aocoronel/dotfiles-nixos).
+If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/dotfiles-nixos) file.
+
+The `justfile` at the root of this repository contains many helpful recipes to get started with this repository.
 
   </details>
 
