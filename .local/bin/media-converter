@@ -1,0 +1,219 @@
+#!/usr/bin/env bash
+
+if ! command -v ffmpeg &>/dev/null; then
+  echo "ffmpeg could not be found. Please install it."
+  exit 1
+fi
+
+media_list=(
+  "ogg" "wav" "flac" "aac" "opus" "mp3" "mp4" "mkv" "webm" "m4a" "avi" "mov" "wmv"
+  "flv" "m4v" "mpeg" "mpg"
+)
+
+declare -A audio_codecs=(
+  [mp3]="libmp3lame"
+  [aac]="aac"
+  [m4a]="aac"
+  [opus]="libopus"
+  [ogg]="libvorbis"
+  [flac]="flac"
+  [wav]="pcm_s16le"
+  [webm]="libopus"
+  [mp4]="aac"
+  [mkv]="aac"
+  [avi]="aac"
+  [mov]="aac"
+  [wmv]="aac"
+)
+
+declare -A video_codecs=(
+  [mp4]="libx264"
+  [mkv]="libx264"
+  [webm]="libvpx-vp9"
+  [avi]="libx264"
+  [mov]="libx264"
+  [wmv]="libx264"
+  [flv]="flv"
+  [m4v]="libx264"
+  [mpeg]="mpeg2video"
+  [mpg]="mpeg1video"
+)
+
+function help() {
+  cat <<EOF
+Bulk Media Converter
+
+Usage:
+  media-converter FLAG <FLAG_INPUT> COMMAND INPUT
+  media-converter -h | media-converter help
+
+Commands:
+bulk                        Convert media files in bulk
+help                        Displays this message and exits
+single                      Convert a single file
+version                     Display current version
+
+Flags:
+-b                          Define a bitrate (default: 128k)
+-h                          Displays this message and exits
+-s                          Skip overwrite dialog
+-v                          Display current version
+-w                          Remove input files
+EOF
+}
+
+function version() {
+  echo "1.0.0"
+}
+
+convert_media() {
+  local input_file="$1"
+  local output_file="$2"
+  local bitrate="${3:-"128"}k"
+
+  local ext="${output_file##*.}"
+  ext="${ext,,}"
+
+  local audio_codec="${audio_codecs[$ext]}"
+  local video_codec="${video_codecs[$ext]}"
+
+  if [[ -z "$audio_codec" ]]; then
+    echo "No codec found for .$ext — skipping '$input_file'"
+    return 1
+  fi
+
+  local ffmpeg_cmd=(ffmpeg -nostdin -i "$input_file")
+
+  if [[ -n "$video_codec" ]]; then
+    ffmpeg_cmd+=(-vcodec "$video_codec" -crf 23 -preset medium)
+  else
+    ffmpeg_cmd+=(-vn)
+  fi
+
+  ffmpeg_cmd+=(-acodec "$audio_codec" -b:a "$bitrate" "$output_file")
+
+  echo "Converting: '$input_file' → '$output_file'"
+  "${ffmpeg_cmd[@]}"
+  local status=$?
+  if [[ $status -ne 0 ]]; then
+    echo "Error converting '$input_file'" >&2
+  fi
+  return $status
+}
+
+function request_format() {
+  echo "Convert all media files to the following format:" echo "Available formats: ${media_list[*]}"
+  read -r target_format
+  target_format="${target_format,,}"
+
+  if ! printf "%s\n" "${media_list[@]}" | grep -qx "$target_format"; then
+    echo "Unsupported target format: '$target_format'"
+    echo "Supported formats: ${media_list[*]}"
+    exit 1
+  fi
+}
+
+function main() {
+  request_format
+  shopt -s nullglob
+
+  for ext in "${media_list[@]}"; do
+    if [[ "$ext" == "$target_format" ]]; then
+      continue
+    fi
+
+    if [ "$BULK" -eq 1 ]; then
+      for file in *."$ext"; do
+        [[ -f "$file" ]] || continue
+
+        output="${file%.*}.$target_format"
+        if [[ -f "$output" ]]; then
+          if [ "$SKIP" -ne 1 ]; then
+            read -rp "File '$output' exists. Overwrite? (y/n): " overwrite
+            [[ "$overwrite" != "y" && "$overwrite" != "Y" ]] && echo "Skipping '$file'" && continue
+          else
+            continue
+          fi
+        fi
+        convert_media "$file" "$output" "$bitrate"
+        if [ "$WIPE" -eq 1 ]; then
+          rm "$file"
+        fi
+      done
+      echo "All conversions to .$target_format complete."
+      return 0
+    else # Single file
+      [[ ! -f "$input_file" ]] && return 1
+      ext="${input_file##*.}"
+      output="${input_file%.*}.$target_format"
+      if [[ -f "$output" ]]; then
+        if [ "$SKIP" -ne 1 ]; then
+          read -rp "File '$output' exists. Overwrite? (y/n): " overwrite
+          [[ "$overwrite" != "y" && "$overwrite" != "Y" ]] && echo "Skipping '$input_file'" && return 0
+        else
+          return 0
+        fi
+      fi
+
+      convert_media "$input_file" "$output" "$bitrate"
+      if [ "$WIPE" -eq 1 ]; then
+        rm "$input_file"
+      fi
+      echo "Conversion to .$target_format complete."
+      return 0
+    fi
+  done
+}
+
+while getopts ":hwsvb:" opt; do
+  case "$opt" in
+  h)
+    help
+    exit 0
+    ;;
+  w)
+    WIPE=1
+    ;;
+  s)
+    SKIP=1
+    ;;
+  v)
+    version
+    exit 0
+    ;;
+  b)
+    bitrate=$OPTARG
+    ;;
+  ?)
+    echo "Error: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+case "$1" in
+help)
+  help
+  exit 0
+  ;;
+version)
+  version
+  exit 0
+  ;;
+bulk)
+  BULK=1
+  ;;
+single)
+  shift
+  input_file="$1"
+  BULK=0
+  ;;
+*)
+  help
+  exit 1
+  ;;
+esac
+
+main
