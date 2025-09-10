@@ -6,6 +6,10 @@ list:
 stow:
   stow -R .
 
+# Apply the elegantvagrant theme
+apply-theme:
+  neostow -v -r
+
 # Check for git leaks
 check:
   gitleaks git
