@@ -26,7 +26,7 @@
 <details>
   <summary>Notes</summary>
 
-If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/dotfiles-nixos) file.
+If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/nix) file.
 
 The `justfile` at the root of this repository contains many helpful recipes to get started with this repository.
 
