@@ -1,5 +1,9 @@
 #!/bin/env bash
 
+function tgz() {
+  tar cvzf "$1.tar.gz" "$1"
+}
+
 function se() {
   choice="$(find -L ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
