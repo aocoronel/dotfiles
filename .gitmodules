@@ -1,3 +1,6 @@
 [submodule "elegantvagrant"]
 	path = elegantvagrant
 	url = ssh://git@github.com/aocoronel/elegantvagrant.git
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = ssh://git@github.com/aocoronel/dotfiles-nvim.git
