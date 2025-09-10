@@ -1,0 +1,3 @@
+[submodule "elegantvagrant"]
+	path = elegantvagrant
+	url = ssh://git@github.com/aocoronel/elegantvagrant.git

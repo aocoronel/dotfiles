@@ -73,8 +73,6 @@ autosave
 bookmarks
 cache*
 command-history
-elegant-vagrant*
-elegantvagrant*
 lazy-lock.json
 lib.pl
 playlists
@@ -82,3 +80,5 @@ pt.utf-8.spl
 search-history
 .config/btop
 .config/nvim/spell
+**/elegantvagrant*
+**/elegant-vagrant*
