@@ -20,7 +20,7 @@ export PYTHONPATH=$HOME/dev/python/
 # PATH
 
 export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
-export PATH="$HOME/.cargo/bin/:$PATH"                                 # Rust
+export PATH="$CARGO_HOME/bin/:$PATH"                                  # Rust
 # export PATH="$HOME/.config/emacs/bin:$PATH"                           # Emacs
 export PATH="$GOBIN:$PATH"            # Golang
 export PATH="/run/wrappers/bin:$PATH" # NixOS
