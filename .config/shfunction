@@ -98,7 +98,7 @@ function rsync-mirror() {
 
 # Fzf Change Directory
 function fcd() {
-  cd "$(find "$PWD" -maxdepth 10 -type d 2>/dev/null | fzf)" || return 1
+  cd "$(find -L . -maxdepth 10 -type d -not -path '*.git/*' 2>/dev/null | fzf)" || return 1
 }
 
 function repox-github() {
