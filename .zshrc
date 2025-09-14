@@ -43,7 +43,7 @@ source "$HOME/.config/shfunction"           # Functions
 
 # eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/elegantvagrant.omp.toml)"
 # eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
