@@ -57,7 +57,8 @@ if command -v pacman &>/dev/null; then
     install='sudo pacman -S' \
     remove='sudo pacman -Rns' \
     update='sudo pacman -Syy' \
-    upgrade='sudo pacman -Syu'
+    upgrade='sudo pacman -Syu' \
+    sshd='sudo systemctl start sshd'
 fi
 
 ## NixOS
