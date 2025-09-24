@@ -229,7 +229,7 @@ g = first_file
 
 End = last_file
 Shift+g = last_file
-Shift+c = exec ~/.config/swayimg/scripts/paste.sh %
+Shift+c = exec ~/.config/swayimg/scripts/copy.sh %
 Shift+x = exec ~/.config/swayimg/scripts/set-wallpaper.sh %
 
 h = step_left
