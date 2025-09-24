@@ -144,7 +144,7 @@ w = ":wq"
 W = ":wqa"
 
 [editor.indent-guides]
-render = false
+render = true
 character = "▏"
 skip-levels = 1
 
@@ -153,18 +153,29 @@ display-messages = true
 auto-signature-help	= true
 display-signature-help-docs	= true
 display-inlay-hints = true
+snippets = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "separator", "file-type"]
+left = [
+  "mode",
+  "spacer",
+  "version-control",
+  "spacer",
+  "separator",
+  "file-name",
+  "file-type",
+  "file-modification-indicator"
+]
 right = [
+  "spinner",
+  "spacer",
   "workspace-diagnostics",
   "separator",
-  "selections",
-  "separator",
+  "spacer",
+  "diagnostics",
   "position",
   "position-percentage",
-  "file-encoding",
-  "file-line-ending"
+  "file-encoding"
 ]
 
 [keys.select.space.s]
