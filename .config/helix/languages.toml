@@ -20,6 +20,24 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "clangd" ]
 indent = { tab-width = 8, unit = "  " }
+formatter = { command = 'clang-format' }
+auto-format = true
+roots = [
+  ".clangd",
+  ".clang-tidy",
+  ".clang-format",
+  "compile_commands.json",
+  "compile_flags.txt",
+  "configure.ac",
+  "Makefile",
+  "configure.ac",
+  "configure.in",
+  "config.h.in",
+  "meson.build",
+  "meson_options.txt",
+  "build.ninja",
+  ".git",
+]
 
 [[language]]
 name = "bash"
@@ -80,7 +98,9 @@ file-types = [
 shebangs = ["sh", "bash", "dash", "zsh"]
 comment-token = "#"
 language-servers = [ "bash-language-server" ]
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = 'shfmt', args = ["-i", "2"] }
+auto-format = true
 
 [[language]]
 name = "yaml"
