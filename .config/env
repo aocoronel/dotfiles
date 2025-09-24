@@ -20,6 +20,7 @@ export PYTHONPATH=$HOME/dev/python/
 # PATH
 
 export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
+export PATH="$PATH:$HOME/.config/helix/"                              # Helix Scripts
 export PATH="$CARGO_HOME/bin/:$PATH"                                  # Rust
 # export PATH="$HOME/.config/emacs/bin:$PATH"                           # Emacs
 export PATH="$GOBIN:$PATH"            # Golang
