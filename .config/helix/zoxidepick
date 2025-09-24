@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pick=$(zoxide query -la | fzf)
+
+if [[ -n "$pick" ]]; then
+  echo "$pick"
+fi
