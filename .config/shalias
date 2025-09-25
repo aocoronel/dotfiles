@@ -58,7 +58,9 @@ if command -v pacman &>/dev/null; then
     remove='sudo pacman -Rns' \
     update='sudo pacman -Syy' \
     upgrade='sudo pacman -Syu' \
-    sshd='sudo systemctl start sshd'
+    sshd='sudo systemctl start sshd' \
+    v='helix' \
+    hx='helix'
 fi
 
 ## NixOS
