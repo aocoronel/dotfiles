@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+yazipick() {
+  TEMP=$(mktemp)
+  yazi --chooser-file=$TEMP
+  cat $TEMP
+}
+
+yazipick
