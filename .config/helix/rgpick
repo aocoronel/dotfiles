@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+pick=$(zoxide query -la | fzf)
+
+# shellcheck disable=SC2120
+# shellcheck disable=SC2016
+
+main() (
+  RELOAD='reload:rg --column --color=always --smart-case --no-heading --line-number {q} || :'
+  fzf --disabled --ansi --multi \
+    --bind "start:$RELOAD" --bind "change:$RELOAD" \
+    --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+    --delimiter : \
+    --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+    --preview-window '~4,+{2}+4/3,<80(up)' \
+    --query "$*" | awk -F ":" -v dir="$pick/" '{print dir $1}'
+)
+
+cd "$pick"
+main
