@@ -6,7 +6,6 @@ export VISUAL=helix
 export EDITOR=helix
 export PAGER=bat
 export MANPAGER="nvim +Man!"
-export WAYLAND_DISPLAY=wayland-1 # Disable in Xorg
 export GPG_TTY=$(tty)
 
 # Programming
