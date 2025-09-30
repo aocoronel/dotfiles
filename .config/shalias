@@ -63,6 +63,17 @@ if command -v pacman &>/dev/null; then
     hx='helix'
 fi
 
+## Alpine Linux
+
+if command -v apk -V &>/dev/null; then
+  alias install='doas apk add' \
+    remove='doas apk del' \
+    update='doas apk update' \
+    upgrade='doas apk upgrade' \
+    v='hx' \
+    fix='doas apk fix'
+fi
+
 ## NixOS
 
 alias nx="cd \$HOME/nix/; just"
