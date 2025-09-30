@@ -65,7 +65,7 @@ fi
 
 ## Alpine Linux
 
-if command -v apk -V &>/dev/null; then
+if command -v apk &>/dev/null; then
   alias install='doas apk add' \
     remove='doas apk del' \
     update='doas apk update' \
