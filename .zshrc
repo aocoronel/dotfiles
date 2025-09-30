@@ -14,7 +14,7 @@ zstyle ':vcs_info:*' enable git
 export TRANSIENT_PROMPT_TRANSIENT_PROMPT='%B%F{10}❯%b%f '
 export TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
 
-plugins=("olets/zsh-transient-prompt" "zsh-users/zsh-syntax-highlighting" "zsh-users/zsh-completions" "Aloxaf/fzf-tab" "zsh-users/zsh-autosuggestions" "jeffreytse/zsh-vi-mode" "MichaelAquilina/zsh-you-should-use")
+plugins=("olets/zsh-transient-prompt" "zsh-users/zsh-syntax-highlighting" "zsh-users/zsh-completions" "Aloxaf/fzf-tab" "zsh-users/zsh-autosuggestions" "jeffreytse/zsh-vi-mode")
 plugin_dir="$HOME/.local/share/zsh/"
 mkdir -p "$plugin_dir"
 
@@ -28,7 +28,6 @@ source $plugin_dir/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 source $plugin_dir/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $plugin_dir/MichaelAquilina/zsh-you-should-use/you-should-use.plugin.zsh
 
 unset plugins plugin_dir
 
