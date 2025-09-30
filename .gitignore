@@ -82,3 +82,10 @@ search-history
 .config/nvim/spell
 **/elegantvagrant*
 **/elegant-vagrant*
+.local/share/Trash
+.local/share/flatpak
+.local/share/qutebrowser
+.local/share/xorg
+.local/share/zoxide
+.local/share/zsh
+.local/state
