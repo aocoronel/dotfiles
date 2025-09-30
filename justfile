@@ -7,7 +7,7 @@ stow:
   stow -R .
 
 # Apply the elegantvagrant theme
-apply-theme:
+neostow:
   neostow -v -r
 
 # Check for git leaks
@@ -19,7 +19,7 @@ install-tpm:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Fix Arch Linux Keyring if has a corrupt signature
-fix-keyring:
+arch-fix-keyring:
   sudo rm -R /etc/pacman.d/gnupg/
   sudo rm -R /root/.gnupg/
   gpg --refresh-keys
@@ -59,3 +59,21 @@ install-task2-tui:
 # Download task2 source code
 install-task2:
   wget https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v2.6.2/task-2.6.2.tar.gz
+
+# Add flathub repository
+install-flathub:
+  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Install podman in Alpine Linux (root)
+alpine-podman:
+  rc-update add cgroups
+  rc-service cgroups start
+  modprobe tun
+  echo tun >>/etc/modules
+  echo aoc:100000:65536 >/etc/subuid
+  echo aoc:100000:65536 >/etc/subgid 
+  echo -e "#!/bin/sh\nmount --make-rshared /" > /etc/local.d/mount-rshared.start
+  chmod +x /etc/local.d/mount-rshared.start
+  rc-update add local default
+  rc-service local start
+  touch /etc/containers/nodocker
