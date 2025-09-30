@@ -4,9 +4,9 @@
 # elegantvagrant/foot=$HOME/.config
 # elegantvagrant/ghostty=$HOME/.config
 # elegantvagrant/oh-my-posh=$HOME/.config
-# elegantvagrant/qutebrowser/theme.py=$HOME/.config/qutebrowser
+elegantvagrant/qutebrowser/theme.py=$HOME/.config/qutebrowser
 # elegantvagrant/starship/starship.toml=$HOME/.config
-# elegantvagrant/yazi/theme.toml=$HOME/.config/yazi
+elegantvagrant/yazi/theme.toml=$HOME/.config/yazi
 elegantvagrant/alacritty/elegant-vagrant-oled.toml=$HOME/.config/alacritty
 elegantvagrant/cmus/elegantvagrant.theme=$HOME/.config/cmus
 elegantvagrant/dunst=$HOME/.config
