@@ -2,8 +2,7 @@
 
 ## Command Replacement
 
-alias cat='bat' \
-  la='eza --color=auto --group-directories-first -a' \
+alias la='eza --color=auto --group-directories-first -a' \
   lda='eza --color=auto --group-directories-first -Da' \
   ld='eza --color=auto --group-directories-first -D' \
   ll='eza --color=auto --group-directories-first -l' \
@@ -27,8 +26,8 @@ alias cp="cp -v" \
 alias ctrash='gio trash --empty' \
   dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'" \
   historyc="rm \$HOME/.zsh_history" \
-  lg='lazygit' \
-  lgd="lazygit -p \$HOME/dotfiles/" \
+  lg='tig' \
+  lgd="tig -C \$HOME/dotfiles/" \
   mks="sudo make clean install" \
   nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"' \
   sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" \
