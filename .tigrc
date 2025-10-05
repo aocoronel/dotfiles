@@ -8,10 +8,10 @@ color title-focus    color51 color234
 color title-blur     color99 color234 bold
 
 set main-view = \
-	date:relative-compact \
-	author:abbreviated,width=2 \
-	id:yes \
-	line-number:no \
+  date:relative-compact \
+  author:abbreviated,width=2 \
+  id:yes \
+  line-number:no \
   commit-title:1,graph=v2,refs=1
 
 set tree-view = \
