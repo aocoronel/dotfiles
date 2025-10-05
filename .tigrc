@@ -5,4 +5,4 @@ color cursor         color99 color234 bold
 color search-result  color235 color226
 color status         color255   default
 color title-focus    color51 color234
-color title-blur     default color207
+color title-blur     color99 color234 bold
