@@ -1,15 +1,8 @@
 bind main <Ctrl-P> !git push
 bind tree <Ctrl-r> ?sh -c 'echo %(file) >> .gitignore'
 
-color cursor         default color99 bold
-color search-result  default color93
-color author         green   default
-color status         green   default
-color line-number    red     default
-color title-focus    default color99 bold
-color title-blur     default magenta
-color diff-header    yellow  default
-color diff-index     blue    default
-color diff-chunk     magenta default
-color "Reported-by:" green   default
-color tree.date      cyan    default bold
+color cursor         color99 color234 bold
+color search-result  color235 color226
+color status         color255   default
+color title-focus    color51 color234
+color title-blur     default color207
