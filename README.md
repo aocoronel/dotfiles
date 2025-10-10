@@ -64,42 +64,42 @@ The theme can be found in this repository, as a production example, or in the of
 
 ### General
 
-| Tools       | Function                 |
-| ----------- | ------------------------ |
-| alacritty   | Terminal Emulator        |
-| bmark       | Bookmark Manager         |
-| cmus        | Music Player             |
-| dunst       | Notifications            |
-| freetube    | YT Frontend              |
-| fzf         | Fuzzy Finder             |
-| gimp        | Image Editor             |
-| libreoffice | Office Suite             |
-| mpv         | Media Player             |
-| neomutt     | Mail Client              |
-| neostow     | Project Manager          |
-| neovim      | Text Editor              |
-| ranger/yazi | File Management          |
-| restic      | Backup Tool              |
-| rofi        | Multi-purpose            |
-| sear        | Search Utility           |
-| stow        | Dotfiles Manager         |
-| taskwarrior | Task Management          |
-| tmux        | Terminal Multiplexer     |
-| tmuxp       | Session Manager for Tmux |
-| tomb        | encryption               |
-| zathura     | PDF Viewer               |
-| zen browser | Browser                  |
-| zoxide      | Better `cd`              |
-| zsh         | Shell                    |
+| Tools                                              | Function                 |
+| -------------------------------------------------- | ------------------------ |
+| alacritty                                          | Terminal Emulator        |
+| [bmark](https://github.com/aocoronel/bmark)        | Bookmark Manager         |
+| cmus                                               | Music Player             |
+| dunst                                              | Notifications            |
+| freetube                                           | YT Frontend              |
+| fzf                                                | Fuzzy Finder             |
+| gimp                                               | Image Editor             |
+| libreoffice                                        | Office Suite             |
+| mpv                                                | Media Player             |
+| neomutt                                            | Mail Client              |
+| [neostow](https://github.com/aocoronel/neostow-sh) | Project Manager          |
+| neovim                                             | Text Editor              |
+| ranger/yazi                                        | File Management          |
+| restic                                             | Backup Tool              |
+| rofi                                               | Multi-purpose            |
+| [sear](https://github.com/aocoronel/sear)          | Search Utility           |
+| stow                                               | Dotfiles Manager         |
+| taskwarrior                                        | Task Management          |
+| tmux                                               | Terminal Multiplexer     |
+| tmuxp                                              | Session Manager for Tmux |
+| tomb                                               | encryption               |
+| zathura                                            | PDF Viewer               |
+| zen browser                                        | Browser                  |
+| zoxide                                             | Better `cd`              |
+| zsh                                                | Shell                    |
 
 And many more at `.local/bin`.
 
 ### Arch Linux
 
-| Tools  | Function                      |
-| ------ | ----------------------------- |
-| mirror | "Declarative Package Manager" |
-| paru   | AUR Helper                    |
+| Tools                                         | Function                      |
+| --------------------------------------------- | ----------------------------- |
+| [mirror](https://github.com/aocoronel/mirror) | "Declarative Package Manager" |
+| paru                                          | AUR Helper                    |
 
 ## License
 
