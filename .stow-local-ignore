@@ -26,3 +26,5 @@ _darcs
 ^/justfile
 ^/invidious.yaml
 ^/elegantvagrant
+^/.gitleaksignore
+^/.gitmodules
