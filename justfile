@@ -8,7 +8,7 @@ stow:
 
 # Apply the elegantvagrant theme
 neostow:
-  neostow -v -r
+  neostow -V -o
 
 # Check for git leaks
 check:
@@ -71,7 +71,7 @@ alpine-podman:
   modprobe tun
   echo tun >>/etc/modules
   echo aoc:100000:65536 >/etc/subuid
-  echo aoc:100000:65536 >/etc/subgid 
+  echo aoc:100000:65536 >/etc/subgid
   echo -e "#!/bin/sh\nmount --make-rshared /" > /etc/local.d/mount-rshared.start
   chmod +x /etc/local.d/mount-rshared.start
   rc-update add local default
