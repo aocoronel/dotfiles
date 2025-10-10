@@ -26,7 +26,7 @@
 <details>
   <summary>Notes</summary>
 
-If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/nix) file.
+If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/nix) file. Note, it's no longer maintained.
 
 The `justfile` at the root of this repository contains many helpful recipes to get started with this repository.
 
@@ -43,23 +43,63 @@ The theme can be found in this repository, as a production example, or in the of
 
 ## Tools
 
-| Tools         | Function             |
-| ------------- | -------------------- |
-| Cmus          | Music Player         |
-| Dunst         | Notifications        |
-| Emacs         | Multi-purpose        |
-| Alacritty     | Terminal Emulator    |
-| MPV           | Media Player         |
-| Neovim        | Text Editor          |
-| Neomutt       | Mail Client          |
-| Ranger + Yazi | File Management      |
-| Rofi          | Multi-purpose        |
-| Swayimg       | Image Viewer         |
-| Taskwarrior   | Task Management      |
-| Tmux          | Terminal Multiplexer |
-| Zsh           | Shell                |
+### Xorg
 
-And many more...
+| Tools      | Function        |
+| ---------- | --------------- |
+| nsxiv      | Image Viewer    |
+| picom      | Compositor      |
+| qtile      | Tilling WM      |
+| sxhkd      | Binding Manager |
+| xwallpaper | Wallpapers      |
+
+### Wayland
+
+| Tools    | Function          |
+| -------- | ----------------- |
+| cliphist | Clipboard Manager |
+| swayimg  | Image Viewer      |
+| swww     | Wallpapers        |
+| Hyprland | Tilling WM        |
+
+### General
+
+| Tools       | Function                 |
+| ----------- | ------------------------ |
+| alacritty   | Terminal Emulator        |
+| bmark       | Bookmark Manager         |
+| cmus        | Music Player             |
+| dunst       | Notifications            |
+| freetube    | YT Frontend              |
+| fzf         | Fuzzy Finder             |
+| gimp        | Image Editor             |
+| libreoffice | Office Suite             |
+| mpv         | Media Player             |
+| neomutt     | Mail Client              |
+| neostow     | Project Manager          |
+| neovim      | Text Editor              |
+| ranger/yazi | File Management          |
+| restic      | Backup Tool              |
+| rofi        | Multi-purpose            |
+| sear        | Search Utility           |
+| stow        | Dotfiles Manager         |
+| taskwarrior | Task Management          |
+| tmux        | Terminal Multiplexer     |
+| tmuxp       | Session Manager for Tmux |
+| tomb        | encryption               |
+| zathura     | PDF Viewer               |
+| zen browser | Browser                  |
+| zoxide      | Better `cd`              |
+| zsh         | Shell                    |
+
+And many more at `.local/bin`.
+
+### Arch Linux
+
+| Tools  | Function                      |
+| ------ | ----------------------------- |
+| mirror | "Declarative Package Manager" |
+| paru   | AUR Helper                    |
 
 ## License
 
