@@ -2,18 +2,24 @@
 
 clipmethod="$XDG_SESSION_TYPE"
 
+_clipmenu() {
+  [ -n "$XDG_RUNTIME_DIR" ] && {
+    rm -rf "$XDG_RUNTIME_DIR/clipmenu.7.1000/" || notify-send "Clipmenu: Error" "Failed to wipe clipboard history"
+  }
+}
+
 main() {
-  if [ "$clipmethod" = "x11" ]; then
+  case "$clipmethod" in
+  "x11")
     echo "" | xclip -sel clip
-    [ -x "$(command -v clipmenu)" ] && {
-      [ -n "$XDG_RUNTIME_DIR" ] && {
-        rm -rf "$XDG_RUNTIME_DIR/clipmenu.7.1000/" || notify-send "Clipmenu: Error" "Failed to wipe clipboard history"
-      }
-    }
-  elif [ "$clipmethod" = "wayland" ]; then
+    [ -x "$(command -v clipmenu)" ] && _clipmenu
+    ;;
+  "wayland")
     echo "" | wl-copy
     [ -x "$(command -v cliphist)" ] && cliphist wipe
-  fi
+    ;;
+  esac
+
   [ -x "$(command -v dunst)" ] && dunstctl close-all
 }
 
