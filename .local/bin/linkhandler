@@ -1,5 +1,7 @@
 #!/usr/bin/sh
 
+xdg_session="$XDG_SESSION_TYPE"
+
 if [ -z "$1" ]; then
   url="$(xclip -o)"
 else
@@ -20,7 +22,14 @@ else
     setsid -f mpv -quiet "$url" >/dev/null 2>&1
     ;;
   *png | *jpg | *jpe | *jpeg | *gif | *webp)
-    wget --quiet "$url" -O "/tmp/$realname" && nsxiv -a "/tmp/$realname" >/dev/null 2>&1 &
+    case "$xdg_session" in
+    "x11")
+      wget --quiet "$url" -O "/tmp/$realname" && nsxiv -a "/tmp/$realname" >/dev/null 2>&1 &
+      ;;
+    "wayland")
+      wget --quiet "$url" -O "/tmp/$realname" && swayimg -a "/tmp/$realname" >/dev/null 2>&1 &
+      ;;
+    esac
     ;;
   *pdf | *cbz | *cbr)
     wget --quiet "$url" -O "/tmp/$realname" && zathura "/tmp/$realname" >/dev/null 2>&1 &
