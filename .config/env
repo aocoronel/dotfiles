@@ -14,7 +14,6 @@ export CARGO_HOME="$HOME/.cache/cargo/"
 export GOBIN="$HOME/dev/go/bin"
 export GOPATH="$HOME/dev/go/"
 export RUSTUP_HOME="$HOME/.cache/rustup/"
-export PYTHONPATH=$HOME/dev/python/
 
 # PATH
 
@@ -29,9 +28,6 @@ export PATH="/run/wrappers/bin:$PATH" # NixOS
 # Directories
 
 export DEV="$HOME/dev/" # Dev Dir
-
-export OBSIDIAN=$HOME/obsidian/
-export JOURNAL=$OBSIDIAN/journal/Journals/
 
 export PASSWORD_STORE_DIR="$HOME/.password-store/" # PasswordStore
 export MIRROR_DIR=$HOME/dev/github/mirror-config   # Mirror
