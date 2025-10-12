@@ -31,9 +31,7 @@ gnome-font:
 
 # Install Invidious
 install-invidious:
-  docker run quay.io/invidious/youtube-trusted-session-generator
   git clone https://github.com/iv-org/invidious.git $HOME/invidious
-  mv -f ./invidious.yaml ~/invidious/docker-compose.yml
   echo "Manual changes required. See https://docs.invidious.io/installation/#docker-compose-method-production for details"
 
 # Install Doom Emacs
