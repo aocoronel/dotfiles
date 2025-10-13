@@ -102,3 +102,6 @@ search-history
 .config/fuzzel
 .config/dunst
 .local/share/navi/cheats
+.local/share/containers/storage
+.local/share/harper-ls
+.config/helix
