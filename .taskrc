@@ -59,7 +59,7 @@ report.book.sort=end-\/,project+
 report.book.filter=status:pending
 
 report.termux.description=Termux (Tiny View)
-report.termux.columns=id,description,urgency,end
+report.termux.columns=id,tags,project,description.desc,urgency,end
 report.termux.sort=end-\/,urgency-
 report.termux.filter=status:pending
 
