@@ -1,4 +1,4 @@
-$DEV
-$DEV/codeberg/
-$DEV/forgejo/
-$DEV/github/
+$HOME/dev/
+$HOME/dev/codeberg/
+$HOME/dev/forgejo/
+$HOME/dev/github/
