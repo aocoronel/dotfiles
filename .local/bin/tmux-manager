@@ -3,6 +3,8 @@
 # "Preview, select, kill and open Tmux sessions using fzf"
 # "Has features to work with: zoxide and tmuxp"
 
+source "$HOME/.config/env"
+
 check_command() {
   for cmd in "$@"; do
     if ! command -v "$cmd" &>/dev/null; then
@@ -34,9 +36,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
     --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'
 
-source "$HOME/.env"
-
-DIRECTORIES=($(cat ~/.tmuxprofile))
+DIRECTORIES=($(cat $CONFIG))
 TMUXP_CONFIG="$HOME/.config/tmuxp/"
 
 case "$1" in
