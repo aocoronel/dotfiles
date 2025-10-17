@@ -1,8 +1,0 @@
-session_name: 'dev'
-windows:
-- focus: 'true'
-  options: {}
-  panes:
-  -
-  start_directory: $HOME/dev/github/
-  window_name: zsh
