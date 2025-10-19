@@ -35,8 +35,8 @@ The `justfile` at the root of this repository contains many helpful recipes to g
 ## Footages
 
 <div align="center">
-  <img src="https://git.disroot.org/aocoronel/images/raw/branch/main/dotfiles/2025-04-21-nixos.webp">
-  <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Ranger, Cmatrix, Fuzzel, Hyprland and Waybar</p>
+  <img src="https://git.disroot.org/aocoronel/images/raw/branch/main/dotfiles/2025-10-19-arch-linux.webp">
+  <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Yazi, Tmux, Eza, Hyprland and Waybar</p>
 </div>
 
 The theme can be found in this repository, as a production example, or in the official theme repository: [aocoronel/elegantvagrant](https://github.com/aocoronel/elegantvagrant)
