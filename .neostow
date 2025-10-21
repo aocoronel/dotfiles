@@ -18,12 +18,12 @@ elegantvagrant/newsboat/highlight=$HOME/.config/newsboat
 elegantvagrant/ranger/colorschemes/=$HOME/.config/ranger
 elegantvagrant/rofi/=$HOME/.config
 elegantvagrant/waybar/=$HOME/.config
+
 .config/alacritty
 .config/cmus
 .config/env
 .config/fastfetch
 .config/helix
-.config/htop
 .config/hypr
 .config/kitty
 .config/lazygit
@@ -34,7 +34,7 @@ elegantvagrant/waybar/=$HOME/.config
 .config/neovide
 .config/newsboat
 .config/nsxiv
-.config/.config/nvim
+.config/nvim
 .config/picom.conf
 .config/pipewire
 .config/qtile
@@ -54,3 +54,13 @@ elegantvagrant/waybar/=$HOME/.config
 .config/wget
 .config/yazi
 .config/zathura
+
+.Xresources
+.bashrc
+.taskrc
+# .tigrc
+.tmux.conf
+.zshrc
+
+.local/bin/
+.local/lib/
