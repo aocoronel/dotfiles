@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Author: end-4
-# Github: https://github.com/end-4/dots-hyprland
-
 getdate() {
   date '+%Y-%m-%d_%H.%M.%S'
 }
@@ -19,7 +16,6 @@ if pgrep wf-recorder >/dev/null; then
   notify-send "Recording Stopped" "Stopped" -a 'record-script.sh' &
   pkill wf-recorder &
 else
-  # notify-send "Starting recording" 'recording_'"$(getdate)"'.mp4' -a 'record-script.sh'
   if [[ "$1" == "--sound" ]]; then
     wf-recorder --pixel-format yuv420p -f './recording_'"$(getdate)"'.mp4' -t --geometry "$(slurp)" --audio="$(getaudiooutput)" &
     disown
