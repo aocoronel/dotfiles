@@ -3,7 +3,13 @@
 set +e
 
 waybar >/dev/null &
-swww-daemon >/dev/null &
+
+if [ -n $NIX_PATH ]; then
+  swaybg -m fit -i "$HOME/.cache/swww-wallpaper.jpg" &
+else
+  swww-daemon >/dev/null &
+fi
+
 hypridle >/dev/null &
 
 gnome-keyring-daemon --start --components=secrets >/dev/null &
