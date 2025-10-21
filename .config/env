@@ -1,33 +1,42 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-# Tools
+# === Tools ===
 
-export VISUAL=nvim
 export EDITOR=nvim
-export PAGER=bat
 export MANPAGER="nvim +Man!"
-export GPG_TTY=$(tty)
+export PAGER=less
+export VISUAL=nvim
 
-# Programming
+# export GPG_TTY=$(tty)
+
+# === Programming ===
+
+# Changes their default location to unbloat the $HOME directory
 
 export CARGO_HOME="$HOME/.cache/cargo/"
 export GOBIN="$HOME/dev/go/bin"
 export GOPATH="$HOME/dev/go/"
 export RUSTUP_HOME="$HOME/.cache/rustup/"
 
-# PATH
+# === PATH Env ===
 
-export PATH="$PATH:$(find -L ~/.local/bin -type d | paste -sd ':' -)" # All subdirectories
-export PATH="$PATH:$HOME/.config/helix/"                              # Helix Scripts
-export PATH="$CARGO_HOME/bin/:$PATH"                                  # Rust
-# export PATH="$HOME/.config/emacs/bin:$PATH"                           # Emacs
-export PATH="$GOBIN:$PATH"            # Golang
+export PATH="$PATH:$HOME/.local/bin"  # Local Executables
+export PATH="$PATH:$HOME/.local/zbin" # Personal Executables
+
+export PATH="$CARGO_HOME/bin/:$PATH"  # Rust
 export PATH="/run/wrappers/bin:$PATH" # NixOS
-# export PATH=$HOME/.nimble/bin:$PATH                                   # Nim
+export PATH="$GOBIN:$PATH"            # Golang
 
-# Directories
+# === Directories Env ===
 
-export DEV="$HOME/dev/" # Dev Dir
+# Development directory:
+# Includes directory named as remote providers. E.g github, codeberg, gitlab
+# Each directory includes their repositories
+export DEV="$HOME/dev/"
 
 export PASSWORD_STORE_DIR="$HOME/.password-store/" # PasswordStore
-export MIRROR_DIR=$HOME/dev/github/mirror-config   # Mirror
+
+# Mirror Env:
+# Mirror is an Arch Linux package helper that installs pacman and AUR packages
+# based on a configuration file (plaintext)
+export MIRROR_DIR=$HOME/dev/github/mirror-config

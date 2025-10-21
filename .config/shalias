@@ -1,54 +1,63 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-## Command Replacement
+# === Command Replacement ===
 
-alias la='eza --color=auto --group-directories-first -a' \
+# Replaces full commands to alternative ones
+alias \
+  cp="rsync -avz --update" \
+  la='eza --color=auto --group-directories-first -a' \
   lda='eza --color=auto --group-directories-first -Da' \
   ld='eza --color=auto --group-directories-first -D' \
   ll='eza --color=auto --group-directories-first -l' \
   ls='eza --color=auto --group-directories-first'
 
-## Default Flags
+# === Override Default Flags ===
 
-alias cp="cp -v" \
-  mv="mv -v" \
-  rm="rm -v" \
-  lynx="lynx -cookies -cfg \$HOME/.config/lynxrc" \
-  rclone="rclone --verbose" \
-  rsync="rsync -azrPl" \
-  vidir="vidir --verbose" \
-  grep="grep --color=auto" \
+# Sets default flags to common commands
+alias \
   diff="diff --color=auto" \
-  ip="ip -color=auto"
+  grep="grep --color=auto" \
+  ip="ip -color=auto" \
+  lynx="lynx -cookies -cfg \$HOME/.config/lynxrc" \
+  mv="mv -v" \
+  rclone="rclone --verbose" \
+  rm="rm -v" \
+  rsync="rsync -azrPl" \
+  vidir="vidir --verbose"
 
-## Command Shortcuts
+# === Command Shortcuts ===
 
-alias ctrash='gio trash --empty' \
+# Shortcuts to longer commands
+alias \
+  ctrash='gio trash --empty' \
   dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'" \
   historyc="rm \$HOME/.zsh_history" \
-  lg='lazygit' \
   lgd="doppel \$HOME/dotfiles/ -exec lazygit" \
+  lg='lazygit' \
   mks="sudo make clean install" \
   nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"' \
   sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022" \
   sxh='nvim $HOME/.config/hypr/modules/keybinds.conf' \
-  v='nvim' \
-  t='task'
+  t='task' \
+  vim='nvim' \
+  v='nvim'
 
-## Script Shortcuts
+# === Script Shortcuts ===
 
-alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
+# Shortcuts to longer scripts made by me
+alias \
+  bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'" \
   jnd="jn journal day Journals/Daily" \
   o="obsidian-helper" \
   rr="ranger_cd" \
-  s="search -s" \
+  sear="python \$PYTHONPATH/sear.py" \
   sm="sshmanager" \
-  tt="taskwarrior-helper" \
-  sear="python \$PYTHONPATH/sear.py"
+  s="search -s" \
+  tt="taskwarrior-helper"
 
-# Distros
+# === Distros ===
 
-## Arch Linux
+# Arch Linux
 
 if command -v pacman &>/dev/null; then
   alias autoremove='pacman -Qdtq | sudo pacman -Rns -' \
@@ -58,26 +67,27 @@ if command -v pacman &>/dev/null; then
     update='sudo pacman -Syy' \
     upgrade='sudo pacman -Syu' \
     sshd='sudo systemctl start sshd' \
-    v='helix' \
     hx='helix'
 fi
 
-## Alpine Linux
+# Alpine Linux
 
 if command -v apk &>/dev/null; then
   alias install='doas apk add' \
     remove='doas apk del' \
     update='doas apk update' \
     upgrade='doas apk upgrade' \
-    v='hx' \
     fix='doas apk fix'
 fi
 
-## NixOS
+# NixOS
 
-alias nx="cd \$HOME/nix/; just"
+if [ -n "$NIX_PATH" ]; then
+  # This alias expects to receive a just recipe
+  alias nx="cd \$HOME/nix/; just"
+fi
 
-## Termux
+# Termux
 
 if [ -n "$TERMUX_VERSION" ]; then
   alias autoremove='apt autoremove' \
@@ -87,21 +97,7 @@ if [ -n "$TERMUX_VERSION" ]; then
     upgrade='pkg upgrade'
 fi
 
-# Nmap: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/nmap/nmap.plugin.zsh
-
-#  -sS - TCP SYN scan
-#  -v - verbose
-#  -T1 - timing of scan. Options are paranoid (0), sneaky (1), polite (2), normal (3), aggressive (4), and insane (5)
-#  -sF - FIN scan (can sneak through non-stateful firewalls)
-#  -PE - ICMP echo discovery probe
-#  -PP - timestamp discovery probe
-#  -PY - SCTP init ping
-#  -g - use given number as source port
-#  -A - enable OS detection, version detection, script scanning, and traceroute (aggressive)
-#  -O - enable OS detection
-#  -sA - TCP ACK scan
-#  -F - fast scan
-#  --script=vuln - also access vulnerabilities in target
+# === Networking ===
 
 if command -v nmap >/dev/null; then
   alias nmap_open_ports="nmap --open" \
@@ -120,8 +116,3 @@ if command -v nmap >/dev/null; then
     nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy " \
     nmap_ping_scan="nmap -n -sP"
 fi
-
-## Deprecated
-
-# alias pdc='fusermount -u -z $BEELZEBUB && notify-send -u normal "Mount" "Drive umounted"'
-# alias pdu='pass /dev/atlas | gocryptfs $ATLAS $BEELZEBUB && notify-send -u normal "Mount" "Drive mounted"'

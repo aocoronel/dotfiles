@@ -1,33 +1,27 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-function tgz() {
+# === Common Functions ===
+
+# Archives and compress a single file/dir
+tgz() {
   tar cvzf "$1.tar.gz" "$1"
 }
 
-function se() {
+# Quick select a script from ~/.local/bin to edit
+se() {
   choice="$(find -L ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 }
 
-# Move to starting Tmux directory
-function cds() {
+# CD into tmux session path
+cds() {
   local session
   session=$(tmux display-message -p '#{session_path}')
   cd "$session" || return
 }
 
-# Use https://github.com/chubin/wttr.in
-function weather() {
-  curl http://wttr.in/"$1"
-}
-
-# Use https://github.com/chubin/cheat.sh
-function cheat() {
-  curl cht.sh/$@
-}
-
-# Tmuxp Attacher
-function tp() {
+# Shortcut to tmuxp sessions
+tp() {
   local session select
   session=$(find "$HOME/.config/tmuxp/" -type f -name '*.yaml' -printf '%P\n' | awk -F. '{print $1}')
   select=$(echo "$session" | fzf --tmux "$@")
@@ -38,8 +32,8 @@ function tp() {
   fi
 }
 
-# Repo Fetch
-function rf() {
+# Select any repository within the $DEV directory
+rf() {
   local repo
   repo=$(fd . "$DEV" --type=directory --max-depth 2 --exclude go/ --color always | fzf --ansi --preview "onefetch {}" --preview-window up)
   if [[ -n "$repo" ]]; then
@@ -49,33 +43,35 @@ function rf() {
   fi
 }
 
-# Ranger Shell Integration - Moves to last directory ranger exits
-function ranger_cd() {
-  local temp_file
-  temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
-  ranger --choosedir="$temp_file" -- "${@:-$PWD}"
-  if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
-    cd -- "$chosen_dir" || return 1
-  fi
-  rm -f -- "$temp_file" >/dev/null
-}
-
-# Change System Volume: changevol 100%
-function changevol() {
+# Changes system volume
+# Usage: changevol 100%
+changevol() {
   local vol
   vol=$1
   pactl set-sink-volume @DEFAULT_SINK@ "$vol"
 }
 
+# sudo mount > mounted drive is owned by root
 # Guarantee user ownership over mounted drive
-function mountd() {
+mountd() {
   sudo mount -o uid=$UID,gid="$(id -g)" "/dev/$1" "/mnt/$2"
 }
 
-# Specific Rsync
-# "Instead of cloning the whole directory, run it only on
-# specific directories from the source directory"
-function rsync-mirror() {
+# '--delete' often replicates the source dir to the destination
+# This will run --delete only on directories that are present in subdirectories
+# present in the source dir.
+#
+# Example:
+# src/
+# src/mydir1
+# src/mydir2
+# dst/
+# dst/mydir3
+#
+# Running rsync-mirror does not wipe dst/mydir3, as opposed to rsync --delete
+# as follows: "rsync --delete src/ dst/"
+# Though, the usage is absolutely the same: "rsync-mirror src/ dst/"
+rsync-mirror() {
   dest=$1
   [[ -z "$dest" ]] && {
     echo "Not destination drive selected"
@@ -96,29 +92,56 @@ function rsync-mirror() {
   done
 }
 
-# Fzf Change Directory
-function fcd() {
+# CD using fzf by listing all directories in CWD
+fcd() {
   cd "$(find -L . -maxdepth 10 -type d -not -path '*.git/*' 2>/dev/null | fzf)" || return 1
 }
 
-function repox-github() {
+# === Remote Functions ===
+
+# https://github.com/chubin/wttr.in
+weather() {
+  curl http://wttr.in/"$1"
+}
+
+# https://github.com/chubin/cheat.sh
+cheat() {
+  curl cht.sh/$@
+}
+
+# === Repox ===
+
+repox-github() {
   local cmd
   cmd=${1:-status}
   repox -p 5 -c "$HOME/stow/dev/github/.repox" "$cmd" github
 }
 
-function repox-gitlab() {
+repox-gitlab() {
   local cmd
   cmd=${1:-status}
   repox -p 5 -c "$HOME/stow/dev/gitlab/.repox" "$cmd" gitlab
 }
 
-# Yazi Shell Integration - Moves to last directory yazi exits
-function y() {
+# === Integration ===
+
+# Moves to last directory when yazi exits
+y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
   if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     builtin cd -- "$cwd" || return 1
   fi
   rm -f -- "$tmp" >/dev/null
+}
+
+# Moves to last directory when ranger exits
+ranger_cd() {
+  local temp_file
+  temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+  ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+  if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+    cd -- "$chosen_dir" || return 1
+  fi
+  rm -f -- "$temp_file" >/dev/null
 }
