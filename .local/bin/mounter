@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # "Easily mount encrypted devices using PasswordStore"
 
