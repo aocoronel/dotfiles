@@ -3,25 +3,14 @@
 # "Open running tmux sessions or start new sessions using tmuxp"
 
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config/}
-ENV_FILE="$XDG_CONFIG_HOME/scriptenv"
+EDITOR=${EDITOR:-nvim}
+TERMCMD=${TERMCMD:-alacritty}
 
 . "$HOME/.local/lib/printfc.sh"
 . "$HOME/.local/lib/tmux_functions.sh"
 
 if ! command -v rofi &>/dev/null; then
   printfc FATAL "rofi could not be found. Please install it."
-  exit 1
-fi
-
-if [ -z "$ENV_FILE" ]; then
-  printfc FATAL "scriptenv is missing at $XDG_CONFIG_HOME"
-  return 1
-else
-  . "$ENV_FILE"
-fi
-
-if [ -z "$TERMCMD" ] || [ -z "$EDITOR" ]; then
-  printfc FATAL "TERMCMD or EDITOR env at scriptenv not found"
   exit 1
 fi
 
