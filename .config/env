@@ -7,7 +7,8 @@ export MANPAGER="nvim +Man!"
 export PAGER=less
 export VISUAL=nvim
 
-# export GPG_TTY=$(tty)
+# GPG doesn't work without this in Termux and Arch Linux
+export GPG_TTY=$(tty)
 
 # === Programming ===
 
@@ -26,6 +27,10 @@ export PATH="$PATH:$HOME/.local/zbin" # Personal Executables
 export PATH="$CARGO_HOME/bin/:$PATH"  # Rust
 export PATH="/run/wrappers/bin:$PATH" # NixOS
 export PATH="$GOBIN:$PATH"            # Golang
+
+# === C Programming ===
+
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 # === Directories Env ===
 
