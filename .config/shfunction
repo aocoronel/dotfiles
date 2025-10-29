@@ -114,13 +114,13 @@ cheat() {
 repox-github() {
   local cmd
   cmd=${1:-status}
-  repox -p 5 -c "$HOME/stow/dev/github/.repox" "$cmd" github
+  repox -p 5 -c "$HOME/stow/dev/github" "$cmd" github
 }
 
 repox-gitlab() {
   local cmd
   cmd=${1:-status}
-  repox -p 5 -c "$HOME/stow/dev/gitlab/.repox" "$cmd" gitlab
+  repox -p 5 -c "$HOME/stow/dev/gitlab" "$cmd" gitlab
 }
 
 # === Integration ===
