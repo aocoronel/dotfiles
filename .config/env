@@ -45,3 +45,4 @@ export PASSWORD_STORE_DIR="$HOME/.password-store/" # PasswordStore
 # Mirror is an Arch Linux package helper that installs pacman and AUR packages
 # based on a configuration file (plaintext)
 export MIRROR_DIR=$HOME/dev/github/mirror-config
+export GIT_CONFIG_GLOBAL=$HOME/.config/gitconfig
