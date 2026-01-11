@@ -1,19 +1,22 @@
-elegantvagrant/emacs/elegantvagrant-theme.el=$HOME/.emacs.d/
-elegantvagrant/qutebrowser/theme.py=$HOME/.config/qutebrowser
 elegantvagrant/cmus/elegantvagrant.theme=$HOME/.config/cmus
 elegantvagrant/dunst=$HOME/.config
+elegantvagrant/emacs/elegantvagrant-theme.el=$HOME/.emacs.d/
+elegantvagrant/qutebrowser/theme.py=$HOME/.config/qutebrowser
 elegantvagrant/rofi/=$HOME/.config
 
 .config/env
+.config/gdb
 .config/mpv
 .config/nvim
 .config/shalias
+.config/sqlite3
+.config/tig
 .config/wget
 .config/zathura
 
 .bashrc
-.tigrc
+.npmrc
 .zshrc
 
-.local/bin/
 .local/applications/
+.local/bin/

@@ -1,0 +1,12 @@
+allow-external-apps = true
+hide-soft-keyboard-on-startup = true
+volume-keys = volume
+fullscreen = true
+extra-keys = []
+use-black-ui = true
+shortcut.create-session = ctrl + 1
+shortcut.next-session = ctrl + 2
+shortcut.previous-session = ctrl + 3
+shortcut.rename-session = ctrl + 4
+terminal-margin-horizontal=0
+terminal-margin-vertical=0

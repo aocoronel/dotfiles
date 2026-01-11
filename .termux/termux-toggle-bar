@@ -1,0 +1,11 @@
+#!/bin/env sh
+
+arg=$1
+
+if [ "$arg" = "k" ]; then
+  ln -sf "$HOME/.termux/profile/barless" "$HOME/.termux/termux.properties"
+else
+  ln -sf "$HOME/.termux/profile/bar" "$HOME/.termux/termux.properties"
+fi
+
+termux-reload-settings

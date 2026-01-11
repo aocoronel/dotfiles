@@ -1,0 +1,17 @@
+allow-external-apps = true
+volume-keys = volume
+fullscreen = true
+extra-keys = [[ \
+   { key: ESC, popup: { macro: ":q\n", display: "QuickExit" } }, \
+   { key: TAB, popup: { macro: ":wq\n", display: "Write And Exit" } }, \
+   { key: CTRL, popup: { macro: ":w\n", display: "Write" } }, \
+   { key: '/', popup: '\\\\' }, \
+   { key: HOME, popup: { macro: "CTRL HOME", display: "Top" } }, \
+   { key: END, popup: { macro: "CTRL END", display: "End" } }, \
+   { key: ALT, popup: { macro: "exit\n", display: "Exit" } } \
+]]
+use-black-ui = true
+shortcut.create-session = ctrl + 1
+shortcut.next-session = ctrl + 2
+shortcut.previous-session = ctrl + 3
+shortcut.rename-session = ctrl + 4
