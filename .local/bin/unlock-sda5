@@ -1,0 +1,4 @@
+if [ ! -f /dev/mapper/secrets ]; then
+  doas cryptsetup luksOpen /dev/sda5 secrets
+  doas mount /dev/mapper/secrets ~/.secrets
+fi
