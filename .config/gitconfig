@@ -1,0 +1,17 @@
+[user]
+	name = Augusto Coronel
+	email = aoc@getgoogleoff.me
+	signingkey = 18354BBC29005B7D
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[core]
+	excludesFile = /home/aoc/.gitignore
+[alias]
+    rsa = remote add
+    rsu = remote set-url
+    s = status
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+[merge]
+	conflictStyle = diff3

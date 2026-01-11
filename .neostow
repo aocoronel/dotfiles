@@ -6,6 +6,8 @@ elegantvagrant/rofi/=$HOME/.config
 
 .config/env
 .config/gdb
+.config/gitconfig
+.config/gpg-agent.conf=$HOME/.config/gnupg/
 .config/mpv
 .config/nvim
 .config/shalias

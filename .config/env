@@ -8,6 +8,7 @@ export PAGER=less
 export VISUAL=nvim
 
 # GPG doesn't work without this in Termux and Arch Linux
+export GNUPGHOME="$HOME/.config/gnupg/"
 export GPG_TTY=$(tty)
 
 # === Programming ===
