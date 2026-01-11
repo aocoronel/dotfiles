@@ -6,20 +6,16 @@ list:
 	@echo "install-clipmenu     -- clones clipmenu repo (Xorg only)"
 	@echo "install-invidious    -- clones invidious repo"
 	@echo "list                 -- list make commands (Default)"
-	@echo "setup                -- setup dotfiles"
 	@echo "setup-flathub        -- adds flathub repo to flatpak"
 	@echo "setup-termux         -- install termux packages"
 	@echo "stow                 -- run neostow"
 	@echo "submodule            -- clones submodules"
 
-setup:
+stow:
 	./.local/bin/config-distro
 	git clone https://codeberg.org/aocoronel/neostow-rs || echo "Already cloned"
 	cd neostow-rs && cargo build
 	./neostow-rs/target/debug/neostow-rs -V -o
-
-stow:
-	neostow -V -o
 
 check:
 	gitleaks git
@@ -35,6 +31,7 @@ install-invidious:
 	echo "Manual changes required. See https://docs.invidious.io/installation/#docker-compose-method-production for details"
 
 setup-termux:
+	ln -s ~/dotfiles/.termux ~/
 	pkg install zsh fzf direnv python golang ranger yazi zoxide git rclone rsync busybox openssh termux-api cmus tmux curl lazygit git ffmpeg just bat eza git-crypt mandoc mpv ripgrep yt-dlp stow neovim gnupg taskwarrior lynx imagemagick timewarrior wget jq fd  moreutils newsboat restic unzip wget pass helix libllvm nodejs
 
 install-clipmenu:
