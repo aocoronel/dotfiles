@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# https://github.com/chubin/cheat.sh
+cheat() {
+  curl cht.sh/$@
+}
+
+weather "$@"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Abstraction to repox
+repox-c() {
+  local cmd
+  cmd=${1:-status}
+  repo=${2:-codeberg}
+  repox -p 5 -c "$HOME/stow/dev/$2" "$cmd" "$2"
+}
+
+repox "$@"

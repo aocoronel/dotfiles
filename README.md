@@ -1,0 +1,106 @@
+<h1 align="center">🍚 My Dotfiles</h1>
+
+<div align="center">
+<img src=https://img.shields.io/github/repo-size/aocoronel/dotfiles?color=7c5cff&label=SIZE&logo=googlecloudstorage&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
+<img src=https://img.shields.io/badge/Keep%20It%20Simple-Stupid-7c5cff?logo=archlinux&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
+<img src=https://img.shields.io/github/license/aocoronel/dotfiles?color=7c5cff&label=LICENSE&logo=github&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
+</div>
+
+<details>
+  <summary>Philosophies</summary>
+
+- <strong>Keep things simple</strong>
+- Keep it easy to maintain
+- Lightweight system without sacrificing on visuals (keep it modern)
+    </details>
+
+<details>
+  <summary>Goals</summary>
+
+- Make the system highly customized
+- Keep the visuals consistent with an original theme (Elegant Vagrant)
+- Execute any task blazingly fast without any frictions to my workflow
+- Integrate CLI tools to produce results better than any GUI Tool
+  </details>
+
+<details>
+  <summary>Notes</summary>
+
+If you want to deploy my whole system just the way I use it, you can try out my [NixOS configuration](https://github.com/aocoronel/nix) file. Note, it's no longer maintained.
+
+The `justfile` at the root of this repository contains many helpful recipes to get started with this repository.
+
+  </details>
+
+## Footages
+
+<div align="center">
+  <img src="https://git.disroot.org/aocoronel/images/raw/branch/main/dotfiles/2025-10-19-arch-linux.webp">
+  <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Yazi, Tmux, Eza, Hyprland and Waybar</p>
+</div>
+
+The theme can be found in this repository, as a production example, or in the official theme repository: [aocoronel/elegantvagrant](https://codeberg.org/aocoronel/elegantvagrant)
+
+## Tools
+
+### Xorg
+
+| Tools      | Function        |
+| ---------- | --------------- |
+| nsxiv      | Image Viewer    |
+| picom      | Compositor      |
+| qtile      | Tilling WM      |
+| sxhkd      | Binding Manager |
+| xwallpaper | Wallpapers      |
+
+### Wayland
+
+| Tools    | Function          |
+| -------- | ----------------- |
+| cliphist | Clipboard Manager |
+| swayimg  | Image Viewer      |
+| swww     | Wallpapers        |
+| Hyprland | Tilling WM        |
+
+### General
+
+| Tools                                              | Function                 |
+| -------------------------------------------------- | ------------------------ |
+| alacritty                                          | Terminal Emulator        |
+| [bmark](https://codeberg.org/aocoronel/bmark)        | Bookmark Manager         |
+| cmus                                               | Music Player             |
+| dunst                                              | Notifications            |
+| freetube                                           | YT Frontend              |
+| fzf                                                | Fuzzy Finder             |
+| gimp                                               | Image Editor             |
+| libreoffice                                        | Office Suite             |
+| mpv                                                | Media Player             |
+| neomutt                                            | Mail Client              |
+| [neostow](https://codeberg.org/aocoronel/neostow-sh) | Project Manager          |
+| neovim                                             | Text Editor              |
+| ranger/yazi                                        | File Management          |
+| restic                                             | Backup Tool              |
+| rofi                                               | Multi-purpose            |
+| [sear](https://codeberg.org/aocoronel/sear)          | Search Utility           |
+| stow                                               | Dotfiles Manager         |
+| taskwarrior                                        | Task Management          |
+| tmux                                               | Terminal Multiplexer     |
+| tmuxp                                              | Session Manager for Tmux |
+| tomb                                               | encryption               |
+| zathura                                            | PDF Viewer               |
+| zen browser                                        | Browser                  |
+| zoxide                                             | Better `cd`              |
+| zsh                                                | Shell                    |
+
+And many more at `.local/bin`.
+
+### Arch Linux
+
+| Tools                                         | Function                      |
+| --------------------------------------------- | ----------------------------- |
+| [mirror](https://codeberg.org/aocoronel/mirror) | "Declarative Package Manager" |
+| paru                                          | AUR Helper                    |
+
+## License
+
+This repository is licensed under the MIT License, allowing for extensive use, modification, copying, and distribution.

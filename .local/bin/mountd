@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# sudo mount > mounted drive is owned by root
+# Guarantee user ownership over mounted drive
+mountd() {
+  sudo mount -o uid=$UID,gid="$(id -g)" "/dev/$1" "/mnt/$2"
+}
+
+mountd "$@"

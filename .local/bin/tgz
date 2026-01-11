@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Archives and compress a single file/dir
+tgz() {
+  tar cvzf "$1.tar.gz" "$1"
+}
+
+tgz "$@"

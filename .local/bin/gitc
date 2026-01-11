@@ -1,0 +1,64 @@
+#!/usr/bin/env sh
+
+set -e
+
+help() {
+  cat <<EOF
+gitc
+
+Usage: gitc [-h] [COMMAND]
+
+Commands:
+help                        Displays this message and exits
+
+Flags:
+-h                          Displays this message and exits
+EOF
+}
+
+sparse() {
+  url=$1
+  dirs="$*"
+  dest="$(basename "$url")"
+  git clone --depth=1 --no-checkout --filter=blob:none "$url"
+  cd "$dest"
+  git sparse-checkout init
+  git sparse-checkout set "$dirs"
+}
+
+shallow() {
+  git clone --depth=1 "$@"
+}
+
+while getopts ":h-" opt; do
+  case "$opt" in
+  h)
+    help
+    exit 0
+    ;;
+  -)
+    break
+    ;;
+  ?)
+    echo "Error: Invalid option '-$OPTARG'" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+case "$1" in
+help)
+  help
+  exit 0
+  ;;
+shallow)
+  shallow "$@" # url
+  ;;
+sparse)
+  sparse "$@" # url dir1, dir2...
+  ;;
+esac
+
+exit 0

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Quick select a script from ~/.local/bin to edit
+# Doesn't work with Busybox
+se() {
+  choice="$(find -L ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+  [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+}
+
+se "$@"

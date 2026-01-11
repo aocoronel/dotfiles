@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+DISTRO_PATH=~/.config/distro
+
+[ -e "$DISTRO_PATH" ] && echo "Reconfiguring system"
+
+[ -n "$TERMUX_VERSION" ] && {
+  echo "termux" >"$DISTRO_PATH"
+  echo "Recognized a Termux system"
+  exit 0
+}
+
+cmd_exist() {
+  cmd=$1
+  command -v $cmd >/dev/null 2>&1 || return 1
+  return 0
+}
+
+if cmd_exist pacman; then
+  echo "Recognized an Arch system"
+  echo "arch" >"$DISTRO_PATH"
+  exit 0
+elif cmd_exist apt; then
+  echo "Recognized a Debian system"
+  echo "debian" >"$DISTRO_PATH"
+  exit 0
+elif cmd_exist apk; then
+  echo "Recognized an Alpine system"
+  echo "alpine" >"$DISTRO_PATH"
+  exit 0
+elif cmd_exist nix; then
+  echo "Recognized a NixOS system"
+  echo "nix" >"$DISTRO_PATH"
+  exit 0
+fi
+
+echo "System could not be identified"
+exit 1

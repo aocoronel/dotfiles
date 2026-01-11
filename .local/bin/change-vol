@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Changes system volume
+# Usage: changevol 100%
+changevol() {
+  local vol
+  vol=$1
+  pactl set-sink-volume @DEFAULT_SINK@ "$vol"
+}
+
+changevol "$@"

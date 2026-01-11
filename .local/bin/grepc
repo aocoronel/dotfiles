@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Grep and return filename
+grepc() {
+  grep -Rl "$@"
+}
+
+grepc "$@"

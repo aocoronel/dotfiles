@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+# === Command Replacement ===
+
+alias cp="rsync -avz --update"
+alias ls='eza --color=auto --group-directories-first'
+
+# === Override Default Flags ===
+
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
+alias ip="ip -color=auto"
+
+alias lynx="lynx -cookies -cfg \$HOME/.config/lynxrc"
+
+alias mv="mv -v"
+alias rm="rm -v"
+alias ln="ln -v"
+alias rclone="rclone --verbose"
+alias vidir="vidir --verbose"
+
+alias rsync="rsync -azrPl"
+
+alias dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'"
+
+# === Command Shortcuts ===
+
+alias ctrash='gio trash --empty'
+
+alias mks="sudo make clean install"
+
+alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022"
+alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf'
+
+alias lg='nvim +Neogit'
+alias d="nvim +Oil"
+alias vim='nvim'
+alias vi='nvim'
+alias v='nvim'
+
+alias t='tree'
+
+# === Script Shortcuts ===
+
+# Shortcuts to longer scripts made by me
+
+alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'"
+alias sm="sshmanager"
+
+# === Git ===
+
+alias fjc="fj --host codeberg.org"
+alias fjd="fj --host git.disroot.org"
+
+# === Distros ===
+
+distro=$(cat ~/.config/distro 2>/dev/null)
+case "$distro" in
+debian | ubuntu)
+  export SUDO=sudo
+  alias pkg-autoremove="\$SUDO apt autoremove" \
+    pkg-autoclean="\$SUDO apt autoclean" \
+    pkg-add="\$SUDO pkg install" \
+    pkg-del="\$SUDO pkg uninstall" \
+    pkg-update="\$SUDO pkg update" \
+    pkg-upgrade="\$SUDO pkg upgrade"
+  ;;
+termux)
+  export SUDO=""
+  alias pkg-autoremove='apt autoremove' \
+    pkg-autoclean='apt autoclean' \
+    pkg-add='pkg install' \
+    pkg-del='pkg uninstall' \
+    pkg-update='pkg update' \
+    pkg-upgrade='pkg upgrade'
+  # Zig depends on Linux FHS, and doesn't work properly on Termux
+  [ -n "$TERMUX_VERSION" ] && alias zig='termux-chroot zig'
+  ;;
+arch | artix)
+  [ "$distro" = "arch" ] && export SUDO=sudo
+  [ "$distro" = "artix" ] && export SUDO=doas
+  alias pkg-autoclean="pacman -Qdtq | \$SUDO pacman -Rns -" \
+    pkg-autoremove="\$SUDO pacman -Scc" \
+    pkg-add="\$SUDO pacman -S" \
+    pkg-del="\$SUDO pacman -Rns" \
+    pkg-update="\$SUDO pacman -Syy" \
+    pkg-upgrade="\$SUDO pacman -Syu"
+  ;;
+alpine)
+  export SUDO=doas
+  alias pkg-add="\$SUDO apk add" \
+    pkg-del="\$SUDO apk del" \
+    pkg-update="\$SUDO apk update" \
+    pkg-upgrade="\$SUDO apk upgrade" \
+    pkg-fix="\$SUDO apk fix"
+  ;;
+nix)
+  export SUDO=sudo
+  alias nx="cd \$HOME/nix/; just"
+  ;;
+*)
+  echo "Distro aliases not set/not supported"
+  ;;
+esac
+
+# === Networking ===
+
+if command -v nmap >/dev/null; then
+  alias nmap_open_ports="nmap --open" \
+    nmap_list_interfaces="nmap --iflist" \
+    nmap_slow="sudo nmap -sS -v -T1" \
+    nmap_fin="sudo nmap -sF -v" \
+    nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v" \
+    nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4" \
+    nmap_ping_through_firewall="nmap -PS -PA" \
+    nmap_fast="nmap -F -T5 --version-light --top-ports 300" \
+    nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn" \
+    nmap_check_for_vulns="nmap --script=vuln" \
+    nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 " \
+    nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute " \
+    nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " \
+    nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy " \
+    nmap_ping_scan="nmap -n -sP" \
+    nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
+fi
