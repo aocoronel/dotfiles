@@ -54,9 +54,11 @@ help)
   exit 0
   ;;
 shallow)
+  shift 1
   shallow "$@" # url
   ;;
 sparse)
+  shift 1
   sparse "$@" # url dir1, dir2...
   ;;
 esac
