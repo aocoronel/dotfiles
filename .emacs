@@ -89,6 +89,7 @@ This command does the inverse of `fill-paragraph'."
     (fill-paragraph nil)))
 
 (global-set-key (kbd "C-c M-q") 'rc/unfill-paragraph)
+(global-set-key (kbd "H-f") 'find-file-at-point)
 
 (defun rc/duplicate-line ()
   "Duplicate current line"
@@ -441,4 +442,47 @@ compilation-error-regexp-alist-alist
 
 (setq isearch-wrap-pause 'no)
 
+(winner-mode 1)
+(defun toggle-max-window ()
+  (interactive)
+  (if (> (count-windows) 1)
+      (progn (window-configuration-to-register :max)
+             (delete-other-windows))
+    (jump-to-register :max))
+)
+
+(keymap-unset minibuffer-local-completion-map "SPC")
+
+(defun backward-mark-word (arg)
+   (interactive "p")
+   (unless (eq last-command this-command)
+    (set-mark (point)))
+   (backward-word arg)
+   (setq deactivate-mark nil))
+
+(global-set-key (kbd "S-M-<backspace>") 'backward-mark-word)
+
+'(vc-follow-symlinks nil)
+'(set-mark-command-repeat-pop t)
+
+;;; Stolen from http://ergoemacs.org/emacs/emacs_unfill-paragraph.html
+(defun rc/unfill-paragraph ()
+  "Replace newline chars in current paragraph by single spaces.
+This command does the inverse of `fill-paragraph'."
+  (interactive)
+  (let ((fill-column 90002000)) ; 90002000 is just random. you can use `most-positive-fixnum'
+    (fill-paragraph nil)))
+
+(global-set-key (kbd "C-c M-q") 'rc/unfill-paragraph)
+
+;; Window Flow
+(global-set-key (kbd "H-m") 'toggle-max-window)
+(global-set-key (kbd "H-h") 'windmove-left)
+(global-set-key (kbd "H-l") 'windmove-right)
+(global-set-key (kbd "H-j") 'windmove-down)
+(global-set-key (kbd "H-k") 'windmove-up)
+(global-set-key (kbd "H-q a") 'delete-other-windows)
+(global-set-key (kbd "H-q m") 'delete-window)
+(global-set-key (kbd "H-]") 'split-window-right)
+(global-set-key (kbd "H-\\") 'split-window-below)
 (load-file custom-file)
