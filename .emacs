@@ -253,6 +253,13 @@ This command does the inverse of `fill-paragraph'."
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
 
+;; === God Mode ===
+
+(rc/require'god-mode)
+(god-mode)
+(global-set-key (kbd "<escape>") #'god-local-mode)
+(require 'god-mode-isearch)
+
 ;; === Programming Major Modes ===
 
 ;; c-mode
@@ -316,7 +323,6 @@ This command does the inverse of `fill-paragraph'."
 (setq-default dired-dwim-target t)
 (setq dired-listing-switches "-alh")
 (setq dired-mouse-drag-files t)
-
 ;; https://stackoverflow.com/questions/23207938/in-emacs-how-to-enable-automatic-hiding-of-dired-details
 (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
 
@@ -333,21 +339,44 @@ This command does the inverse of `fill-paragraph'."
 
 ;; === LSP ===
 
-;; (rc/require 'eglot)
-;; (setq eglot-autoshutdown t
-;;       eglot-send-changes-idle-time 0.5
-;;       eglot-sync-connect nil)
-;; (setq eglot-events-buffer-size 0)
-;; (setq jsonrpc-default-request-timeout 5)
-;; (setq eglot-report-progress nil)
-;;
-;; (add-hook 'zig-mode-hook #'eglot-ensure)
-;; (add-hook 'c-mode-hook #'eglot-ensure)
-;;
-;; (with-eval-after-load 'eglot
-;;   (add-to-list 'eglot-server-programs
-;;                '(markdown-mode . ("harper-ls" "--stdio"))
-;;                '(simpc-mode . ("clangd"))))
+(rc/require 'eglot)
+(setq eglot-autoshutdown t
+      eglot-send-changes-idle-time 0.5
+      eglot-sync-connect nil)
+(setq eglot-events-buffer-size 0)
+(setq jsonrpc-default-request-timeout 5)
+(setq eglot-report-progress nil)
+
+(add-hook 'zig-mode-hook #'eglot-ensure)
+(add-hook 'c-mode-hook #'eglot-ensure)
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(markdown-mode . ("harper-ls" "--stdio"))))
+
+(setq eglot-ignored-server-capabilities
+         '(:hoverProvider
+;;         :completionProvider
+;;         :signatureHelpProvider
+;;         :definitionProvider
+;;         :typeDefinitionProvider
+;;         :implementationProvider
+;;         :declarationProvider
+;;         :referencesProvider
+         :documentHighlightProvider
+;;         :documentSymbolProvider
+;;         :workspaceSymbolProvider
+         :codeActionProvider
+         :codeLensProvider
+;;         :documentFormattingProvider
+         :documentRangeFormattingProvider
+         :documentOnTypeFormattingProvider
+         :renameProvider
+         :documentLinkProvider
+;;         :colorProvider
+         :foldingRangeProvider
+         :executeCommandProvider
+         :inlayHintProvider))
 
 ;; === Projectile ===
 
@@ -464,6 +493,13 @@ This command does the inverse of `fill-paragraph'."
 (global-set-key (kbd "C-:") 'avy-goto-word-0)
 
 (global-set-key (kbd "S-M-<backspace>") 'backward-mark-word)
+
+(define-key isearch-mode-map (kbd "<escape>") #'god-mode-isearch-activate)
+(define-key god-mode-isearch-map (kbd "<escape>") #'god-mode-isearch-disable)
+
+(define-key dired-mode-map (kbd "b") #'dired-up-directory)
+
+(keymap-global-unset "C-x f") ;; unmaps set-fill-column
 
 (setq custom-file "~/.emacs.d/custom.el")
 (when (file-exists-p custom-file)
