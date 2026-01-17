@@ -51,7 +51,6 @@ bindkey '^n' history-search-forward
 # Define GitHub repositories
 plugins=(
   "Aloxaf/fzf-tab"
-  "jeffreytse/zsh-vi-mode"
   "olets/zsh-transient-prompt"
   "zsh-users/zsh-autosuggestions"
   "zsh-users/zsh-completions"
@@ -76,7 +75,6 @@ source $plugin_dir/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plu
 source $plugin_dir/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
-source $plugin_dir/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Drop plugins and plugin_dir variables
 unset plugins plugin_dir
