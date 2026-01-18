@@ -1,10 +1,19 @@
+;; TODO
+;; (desktop-save) ;; sessions
+;; (eww) ;; browser
+
+;; Config:
 (setq byte-compile-warnings '(not obsolete))
 (setq warning-suppress-log-types '((comp) (bytecomp)))
 (setq native-comp-async-report-warnings-errors 'silent)
 
+(which-key-mode 1)
+
+(delete-selection-mode 1)
 (add-to-list 'load-path "~/.emacs.d/local/")
 
 (keymap-unset minibuffer-local-completion-map "SPC")
+(setq vc-follow-symlinks t)
 
 '(set-mark-command-repeat-pop t)
 
@@ -61,6 +70,7 @@
 (scroll-bar-mode 0)
 (column-number-mode 1)
 (show-paren-mode 1)
+(hl-line-mode 1)
 
 (add-to-list 'default-frame-alist `(font . ,"JetBrainsMonoNL Nerd Font-12"))
 
@@ -71,6 +81,16 @@
   (load-theme 'elegantvagrant t))
 
 ;; === Custom Functions ===
+
+(defun surround-with-next-char (beg end)
+  "Surround the region from BEG to END with the next input character on both sides."
+  (interactive "r")
+  (let ((char (read-char "Enter surround char: ")))
+    (goto-char beg)
+    (insert char)
+    (goto-char (1+ end))
+    (insert char)
+    (goto-char (+ beg 1))))
 
 (defun backward-mark-word (arg)
    "Similar to M-d, but backwards"
@@ -253,12 +273,37 @@ This command does the inverse of `fill-paragraph'."
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
 
+;; === Visual Replace ===
+
+(rc/require 'visual-replace)
+(global-set-key (kbd "C-c r") #'visual-replace-from-isearch)
+
+;; === GNU Global ===
+
+(rc/require 'ggtags)
+
 ;; === God Mode ===
 
 (rc/require'god-mode)
 (god-mode)
 (global-set-key (kbd "<escape>") #'god-local-mode)
 (require 'god-mode-isearch)
+
+;; === Ido Vertical Mode ===
+
+(rc/require 'ido-vertical-mode)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+;; === Imenu Anywhere ===
+
+(rc/require 'imenu-anywhere)
+(global-set-key (kbd "C-.") #'imenu-anywhere)
+
+;; === Expand ===
+
+(rc/require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; === Programming Major Modes ===
 
@@ -296,12 +341,17 @@ This command does the inverse of `fill-paragraph'."
 (setq format-all-show-errors 'warnings)
 (add-hook 'prog-mode-hook #'format-all-mode)
 
+;; === Timemachine ===
+
+(rc/require 'git-timemachine)
+
 ;; === Magit ===
 
 (cond
   ((eq system-type 'windows-nt) (rc/require 'cl-lib)))
 
 (rc/require 'magit)
+;;(rc/require 'forge)
 
 (setq magit-auto-revert-mode nil)
 
@@ -355,7 +405,8 @@ This command does the inverse of `fill-paragraph'."
                '(markdown-mode . ("harper-ls" "--stdio"))))
 
 (setq eglot-ignored-server-capabilities
-         '(:hoverProvider
+      '(
+;;         :hoverProvider
 ;;         :completionProvider
 ;;         :signatureHelpProvider
 ;;         :definitionProvider
@@ -376,7 +427,8 @@ This command does the inverse of `fill-paragraph'."
 ;;         :colorProvider
          :foldingRangeProvider
          :executeCommandProvider
-         :inlayHintProvider))
+;;         :inlayHintProvider
+         ))
 
 ;; === Projectile ===
 
@@ -496,10 +548,26 @@ This command does the inverse of `fill-paragraph'."
 
 (define-key isearch-mode-map (kbd "<escape>") #'god-mode-isearch-activate)
 (define-key god-mode-isearch-map (kbd "<escape>") #'god-mode-isearch-disable)
+(define-key god-local-mode-map (kbd "i") #'god-local-mode)
+(global-set-key (kbd "<escape>") #'(lambda () (interactive) (god-local-mode 1)))
+(define-key god-local-mode-map (kbd ".") #'repeat)
+(global-set-key (kbd "C-x C-1") #'delete-other-windows)
+(global-set-key (kbd "C-x C-2") #'split-window-below)
+(global-set-key (kbd "C-x C-3") #'split-window-right)
+(global-set-key (kbd "C-x C-0") #'delete-window)
+
+(define-key god-local-mode-map (kbd "[") #'backward-paragraph)
+(define-key god-local-mode-map (kbd "]") #'forward-paragraph)
 
 (define-key dired-mode-map (kbd "b") #'dired-up-directory)
 
 (keymap-global-unset "C-x f") ;; unmaps set-fill-column
+
+(global-set-key (kbd "H-t n") #'tab-next)
+(global-set-key (kbd "H-t c") #'tab-close)
+(global-set-key (kbd "H-t t") #'tab-new)
+
+(global-set-key (kbd "C-c s") #'surround-with-next-char)
 
 (setq custom-file "~/.emacs.d/custom.el")
 (when (file-exists-p custom-file)
