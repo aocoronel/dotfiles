@@ -21,7 +21,7 @@ alias vidir="vidir --verbose"
 
 alias rsync="rsync -azrPl"
 
-alias dmenu="dmenu -b -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'"
+alias dmenu="dmenu -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'"
 
 # === Command Shortcuts ===
 
