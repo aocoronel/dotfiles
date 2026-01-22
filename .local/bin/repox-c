@@ -8,4 +8,4 @@ repox-c() {
   repox -p 5 -c "$HOME/stow/dev/$2" "$cmd" "$2"
 }
 
-repox "$@"
+repox-c "$1" "$2"
