@@ -1,7 +1,7 @@
 [user]
 	name = Augusto Coronel
-	email = aoc@getgoogleoff.me
-	signingkey = 18354BBC29005B7D
+	email = aocoronel@proton.me
+	signingkey = C87B0FC05504CF39
 [init]
 	defaultBranch = main
 [commit]
