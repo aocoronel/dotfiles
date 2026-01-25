@@ -44,6 +44,6 @@ clone-elegantvagrant:
 	git clone git@codeberg.org:aocoronel/elegantvagrant || echo "Already cloned."
 
 clone-nvim:
-	git clone git@git.disroot.org:aocoronel/nvim .config/nvim || echo "Already cloned."
+	git clone git@github.com:aocoronel/nvim .config/nvim || echo "Already cloned."
 
 submodule: clone-elegantvagrant clone-nvim
