@@ -45,6 +45,7 @@ _copy() {
   copy="$1"
   [ "$clipmethod" = "x11" ] && echo "$copy" | xclip -sel clip
   [ "$clipmethod" = "wayland" ] && echo "$copy" | wl-copy
+  return 0
 }
 
 _rofi() {
