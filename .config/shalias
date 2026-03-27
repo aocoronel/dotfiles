@@ -3,7 +3,7 @@
 # === Command Replacement ===
 
 alias cp="rsync -avz --update"
-alias ls='eza --color=auto --group-directories-first'
+alias ls='ls --group-directories-first'
 
 # === Override Default Flags ===
 
