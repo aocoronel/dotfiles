@@ -3,13 +3,13 @@
 # === Command Replacement ===
 
 alias cp="rsync -avz --update"
-alias ls='ls --group-directories-first'
 
 # === Override Default Flags ===
 
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias ip="ip -color=auto"
+alias ls='ls --color=auto --group-directories-first'
 
 alias lynx="lynx -cookies -cfg \$HOME/.config/lynxrc"
 
@@ -30,7 +30,7 @@ alias ctrash='gio trash --empty'
 alias mks="sudo make clean install"
 
 alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022"
-alias sxh='nvim $HOME/.config/hypr/modules/keybinds.conf'
+alias sxh='nvim $HOME/.config/sxhkd/sxhkdrc'
 
 alias lg='nvim +Neogit'
 alias d="nvim +Oil"
