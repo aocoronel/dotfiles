@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# This script requires bash
+
+help() {
+  cat <<EOF
+arch_fix_keyring     -- fix Arch Linux keyring if has a corrupt signature
+check                -- check for git leaks
+install_clipmenu     -- clones clipmenu repo (Xorg only)
+help                 -- list make commands (Default)
+setup_flathub        -- adds flathub repo to flatpak
+setup_termux         -- install termux packages
+stow                 -- run neostow
+submodule            -- clones submodules
+EOF
+  exit 0
+}
+
+stow() {
+  ./.local/bin/config-distro
+  git clone https://codeberg.org/aocoronel/neostow-rs || echo "Already cloned"
+  cd neostow-rs && cargo build
+  ./neostow-rs/target/debug/neostow-rs -V -o
+}
+
+check() {
+  gitleaks git
+}
+
+arch_fix_keyring() {
+  sudo rm -R /etc/pacman.d/gnupg/
+  sudo rm -R /root/.gnupg/
+  gpg --refresh-keys
+  sudo pacman-key --init && sudo pacman-key --populate archlinux
+}
+
+setup_termux() {
+  ln -s ~/dotfiles/.termux ~/ || echo ".termux: OK"
+  PKGS=()
+
+  # C
+  PKGS+=(tcc clang)
+  # Shell
+  PKGS+=(bash zsh shfmt)
+  # TUIs
+  PKGS+=(fzf neovim)
+  # Termux SSH and API
+  PKGS+=(busybox openssh termux-api)
+  # Net
+  PKGS+=(rsync curl git wget)
+  # Archives
+  PKGS+=(tar unzip)
+  # Man
+  PKGS+=(mandoc manpages)
+  # Rust
+  PKGS+=(zoxide ripgrep)
+  # Security
+  PKGS+=(direnv gnupg pass)
+  # Others
+  PKGS+=(moreutils tree sed less grep)
+
+  pkg install "${PKGS[@]}"
+}
+
+install_clipmenu() {
+  git clone https://github.com/cdown/clipmenu.git "$HOME/dev/3p/clipmenu"
+}
+
+setup_flathub() {
+  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+}
+
+clone_elegantvagrant() {
+  git clone git@codeberg.org:aocoronel/elegantvagrant || echo "Already cloned."
+}
+
+clone_nvim() {
+  git clone git@github.com:aocoronel/nvim .config/nvim || echo "Already cloned."
+}
+
+submodule() {
+  clone-elegantvagrant
+  clone-nvim
+}
+
+if [ ! $1 ]; then
+  help
+fi
+
+$1
