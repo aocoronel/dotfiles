@@ -21,11 +21,12 @@ export GOPATH="$HOME/dev/go/"
 export CARGO_HOME="$HOME/.cache/cargo/"
 export RUSTUP_HOME="$HOME/.cache/rustup/"
 
+export WINEPREFIX="$HOME/.cache/wine-data"
+
 # === PATH ===
 
-export PATH="$PATH:$HOME/.local/bin"  # Dotfiles Executables
-export PATH="$PATH:$HOME/.local/xbin" # Local Executables
-export PATH="$PATH:$HOME/.local/zbin" # Personal Executables
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/opt/bin" # Local Executables
 
 export PATH="$CARGO_HOME/bin/:$PATH"  # Rust
 export PATH="$GOBIN:$PATH"            # Golang
