@@ -73,8 +73,6 @@ termux)
     pkg-del='pkg uninstall' \
     pkg-update='pkg update' \
     pkg-upgrade='pkg upgrade'
-  # Zig depends on Linux FHS, and doesn't work properly on Termux
-  alias zig='termux-chroot zig'
   ;;
 arch | artix)
   [ "$distro" = "arch" ] && export SUDO=sudo
