@@ -13,6 +13,9 @@ RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{11}(%b)%f'
 zstyle ':vcs_info:*' enable git
 
+# Define the look of the transient prompt
+TRANSIENT_PROMPT="\x1b[92m❯\x1b[0m"
+
 # === Source External Files ===
 
 source "$HOME/.config/env"        # Environment variables
@@ -50,7 +53,6 @@ bindkey -e
 # Define GitHub repositories
 plugins=(
   "Aloxaf/fzf-tab"
-  "olets/zsh-transient-prompt"
   "zsh-users/zsh-autosuggestions"
   "zsh-users/zsh-completions"
   "zsh-users/zsh-syntax-highlighting"
@@ -64,12 +66,8 @@ for plugin in ${plugins[@]}; do
     --single-branch --depth 1 "$plugin_dir/$plugin"
 done
 
-# Define the look of the transient prompt
-export TRANSIENT_PROMPT_TRANSIENT_PROMPT='%B%F{10}❯%b%f '
-export TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
 
 # Source each plugin manually
-source $plugin_dir/olets/zsh-transient-prompt/transient-prompt.plugin.zsh
 source $plugin_dir/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 source $plugin_dir/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
@@ -77,6 +75,26 @@ source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 
 # Drop plugins and plugin_dir variables
 unset plugins plugin_dir
+
+# === Transient Prompt ===
+preexec_display_command_zsh() {
+  local command="$1"
+  case "$command" in
+    "preexec_display_command_zsh"* )
+      ;;
+    *)
+      # move line up \033[2A
+      # clears line \033[2K
+      printf "\n\033[2A\033[2K$TRANSIENT_PROMPT %s\n" "$command"
+      ;;
+  esac
+}
+
+if [[ -z "${preexec_functions[*]}" ]]; then
+  preexec_functions=(preexec_display_command_zsh)
+else
+  preexec_functions+=(preexec_display_command_zsh)
+fi
 
 # === Completions ===
 
