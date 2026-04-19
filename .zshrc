@@ -6,8 +6,8 @@
 # Builtin zsh prompt
 PROMPT='%B%F{99}%2~ %(!.#.❯)%f%b '
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
+precmd_vcs_info() { vcs_info; }
+precmd_functions+=(precmd_vcs_info)
 setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{11}(%b)%f'
@@ -18,9 +18,9 @@ TRANSIENT_PROMPT="\x1b[92m❯\x1b[0m"
 
 # === Source External Files ===
 
-source "$HOME/.config/env"        # Environment variables
-source "$HOME/.config/secrets"    # Env Secrets (not version controlled)
-source "$HOME/.config/shalias"    # Aliases
+source "$HOME/.config/env"     # Environment variables
+source "$HOME/.config/secrets" # Env Secrets (not version controlled)
+source "$HOME/.config/shalias" # Aliases
 
 # === Tools Integration ===
 
@@ -53,9 +53,6 @@ bindkey -e
 # Define GitHub repositories
 plugins=(
   "Aloxaf/fzf-tab"
-  "zsh-users/zsh-autosuggestions"
-  "zsh-users/zsh-completions"
-  "zsh-users/zsh-syntax-highlighting"
 )
 
 plugin_dir="$HOME/.local/share/zsh/"
@@ -66,11 +63,7 @@ for plugin in ${plugins[@]}; do
     --single-branch --depth 1 "$plugin_dir/$plugin"
 done
 
-
 # Source each plugin manually
-source $plugin_dir/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-source $plugin_dir/zsh-users/zsh-completions/zsh-completions.plugin.zsh
-source $plugin_dir/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $plugin_dir/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 
 # Drop plugins and plugin_dir variables
@@ -79,15 +72,9 @@ unset plugins plugin_dir
 # === Transient Prompt ===
 preexec_display_command_zsh() {
   local command="$1"
-  case "$command" in
-    "preexec_display_command_zsh"* )
-      ;;
-    *)
-      # move line up \033[2A
-      # clears line \033[2K
-      printf "\n\033[2A\033[2K$TRANSIENT_PROMPT %s\n" "$command"
-      ;;
-  esac
+  # move line up \033[2A
+  # clears line \033[2K
+  printf "\n\033[2A\033[2K$TRANSIENT_PROMPT %s\n" "$command"
 }
 
 if [[ -z "${preexec_functions[*]}" ]]; then
@@ -98,7 +85,7 @@ fi
 
 # === Completions ===
 
-autoload -U compinit;
+autoload -U compinit
 compinit -C
 
 zstyle ':completion:*' use-cache on
