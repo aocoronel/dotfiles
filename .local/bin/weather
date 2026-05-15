@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# https://github.com/chubin/cheat.sh
-cheat() {
-  curl cht.sh/$@
+# https://github.com/chubin/wttr.in
+weather() {
+  curl http://wttr.in/"$1"
 }
 
 weather "$@"
