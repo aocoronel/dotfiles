@@ -56,7 +56,7 @@ alias fjd="fj --host git.disroot.org"
 
 distro=$(cat ~/.config/distro 2>/dev/null)
 case "$distro" in
-debian | ubuntu)
+debian)
   export SUDO=sudo
   alias pkg-autoremove="\$SUDO apt autoremove" \
     pkg-autoclean="\$SUDO apt autoclean" \
@@ -66,7 +66,6 @@ debian | ubuntu)
     pkg-upgrade="\$SUDO pkg upgrade"
   ;;
 termux)
-  export SUDO=""
   alias pkg-autoremove='apt autoremove' \
     pkg-autoclean='apt autoclean' \
     pkg-add='pkg install' \
@@ -74,30 +73,18 @@ termux)
     pkg-update='pkg update' \
     pkg-upgrade='pkg upgrade'
   ;;
-arch | artix)
-  [ "$distro" = "arch" ] && export SUDO=sudo
-  [ "$distro" = "artix" ] && export SUDO=doas
-  alias pkg-autoclean="pacman -Qdtq | \$SUDO pacman -Rns -" \
-    pkg-autoremove="\$SUDO pacman -Scc" \
+artix)
+  export SUDO=doas
+  alias pkg-autoremove="pacman -Qdtq | \$SUDO pacman -Rns -" \
+    pkg-autoclean="\$SUDO pacman -Scc" \
     pkg-add="\$SUDO pacman -S" \
     pkg-del="\$SUDO pacman -Rns" \
     pkg-update="\$SUDO pacman -Syy" \
     pkg-upgrade="\$SUDO pacman -Syu"
   ;;
-alpine)
-  export SUDO=doas
-  alias pkg-add="\$SUDO apk add" \
-    pkg-del="\$SUDO apk del" \
-    pkg-update="\$SUDO apk update" \
-    pkg-upgrade="\$SUDO apk upgrade" \
-    pkg-fix="\$SUDO apk fix"
-  ;;
-nix)
-  export SUDO=sudo
-  alias nx="cd \$HOME/nix/; just"
-  ;;
 *)
-  echo "Distro aliases not set/not supported"
+  [ -z "$distro" ] && echo "Distro not set"
+  [ -n "$distro" ] && echo "Distro not supported"
   ;;
 esac
 

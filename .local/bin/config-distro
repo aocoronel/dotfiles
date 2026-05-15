@@ -18,19 +18,11 @@ cmd_exist() {
 
 if cmd_exist pacman; then
   echo "Recognized an Arch system"
-  echo "arch" >"$DISTRO_PATH"
+  echo "artix" >"$DISTRO_PATH"
   exit 0
 elif cmd_exist apt; then
   echo "Recognized a Debian system"
   echo "debian" >"$DISTRO_PATH"
-  exit 0
-elif cmd_exist apk; then
-  echo "Recognized an Alpine system"
-  echo "alpine" >"$DISTRO_PATH"
-  exit 0
-elif cmd_exist nix; then
-  echo "Recognized a NixOS system"
-  echo "nix" >"$DISTRO_PATH"
   exit 0
 fi
 
