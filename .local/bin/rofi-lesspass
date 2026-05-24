@@ -1,31 +1,31 @@
 #!/usr/bin/sh
 
-if ! command -v lesspass >/dev/null; then
-  echo "Lesspass is not installed."
+if ! command -v tinypass >/dev/null; then
+  echo "TinyPass is not installed."
   exit 1
 fi
 
 getPass() {
-  MAINPASS=$(lesspass "$SITE" "$LESSPASS_LOGIN" "$MASTERPASS" --counter "$COUNTER" -luds -L 35 || echo 1)
+  MAINPASS=$(tinypass "$SITE" "$LESSPASS_LOGIN" "$MASTERPASS" "$COUNTER" || echo 1)
 
   [ "$MAINPASS" = "1" ] && {
     echo "Password failed to be generated!"
-    notify-send "LessPass: ERROR" "Password failed to be generated!"
+    notify-send "TinyPass: ERROR" "Password failed to be generated!"
     exit 1
   }
 
   _copy "$MAINPASS" || {
     echo "ERROR: Failed to copy password"
-    notify-send "LessPass: ERROR" "Failed to copy password"
+    notify-send "TinyPass: ERROR" "Failed to copy password"
     exit 1
   }
 
   echo "Password copied! Clearing in 5 seconds..."
-  notify-send "LessPass: Copy" "Clearing the password from clipboard in 5 seconds..." --expire-time=4500 --wait
+  notify-send "TinyPass: Copy" "Clearing the password from clipboard in 5 seconds..." --expire-time=4500 --wait
 
   wipeClipboard || {
     echo "Failed to clear password!"
-    notify-send "LessPass: ERROR" "Failed to clear password!"
+    notify-send "TinyPass: ERROR" "Failed to clear password!"
     exit 1
   }
 
@@ -66,12 +66,13 @@ getArgs() {
 
   # Get login
   [ -z "$LESSPASS_LOGIN" ] && [ -n "$2" ] && LESSPASS_LOGIN=$2
-  [ -z "$LESSPASS_LOGIN" ] && LESSPASS_LOGIN=$(whoami)
-
-  echo "$LESSPASS_LOGIN"
+  [ -z "$LESSPASS_LOGIN" ] && {
+    echo "No login provided, falling back to username: $(whoami)"
+    LESSPASS_LOGIN=$(whoami)
+  }
 
   [ -z "$SITE" ] || [ -z "$LESSPASS_LOGIN" ] && {
-    echo "Usage: lesspass [-c COUNTER] SITE [LESSPASS_LOGIN]"
+    echo "Usage: tinypass [-c COUNTER] SITE [LOGIN]"
     exit 1
   }
 
