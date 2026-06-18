@@ -58,6 +58,13 @@ termux)
     pkg-del='pkg uninstall' \
     pkg-update='pkg update' \
     pkg-upgrade='pkg upgrade'
+
+    # Circumventing the error:
+    # "executable's TLS segment is underaligned:
+    # alignment is 8, needs to be at least 64 for ARM64 Bionic"
+    odin_build() {
+      odin build $@ -reloc-mode:pic -no-thread-local
+    }
   ;;
 artix)
   export SUDO=doas
