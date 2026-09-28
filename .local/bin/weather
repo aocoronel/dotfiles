@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# https://github.com/chubin/wttr.in
+weather() {
+  curl http://wttr.in/"$1"
+}
+
+weather "$@"

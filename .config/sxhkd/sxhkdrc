@@ -1,0 +1,76 @@
+# Emacs
+super + e;
+  emacs --daemon && notify-send "Started Emacs" || notify-send "Already running!"
+
+# Launch Terminal with Tmux
+super + Return;
+  emacsclient -c
+
+# Emoji Picker
+super + period;
+  cat ~/.local/share/emojis | rofi -dmenu | xclip -sel clip
+
+# Clear Clipboard
+super + alt + c;
+  clearboard
+
+# Clipoard Manager
+super + v;
+  clipmenu -fn "JetBrainsMono Nerd" -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff'
+
+# Password Manager
+super + d;
+  rofipass -f
+
+# Lesspass Passwords
+super + D;
+  rofi-lesspass -c 2
+
+# Bookmark Manager
+super + B;
+  bash ~/.config/sxhkd/bmark.sh
+
+# TODO: Add rofi script for sear.py
+
+# Drun
+super + r;
+  rofi -modes drun,run -show run
+
+# Reloads sxhkd config
+super + R;
+  sh ~/.config/sxhkd/sxhkd-restart
+
+# Tmux Session Manager, Cmus Toggle
+super + c; {p, n, N}
+  {__cmus-remote, cmus-remote -n, cmus-remote -p}
+
+# Screenshoot
+super + g;
+  flameshot gui
+
+# Browser
+super + F1;
+  firefox
+
+# FreeTube
+super + F2;
+  freetube
+
+# Decrease volume
+super + shift + comma;
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# Increase volume
+super + shift + period;
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# Mute
+super + N;
+    pactl set-sink-volume @DEFAULT_SINK@ 0%
+
+# Download Youtube Audio
+super + y;
+  yt-download -a
+
+super + E; {r, u}
+  {rtsp,uptimer call}

@@ -1,0 +1,55 @@
+#!/usr/bin/env sh
+
+# "Declare your SSH servers and select using fzf"
+
+ssh_file="$HOME/.ssh/ssh_machines"
+
+# file content example:
+# termux::192.168.0.36:8022
+
+help() {
+  cat <<EOF
+SSH Manager
+
+Usage:
+  sshmanager COMMAND <COMMAND_ARGS>
+
+Available commands:
+  help                                      Displays this message and exits
+  in                                        Select machine to SSH in
+EOF
+}
+
+get_data() {
+  machine=$(awk -F "::" '{print $1}' "$ssh_file" | fzf --prompt "Select your machine: ")
+  get_full_ip=$(grep "$machine" <"$ssh_file" | awk -F "::" '{print $2}')
+  ip=$(echo "$get_full_ip" | awk -F ":" '{print $1}')
+  port=$(echo "$get_full_ip" | awk -F ":" '{print $2}')
+}
+
+get_in() {
+  local user=${1:-}
+  [ -n "$user" ] && user+=@
+
+  if [ -z "$port" ]; then
+    ssh -C "$user$ip"
+  else
+    ssh -C -p "$port" "$user$ip"
+  fi
+}
+
+case "$1" in
+in)
+  get_data
+  get_in "$1"
+  exit 0
+  ;;
+help)
+  help
+  exit 0
+  ;;
+*)
+  help
+  exit 0
+  ;;
+esac

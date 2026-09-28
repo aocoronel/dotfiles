@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# '--delete' often replicates the source dir to the destination
+# This will run --delete only on directories that are present in subdirectories
+# present in the source dir.
+#
+# Example:
+# src/
+# src/mydir1
+# src/mydir2
+# dst/
+# dst/mydir3
+#
+# Running rsync-mirror does not wipe dst/mydir3, as opposed to rsync --delete
+# as follows: "rsync --delete src/ dst/"
+# Though, the usage is absolutely the same: "rsync-mirror src/ dst/"
+rsync-mirror() {
+  dest=$1
+  [[ -z "$dest" ]] && {
+    echo "Not destination drive selected"
+    return 1
+  }
+  declare -i i
+  i=1
+  find . -maxdepth 1 -type d | while read -r dir; do
+    if [ "$i" -eq 1 ]; then
+      i+=1
+      continue
+    fi
+    current_dir=$(echo "$dir" | awk -F '^./' '{print $2}')
+    echo "rsync -av --delete $dir/ $dest/$current_dir/"
+    rsync -az --delete "$dir/" "$dest/$current_dir/"
+    echo "Completed!"
+    echo
+  done
+}
+
+rsync-mirror "$@"

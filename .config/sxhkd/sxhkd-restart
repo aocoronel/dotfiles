@@ -1,0 +1,2 @@
+pid=$(ps -aux | grep "sxhkd" | awk '{print $2}' | head -n1)
+kill -USR1 $pid

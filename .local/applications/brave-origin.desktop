@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Brave Browser
+Comment=Browse the Web
+Exec=/home/aoc/opt/brave/brave %U
+Icon=brave
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true

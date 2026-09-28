@@ -1,0 +1,26 @@
+#!/usr/bin/sh
+
+clipmethod="$XDG_SESSION_TYPE"
+
+_clipmenu() {
+  [ -n "$XDG_RUNTIME_DIR" ] && {
+    rm -rf "$XDG_RUNTIME_DIR/clipmenu.7.1000/" || notify-send "Clipmenu: Error" "Failed to wipe clipboard history"
+  }
+}
+
+main() {
+  case "$clipmethod" in
+  "x11")
+    echo "" | xclip -sel clip
+    [ -x "$(command -v clipmenu)" ] && _clipmenu
+    ;;
+  "wayland")
+    echo "" | wl-copy
+    [ -x "$(command -v cliphist)" ] && cliphist wipe
+    ;;
+  esac
+
+  [ -x "$(command -v dunst)" ] && dunstctl close-all
+}
+
+main

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# === Tools ===
+
+export EDITOR=emacsclient
+export VISUAL=emacsclient
+export PAGER=less
+
+# GPG doesn't work without this in Termux and Arch Linux
+export GNUPGHOME="$HOME/.config/gnupg/"
+export GPG_TTY=$(tty)
+
+export PATH="$PATH:$HOME/.local/bin" # these are often commited
+export PATH="$PATH:$HOME/opt/bin" # personal
+
+# === Programming ===
+
+# Changes their default location to unbloat the $HOME directory
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib:$HOME/opt/lib"
+
+export GOBIN="$HOME/dev/go/bin"
+export GOPATH="$HOME/dev/go/"
+export PATH="$GOBIN:$PATH"
+
+export CARGO_HOME="$HOME/.cache/cargo/"
+export RUSTUP_HOME="$HOME/.cache/rustup/"
+export PATH="$CARGO_HOME/bin/:$PATH"
+
+export WINEPREFIX="$HOME/.cache/wine-data"
+
+# === Directories Env ===
+
+export DEV="$HOME/dev/"
+
+export PASSWORD_STORE_DIR="$HOME/.password-store/" # PasswordStore
+
+export GIT_CONFIG_GLOBAL=$HOME/.config/gitconfig
+
+# === Customize FZF ===
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#050505,bg+:#262626
+  --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
+  --color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#87afaf
+  --color=border:#262626,label:#aeaeae,query:#d9d9d9
+  --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
+  --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'

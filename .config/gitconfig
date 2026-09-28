@@ -1,0 +1,17 @@
+[user]
+	name = Augusto Coronel
+	email = aocoronelx@gmail.com
+	signingkey = FFB3C915086DF20E
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[core]
+	excludesFile = /home/aoc/.gitignore
+[alias]
+    rsa = remote add
+    rsu = remote set-url
+    s = status
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+[merge]
+	conflictStyle = diff3

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Prompt for input file extension (e.g., jpg, png)
+read -p "Enter input file extension (e.g., jpg): " input_ext
+
+# Check if files with that extension exist
+if ! ls *."$input_ext" >/dev/null 2>&1; then
+  echo "No files found with extension .$input_ext"
+  exit 1
+fi
+
+# Prompt for new output extension (e.g., png, webp)
+read -p "Enter new file extension (e.g., png): " output_ext
+
+echo "Converting all *.$input_ext files to .$output_ext..."
+
+# Loop through matching files and convert with ImageMagick
+for file in *."$input_ext"; do
+  if [[ -f "$file" ]]; then
+    filename="${file%.*}"  # Remove original extension
+    magick "$file" "${filename}.${output_ext}"
+    echo "Converted: $file -> ${filename}.${output_ext}"
+    rm -v "$file"
+  fi
+done
+
+echo "Conversion complete!"

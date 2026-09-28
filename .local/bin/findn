@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# ❯ findn Downloads png jpeg jpg m4v
+# Output all files that does not contain given extensions
+
+if [ -n "$1" ]; then
+  FILE=$1
+  shift
+else
+  exit 1
+fi
+
+FLAGS=""
+
+while [[ $# -gt 0 ]]; do
+  FLAGS+="-not -path *.$1 "
+  shift
+done
+
+find "$FILE" -type f $FLAGS

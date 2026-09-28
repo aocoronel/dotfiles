@@ -1,0 +1,66 @@
+#!/usr/bin/sh
+
+xdg_session="$XDG_SESSION_TYPE"
+
+if [ -z "$1" ]; then
+  url="$(xclip -o)"
+else
+  url="$1"
+  interactive="$2"
+fi
+
+realname=$(echo "$url" | sed "s/.*\///;s/%20/ /g")
+
+is_cmus_running() {
+  pgrep cmus >/dev/null || return 1
+}
+
+if [ -n "$TERMUX_VERSION" ]; then
+  setsid -f xdg-open "$url" >/dev/null 2>&1
+else
+  case "$url" in
+  *mkv | *webm | *mp4)
+    [ "$interactive" = "true" ] && mpv -quiet "$realname" >/dev/null 2>&1
+    [ -z "$interactive" ] && setsid -f mpv -quiet "$url" >/dev/null 2>&1
+    ;;
+  *youtube.com/watch* | *youtube.com/playlist* | *youtube.com/shorts* | *youtu.be*)
+    [ -x "$(command -v newsboat-history)" ] && bash "$(dirname "$(realpath "$0")")/hooks/newsboat-history" "$url" &
+    setsid -f mpv -quiet "$url" >/dev/null 2>&1
+    ;;
+  *png | *jpg | *jpe | *jpeg | *gif | *webp)
+    case "$xdg_session" in
+    "x11")
+      [ "$interactive" = "true" ] && nsxiv -a "$realname" >/dev/null 2>&1 &
+      [ -z "$interactive" ] && wget --quiet "$url" -O "/tmp/$realname" && nsxiv -a "/tmp/$realname" >/dev/null 2>&1 &
+      ;;
+    "wayland")
+      [ "$interactive" = "true" ] && nsxiv -a "$realname" >/dev/null 2>&1 &
+      [ -z "$interactive" ] && wget --quiet "$url" -O "/tmp/$realname" && swayimg -a "/tmp/$realname" >/dev/null 2>&1 &
+      ;;
+    esac
+    ;;
+  *pdf | *cbz | *cbr)
+    [ "$interactive" = "true" ] && zathura "$realname" >/dev/null 2>&1 &
+    [ -z "$interactive" ] && wget --quiet "$url" -O "/tmp/$realname" && zathura "/tmp/$realname" >/dev/null 2>&1 &
+    ;;
+  *mp3 | *flac | *opus | *mp3?source*)
+    [ "$interactive" = "true" ] && {
+      if is_cmus_running; then
+        cmus-remote --queue "$realname" >/dev/null 2>&1 &
+      else
+        mpv "$realname" >/dev/null 2>&1 &
+      fi
+    }
+    [ -z "$interactive" ] && {
+      if is_cmus_running; then
+        wget --quiet "$url" -O "/tmp/$realname" && cmus-remote --queue "/tmp/$realname" >/dev/null 2>&1 &
+      else
+        wget --quiet "$url" -O "/tmp/$realname" && mpv "/tmp/$realname" >/dev/null 2>&1 &
+      fi
+    }
+    ;;
+  *)
+    setsid -f xdg-open "$url" >/dev/null 2>&1
+    ;;
+  esac
+fi

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Search and replace all
+sreplace() {
+  grep -Rl "$1" "$3" | xargs sed -i "s|$1|$2|g"
+}
+
+sreplace "$@"

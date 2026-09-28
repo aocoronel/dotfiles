@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# === Command Replacement ===
+
+alias cp="rsync -azrPl --update"
+
+# === Override Default Flags ===
+
+alias diff="diff --color=auto"
+alias dmenu="dmenu -nf '#ffffff' -nb '#000000' -sb '#1c1c1f' -sf '#7c5cff' -fn 'JetBrainsMono Nerd Font:size=11'"
+alias grep="grep --color=auto"
+alias ip="ip -color=auto"
+alias ln="ln -v"
+alias ls='ls --color=auto --group-directories-first'
+alias mv="mv -v"
+alias rclone="rclone --verbose"
+alias rm="rm -v"
+alias rsync="rsync -azrPl"
+
+# === Shortcuts ===
+
+# simple way to check local devices
+alias nethunter='nmap -v -sn 192.168.0.1/24 | grep -v "host down"'
+# ssh over adb for termux
+alias sshadb="adb forward tcp:8022 tcp:8022; ssh localhost -p 8022"
+# sxhkd
+alias sxh='nvim $HOME/.config/sxhkd/sxhkdrc'
+
+alias v='nvim'
+alias t='tree'
+alias bb="bmark -r list | fzf -m | xargs -I {} xdg-open '{}'"
+
+alias e='emacsclient'
+alias d="emacsclient ."
+
+ec() {
+  emacsclient -c --eval "($@)"
+}
+
+lg() {
+	ec magit
+}
+
+# === Distros ===
+
+distro=$(cat ~/.config/distro 2>/dev/null)
+case "$distro" in
+termux)
+  alias pkg-autoremove='apt autoremove' \
+    pkg-autoclean='apt autoclean' \
+    pkg-add='pkg install' \
+    pkg-del='pkg uninstall' \
+    pkg-update='pkg update' \
+    pkg-upgrade='pkg upgrade'
+  ;;
+void)
+  alias pkg-autoremove="sudo xbps-remove -o" \
+    pkg-autoclean="sudo xbps-remove -o" \
+    pkg-add="sudo xbps-install -S" \
+    pkg-del="sudo xbps-remove -R" \
+    pkg-update="sudo xbps-install -Syy" \
+    pkg-upgrade="sudo xbps-install -Syu"
+  ;;
+artix)
+  alias pkg-autoremove="pacman -Qdtq | doas pacman -Rns -" \
+    pkg-autoclean="doas pacman -Scc" \
+    pkg-add="doas pacman -S" \
+    pkg-del="doas pacman -Rns" \
+    pkg-update="doas pacman -Syy" \
+    pkg-upgrade="doas pacman -Syu"
+  ;;
+*)
+  [ -z "$distro" ] && echo "Distro not set"
+  [ -n "$distro" ] && echo "Distro '$distro' not supported"
+  ;;
+esac
