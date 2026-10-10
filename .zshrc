@@ -25,7 +25,14 @@ case "$TERM" in
       local command="$1"
       # move line up \033[2A
       # clears line \033[2K
-      printf "\n\033[2A\033[2K$TRANSIENT_PROMPT %s\n" "$command"
+      declare -i cols=$(tput cols)
+      declare -i c=${#command}
+      declare -i wclines=$(echo "$command" | wc -l)
+      lines=$(( ((c + cols - 1) / cols) + wclines - 1 ))
+      for ((i = 0; i < $lines; i++)); do
+        printf "\n\033[2A\033[2K"
+      done
+      printf "$TRANSIENT_PROMPT %s\n" "$command"
     }
 
     if [[ -z "${preexec_functions[*]}" ]]; then
