@@ -1,0 +1,9 @@
+This branch contains my personal configuration files.
+
+#+HTML: <div align="center">
+#+HTML:  <img src="./.local/dotfiles.avif">
+#+HTML: </div>
+
+** License
+
+This repository is licensed under the 3-clause BSD license.
