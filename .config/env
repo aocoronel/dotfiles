@@ -2,8 +2,8 @@
 
 # === Tools ===
 
-export EDITOR=emacsclient
-export VISUAL=emacsclient
+export EDITOR="emacs -nw -Q"
+export VISUAL="emacs -nw -Q"
 export PAGER=less
 
 # GPG doesn't work without this in Termux and Arch Linux
